@@ -1,0 +1,532 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+/* -------------SLIDER DYNAMIC ĐẦU WEBSITE------------- */
+
+.top_banner
+{
+    padding: 30px 40px;
+    width: 100%;
+    background: #e3edf6;
+}
+.top_banner .container
+{
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.top_banner .container .detail
+{
+    margin-top: 8%;
+    margin-left: 30px;
+}
+.top_banner .container .detail h2
+{
+    font-size: 5.2rem;
+    color: #010f1c;
+    margin-right: 50%;
+    margin-bottom: 40px;
+}
+.top_banner .container .detail .link
+{
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    color:#010f1c;
+    background: #fff;
+    transition: 0.5s;
+}
+.top_banner .container .detail .link:hover
+{
+    background: #0989ff;
+    color: #fff;
+}
+
+/* --------SẢN PHẨM NỔI BẬT------------- */
+
+.product_type
+{
+    margin: 36px 0px 32px 0;
+    width: 100%;
+    border: 2px solid #e2e0e0;
+}
+.product_type .container
+{
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 5px;
+}
+.product_type .container .box
+{
+    padding: 10px 20px;
+    /* margin-left: 10px; */
+    justify-content: space-between;
+    border: 1px solid var(--primary-color);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* background-image: url('https://images.fpt.shop/unsafe/fit-in/540x420/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/10/3/638319326499527430_frame-cate-270x210.png') no-repeat center center; */
+}
+
+.product_type .container .box:hover {
+    transform: scale(1.1);
+}
+
+.product_type .container .box .img_box
+{
+    height: 200px;
+    width: 200px;
+    align-items: center;
+    text-align: center;
+    /* border-radius: 50%; */
+    overflow: hidden;
+    cursor: pointer;
+    border-bottom: 1px solid var(--primary-color);
+}
+.product_type .container .box .img_box img
+{
+    height: 200px;
+    width: 200px;
+    max-width: 100%;
+    justify-content: center;
+    /* margin-top: 50px;
+    margin-left: 55px; */
+    transition: 0.5s;
+}
+/* .product_type .container .box .img_box:hover img
+{
+    transform: scale(1.1);
+} */
+.product_type .container .box .detail
+{
+    text-align: center;
+    align-items: center;
+    max-width: 200px;
+    text-align: center;
+}
+.product_type .container .box .detail p
+{
+    margin-top: 10px;
+    color: #9a9a9a;
+    font-size: 16px;
+    
+}
+
+/* -----------PHẦN ABOUT GIỚI THIỆU VỀ CÁC DỊCH VỤ NỔI BẬT CỦA WEB------------ */
+.about
+{
+    padding: 40px 0;
+    width: 100%;
+}
+.about .container
+{
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.about .container .box
+{
+    padding: 10px 20px;
+    display: flex;
+    /* background: #ecf2f7; */
+    background-color: var(--primary-color);
+    width: 270px;
+    height: 90px;
+    border-radius: 10px;
+    cursor: pointer;
+    justify-content: space-evenly;
+}
+.about .container .box .icon
+{
+    color: #e44c8c;
+    font-size: 32px;
+    margin-top: 10px;
+}
+.about .container .box .detail
+{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.about .container .box .detail h2
+{
+    color: #fff;
+    line-height: 1.4;
+}
+
+.about .container .box .detail p
+{
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.about .container .detail h2 p {
+    line-height: 1.2rem;
+}
+
+/* -----DANH SÁCH CÁC SẢN PHẨM TRANG CHỦ------ */
+
+.product
+{
+    margin: 32px 0 48px 0;
+    width: 100%;
+}
+
+.product .product_item_name
+{
+    font-size: 3.2rem;
+    color: #010f1c;
+    margin-bottom: 20px;
+    line-height: 32px;
+}
+.product .container
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.product .container .box
+{
+    padding: 10px 20px;
+    overflow: hidden;
+    width: 280px;
+    height: 380px;
+    border: 1px solid #e2e0e0;
+    margin-bottom: 20px;
+    transition: 0.5s;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.product .container .box:hover
+{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.product .container .box .img_box
+{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e0e0;
+    align-items: center;
+    position: relative;
+    background: url('https://images.fpt.shop/unsafe/fit-in/540x420/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/10/3/638319326499527430_frame-cate-270x210.png') no-repeat scroll center center;
+}
+.product .container .box .img_box .product-main__item
+{
+    /* width: 300px;
+    height: 250px; */
+    max-width: 250px;
+    max-height: 250px;
+    margin-right: 50px;
+    text-align: center;
+}
+.product .container .box .img_box .icon
+{
+    z-index: 1;
+    position: relative;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    transition: 0.5s;
+}
+.product .container .box .img_box:hover .icon
+{
+    transform: translateX(-130px);
+}
+.product .container .box .img_box .icon li
+{
+    list-style: none;
+    padding: 10px 10px;
+    color: #010f1c;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background: #fff;
+    transition: 0.5s;
+    font-size: 1.8rem;
+}
+.product .container .box .img_box .icon li:hover
+{
+    background: var(--primary-color);
+    color: #fff;
+}
+.product .container .box .detail
+{
+    margin-top: 10px;
+}
+
+.home-product-item__name{
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    line-height: 1.8rem;
+    color: var(--text-color);
+    margin: 10px 10px 6px;
+    font-weight: 400;
+    /* để chỉ hiện ra 2 dòng và dấu 3 chấm cuối câu */
+    height: 3.6rem;
+    overflow: hidden;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+}
+
+.home-product-item__price{
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    /* flex-wrap: wrap => nhảy xuống dòng */
+}
+
+.home-product-item__action{
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 10px 0;
+}
+
+.home-product-item__like{
+    font-size: 1.3rem;
+}
+
+
+i.home-product-item__like-icon-fill{
+    display: none;
+    color: #f63d30;
+}
+
+.home-product-item__like--liked .home-product-item__like-icon-fill{
+    display: inline-block;
+}
+
+.home-product-item__like--liked .home-product-item__like-icon-empty{
+    display: none;
+}
+
+.home-product-item__rating{
+    font-size: 1rem;
+    transform: scale(0.8);
+    transform-origin: right;
+    color: #D5D5D5;
+    margin: -1px 0 0 auto;
+}
+
+.home-product-item__star--gold{
+    color: var(--star-gold-color);
+}
+
+.home-product-item__sold{
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-left: 6px;
+}
+
+.home-product-item__price-old{
+    margin-left: 10px;
+    font-size: 1.4rem;
+    color: #666;
+    text-decoration: line-through;
+}
+
+.home-product-item__price-current{
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    margin-left: 10px;
+}
+
+.home-product-item__origin{
+    display: flex;
+    justify-content: space-between;
+    margin: 3px 10px 0;
+    color: #595959;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+/* .product .container .box .detail p
+{
+    color: #9a9a9a;
+    font-size: 14px;
+}
+.product .container .box .detail h3
+{
+    font-size: 16px;
+    margin-top: 5px;
+    color: #010f1c;
+    transition: 0.5s;
+}
+.product .container .box:hover .detail h3
+{
+    color: #0989ff;
+}
+.product .container .box .detail h4
+{
+    margin-top: 5px;
+    font-size: 14px;
+    color: #0989ff;
+    letter-spacing: 1px;
+} */
+
+/* PHẦN BANNER TIẾP THEO */
+
+.banner__two
+{
+    margin: 32px 0;
+}
+.banner__two .banner__two-container
+{
+    padding: 30px 40px;
+    background: var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.banner__two .banner__two-container .detail
+{
+    margin-top: 10%;
+    margin-left: 20px;
+}
+.banner__two .banner__two-container .detail h4
+{
+    color: #e3edf6;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+.banner__two .banner__two-container .detail h3
+{
+    margin-top: 10px;
+    font-size: 42px;
+    margin-right: 20%;
+    letter-spacing: 1px;
+    color: #fff;
+}
+.banner__two .banner__two-container .detail p
+{
+    margin-top: 30px;
+    color: #fff;
+    font-size: 32px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.link
+{
+    padding: 10px 30px;
+    color: #e8f4ff;
+    background: #010f1c;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+.banner__two .banner__two-container .detail .link:hover
+{
+    color: #010f1c;
+    background: #5d58a1;
+}
+
+/*  SẢN PHẨM CHI TIẾT */
+.product_detail
+{
+    margin-top: 30px;
+    padding: 30px 40px;
+    width: 100%;
+    height: 120%;
+    position: fixed;
+    z-index: 2;
+    margin-top: -20%;
+    background: rgba(0, 0, 0, 0.24);
+}
+.product_detail .container
+{
+    margin-top: 7%;
+    margin-left: 8%;
+    width: 1000px;
+    height: 550px;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.product_detail .container .closebtn
+{
+    margin-left: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+.product_detail .container .productbox
+{
+    max-width: 100%;
+    display: flex;
+    padding: 20px 30px;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+.product_detail .container .productbox .img-box
+{
+    padding: 20px 30px;
+    width: 400px;
+    height: 350px;
+    background: #f1f1f1;
+}
+.product_detail .container .productbox .img-box img
+{
+    width: 250px;
+    height: 250px;
+}
+.product_detail .container .productbox .detail
+{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.product_detail .container .productbox .detail h4
+{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 200;
+    color: #9a9a9a;
+    letter-spacing: 1px;
+}
+.product_detail .container .productbox .detail h2
+{
+    margin-top: 20px;
+    font-size: 32px;
+    color: #010f1c;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+.product_detail .container .productbox .detail p
+{
+    margin-top: 10px;
+    color: #4a4a4a;
+}
+.product_detail .container .productbox .detail h3
+{
+    margin-top: 10px;
+    color: #010f1c;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+.product_detail .container .productbox .detail button
+{
+    margin-top: 30px;
+    padding: 15px 60px;
+    font-size: 16px;
+    color: #fff;
+    background: #010f1c;
+    transition: 0.5s;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.product_detail .container .productbox .detail button:hover
+{
+    background: #0989ff;
+}

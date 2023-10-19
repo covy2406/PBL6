@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.products {}
+
+/* MỤC DANH MỤC SẢN PHẨM CATEGORIES */
+.products .products-list {
+    /* margin-top: 20px; */
+    padding-top: 44px;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .products .products-list .grid__column-2
+{
+    padding: 20px 30px;
+} */
+.products .products-list .grid__column-2 .categories h3 {
+    color: #010f1c;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.products .products-list .grid__column-2 .categories ul {
+    margin-top: 10px;
+}
+
+.products .products-list .grid__column-2 .categories ul li {
+    list-style: none;
+    margin-top: 20px;
+    color: #010f1c;
+    cursor: pointer;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    align-items: center;
+}
+
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+/* tr:nth-child(even) {
+    background-color: #dddddd;
+  } */
+
+/* ----- PHẦN CÓ THANH FILTER VÀ SẢN PHẨM------- */
+/* .products .products-list .productbox
+{
+    margin-right: 0%;
+} */
+
+/* HOME FILTER */
+.home-filter {
+    display: flex;
+    align-items: center;
+    padding: 12px 22px;
+    border-radius: 2px;
+    /* background-color: rgba(237, 237, 237, 1); */
+    background-color: #8783cb;
+}
+
+.home-filter__page {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.home-filter__label {
+    font-size: 1.4rem;
+    color: #555;
+    margin-right: 16px;
+}
+
+.home-filter__btn {
+    margin-right: 12px;
+    min-width: 90px;
+}
+
+.home-filter__page-num {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin-right: 22px;
+}
+
+.home-filter__page-current {
+    color: var(--primary-color);
+}
+
+.home-filter__page-control {
+    display: flex;
+    width: 72px;
+    height: 34px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.home-filter__page-btn {
+    background-color: var(--white-color);
+    flex: 1;
+    display: flex;
+    text-decoration: none;
+}
+
+.home-filter__page-btn--disabled {
+    background-color: #f8f8f8;
+    cursor: default;
+}
+
+.home-filter__page-btn--disabled .home-filter__page-icon {
+    color: #ccc;
+}
+
+/* button đầu tiên */
+.home-filter__page-btn:first-child {
+    border-radius: 1px solid #555;
+
+}
+
+.home-filter__page-icon {
+    margin: auto;
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+
+/* -------DANH SÁCH SẢN PHẨM------- */
+
+.contant {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.contant .box {
+    padding: 10px 20px;
+    overflow: hidden;
+    width: 280px;
+    height: 380px;
+    border: 1px solid #e2e0e0;
+    margin-bottom: 20px;
+    transition: 0.5s;
+    cursor: pointer;
+    border-radius: 5px;
+    /* margin-right: 20px; */
+}
+
+.contant .box:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.contant .box .img_box {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e0e0;
+}
+
+.contant .box .img_box img {
+    width: 300px;
+    height: 250px;
+    margin-right: 50px;
+}
+
+.contant .box .img_box .icon {
+    z-index: 1;
+    position: relative;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    transition: 0.5s;
+}
+
+.contant .box:hover .img_box .icon {
+    transform: translateX(-130px);
+}
+
+.contant .box .img_box .icon li {
+    list-style: none;
+    padding: 10px 10px;
+    color: #010f1c;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background: #fff;
+    transition: 0.5s;
+    font-size: 18px;
+}
+
+.contant .box .img_box .icon li:hover {
+    background: #0989ff;
+    color: #fff;
+}
+
+.contant .box .detail {
+    margin-top: 10px;
+}
+
+.contant .box .detail h3 {
+    font-size: 16px;
+    margin-top: 5px;
+    color: #010f1c;
+    transition: 0.5s;
+}
+
+.contant .box:hover .detail h3 {
+    color: #0989ff;
+}
+
+.contant .box .detail h4 {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #0989ff;
+    letter-spacing: 1px;
+}
+
+/* --------- XEM CHI TIẾT SẢN PHẨM----------- */
+.product_detail {
+    margin-top: 30px;
+    padding: 30px 40px;
+    width: 100%;
+    height: 120%;
+    position: fixed;
+    z-index: 2;
+    margin-top: -20%;
+    background: rgba(0, 0, 0, 0.24);
+}
+
+.product_detail .container {
+    margin-top: 7%;
+    margin-left: 8%;
+    width: 1000px;
+    height: 550px;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.product_detail .container .closebtn {
+    margin-left: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.product_detail .container .productbox {
+    max-width: 100%;
+    display: flex;
+    padding: 20px 30px;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.product_detail .container .productbox .img-box {
+    padding: 20px 30px;
+    width: 400px;
+    height: 350px;
+    background: #f1f1f1;
+}
+
+.product_detail .container .productbox .img-box img {
+    width: 250px;
+    height: 250px;
+}
+
+.product_detail .container .productbox .detail {
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.product_detail .container .productbox .detail h4 {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 200;
+    color: #9a9a9a;
+    letter-spacing: 1px;
+}
+
+.product_detail .container .productbox .detail h2 {
+    margin-top: 20px;
+    font-size: 32px;
+    color: #010f1c;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+
+.product_detail .container .productbox .detail p {
+    margin-top: 10px;
+    color: #4a4a4a;
+}
+
+.product_detail .container .productbox .detail h3 {
+    margin-top: 10px;
+    color: #010f1c;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+
+.product_detail .container .productbox .detail button {
+    margin-top: 30px;
+    padding: 15px 60px;
+    font-size: 16px;
+    color: #fff;
+    background: #010f1c;
+    transition: 0.5s;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.product_detail .container .productbox .detail button:hover {
+    background: #0989ff;
+}

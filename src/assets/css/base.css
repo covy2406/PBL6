@@ -1,0 +1,253 @@
+:root{
+    /* khai báo biến */
+    --primary-color: #5d58a1;
+    --primary-color-rgb: rgb(238, 75, 43);
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --star-gold-color: #FFCE3E;
+
+    --border-color: #dbdbdb;
+    --navbar-height: 34px;
+    --header-height: 120px;
+    --header-with-search-height: calc(var(--header-height) - var(--navbar-height));
+
+}
+
+*{
+    /* Áp dụng cho cả trang web */
+    box-sizing:  inherit;
+}
+
+html{
+    /* 1rem = 16px, font-size: 100% được hiểu là 16px*/
+    /* font-size: 62.5% thì 1rem = 10px */
+    /* hack */
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------ */
+/* RESPONSIVE */
+
+/* Nguyên tắc 3 cấp theo thứ tự */
+/* grid-->row-->column:
+    .grid{
+        .row{
+            .column{
+                
+            }
+        }
+    }
+*/
+
+/* .grid: có tác dụng đưa header__navbar nằm
+trong phạm vi 1200px và căn giữa nhờ margin: 0 auto */
+.grid{
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.grid__full-with{
+    width: 100%;
+}
+
+.grid__row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+/* TEST */
+
+/* khoảng cách khuyến cáo cách nhau giữa các sản phẩm là 24px. Làm theo trang shopee nên
+các sản phẩm cách nhau */
+
+/* column 2 của 12 cột */
+.grid__column-2{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16.6667%;
+}
+
+/* column2 của 10 cột */
+.grid__column-2-10{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 20%;
+}
+
+.grid__column-10{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 83.3334%;
+}
+
+
+/* Animation */
+@keyframes fadeIn{
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+
+}
+
+@keyframes  fadeIn {
+    from{
+        transform: scale(var(--growth-from));
+    }
+    to{
+        transform: scale(var(--growth-to));
+    }
+}
+
+/* ------------------------------------------------------ */
+/* MODAL LAYOUT CSS */
+.modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    animation: fadeIn ease-in 0.1s; 
+}
+
+.modal__overlay{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* align-items: center;
+    justify-content: center; */
+    width: 100%;
+    height: 100%;
+    
+}
+
+.modal__body{
+    z-index: 1;
+    margin: auto;
+    position: relative;
+    animation: growth linear 0.1s;
+    --growth-from: 0.7;
+    --growth-to: 1;
+}
+
+/* BUTTON STYLE CHO CÁC NÚT DÙNG CHUNG */
+
+.btn{
+    min-height: 34px;
+    min-width: 142px;
+    text-decoration: none;
+    border-radius: 2px;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    background-color: var(--white-color);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn.btn--size-s{
+    height: 32px;
+    font-size: 12px;
+    padding: 0 8px;
+}
+
+.btn.btn--normal:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn.btn--primary{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: 1px solid var(--border-color);
+    line-height: 0;
+}
+
+/* nút vô hiệu hóa */
+.btn.btn--disabled{
+    cursor: default;
+    color: #949494;
+    background-color: #c3c3c3;
+}
+
+/* SELECT-INPUT */
+
+.select-input{
+    min-width: 200px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    position: relative;
+}
+
+.select-input__list{
+    position: absolute;
+    content: "";
+    display: block;
+    left: 0;
+    right: 0;
+    top: 36px;
+    background-color: var(--white-color);
+    padding: 4px 8px 4px 0;
+    border-radius: 2px;
+    display: none;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.select-input:hover .select-input__list{
+    display: block;
+}
+
+.select-input__list::before{
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 5px;
+    top: -5px;
+}
+
+.select-input__link{
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    display: block;
+    padding: 8px 12px;
+}
+
+.select-input__link:hover{
+    color: var(--primary-color);
+}
+
+.select-input__item{
+    list-style: none;
+}
+
+.select-input__label{
+    font-size: 1.4rem;
+}
+
+.select-input__icon{
+    font-size: 1.4rem;
+    color: rgb(131, 131, 131);
+    position: relative;
+    top: 1px;
+}
+
