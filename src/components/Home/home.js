@@ -10,11 +10,11 @@ import { AiOutlineShoppingCart, AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import { AiOutlineHeart } from 'react-icons/ai';
 import Homeproduct from './homeproduct';
-import './assets/css/home.css';
-import './assets/css/base.css';
-import BannerSlider from './BannerSlider.js';
+import '../../assets/css/home.css';
+import '../../assets/css/base.css';
+import BannerSlider from '../BannerHome/BannerSlider.js';
 //import ProductSlider from './ProductSlider';
-import BannerProducts from './BannerProducts';
+import BannerProducts from '../BannerProduct/BannerProducts';
 //import ProductSlider from './ProductSlider.js';
 
 
@@ -93,7 +93,7 @@ const Home = ({ detail, view, close, setClose, addtocart }) => {
             </div>
 
             {/* <ProductSlider></ProductSlider> */}
-
+            {/* ABOUT */}
             <div className='grid'>
                 <div className='about'>
                     <div className='container'>

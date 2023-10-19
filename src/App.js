@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import Nav from './nav'
+import Nav from './components/Header/nav'
 import {BrowserRouter} from 'react-router-dom';
 import Rout from './rout';
-import Footer from './footer';
-import Productdetail from './productdetail';
+import Footer from './components/Footer/footer';
+import Productdetail from './components/NewProduct/productdetail';
 
 
 const App = () => {

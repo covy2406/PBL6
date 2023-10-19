@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
-import "./assets/css/bannerSlider.css";
-import './assets/css/base.css';
+import "../../assets/css/bannerSlider.css";
+import '../../assets/css/base.css';
 
 const BannerSlider = () => {
         const [currentSlide, setCurrentSlide] = useState(0);

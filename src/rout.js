@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route} from 'react-router-dom'
-import Home from './home'
-import Product from './product'
+import Home from './components/Home/home'
+import Product from './components/NewProduct/product'
 // import Cart from './cart'
 // import Contact from './contact'
 const Rout = ({product, setProduct, detail, view, close, setClose, cart, setCart, addtocart}) => {

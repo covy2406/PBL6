@@ -9,12 +9,12 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { AiOutlineHeart, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useAuth0 } from "@auth0/auth0-react";
 import Productdetail from './productdetail.js';
-import BannerProducts from './BannerProducts';
-import Pagination from './pageNumberProducts.js';
-import './assets/css/product.css';
-import './assets/css/nav.css';
-import './assets/css/base.css';
-import './assets/css/home.css';
+import BannerProducts from '../BannerProduct/BannerProducts.js';
+import Pagination from '../../pageNumberProducts.js';
+import '../../assets/css/product.css';
+import '../../assets/css/nav.css';
+import '../../assets/css/base.css';
+import '../../assets/css/home.css';
 
 
 

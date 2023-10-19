@@ -10,9 +10,10 @@ import { CiLogin } from 'react-icons/ci';
 import { CiLogout } from 'react-icons/ci';
 import {Link} from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
-import './assets/css/nav.css';
-import './assets/css/base.css';
-import './assets/css/bannerSlider.css'
+//import './assets/css/nav.css';
+import '../../assets/css/nav.css';
+import '../../assets/css/base.css';
+import '../../assets/css/bannerSlider.css'
 // import {Slider} from "react-slick";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
