@@ -1,4 +1,7 @@
 import React from "react";
+import {BsInstagram} from 'react-icons/bs';
+import {BsFacebook} from 'react-icons/bs';
+import {BsLinkedin} from 'react-icons/bs';
 import './assets/css/base.css';
 import './assets/css/footer.css';
 // import { Container, Row, Col } from "react-bootstrap";
@@ -60,19 +63,19 @@ const Footer = () => {
                             <ul className="footer__list">
                                 <li className="footer-item">
                                     <a href="/" className="footer-item__link">
-                                        <i className="footer-item__icon fab fa-facebook"></i>
+                                        <i className="footer-item__icon fab fa-facebook"><BsFacebook/></i>
                                         Facebook
                                     </a>
                                 </li>
                                 <li className="footer-item">
                                     <a href="/" className="footer-item__link">
-                                        <i className="footer-item__icon fab fa-instagram"></i>
+                                        <i className="footer-item__icon fab fa-instagram"><BsInstagram/></i>
                                         Instagram
                                     </a>
                                 </li>
                                 <li className="footer-item">
                                     <a href="/" className="footer-item__link">
-                                        <i className="footer-item__icon fab fa-linkedin"></i>
+                                        <i className="footer-item__icon fab fa-linkedin"><BsLinkedin/></i>
                                         linkedin
                                     </a>
                                 </li>

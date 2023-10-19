@@ -28,18 +28,25 @@
     color: var(--primary-color);
 }
 
-.products .products-list .grid__column-2 .categories ul {
+.categories .categories-list {
     margin-top: 10px;
 }
 
-.products .products-list .grid__column-2 .categories ul li {
+.categories .categories-list .categories-item {
     list-style: none;
     margin-top: 20px;
     color: #010f1c;
     cursor: pointer;
+    display: flex;
+    font-size: 1.4rem;
+    color: var(--text-color);
 }
 
-table {
+.categories-item .categories-item__input {
+    margin-right: 10px;
+}
+
+/* table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -58,7 +65,7 @@ th {
     padding: 8px;
     display: flex;
     align-items: center;
-}
+} */
 
 /* tr:nth-child(even) {
     background-color: #dddddd;

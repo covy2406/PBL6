@@ -8,7 +8,7 @@ import { AiOutlineRight } from 'react-icons/ai';
 import { AiOutlineStar } from 'react-icons/ai';
 import { AiOutlineHeart, AiOutlineCloseCircle } from 'react-icons/ai';
 import { useAuth0 } from "@auth0/auth0-react";
-import Productdetail from './productdetail';
+import Productdetail from './productdetail.js';
 import BannerProducts from './BannerProducts';
 import Pagination from './pageNumberProducts.js';
 import './assets/css/product.css';
@@ -72,7 +72,7 @@ const Product = ({ product, setProduct, detail, view, close, setClose, addtocart
                 <div className='grid'>
                     {/* <h2># Products</h2>
                      <p>Home . products</p> */}
-                    
+
                     <BannerProducts></BannerProducts>
 
                     <div className='products-list'>
@@ -80,53 +80,38 @@ const Product = ({ product, setProduct, detail, view, close, setClose, addtocart
                             <nav className='categories'>
                                 <h3 className='categories__heading'>categories</h3>
                                 <ul className='categories-list'>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <input type='checkbox' id='tất cả'></input>
-                                                <label for='tất cả'>Tất cả</label>
-                                            </td>
-                                            <td>Contact</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alfreds Futterkiste</td>
-                                            <td>Maria Anders</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Centro comercial Moctezuma</td>
-                                            <td>Francisco Chang</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Ernst Handel</td>
-                                            <td>Roland Mendel</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Island Trading</td>
-                                            <td>Helen Bennett</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Laughing Bacchus Winecellars</td>
-                                            <td>Yoshi Tannamuri</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Magazzini Alimentari Riuniti</td>
-                                            <td>Giovanni Rovelli</td>
-
-                                        </tr>
-                                    </table>
-                                    <li className='categories-item' onClick={() => AllProducts()}>All Products</li>
-                                    <li className='categories-item' onClick={() => filtterproduct("SamSung")}>SamSung</li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Apple")}>Apple</li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Xiaomi")}>Xiaomi</li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Huawei")}>Huawei</li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Realmi")}>Realmi</li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Nokia")}>Nokia</li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Vivo")}>Vivo</li>
+                                    <li className='categories-item' onClick={() => AllProducts()}>
+                                        <input className='categories-item__input' type='checkbox' id='all' name='all'></input>
+                                        <label className='categories-item__label' for='all'>Tất cả</label>
+                                    </li>
+                                    <li className='categories-item' onClick={() => filtterproduct("SamSung")}>
+                                        <input className='categories-item__input' type='checkbox' id='SamSung' name='SamSung' ></input>
+                                        <label className='categories-item__label' for='SamSung'>SamSung</label>
+                                    </li>
+                                    <li className='categories-item' onClick={() => filtterproduct("Apple")}>
+                                        <input className='categories-item__input' type='checkbox' id='Apple'></input>
+                                        <label className='categories-item__label' for='Apple'>Apple</label>
+                                    </li>
+                                    <li className='categories-item' onClick={() => filtterproduct("Xiaomi")}>
+                                        <input className='categories-item__input' type='checkbox' id='Xiaomi'></input>
+                                        <label className='categories-item__label' for='Xiaomi'>Xiaomi</label>
+                                    </li>
+                                    <li className='categories-item' onClick={() => filtterproduct("Huawei")}>
+                                        <input className='categories-item__input' type='checkbox' id='Huawei'></input>
+                                        <label className='categories-item__label' for='Huawei'>Huawei</label>
+                                    </li>
+                                    <li className='categories-item' onClick={() => filtterproduct("Realmi")}>
+                                        <input className='categories-item__input' type='checkbox' id='Realmi'></input>
+                                        <label className='categories-item__label' for='Realmi'>Realmi</label>
+                                    </li>
+                                    <li className='categories-item' onClick={() => filtterproduct("Nokia")}>
+                                        <input className='categories-item__input' type='checkbox' id='Nokia'></input>
+                                        <label className='categories-item__label' for='Nokia'>Nokia</label>
+                                    </li>
+                                    <li className='categories-item' onClick={() => filtterproduct("Vivo")}>
+                                        <input className='categories-item__input' type='checkbox' id='Vivo'></input>
+                                        <label className='categories-item__label' for='Vivo'>Vivo</label>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
