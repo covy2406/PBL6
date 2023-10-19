@@ -41,14 +41,18 @@ const Footer = () => {
                             <h3 className="footer__heading">Thanh Toán</h3>
                             <ul className="footer__list">
                                 <li className="footer-item">
-                                    <a href="/" className="footer-item__link">Giới thiệu</a>
+                                    <a href="/" className="footer-item__link">
+                                        <img src="./img/vnpay.png" alt="vnpay"/>
+                                    </a>
                                 </li>
                                 <li className="footer-item">
-                                    <a href="/" className="footer-item__link">Tuyển dụng</a>
+                                <a href="/" className="footer-item__link">
+                                        <img src="./img/zalopay.png" alt="zalopay"/>
+                                    </a>
                                 </li>
-                                <li className="footer-item">
-                                    <a href="/" className="footer-item__link">Điều khoản</a>
-                                </li>
+                                {/* <li className="footer-item">
+                                    <a href="/" className="footer-item__link"></a>
+                                </li> */}
                             </ul>
                         </div>
                         <div className="grid__column-2-10">

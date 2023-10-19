@@ -30,6 +30,11 @@
     display: flex;
 }
 
+.footer-item__link img {
+    width: 60px;
+    height: 30px;
+}
+
 .footer-item__link:hover{
     color: var(--primary-color);
 }
