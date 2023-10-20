@@ -10,7 +10,7 @@ import { AiOutlineShoppingCart, AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import { AiOutlineHeart } from 'react-icons/ai';
 import Homeproduct from './homeproduct';
-import '../../assets/css/home.css';
+import './home.css';
 import '../../assets/css/base.css';
 import BannerSlider from '../BannerHome/BannerSlider.js';
 //import ProductSlider from './ProductSlider';

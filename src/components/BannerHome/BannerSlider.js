@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
-import "../../assets/css/bannerSlider.css";
+import "./bannerSlider.css";
 import '../../assets/css/base.css';
 
 const BannerSlider = () => {

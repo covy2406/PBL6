@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
 import { Link } from 'react-router-dom';
-import "../../assets/css/productBanner.css";
+import "../BannerProduct/productBanner.css";
 import '../../assets/css/base.css';
-import '../../assets/css/nav.css'
+import '../Header/nav.css'
 
 const BannerProducts = () => {
         const [currentSlide, setCurrentSlide] = useState(0);

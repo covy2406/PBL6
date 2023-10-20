@@ -11,9 +11,9 @@ import { CiLogout } from 'react-icons/ci';
 import {Link} from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 //import './assets/css/nav.css';
-import '../../assets/css/nav.css';
+import './nav.css';
 import '../../assets/css/base.css';
-import '../../assets/css/bannerSlider.css'
+import '../BannerHome/bannerSlider.css'
 // import {Slider} from "react-slick";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";

@@ -3,7 +3,7 @@ import {BsInstagram} from 'react-icons/bs';
 import {BsFacebook} from 'react-icons/bs';
 import {BsLinkedin} from 'react-icons/bs';
 import '../../assets/css/base.css';
-import '../../assets/css/footer.css';
+import './footer.css';
 // import { Container, Row, Col } from "react-bootstrap";
 
 const Footer = () => {

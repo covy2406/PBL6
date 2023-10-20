@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-.products {}
+/* .products {} */
 
 /* MỤC DANH MỤC SẢN PHẨM CATEGORIES */
 .products .products-list {
@@ -338,5 +338,5 @@ th {
 }
 
 .product_detail .container .productbox .detail button:hover {
-    background: #0989ff;
+    background: var(--primary-color);
 }
