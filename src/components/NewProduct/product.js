@@ -16,8 +16,6 @@ import '../../assets/css/nav.css';
 import '../../assets/css/base.css';
 import '../../assets/css/home.css';
 
-
-
 const Product = ({ product, setProduct, detail, view, close, setClose, addtocart }) => {
 
     const { loginWithRedirect, isAuthenticated } = useAuth0();
