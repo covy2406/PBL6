@@ -1,12 +1,13 @@
-import React from 'react';
+import { React } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import { AiOutlineDown } from 'react-icons/ai';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { AiOutlineRight } from 'react-icons/ai';
 import { AiOutlineStar } from 'react-icons/ai';
-import { AiOutlineHeart, AiOutlineCloseCircle } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
 import { useAuth0 } from "@auth0/auth0-react";
 import Productdetail from './productdetail.js';
 import BannerProducts from '../BannerProduct/BannerProducts.js';
@@ -16,19 +17,91 @@ import '../Header/nav.css';
 import '../../assets/css/base.css';
 import '../Home/home.css';
 
-
-
-const Product = ({ product, setProduct, detail, view, close, setClose, addtocart }) => {
+const Product = ({ product, setProduct, view, addtocart, detail, close, setClose }) => {
 
     const { loginWithRedirect, isAuthenticated } = useAuth0();
+
+    // Lọc sản phẩm:
     const filtterproduct = (product) => {
         const update = Productdetail.filter((x) => {
             return x.Cat === product;
         })
         setProduct(update);
     }
+
     const AllProducts = () => {
         setProduct(Productdetail)
+    }
+
+    // Hàm xử lý lọc sản phẩm:
+    // const handleBrandchange = (event) => {
+    //     const newValue = event.target.value;
+    //     if(newValue === 'all') {
+    //         setProduct('all');
+    //         setProduct(Productdetail);
+    //     }
+    //     else {
+    //         setProduct(newValue);;
+    //         const filtterproduct = filterProductsByBrand(newValue);
+    //         setProduct(filtterproduct);
+    //     }
+    // }
+
+    // Hàm lọc sản phẩm theo Brand name:
+    // const filterProductsByBrand = (product) => {
+    //     switch(product) {
+    //         case 'SamSung':
+    //             return Productdetail.filter((product) => product.Brand === 'SamSung');
+    //         case 'Apple':
+    //             return Productdetail.filter((product) => product.Brand === 'Apple');
+    //         case 'Vivo':
+    //             return Productdetail.filter((product) => product.Brand === 'Vivo');
+    //         case 'Nokia':
+    //             return Productdetail.filter((product) => product.Brand === 'Nokia');
+    //         case 'Oppo':
+    //             return Productdetail.filter((product) => product.Brand === 'Oppo');
+    //         case 'Realmi':
+    //             return Productdetail.filter((product) => product.Brand === 'Realmi');
+    //         case 'Xiaomi':
+    //             return Productdetail.filter((product) => product.Brand === 'Xiaomi');
+    //         case 'Huawei':
+    //             return Productdetail.filter((product) => product.Brand === 'Huawei');
+    //         default:
+    //             return Productdetail
+    //     }
+    // }
+
+    // Hàm xử lý lọc giá:
+    const [priceRange, setPrice] = useState('all');
+    const handlePriceChange = (event) => {
+        const value = event.target.value;
+
+        if (value === 'all') {
+            setPrice('all');
+            setProduct(Productdetail);
+        } else {
+            setPrice(value);
+            const filteredProducts = filterProductsByPrice(value);
+            setProduct(filteredProducts);
+        }
+    };
+
+    // Hàm lọc sản phẩm theo mức giá:
+    const filterProductsByPrice = (priceRange) => {
+        switch (priceRange) {
+            case '0-2':
+                return Productdetail.filter((product) => product.Price <= 2000000);
+            case '2-4':
+                return Productdetail.filter((product) => product.Price > 2000000 && product.Price <= 4000000);
+            case '4-7':
+                return Productdetail.filter((product) => product.Price > 4000000 && product.Price <= 7000000);
+            case '7-13':
+                return Productdetail.filter((product) => product.Price > 7000000 && product.Price <= 13000000);
+            case '13+':
+                return Productdetail.filter((product) => product.Price > 13000000);
+            default:
+                return Productdetail;
+        }
     }
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -40,34 +113,6 @@ const Product = ({ product, setProduct, detail, view, close, setClose, addtocart
     };
     return (
         <>
-            {
-                close ?
-                    <div className='product_detail'>
-                        <div className='container'>
-                            <button onClick={() => setClose(false)} className='closebtn'><AiOutlineCloseCircle /></button>
-                            {
-                                detail.map((curElm) => {
-                                    return (
-                                        <div className='productbox'>
-                                            <div className='img-box'>
-                                                <img src={curElm.Img} alt={curElm.Title}></img>
-                                            </div>
-                                            <div className='detail'>
-                                                <h4>{curElm.Cat}</h4>
-                                                <h2>{curElm.Title}</h2>
-                                                <p>A Screen Everyone Will Love: Whether your family is streaming or video chatting with friends tablet A8... </p>
-                                                <h3>{curElm.Price}</h3>
-                                                <button>Add To Cart</button>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                            <div className='productbox'></div>
-                        </div>
-                    </div> : null
-            }
-
             <div className='products'>
                 <div className='grid'>
                     {/* <h2># Products</h2>
@@ -78,39 +123,75 @@ const Product = ({ product, setProduct, detail, view, close, setClose, addtocart
                     <div className='products-list'>
                         <div className='grid__column-2'>
                             <nav className='categories'>
-                                <h3 className='categories__heading'>categories</h3>
+                                <h3 className='categories__heading'>Thương hiệu</h3>
                                 <ul className='categories-list'>
-                                    <li className='categories-item' onClick={() => AllProducts()}>
-                                        <input className='categories-item__input' type='checkbox' id='all' name='all'></input>
-                                        <label className='categories-item__label' for='all'>Tất cả</label>
+                                    <li className='categories-item' onChange={product => AllProducts('all')}>
+                                        <input className='categories-item__input' type='checkbox' id='all' name='all' value='all'></input>
+                                        <label className='categories-item__label' htmlFor='all'>Tất cả</label>
                                     </li>
-                                    <li className='categories-item' onClick={() => filtterproduct("SamSung")}>
-                                        <input className='categories-item__input' type='checkbox' id='SamSung' name='SamSung' ></input>
-                                        <label className='categories-item__label' for='SamSung'>SamSung</label>
+                                    <li className='categories-item' onChange={product => filtterproduct('SamSung')}>
+                                        <input className='categories-item__input' type='checkbox' id='SamSung' name='SamSung' value='SamSung'></input>
+                                        <label className='categories-item__label' htmlFor='SamSung'>SamSung</label>
                                     </li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Apple")}>
-                                        <input className='categories-item__input' type='checkbox' id='Apple'></input>
-                                        <label className='categories-item__label' for='Apple'>Apple</label>
+                                    <li className='categories-item' onChange={product => filtterproduct('Apple')}>
+                                        <input className='categories-item__input' type='checkbox' id='Apple' value='Apple'></input>
+                                        <label className='categories-item__label' htmlFor='Apple'>Apple</label>
                                     </li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Xiaomi")}>
-                                        <input className='categories-item__input' type='checkbox' id='Xiaomi'></input>
-                                        <label className='categories-item__label' for='Xiaomi'>Xiaomi</label>
+                                    <li className='categories-item' onChange={product => filtterproduct('Xiaomi')}>
+                                        <input className='categories-item__input' type='checkbox' id='Xiaomi' value='Xiaomi'></input>
+                                        <label className='categories-item__label' htmlFor='Xiaomi'>Xiaomi</label>
                                     </li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Huawei")}>
-                                        <input className='categories-item__input' type='checkbox' id='Huawei'></input>
-                                        <label className='categories-item__label' for='Huawei'>Huawei</label>
+                                    <li className='categories-item' onChange={product => filtterproduct('Huawei')}>
+                                        <input className='categories-item__input' type='checkbox' id='Huawei' checkek={product === 'Huawei'} value='Huawei'></input>
+                                        <label className='categories-item__label' htmlFor='Huawei'>Huawei</label>
                                     </li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Realmi")}>
-                                        <input className='categories-item__input' type='checkbox' id='Realmi'></input>
-                                        <label className='categories-item__label' for='Realmi'>Realmi</label>
+                                    <li className='categories-item' onChange={product => filtterproduct('Realmi')}>
+                                        <input className='categories-item__input' type='checkbox' id='Realmi' value='Realmi'></input>
+                                        <label className='categories-item__label' htmlFor='Realmi'>Realmi</label>
                                     </li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Nokia")}>
-                                        <input className='categories-item__input' type='checkbox' id='Nokia'></input>
-                                        <label className='categories-item__label' for='Nokia'>Nokia</label>
+                                    <li className='categories-item' onChange={product => filtterproduct('Nokia')}>
+                                        <input className='categories-item__input' type='checkbox' id='Nokia' value='Nokia'></input>
+                                        <label className='categories-item__label' htmlFor='Nokia'>Nokia</label>
                                     </li>
-                                    <li className='categories-item' onClick={() => filtterproduct("Vivo")}>
-                                        <input className='categories-item__input' type='checkbox' id='Vivo'></input>
-                                        <label className='categories-item__label' for='Vivo'>Vivo</label>
+                                    <li className='categories-item' onChange={product => filtterproduct('Vivo')}>
+                                        <input className='categories-item__input' type='checkbox' id='Vivo' value='Vivo'></input>
+                                        <label className='categories-item__label' htmlFor='Vivo'>Vivo</label>
+                                    </li>
+                                    <li className='categories-item' onChange={product => filtterproduct('Oppo')}>
+                                        <input className='categories-item__input' type='checkbox' id='Oppo' value='Oppo'></input>
+                                        <label className='categories-item__label' htmlFor='Oppo'>Oppo</label>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                            {/* CATEGORIES GIÁ */}
+                            <nav className='categories'>
+                                <h3 className='categories__heading'>Mức giá</h3>
+                                <ul className='categories-list'>
+
+                                    <li className='categories-item' onClick={handlePriceChange}>
+                                        <input className='categories-item__input' type='checkbox' id='all' name='all' checked={priceRange === 'all'} value='all' />
+                                        <label className='categories-item__label' htmlFor='all'>Tất cả</label>
+                                    </li>
+                                    <li className='categories-item' onClick={handlePriceChange}>
+                                        <input className='categories-item__input' type='checkbox' id='0-2' name='0-2' checked={priceRange === '0-2'} value='0-2' />
+                                        <label className='categories-item__label' htmlFor='0-2'>Dưới 2 triệu</label>
+                                    </li>
+                                    <li className='categories-item' onClick={handlePriceChange}>
+                                        <input className='categories-item__input' type='checkbox' id='2-4' name='2-4' checked={priceRange === '2-4'} value='2-4' />
+                                        <label className='categories-item__label' htmlFor='2-4'>2 - 4 triệu</label>
+                                    </li>
+                                    <li className='categories-item' onClick={handlePriceChange}>
+                                        <input className='categories-item__input' type='checkbox' id='4-7' name='4-7' checked={priceRange === '4-7'} value='4-7' />
+                                        <label className='categories-item__label' htmlFor='4-7'>4 - 7 triệu</label>
+                                    </li>
+                                    <li className='categories-item' onClick={handlePriceChange} >
+                                        <input className='categories-item__input' type='checkbox' id='7-13' name='7-13' checked={priceRange === '7-13'} value='7-13' />
+                                        <label className='categories-item__label' htmlFor='7-13'>7 - 13 triệu</label>
+                                    </li>
+                                    <li className='categories-item' onClick={handlePriceChange}>
+                                        <input className='categories-item__input' type='checkbox' id='13+' name='13+' checked={priceRange === '13+'} value='13+' />
+                                        <label className='categories-item__label' htmlFor='13+'>Trên 13 triệu</label>
                                     </li>
                                 </ul>
                             </nav>
@@ -164,36 +245,31 @@ const Product = ({ product, setProduct, detail, view, close, setClose, addtocart
                                                                     :
                                                                     <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart /></li>
                                                             }
-                                                            <li onClick={() => view(curElm)}><BsEye /></li>
+                                                            <li className='icon__link' onClick={() => view(curElm)}><Link to='../Viewdetail'><BsEye /></Link></li>
                                                             <li><AiOutlineHeart /></li>
                                                         </div>
                                                     </div>
                                                     <div className='detail'>
-                                                        <h4 class="home-product-item__name">
+                                                        <h4 className="home-product-item__name">
                                                             {curElm.Title}
                                                         </h4>
-                                                        <div class="home-product-item__price">
-                                                            <span class="home-product-item__price-old">{curElm.Price_old} đ</span>
-                                                            <span class="home-product-item__price-current">{curElm.Price} đ</span>
+                                                        <div className="home-product-item__price">
+                                                            <span className="home-product-item__price-old">{curElm.Price_old} đ</span>
+                                                            <span className="home-product-item__price-current">{curElm.Price} đ</span>
                                                         </div>
-                                                        <div class="home-product-item__action">
-                                                            {/* <!-- class khi đưa vào thì tym đỏ, ko có thì ko màu: home-product-item__like--liked --> */}
-                                                            {/* <span class="home-product-item__like ">
-                                                                <i class="home-product-item__like-icon-empty far fa-heart"></i>
-                                                                <i class="home-product-item__like-icon-fill fas fa-heart"></i>
-                                                            </span> */}
-                                                            <div class="home-product-item__rating">
-                                                                <i class="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
-                                                                <i class="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
-                                                                <i class="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
-                                                                <i class="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
-                                                                <i class="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
+                                                        <div className="home-product-item__action">
+                                                            <div className="home-product-item__rating">
+                                                                <i className="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
+                                                                <i className="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
+                                                                <i className="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
+                                                                <i className="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
+                                                                <i className="home-product-item__star--gold fas fa-star"><AiOutlineStar /></i>
                                                             </div>
-                                                            <span class="home-product-item__sold">88 đã bán</span>
+                                                            {/* <span className="home-product-item__sold">88 đã bán</span> */}
                                                         </div>
-                                                        <div class="home-product-item__origin">
-                                                            <span class="home-product-item__brand">{curElm.Brand}</span>
-                                                            <span class="home-product-item__origin-name">{curElm.origin}</span>
+                                                        <div className="home-product-item__origin">
+                                                            <span className="home-product-item__brand">{curElm.Brand}</span>
+                                                            <span className="home-product-item__origin-name">{curElm.origin}</span>
                                                         </div>
                                                     </div>
                                                 </div>

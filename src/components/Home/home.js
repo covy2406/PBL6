@@ -6,13 +6,14 @@ import { FiTruck } from 'react-icons/fi';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { CiPercent } from 'react-icons/ci';
 import { BiHeadphone } from 'react-icons/bi';
-import { AiOutlineShoppingCart, AiOutlineCloseCircle } from 'react-icons/ai';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import { AiOutlineHeart } from 'react-icons/ai';
 import Homeproduct from './homeproduct';
 import './home.css';
 import '../../assets/css/base.css';
 import BannerSlider from '../BannerHome/BannerSlider.js';
+import HomeSlider from 'components/HomeCarousel/homeCarousel.js';
 //import ProductSlider from './ProductSlider';
 import BannerProducts from '../BannerProduct/BannerProducts';
 //import ProductSlider from './ProductSlider.js';
@@ -21,7 +22,7 @@ import BannerProducts from '../BannerProduct/BannerProducts';
 const Home = ({ detail, view, close, setClose, addtocart }) => {
     return (
         <>
-            {
+            {/* {
                 close ?
                     <div className='product_detail'>
                         <div className='container'>
@@ -47,7 +48,7 @@ const Home = ({ detail, view, close, setClose, addtocart }) => {
                             <div className='productbox'></div>
                         </div>
                     </div> : null
-            }
+            } */}
             {/* BANNER SLIDER DYNAMIC */}
 
             <BannerSlider></BannerSlider>
@@ -55,7 +56,8 @@ const Home = ({ detail, view, close, setClose, addtocart }) => {
             {/* SẢN PHẨM NỔI BẬT */}
             <div className='grid'>
                 <div className='product_type'>
-                    <div className='container'>
+                    <HomeSlider></HomeSlider>
+                    {/* <div className='container'>
                         <div className='box'>
                             <div className='img_box'>
                                 <img src='./img/sanpham1.jpg' alt='mobile'></img>
@@ -88,7 +90,7 @@ const Home = ({ detail, view, close, setClose, addtocart }) => {
                                 <p>Iphone 15pro max</p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
@@ -150,21 +152,21 @@ const Home = ({ detail, view, close, setClose, addtocart }) => {
                                             <img className='product-main__item' src={curElm.Img} alt={curElm.Title}></img>
                                             <div className='icon'>
                                                 <li onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></li>
-                                                <li onClick={() => view(curElm)}><BsEye /></li>
+                                                <li className='icon__link' onClick={() => view(curElm)}><Link to='../Viewdetail'><BsEye /></Link></li>
                                                 <li><AiOutlineHeart /></li>
                                             </div>
                                         </div>
                                         <div className='detail'>
-                                            <h4 class="home-product-item__name">
+                                            <h4 className="home-product-item__name">
                                                 {curElm.Title}
                                             </h4>
-                                            <div class="home-product-item__price">
-                                                <span class="home-product-item__price-old">{curElm.Price_old} đ</span>
-                                                <span class="home-product-item__price-current">{curElm.Price} đ</span>
+                                            <div className="home-product-item__price">
+                                                <span className="home-product-item__price-old">{curElm.Price_old} đ</span>
+                                                <span className="home-product-item__price-current">{curElm.Price} đ</span>
                                             </div>
-                                            <div class="home-product-item__origin">
-                                                <span class="home-product-item__brand">{curElm.Brand}</span>
-                                                <span class="home-product-item__origin-name">{curElm.origin}</span>
+                                            <div className="home-product-item__origin">
+                                                <span className="home-product-item__brand">{curElm.Brand}</span>
+                                                <span className="home-product-item__origin-name">{curElm.origin}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -177,21 +179,6 @@ const Home = ({ detail, view, close, setClose, addtocart }) => {
             <BannerProducts>
                 <Link to='/product' className='link'>Shop Now  <BsArrowRight /></Link>
             </BannerProducts>
-            {/* <div className='grid'>
-                <div className='banner__two'>
-                    <div className='banner__two-container'>
-                        <div className='detail'>
-                            <h4>LATEST TECHNOLOGY ADDED</h4>
-                            <h3>Apple iPad 10.2 9th Gen - 2021</h3>
-                            <p>$ 986</p>
-                            <Link to='/product' className='link'>Shop Now  <BsArrowRight /></Link>
-                        </div>
-                        <div className='img_box'>
-                            <img src='./img/dienthoai.jpg' alt='sliderimg'></img>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <div className='grid'>
                 <div className='product'>
                     <h2 className='product_item_name'>Deal ngon - Giá luôn rẻ</h2>
@@ -209,19 +196,16 @@ const Home = ({ detail, view, close, setClose, addtocart }) => {
                                             </div>
                                         </div>
                                         <div className='detail'>
-                                            {/* <p>{curElm.Cat}</p>
-                                            <h3>{curElm.Title}</h3>
-                                            <h4>${curElm.Price}</h4> */}
-                                            <h4 class="home-product-item__name">
+                                            <h4 className="home-product-item__name">
                                                 {curElm.Title}
                                             </h4>
-                                            <div class="home-product-item__price">
-                                                <span class="home-product-item__price-old">{curElm.Price_old} đ</span>
-                                                <span class="home-product-item__price-current">{curElm.Price} đ</span>
+                                            <div className="home-product-item__price">
+                                                <span className="home-product-item__price-old">{curElm.Price_old} đ</span>
+                                                <span className="home-product-item__price-current">{curElm.Price} đ</span>
                                             </div>
-                                            <div class="home-product-item__origin">
-                                                <span class="home-product-item__brand">{curElm.Brand}</span>
-                                                <span class="home-product-item__origin-name">{curElm.origin}</span>
+                                            <div className="home-product-item__origin">
+                                                <span className="home-product-item__brand">{curElm.Brand}</span>
+                                                <span className="home-product-item__origin-name">{curElm.origin}</span>
                                             </div>
                                         </div>
                                     </div>

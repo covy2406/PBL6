@@ -1,8 +1,7 @@
-*
-{
+* {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Roboto' ,sans-serif;
     box-sizing: border-box;
 }
 
@@ -53,7 +52,6 @@
 {
     margin: 36px 0px 32px 0;
     width: 100%;
-    border: 2px solid #e2e0e0;
 }
 .product_type .container
 {
@@ -85,6 +83,8 @@
     width: 200px;
     align-items: center;
     text-align: center;
+    justify-content: center;
+    display: flex;
     /* border-radius: 50%; */
     overflow: hidden;
     cursor: pointer;
@@ -260,13 +260,12 @@
     margin-top: 10px;
 }
 
-.home-product-item__name{
-    font-size: 1.8rem;
+.product .container .home-product-item__name{
+    font-size: 1.6rem;
     text-transform: uppercase;
     line-height: 1.8rem;
-    color: var(--text-color);
+    color: var(--primary-color);
     margin: 10px 10px 6px;
-    font-weight: 400;
     /* để chỉ hiện ra 2 dòng và dấu 3 chấm cuối câu */
     height: 3.6rem;
     overflow: hidden;
@@ -284,47 +283,6 @@
     /* flex-wrap: wrap => nhảy xuống dòng */
 }
 
-.home-product-item__action{
-    display: flex;
-    justify-content: space-between;
-    margin: 6px 10px 0;
-}
-
-.home-product-item__like{
-    font-size: 1.3rem;
-}
-
-
-i.home-product-item__like-icon-fill{
-    display: none;
-    color: #f63d30;
-}
-
-.home-product-item__like--liked .home-product-item__like-icon-fill{
-    display: inline-block;
-}
-
-.home-product-item__like--liked .home-product-item__like-icon-empty{
-    display: none;
-}
-
-.home-product-item__rating{
-    font-size: 1rem;
-    transform: scale(0.8);
-    transform-origin: right;
-    color: #D5D5D5;
-    margin: -1px 0 0 auto;
-}
-
-.home-product-item__star--gold{
-    color: var(--star-gold-color);
-}
-
-.home-product-item__sold{
-    font-size: 1.2rem;
-    color: var(--text-color);
-    margin-left: 6px;
-}
 
 .home-product-item__price-old{
     margin-left: 10px;
@@ -335,16 +293,16 @@ i.home-product-item__like-icon-fill{
 
 .home-product-item__price-current{
     font-size: 1.6rem;
-    color: var(--primary-color);
+    color: var(--primary-color-rgb);
     margin-left: 10px;
 }
 
 .home-product-item__origin{
     display: flex;
     justify-content: space-between;
-    margin: 3px 10px 0;
+    margin: 10px 10px 0;
     color: #595959;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 300;
 }
 
@@ -430,7 +388,7 @@ i.home-product-item__like-icon-fill{
 }
 
 /*  SẢN PHẨM CHI TIẾT */
-.product_detail
+/* .product_detail
 {
     margin-top: 30px;
     padding: 30px 40px;
@@ -529,4 +487,4 @@ i.home-product-item__like-icon-fill{
 .product_detail .container .productbox .detail button:hover
 {
     background: #0989ff;
-}
+} */

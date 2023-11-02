@@ -1,0 +1,33 @@
+.contant .box {
+    padding: 10px 20px;
+    overflow: hidden;
+    width: 280px;
+    height: 460px;
+    border: 1px solid #e2e0e0;
+    margin-bottom: 20px;
+    transition: 0.5s;
+    cursor: pointer;
+    border-radius: 5px;
+    /* margin-right: 20px; */
+}
+
+.home-product-item__price-plus {
+    margin: 10px 10px;
+    font-size: 1.4rem;
+    color: #595959;
+    background-color: #F8F9FA;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.home-product-item__price-new {
+    margin-bottom: 4px;
+}
+
+.home-product-item__price-new strong {
+    color: #6a737a;
+}
+
+.home-product-item__price-save {
+    color: #38A169;
+}

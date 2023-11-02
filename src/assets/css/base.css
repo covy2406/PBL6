@@ -19,6 +19,10 @@
     box-sizing:  inherit;
 }
 
+* ::after, ::before{
+    box-sizing: border-box;
+}
+
 html{
     /* 1rem = 16px, font-size: 100% được hiểu là 16px*/
     /* font-size: 62.5% thì 1rem = 10px */
@@ -67,11 +71,24 @@ trong phạm vi 1200px và căn giữa nhờ margin: 0 auto */
 /* khoảng cách khuyến cáo cách nhau giữa các sản phẩm là 24px. Làm theo trang shopee nên
 các sản phẩm cách nhau */
 
+/* column 1 của 12 cột */
+.grid__column-1 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 8.3333%;
+}
+
 /* column 2 của 12 cột */
 .grid__column-2{
     padding-left: 5px;
     padding-right: 5px;
     width: 16.6667%;
+}
+
+/* column 4 của 12 cột */
+.grid__column-4 {
+    padding: 0 5px;
+    width: 33,3333%;
 }
 
 /* column2 của 10 cột */
@@ -85,6 +102,16 @@ các sản phẩm cách nhau */
     padding-left: 5px;
     padding-right: 5px;
     width: 83.3334%;
+}
+
+/* column của 840px gồm  5 cột*/
+.grid-cart {
+    width: 840px;
+    max-width: 100%;
+}
+
+.grid-column-1-5 {
+    width: 20%;
 }
 
 

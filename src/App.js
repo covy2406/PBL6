@@ -6,6 +6,7 @@ import Footer from './components/Footer/footer';
 import Productdetail from './components/NewProduct/productdetail';
 
 
+
 const App = () => {
     // add to cart
     const [cart, setCart] = useState([])
@@ -18,10 +19,12 @@ const App = () => {
     {
         const change = Productdetail.filter((x) => 
         {
-        return x.Cat === product
+            return x.Cat === product
         })
         setProduct(change)
     }
+
+
     //product detail
     const view = (product) => 
     {

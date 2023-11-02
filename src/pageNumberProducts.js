@@ -16,9 +16,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <>
             <nav>
                 <ul className="pagination home-product__pagination">
-                    <li class="pagination-item">
-                        <a href="/product" class="pagination-item__link">
-                            <i class="pagination-item__icon fas fa-angle-left"><AiOutlineLeft/></i>
+                    <li className="pagination-item">
+                        <a href="/product" className="pagination-item__link">
+                            <i className="pagination-item__icon fas fa-angle-left"><AiOutlineLeft/></i>
                         </a>
                     </li>
                     {pageNumbers.map((number) => (
@@ -31,42 +31,42 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                             {number}
                         </li>
                     ))}
-                    <li class="pagination-item">
-                        <a href="/product" class="pagination-item__link">
-                            <i class="pagination-item__icon fas fa-angle-right">< AiOutlineRight/></i>
+                    <li className="pagination-item">
+                        <a href="/product" className="pagination-item__link">
+                            <i className="pagination-item__icon fas fa-angle-right">< AiOutlineRight/></i>
                         </a>
                     </li>
                 </ul>
-                {/* <ul class="pagination home-product__pagination">
-                    <li class="pagination-item">
-                        <a href="#" class="pagination-item__link">
-                            <i class="pagination-item__icon fas fa-angle-left"></i>
+                {/* <ul className="pagination home-product__pagination">
+                    <li className="pagination-item">
+                        <a href="#" className="pagination-item__link">
+                            <i className="pagination-item__icon fas fa-angle-left"></i>
                         </a>
                     </li>
-                    <li class="pagination-item pagination-item--active">
-                        <a href="#" class="pagination-item__link">1</a>
+                    <li className="pagination-item pagination-item--active">
+                        <a href="#" className="pagination-item__link">1</a>
                     </li>
-                    <li class="pagination-item">
-                        <a href="#" class="pagination-item__link">2</a>
+                    <li className="pagination-item">
+                        <a href="#" className="pagination-item__link">2</a>
                     </li>
-                    <li class="pagination-item">
-                        <a href="#" class="pagination-item__link">3</a>
+                    <li className="pagination-item">
+                        <a href="#" className="pagination-item__link">3</a>
                     </li>
-                    <li class="pagination-item">
-                        <a href="#" class="pagination-item__link">4</a>
+                    <li className="pagination-item">
+                        <a href="#" className="pagination-item__link">4</a>
                     </li>
-                    <li class="pagination-item">
-                        <a href="#" class="pagination-item__link">5</a>
+                    <li className="pagination-item">
+                        <a href="#" className="pagination-item__link">5</a>
                     </li>
-                    <li class="pagination-item">
-                        <a href="#" class="pagination-item__link">...</a>
+                    <li className="pagination-item">
+                        <a href="#" className="pagination-item__link">...</a>
                     </li>
-                    <li class="pagination-item">
-                        <a href="#" class="pagination-item__link">14</a>
+                    <li className="pagination-item">
+                        <a href="#" className="pagination-item__link">14</a>
                     </li>
-                    <li class="pagination-item">
-                        <a href="#" class="pagination-item__link">
-                            <i class="pagination-item__icon fas fa-angle-right"></i>
+                    <li className="pagination-item">
+                        <a href="#" className="pagination-item__link">
+                            <i className="pagination-item__icon fas fa-angle-right"></i>
                         </a>
                     </li>
                 </ul> */}

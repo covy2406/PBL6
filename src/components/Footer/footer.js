@@ -53,9 +53,16 @@ const Footer = () => {
                                         <img src="./img/zalopay.png" alt="zalopay"/>
                                     </a>
                                 </li>
-                                {/* <li className="footer-item">
-                                    <a href="/" className="footer-item__link"></a>
-                                </li> */}
+                                <li className="footer-item">
+                                    <a href="/" className="footer-item__link">
+                                        <img src="./img/visapay.png" alt="visapay"/>
+                                    </a>
+                                </li>
+                                <li className="footer-item">
+                                    <a href="/" className="footer-item__link">
+                                        <img src="./img/mastercardpay.png" alt="mastercarpay"/>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div className="grid__column-2-10">
