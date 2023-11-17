@@ -2,13 +2,12 @@ import icon from "../Icon";
 import "../../assets/css/base.css";
 import "./footer.css";
 import { NavLink, Outlet } from "react-router-dom";
-// import { Container, Row, Col } from "react-bootstrap";
 
 const Footer = () => {
   return (
     <>
-      <Outlet />
       <footer className="footer">
+        <Outlet />
         <div className="grid">
           <div className="grid__row">
             <div className="grid__column-2-10">

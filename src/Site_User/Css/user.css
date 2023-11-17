@@ -1,0 +1,14 @@
+.siteuser {
+  height: 60vh;
+  width: 100vw;
+}
+.siteuser__nav {
+  width: fit-content;
+  height: fit-content;
+}
+.siteuser__forms {
+  background-color: #f5f5f5;
+
+  width: fit-content;
+  height: fit-content;
+}

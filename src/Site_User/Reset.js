@@ -1,5 +1,6 @@
-import ResetForm from "../components/ResetForm/ResetForm";
+import ResetForm from "../components/AuthForm/ResetForm/ResetForm";
 import Navlogin from "../components/Header/navlogin";
+import Footer from "../components/Footer/footer";
 import "./Css/form.css";
 
 function SiteReset() {
@@ -9,6 +10,7 @@ function SiteReset() {
       <div className="site__form">
         <ResetForm></ResetForm>
       </div>
+      <Footer />
     </>
   );
 }

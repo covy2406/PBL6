@@ -1,0 +1,14 @@
+.profileform--datepicker {
+  font-size: 1.5rem;
+  padding: 1rem;
+  margin-right: 3%;
+  border: 1px solid #333333;
+  border-radius: 1px;
+  width: 30%;
+  background-color: #f7f7f7;
+  color: #333333;
+}
+.profileform--datepicker:hover {
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+}

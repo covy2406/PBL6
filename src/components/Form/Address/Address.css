@@ -1,0 +1,60 @@
+.profileform__address {
+  width: 90%;
+  margin: 0 0 5% 5%;
+  display: flex;
+  justify-self: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: solid 0.5px rgba(21, 23, 23, 0.2);
+}
+/* del change button */
+.profileform__address__button {
+  background-color: var(--primary-color);
+  margin-right: 2%;
+  border: none;
+  border-radius: 1px;
+  color: white;
+  font-size: 1.2rem;
+  height: 3rem;
+  width: 6rem;
+  cursor: pointer;
+}
+/* each address custom */
+.profileform__address__item {
+  position: relative;
+  padding-top: 2rem;
+}
+.address__receiver {
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  width: fit-content;
+  font-size: 2rem;
+}
+.address__split {
+  position: absolute;
+  top: 0px;
+  right: -3rem;
+}
+.address__phone {
+  font-size: 1.4rem;
+  position: absolute;
+  top: 0px;
+  right: -12rem;
+}
+.address__address {
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  width: 200px;
+}
+
+/* left and right of address */
+.profileform__address--right {
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 30%;
+}
+.profileform__address--left {
+  color: rgba(0, 0, 0, 0.5);
+  width: 70%;
+}

@@ -1,4 +1,6 @@
 .site__form {
   display: flex;
   justify-content: center;
+  padding-top: 1rem;
+  height: 60vh;
 }

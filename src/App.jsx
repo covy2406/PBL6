@@ -1,72 +1,63 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
-  // BrowserRouter,
 } from "react-router-dom";
-// import Rout from "./rout";
-import Footer from "./components/Footer/footer";
-import Productdetail from "./components/NewProduct/productdetail";
 
 //page import
-import Nav from "./components/Header/nav.js";
-import User from "./Site_User/User";
+import HeaderFooter from "./components/HeaderFooter/HeaderFooter.js";
+import SiteUser from "./Site_User/SiteUser.js";
 import SiteLogin from "./Site_User/Login";
 import SiteSignup from "./Site_User/Signup.js";
 import SiteReset from "./Site_User/Reset.js";
 import Product from "./components/NewProduct/product";
 import Home from "./components/Home/home";
+import ErrorPage from "./ErrorPage.js";
+import AdminNav from "./components/Header/adminNav.js";
+import AdminProduct from "./Site_Admin/AdminProduct.js";
+import AdminUser from "./Site_Admin/AdminUser.js";
+import AdminShop from "./Site_Admin/AdminShop.js";
+
+//auth
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<Footer />}>
-      <Route path="user" element={<User />}></Route>
+    <Route>
       <Route path="login" element={<SiteLogin />}></Route>
       <Route path="signup" element={<SiteSignup />}></Route>
       <Route path="reset" element={<SiteReset />}></Route>
-      <Route path="/" element={<Nav />}>
-        <Route path="/" element={<Home />} />
+      <Route path="/" element={<HeaderFooter />}>
+        <Route index element={<Home />} />
         <Route path="/product" element={<Product />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/user">
+          <Route
+            path="/user/account/profile"
+            element={<SiteUser extraProps="profile" />}
+          />
+          <Route
+            path="/user/account/address"
+            element={<SiteUser extraProps="address" />}
+          />
+          <Route
+            path="/user/account/change-password"
+            element={<SiteUser extraProps="change-pass" />}
+          />
+        </Route>
       </Route>
+      <Route path="/admin" element={<AdminNav />}>
+        <Route path="/admin/product" element={<AdminProduct />} />
+        <Route path="/admin/account" element={<AdminUser />} />
+        <Route path="/admin/shop" element={<AdminShop />} />
+      </Route>
+      {/* 404 page */}
+      <Route path="*" element={<ErrorPage />} />
     </Route>
   )
 );
-const App = () => {
-  // // add to cart
-  // const [cart, setCart] = useState([]);
-  // //product Detail
-  // const [close, setClose] = useState(false);
-  // const [detail, setDetail] = useState([]);
-  // //filter product
-  // const [product, setProduct] = useState(Productdetail);
-  // const searchbtn = (product) => {
-  //   const change = Productdetail.filter((x) => {
-  //     return x.Cat === product;
-  //   });
-  //   setProduct(change);
-  // };
-  // //product detail
-  // const view = (product) => {
-  //   setDetail([{ ...product }]);
-  //   setClose(true);
-  // };
 
-  // // add to cart
-  // const addtocart = (product) => {
-  //   const exsit = cart.find((x) => {
-  //     return x.id === product.id;
-  //   });
-  //   if (exsit) {
-  //     alert("This Product is already added to cart");
-  //   } else {
-  //     setCart([...cart, { ...product, qty: 1 }]);
-  //     alert("product is added to cart");
-  //   }
-  // };
-  // console.log(cart);
+const App = () => {
   return (
     <>
       <RouterProvider router={router} />
@@ -75,44 +66,3 @@ const App = () => {
 };
 
 export default App;
-
-// import React from "react";
-// import Nav from "./nav";
-// import {BrowserRouter} from 'react-router-dom';
-
-// const App = () => {
-//   return(
-//     <>
-//     <BrowserRouter>
-//     <Nav/>
-//     </BrowserRouter>
-//     </>
-//   )
-// }
-// export default App
-
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;

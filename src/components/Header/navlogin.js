@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import "../../assets/css/nav.css";
+import Logo from "../../assets/Logo/Main_logo.png";
 
 function Navlogin({ Title = "" }) {
   return (
@@ -7,7 +7,7 @@ function Navlogin({ Title = "" }) {
       <ul className="header__navbar-list">
         <li>
           <NavLink to="/">
-            <img src="" alt="Logo" className="header__logo"></img>
+            <img src={Logo} alt="Logo" className="header__logo"></img>
           </NavLink>
         </li>
         <li className="header__navbar-icon">{Title}</li>

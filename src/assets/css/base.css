@@ -1,10 +1,10 @@
 :root {
   /* khai báo biến */
-  --primary-color: #5d58a1;
-  --primary-color-rgb: rgb(238, 75, 43);
+  --primary-color: rgb(196, 67, 53);
+  --primary-color-rgb: rgb(196, 67, 53);
   --white-color: #fff;
   --black-color: #000;
-  --text-color: #333;
+  --text-color: #333333;
   --star-gold-color: #ffce3e;
 
   --border-color: #dbdbdb;
@@ -247,8 +247,4 @@ các sản phẩm cách nhau */
   color: rgb(131, 131, 131);
   position: relative;
   top: 1px;
-}
-@import "normalize.css";
-h1 {
-  margin: 0;
 }

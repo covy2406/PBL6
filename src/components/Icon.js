@@ -21,6 +21,10 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { BsEye } from "react-icons/bs";
 //io
 import { IoIosArrowBack } from "react-icons/io";
+//fa
+import { FaUser } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa";
+import { FaFileInvoiceDollar } from "react-icons/fa";
 //fi
 import { FiTruck } from "react-icons/fi";
 
@@ -45,5 +49,8 @@ const icon = {
   BsCurrencyDollar: BsCurrencyDollar,
   BsEye: BsEye,
   FiTruck: FiTruck,
+  FaUser: FaUser,
+  FaPhone: FaPhone,
+  FaFileInvoiceDollar: FaFileInvoiceDollar,
 };
 export default icon;
