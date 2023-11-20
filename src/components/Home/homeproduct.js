@@ -6,7 +6,7 @@ const Homeproduct =
         Cat: 'Apple',
         Price: '9000000',
         Price_old: '10 000 000',
-        Img: './img/dienthoai.jpg',
+        Img: './img/iphone_mattruoc_tim.jpg',
         Brand: 'Apple',
         origin: 'Mỹ',
         discount: '10%'

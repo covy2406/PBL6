@@ -1,7 +1,11 @@
 :root{
     /* khai báo biến */
     --primary-color: #5d58a1;
-    --primary-color-rgb: rgb(238, 75, 43);
+    /* --primary-color-rgb: rgb(238, 75, 43); */
+    --primary-color-rgb: #ce6257;
+    --primary-red-rgb: rgb(196, 67, 53);
+    --primary-html-color: #f0f1f5;
+    --red-color: #cb1c22;
     --white-color: #fff;
     --black-color: #000;
     --text-color: #333;
@@ -31,6 +35,8 @@ html{
     line-height: 1.6rem;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
+    /* background-color: #ddd; */
+    background-color: var(--primary-html-color);
 }
 
 /* ------------------------------------------------------------ */
@@ -194,7 +200,7 @@ các sản phẩm cách nhau */
 }
 
 .btn.btn--primary{
-    background-color: var(--primary-color);
+    background-color: var(--primary-red-rgb);
     color: var(--white-color);
     border: 1px solid var(--border-color);
     line-height: 0;

@@ -1,0 +1,63 @@
+.slider__image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider {
+    /* display: flex;
+    width: 70%;
+    height: 70%;
+    overflow: hidden; */
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    /* Hiển thị phần tử con theo hàng ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    width: 75%;
+    /* Đảm bảo slider rộng bằng img-box */
+    height: 75%;
+    /* Đảm bảo slider cao bằng img-box */
+    overflow: hidden;
+    /* Ẩn nội dung vượt ra ngoài slider */
+    z-index: -1;
+}
+
+.slider__image .slider img {
+    width: 75% !important;
+    height: auto !important; 
+    /* Tự động điều chỉnh chiều cao để giữ tỷ lệ khung hình ban đầu */
+    /* width: 350px ;
+    height: 350px; */
+    z-index: -1 !important;
+}
+
+.slider button svg {
+    height: 30px;
+    width: 30px;
+}
+
+.slider__carsdt-btn-left, .slider__carsdt-btn-right {
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 100%;
+    border: 1px solid #fff;
+    background-color: rgba(250, 250, 250, 1);
+    color: #ddd;
+}
+
+
+
+.slider__carsdt-btn-left {
+    margin-right: 10px;
+}
+
+.slider__carsdt-btn-right {
+    margin-left: 10px;
+}

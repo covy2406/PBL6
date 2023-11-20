@@ -1,12 +1,15 @@
 .footer{
-    border-top: 4px solid var(--primary-color);
+    border-top: 4px solid var(--primary-red-rgb);
     padding-top: 16px;
     background-color: #fff;
+    /* background-color: #242628; */
+   
 }
 
 .footer__heading{
     font-size: 1.5rem;
     color: var(--text-color);
+    /* color: #bfbfbf; */
     font-weight: 500;
     text-transform: uppercase;
     margin: 15px 0;
@@ -24,8 +27,9 @@
 .footer-item__link{
     text-decoration: none;
     display: block;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #757575;
+    /* color: #bfbfbf; */
     padding: 2px 0;
     display: flex;
 }
@@ -36,7 +40,8 @@
 }
 
 .footer-item__link:hover{
-    color: var(--primary-color);
+    color: var(--primary-red-rgb);
+    text-decoration: underline;
 }
 
 .footer-item__icon{

@@ -1,5 +1,6 @@
 :root {
     --primary-color: #5d58a1;
+    --red-color: #cb1c22;
 }
 
 * {
@@ -12,7 +13,10 @@
 /* RESET CSS */
 .header{
     height: var(--header-height);
-    background-image: linear-gradient(0, #746fbb, #5d58a1 );
+    /* background-image: linear-gradient(0, #746fbb, #5d58a1 ); */
+    /* background-color: #e9393f; */
+    /* background-color: var(--red-color); */
+    background-color: rgb(196, 67, 53);
 }
 
 .header__navbar{
@@ -144,11 +148,6 @@
 
 .header__navbar-user:hover .header__navbar-user-menu{
     display: block;
-}
-
-.header__navbar-user-item{
-    
-
 }
 
 .header__navbar-user-item a{
@@ -769,7 +768,7 @@ và có border màu xanh xanh xung quanh */
 /* hiện số hàng trong giỏ hàng hiện có */
 .header__cart-notice{
     background-color: var(--white-color);
-    color: var(--primary-color);
+    color: var(--primary-red-rgb);
     font-size: 1.4rem;
     position: absolute;
     line-height: 1.4rem;
@@ -778,6 +777,9 @@ và có border màu xanh xanh xung quanh */
     border: 2px solid var(--primary-color);
     top: -12px;
     right: -8px;
+    /* top: 5px;
+    right: 56px;
+    background-color: pink; */
 }
 
 
@@ -786,6 +788,7 @@ và có border màu xanh xanh xung quanh */
     font-size: 2.4rem;
     display: flex;
     align-items: center;
+    /* color: var(--black-color); */
 }
 
 .header__search-input-wrap{
@@ -828,7 +831,7 @@ và có border màu xanh xanh xung quanh */
 
 .header__search-btn{
     height: 34px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-red-rgb);
     border: none;
     border-radius: 3px;
     margin-right: 3px;
@@ -994,7 +997,7 @@ và có border màu xanh xanh xung quanh */
     /* display: flex; */
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px; 
     /* justify-content: space-between; */
-    border-bottom: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-red-rgb);
     behavior: scroll;
     position: sticky;
     z-index: 2;
@@ -1028,7 +1031,8 @@ và có border màu xanh xanh xung quanh */
 }
 
 .header__menu .header__menu_container .nav__home-item-link {
-    color: var(--primary-color);
+    /* color: var(--primary-color); */
+    color: var(--red-color);
     text-decoration: none;
     /* display: inline-block; */
     font-size: 16px;
@@ -1043,21 +1047,22 @@ và có border màu xanh xanh xung quanh */
 }
 
 .header__menu .header__menu_container .nav__home-item:hover .nav__home-item-link {
-    background-color: #948ee2;
+    /* background-color: #948ee2; */
     cursor: pointer;
-    color: white;
+    /* color: white; */
     
 }
 
 /* PHẦN LINE Ở DƯỚI MENU */
 .nav__home-item-link::after {
+    background: var(--red-color);
     content: "";
     position: absolute;
     height: 4px;
     bottom: 0;
     width: 0;
     transition: all .3s ease 0s;
-    background: var(--primary-color);
+    /* background: var(--primary-color); */
     border-radius: 100px;
     left: 50%;
     -webkit-transform: translateX(-50%);
@@ -1071,10 +1076,20 @@ và có border màu xanh xanh xung quanh */
     transform: 0.3s;
 }
 
+.active {
+    background-color: rgba(125, 15, 52, 0.1);
+    border-bottom: 5px solid var(--red-rgb-color);
+    /* background-color: rgb(233, 127, 130); */
+    color: #fff;
+}
+
 .header__menu .header__menu_container .auth {
     line-height: 60px;
     margin-right: 20px;
     align-items: center;
+    height: 60px;
+    justify-content: center;
+    margin: auto 0;
 }
 
 .header__menu .header__menu_container .auth button {

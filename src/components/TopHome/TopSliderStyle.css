@@ -1,0 +1,115 @@
+Slider {
+    background-color: var(--white-color);
+    
+}
+
+.box__hot {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 260px !important;
+    margin: 0 20px !important;
+    max-height: 438px !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: var(--white-color);
+    overflow: hidden;
+}
+
+.box__img-hot {
+    background-image: url(../../../public/img/khungsp.jpg) ;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+
+.box__img-hot:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.01);
+}
+
+.box__img-hot  .box__img-hot-image{
+    padding: 40px 20px !important;
+    border-bottom: 1px solid #ddd;
+    width: 230px !important;
+    height: auto !important;
+    /* margin-right: 50px !important; */
+    text-align: center;
+    margin: 0 15px;
+}
+
+.icon__hide {
+    z-index: 1;
+    position: relative;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    transition: 0.5s;
+}
+
+.box__img-hot:hover .icon__hide {
+    transform: translateX(-60px);
+}
+
+.icon__hide li {
+    list-style: none;
+    padding: 10px 10px;
+    color: #010f1c;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background: #fff;
+    transition: 0.5s;
+    font-size: 1.8rem;
+}
+
+.icon__hide li:hover {
+    background: var(--primary-color);
+    color: var(--white-color);
+}
+
+.box__detail-hot {
+    padding: 10px 10px;
+    font-size: 1.4rem;
+}
+
+.box__detail-hot-tcenter {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    line-height: 1.8rem;
+    text-align: center;
+    margin: 10px 10px 6px;
+    height: 3.6rem;
+    overflow: hidden;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+}
+
+.box__detail-hot-price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.tcenter-price__recent {
+    font-size: 1.6rem;
+    margin-left: 10px;
+    border-radius: 15px;
+    height: 3.2rem;
+    line-height: 3.2rem;
+    min-width: 130px;
+    background-color: #cb1c22;
+    color: var(--white-color);
+    text-align: center;
+}
+
+.tcenter-price__old {
+    margin-left: 10px;
+    font-size: 1.4rem;
+    color: #666;
+    text-decoration: line-through;
+}

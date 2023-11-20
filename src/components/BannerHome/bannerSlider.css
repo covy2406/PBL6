@@ -5,6 +5,8 @@
     margin: 32px 0;
     padding: 4px;
     border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    background-color: var(--white-color);
 }
 
 .banner-slider__left {
@@ -59,10 +61,6 @@
     font-size: 24px;
 }
 
-.banner-slider__small {
-    
-}
-
 .banner-slider__small-title {
     font-size: 1.6rem;
     color: var(--text-color);
@@ -83,6 +81,7 @@
 .banner-slider__small-heading {
     text-decoration: none;
     color: var(--text-color);
+    font-weight: 550;
 }
 
 

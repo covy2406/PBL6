@@ -134,6 +134,7 @@
     background-color: var(--white-color);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24);
     align-items: center;
+    margin-bottom: 40px;
 }
 
 .cartcontainer .totalprice {
@@ -144,13 +145,18 @@
     letter-spacing: 1px;
 }
 
-.cartcontainer .checkout {
-    margin-top: 40px;
-    margin-left: 53%;
+.cartcontainer .btn__checkout {
+    /* margin-top: 40px;
+    margin-left: 53%; */
     padding: 10px 20px;
+    margin: 0 20px;
     color: #fff;
     border: none;
     outline: none;
     background: var(--primary-color);
     cursor: pointer;
+}
+
+.btn__checkout:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }

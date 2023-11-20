@@ -25,24 +25,49 @@
 .product_detail .container .productbox {
     max-width: 100%;
     display: flex;
-    padding: 20px 30px;
+    /* padding: 20px 30px; */
     justify-content: space-between;
 }
 
+.box__image .box__image-name {
+    display: flex;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.box__image-name .box__image-cat {
+    margin-right: 15px;
+}
+
 .product_detail .container .productbox .img-box {
-    width: 320px;
-    height: 320px;
-    background: #f1f1f1;
+    width: 420px;
+    height: 400px;
+    background: url('../../../public/img/khungsp_slider.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 8px;
+    /* background-color: rgba(245, 245, 245, 1); */
+    background-color: var(--white-color);
+    z-index: 1;
+    margin-top: 15px;
 }
 
-.productbox .img-box img {
-    width: 300px;
-    height: 300px;
-}
+/* .container .productbox .img-box::before {
+    content: "";
+    background: url('../../../public/img/khungsp.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: block;
+} */
 
 .productbox .detail {
     margin-left: 30px;
@@ -62,13 +87,14 @@
     margin-top: 20px;
     font-size: 32px;
     color: #010f1c;
-    text-transform: capitalize;
+    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .product_detail .container .productbox .detail p {
     margin-top: 10px;
     color: #4a4a4a;
+    font-size: 1.4rem;
 }
 
 .product_detail .container .productbox .detail h3 {
@@ -82,8 +108,8 @@
     margin-top: 30px;
     padding: 15px 60px;
     font-size: 16px;
-    color: #fff;
-    background: #010f1c;
+    color: var(--primary-color);
+    background-color: #ede9e9;
     transition: 0.5s;
     border: none;
     outline: none;
@@ -92,4 +118,5 @@
 
 .product_detail .container .productbox .detail button:hover {
     background-color: var(--primary-color);
+    color: var(--white-color);
 }
