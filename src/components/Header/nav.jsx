@@ -18,7 +18,7 @@ import CartList from "./CartList";
 // import { useParams } from 'react-router-dom';
 // import apiSearch from "api/apiSearch";
 
-const Nav = ({ cart }) => {
+const Nav = ({ cart, handleSearchChange, handleSearchSubmit, searchTerm }) => {
     
 
 
@@ -178,8 +178,8 @@ const Nav = ({ cart }) => {
                         <div className="header__search">
                             <div className="header__search-input-wrap">
                                 <input type="text" className="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm"
-                                // value={searchTerm}
-                                // onChange={handleSearchChange}
+                                value={searchTerm}
+                                onChange={handleSearchChange}
                                 ></input>
                                 <div className="header__search-history">
                                     <h3 className="header__search-history-heading">Lịch sử tìm kiếm</h3>
