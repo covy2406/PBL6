@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import './product.css';
-import Productdetail from "./Productdetail";
+import Productdetail from "./productdetail";
 
 const Category = ({ product, setProduct }) => {
     // Hàm xử lý lọc sản phẩm:
