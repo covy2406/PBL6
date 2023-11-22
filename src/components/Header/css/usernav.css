@@ -1,0 +1,27 @@
+.usernav__item {
+  font-size: 2rem;
+  text-decoration: none;
+  height: 4rem;
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.usernav__item #active {
+  color: var(--primary-color);
+}
+.usernav__item:hover {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+.usernav__item__icon {
+  font-size: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
+  padding-bottom: 3rem;
+}
+.usernav__item__user {
+  width: 200px;
+  padding-left: 0.3rem;
+  padding-bottom: 3rem;
+}

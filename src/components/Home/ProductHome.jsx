@@ -129,6 +129,9 @@ const ProductHome = ({ view, addtocart, detai }) => {
                                     <h4 className="home-product-item__name">
                                         {curElm.name}
                                     </h4>
+                                    <div className="home-product-item__description">
+                                        {curElm.detais}
+                                    </div>
                                     <div className="home-product-item__price">
                                         <span className="home-product-item__price-old"></span>
                                         <span className="home-product-item__price-current">{curElm.price} đ</span>
@@ -136,7 +139,7 @@ const ProductHome = ({ view, addtocart, detai }) => {
 
                                     <div className="home-product-item__origin">
                                         <span className="home-product-item__brand">{curElm.shopName}</span>
-                                        <span className="home-product-item__origin-name">{curElm.description}</span>
+                                        <span className="home-product-item__origin-name">{curElm.details}</span>
                                     </div>
                                     {/* {
                                         shop &&

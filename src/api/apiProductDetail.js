@@ -1,5 +1,5 @@
 
-import axiosClient from './axiosClient';
+import axiosClient from './axiosClient.js';
 
 
 const apiProductDetail = {

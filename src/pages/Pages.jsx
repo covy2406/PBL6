@@ -5,7 +5,7 @@ import Product from '../components/NewProduct/product';
 import Oldphone from 'components/OldPhone/oldphone';
 import Cart from '../components/Cart/cart';
 import Viewdetails from '../components/Viewdetail/viewDetails';
-import Search from 'components/Search/Search';
+import Search from '../components/Search/Search';
 //import CheckoutPage from 'components/CheckoutPage/CheckoutPage';
 //import TopHomeSlider from 'components/TopHome/TopHomeSlider';
 // import Contact from './contact'
