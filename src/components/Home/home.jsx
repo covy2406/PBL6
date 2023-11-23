@@ -86,9 +86,7 @@ const Home = ({ view, addtocart }) => {
                     <ProductHome view={view} addtocart={addtocart} />
                 </div>
             </div>
-            <BannerProducts>
-                <Link to='/product' className='link'>Shop Now  <BsArrowRight /></Link>
-            </BannerProducts>
+            <BannerProducts/>
             <div className='grid'>
                 <div className='product'>
                     <h2 className='product_item_name'>Deal ngon - Giá luôn rẻ</h2>
