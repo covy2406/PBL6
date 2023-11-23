@@ -10,53 +10,51 @@ const Navinfo = () => {
     <div>
       <ul className="header__navbar-list">
         <li className="header__navbar-item header__navbar-item--separate">
-          Kênh người bán
+            Kênh người bán
         </li>
         <li className="header__navbar-item header__navbar-item--separate">
-          Trở thành người bán hàng
+            Trở thành người bán hàng
         </li>
         <li className="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
-          Vào cửa hàng trên ứng dụng shop
-          {/* QR CODE */}
-          <div className="header__qr">
-            <img
-              src="./img/qrcode.png"
-              alt="QRcode"
-              className="header__qr-img"></img>
-            <div class="header__qr-apps">
-              <div className="header__qr-link">
+            Vào cửa hàng trên ứng dụng shop
+            {/* QR CODE */}
+            <div className="header__qr">
                 <img
-                  src="./img/google_play_logo.png"
-                  alt="google play"
-                  className="header__qr-dowload-img"></img>
-              </div>
-              <div className="header__qr-link">
-                <img
-                  src="./img/apple_logo.png"
-                  alt="app store"
-                  className="header__qr-dowload-img"></img>
-              </div>
+                src="./img/qrcode.png"
+                alt="QRcode"
+                className="header__qr-img"></img>
+                <div class="header__qr-apps">
+                <div className="header__qr-link">
+                    <img
+                    src="./img/google_play_logo.png"
+                    alt="google play"
+                    className="header__qr-dowload-img"></img>
+                </div>
+                <div className="header__qr-link">
+                    <img
+                    src="./img/apple_logo.png"
+                    alt="app store"
+                    className="header__qr-dowload-img"></img>
+                </div>
+                </div>
             </div>
-          </div>
         </li>
         <li className="header__navbar-item">
-          <span className="header__navbar-item--connect">Kết nối</span>
+            <span className="header__navbar-item--connect">Kết nối</span>
         </li>
         <li className="header__navbar-item">
-          <Link to="/" className="header__navbar-item-link">
-            <i className="header__navbar-icon">
-              <BsFacebook />
-            </i>
-          </Link>
-          {/* <a href="#" class="header__navbar-item-link"><i class="header__navbar-icon fa-brands fa-facebook"></i></a> */}
+            <Link to="/" className="header__navbar-item-link">
+                <i className="header__navbar-icon">
+                <BsFacebook />
+                </i>
+            </Link>
         </li>
         <li className="header__navbar-item">
-          <Link to="/" className="header__navbar-item-link">
-            <i className="header__navbar-icon">
-              <BiLogoInstagramAlt />
-            </i>
-          </Link>
-          {/* <a href="#" class="header__navbar-item-link"><i class="header__navbar-icon fa-brands fa-instagram"></i></a> */}
+            <Link to="/" className="header__navbar-item-link">
+                <i className="header__navbar-icon">
+                <BiLogoInstagramAlt />
+                </i>
+            </Link>
         </li>
       </ul>
     </div>

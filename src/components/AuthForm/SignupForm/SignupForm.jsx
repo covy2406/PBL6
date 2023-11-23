@@ -1,5 +1,5 @@
 import React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Signup from "api/signup";
 import "../AuthForm.css";

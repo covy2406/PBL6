@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import './nav.css';
 import { BsCart2 } from 'react-icons/bs';
+import './nav.css';
 //import {BsEye} from 'react-icons/bs';
 
 

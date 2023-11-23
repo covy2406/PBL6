@@ -80,13 +80,13 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } 
 
 //page import
 import Layout from "./components/Layout/Layout.jsx";
-import SiteUser from "./Site_User/SiteUser.js";
+import SiteUser from "./Site_User/SiteUser.jsx";
 import SiteLogin from "./Site_User/Login";
-import SiteSignup from "./Site_User/Signup.js";
-import SiteReset from "./Site_User/Reset.js";
+import SiteSignup from "./Site_User/Signup.jsx";
+import SiteReset from "./Site_User/Reset.jsx";
 import Product from "./components/NewProduct/product";
 import Home from "./components/Home/home";
-import ErrorPage from "./ErrorPage.js";
+import ErrorPage from "./ErrorPage.jsx";
 // import AdminNav from "./components/Header/adminNav.js";
 // import AdminProduct from "./Site_Admin/AdminProduct.js";
 // import AdminUser from "./Site_Admin/AdminUser.js";
