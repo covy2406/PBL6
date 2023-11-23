@@ -6,9 +6,6 @@ import Oldphone from 'components/OldPhone/oldphone';
 import Cart from '../components/Cart/cart';
 import Viewdetails from '../components/Viewdetail/viewDetails';
 import Search from '../components/Search/Search';
-//import CheckoutPage from 'components/CheckoutPage/CheckoutPage';
-//import TopHomeSlider from 'components/TopHome/TopHomeSlider';
-// import Contact from './contact'
 
 
 
@@ -18,7 +15,6 @@ const Pages = ({ product, setProduct, priceRange,
   return (
     <>
       <Routes>
-        {/* <Route path='/cart' element={<TopHomeSlider cart={cart} addtocart={addtocart}/>}></Route> */}
         <Route path='/' element={<Home detail={detail} view={view} close={close} setClose={setClose} addtocart={addtocart} />}></Route>
         <Route path='/product' element={<Product product={product} setProduct={setProduct} priceRange={priceRange} setPrice={setPrice} view={view} addtocart={addtocart} />}></Route>
         <Route path='/oldphone' element={<Oldphone oldData={oldData} setOldproduct={setOldproduct} detail={detail} view={view} close={close} setClose={setClose} cart={cart} addtocart={addtocart} />}></Route>

@@ -61,6 +61,7 @@ const Nav = ({ cart, handleSearchChange, handleSearchSubmit, searchTerm, searchb
 
                             </li>
                         </ul> */}
+
                         <Navinfo />
 
                         <ul className="header__navbar-list ">
@@ -262,20 +263,6 @@ const Nav = ({ cart, handleSearchChange, handleSearchSubmit, searchTerm, searchb
 
                         <div className="nav__home">
                             <ul className="nav__home-list">
-                                {/* <li className="nav__home-item">
-                                    <Link to="/" excact className="nav__home-item-link" activeClassName="active">Home</Link>
-                                </li>
-                                <li className="nav__home-item">
-                                    <Link to="/product" className="nav__home-item-link">Product</Link>
-                                </li>
-                                <li className="nav__home-item">
-                                    <Link to="/oldphone" className="nav__home-item-link">Old Phone</Link>
-                                </li>
-                                <li className="nav__home-item">
-                                    <Link to="/contact" className="nav__home-item-link">Contact</Link>
-                                </li>
-                                <div className="nav__home-item"></div> */}
-
                                 <li className="nav__home-item">
                                     <Link to="/" className={`nav__home-item-link ${currentPath === '/' ? 'active' : ''}`}>Home</Link>
                                 </li>
