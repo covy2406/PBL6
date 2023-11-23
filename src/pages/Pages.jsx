@@ -22,7 +22,6 @@ const Pages = ({ product, setProduct, priceRange,
         <Route path='/Viewdetail/:id' element={<Viewdetails addtocart={addtocart} view={view} detail={detail} close={close} setClose={setClose} />} ></Route>
         <Route path='/CheckoutPage'></Route>
         <Route path='/Search/:search' element={<Search view={view} detail={detail} addtocart={addtocart}></Search>}></Route>
-        {/* <Route path='/contact' element={<Contact />} /> */}
       </Routes>
     </>
   )

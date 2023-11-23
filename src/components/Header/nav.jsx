@@ -17,7 +17,6 @@ import Navinfo from './navinfo'
 const Nav = ({ cart, handleSearchChange, handleSearchSubmit, searchTerm, searchbtn = " " }) => {
 
 
-
     // const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
     const { authUser, isAuth } = { authUser: "admin", isAuth: true };
 

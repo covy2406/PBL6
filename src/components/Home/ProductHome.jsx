@@ -9,7 +9,7 @@ import apiProductHome from 'api/apiProductHome';
 
 
 
-const ProductHome = ({ view, addtocart, detai }) => {
+const ProductHome = ({ view, addtocart, detail }) => {
     const { loginWithRedirect, isAuthenticated } = useAuth0();
 
     const [productList, setProductList] = useState([]);

@@ -27,6 +27,7 @@ const CartList = ({ cart }) => {
                         <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
                         <ul className="header__cart-list-item">
                             {
+                                Array.isArray(cart) ?
                                 cart.map((curElm) => {
                                     return (
                                         <li className="header__cart-item" key={curElm.id}  >
@@ -48,8 +49,14 @@ const CartList = ({ cart }) => {
                                         </li>
                                     )
                                 })
+                                : 
+                                <>
+                                    <p>Không có sản phẩm nào</p>
+                                </>
                             }
+                            :
                         </ul>
+                       
                         <Link to="../Cart" className="header__cart-view-cart btn btn--primary">Xem giỏ hàng</Link>
                     </div>
                 </div>
