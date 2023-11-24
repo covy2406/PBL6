@@ -4,20 +4,24 @@ import "../AccountForm.css";
 import "./DatePicker.css";
 import "./Profile.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useAuth from "Hook/useAuth.js";
 
 //Need to add useState to change sex and birthday
 const User = {
   name: "Linh",
   email: "duylinh12102002@gmail.com",
   phone: "0123456789",
-  sex: "Nữ",
+  sex: "Nam",
   birthday: "12/10/2002",
 };
 //import data
 // import { User } from "../../../Data/Userdata.js";
 
 const ProfileForm = () => {
+  const { auth } = useAuth();
+  const [User, setUserDTB] = useState({});
+  useEffect(() => {}, [auth.access_token]);
   // Masked email and phone number
   const maskedEmail =
     User.email.substring(0, 3) +

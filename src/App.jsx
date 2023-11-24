@@ -6,8 +6,6 @@
 // // import Oldphone from 'components/OldPhone/oldphone';
 // // import oldPhoneData from 'components/OldPhone/oldPhoneData';
 
-
-
 // const App = () => {
 //     // add to cart
 //     const [cart, setCart] = useState([])
@@ -17,18 +15,17 @@
 //     //filter product
 //     //const [oldData, setOldproduct] = useState(OldphoneData)
 //     const [product, setProduct] = useState([])
-//     // const searchbtn = (product) => 
+//     // const searchbtn = (product) =>
 //     // {
-//     //     const change = Productdetail.filter((x) => 
+//     //     const change = Productdetail.filter((x) =>
 //     //     {
 //     //         return x.Cat === product
 //     //     })
 //     //     setProduct(change)
 //     // }
 
-
 //     //product detail
-//     const view = (product) => 
+//     const view = (product) =>
 //     {
 //         // Cập nhật trạng thái detail với đối tượng sản phẩm để hiển thị chi tiết sản phẩm
 //         setDetail([{...product}])
@@ -37,7 +34,7 @@
 //     }
 
 //     // add to cart
-//     const addtocart = (product) => 
+//     const addtocart = (product) =>
 //     {
 //         // Tìm kiếm sản phẩm trong giỏ hàng bằng cách sử dụng hàm find
 //         // x === item
@@ -50,22 +47,22 @@
 //         }
 
 //         // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm vào giỏ hàng với số lượng bằng 1
-//         else { 
+//         else {
 //             setCart([...cart, {...product, qty:1}])
 //         }
-//     } 
-    
+//     }
+
 //     return (
 //         <>
 //         <BrowserRouter>
 //             <Nav cart={cart}/>
 
-//             <Pages product={product} setProduct={setProduct} 
-//             detail={detail} view={view} 
-//             close={close} setClose={setClose} 
+//             <Pages product={product} setProduct={setProduct}
+//             detail={detail} view={view}
+//             close={close} setClose={setClose}
 //             cart={cart} setCart={setCart} addtocart={addtocart}
 //             />
-            
+
 //             <Footer/>
 //         </BrowserRouter>
 //         </>
@@ -74,9 +71,13 @@
 
 // export default App;
 
-
-import React, {useState} from "react";
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
 
 //page import
 import Layout from "./components/Layout/Layout.jsx";
@@ -87,10 +88,10 @@ import SiteReset from "./Site_User/Reset.js";
 import Product from "./components/NewProduct/product";
 import Home from "./components/Home/home";
 import ErrorPage from "./ErrorPage.js";
-// import AdminNav from "./components/Header/adminNav.js";
-// import AdminProduct from "./Site_Admin/AdminProduct.js";
-// import AdminUser from "./Site_Admin/AdminUser.js";
-// import AdminShop from "./Site_Admin/AdminShop.js";
+import AdminNav from "./components/Header/adminNav.js";
+import AdminProduct from "./Site_Admin/AdminProduct.js";
+import AdminUser from "./Site_Admin/AdminUser.js";
+import AdminShop from "./Site_Admin/AdminShop.js";
 
 import Oldphone from "components/OldPhone/oldphone.jsx";
 import Cart from "components/Cart/cart.jsx";
@@ -108,10 +109,10 @@ const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="/product" element={<Product />} />
-        <Route path="/oldphone" element={<Oldphone/>}></Route>
-        <Route path="/cart" element={<Cart/>}></Route>
-        <Route path="/Viewdetail/:id" element={<Viewdetails/>}></Route>
-        <Route path="/Search/:search" element={<Search/>}></Route>
+        <Route path="/oldphone" element={<Oldphone />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/Viewdetail/:id" element={<Viewdetails />}></Route>
+        <Route path="/Search/:search" element={<Search />}></Route>
         <Route path="/CheckouPage"></Route>
         <Route path="/user">
           <Route
@@ -128,11 +129,11 @@ const router = createBrowserRouter(
           />
         </Route>
       </Route>
-      {/* <Route path="/admin" element={<AdminNav />}>
+      <Route path="/admin" element={<AdminNav />}>
         <Route path="/admin/product" element={<AdminProduct />} />
         <Route path="/admin/account" element={<AdminUser />} />
         <Route path="/admin/shop" element={<AdminShop />} />
-      </Route> */}
+      </Route>
       {/* 404 page */}
       <Route path="*" element={<ErrorPage />} />
     </Route>
@@ -140,52 +141,53 @@ const router = createBrowserRouter(
 );
 
 const App = () => {
+  // add to cart
+  const [cart, setCart] = useState([]);
+  //product Detail
+  const [close, setClose] = useState(false);
+  const [detail, setDetail] = useState([]);
+  //filter product
+  //const [oldData, setOldproduct] = useState(OldphoneData)
+  const [product, setProduct] = useState([]);
+  // const searchbtn = (product) =>
+  // {
+  //     const change = Productdetail.filter((x) =>
+  //     {
+  //         return x.Cat === product
+  //     })
+  //     setProduct(change)
+  // }
 
-      // add to cart
-    const [cart, setCart] = useState([])
-    //product Detail
-    const [close, setClose] = useState(false)
-    const [detail, setDetail] = useState([])
-    //filter product
-    //const [oldData, setOldproduct] = useState(OldphoneData)
-    const [product, setProduct] = useState([])
-    // const searchbtn = (product) => 
-    // {
-    //     const change = Productdetail.filter((x) => 
-    //     {
-    //         return x.Cat === product
-    //     })
-    //     setProduct(change)
-    // }
+  //product detail
+  const view = (product) => {
+    // Cập nhật trạng thái detail với đối tượng sản phẩm để hiển thị chi tiết sản phẩm
+    setDetail([{ ...product }]);
+    // Đặt trạng thái close thành true để đóng hộp thoại chi tiết sản phẩm
+    setClose(true);
+  };
 
+  // add to cart
+  const addtocart = (product) => {
+    // Tìm kiếm sản phẩm trong giỏ hàng bằng cách sử dụng hàm find
+    // x === item
+    const exsit = cart.find((item) => {
+      return item.id === product.id;
+    });
 
-    //product detail
-    const view = (product) => 
-    {
-        // Cập nhật trạng thái detail với đối tượng sản phẩm để hiển thị chi tiết sản phẩm
-        setDetail([{...product}])
-        // Đặt trạng thái close thành true để đóng hộp thoại chi tiết sản phẩm
-        setClose(true)
+    // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng lên 1 và cập nhật giỏ hàng
+    if (exsit) {
+      setCart(
+        cart.map((item) =>
+          item.id === product.id ? { ...exsit, qty: exsit.qty + 1 } : item
+        )
+      ) && alert("Sản phẩm này đã được thêm vào giỏ hàng");
     }
 
-    // add to cart
-    const addtocart = (product) => 
-    {
-        // Tìm kiếm sản phẩm trong giỏ hàng bằng cách sử dụng hàm find
-        // x === item
-        const exsit = cart.find((item) => { return item.id === product.id });
-
-        // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng lên 1 và cập nhật giỏ hàng
-        if(exsit) {
-            setCart(cart.map((item) => (item.id === product.id ? {...exsit, qty: exsit.qty + 1} : item)))
-            && alert("Sản phẩm này đã được thêm vào giỏ hàng")
-        }
-
-        // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm vào giỏ hàng với số lượng bằng 1
-        else { 
-            setCart([...cart, {...product, qty:1}])
-        }
-    } 
+    // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm vào giỏ hàng với số lượng bằng 1
+    else {
+      setCart([...cart, { ...product, qty: 1 }]);
+    }
+  };
 
   return (
     <>

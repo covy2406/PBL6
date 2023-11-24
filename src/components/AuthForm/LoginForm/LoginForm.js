@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 // import AuthContext from "../../../context/AuthProvider";
 import AuthContext from "context/AuthProvider";
-import Login from "api/login";
+import apiAuth from "API/apiAuth";
 
 function LoginForm() {
   // define states
@@ -25,7 +25,7 @@ function LoginForm() {
     const authUser = { email: user, password: pass };
 
     try {
-      const response = await Login(authUser);
+      const response = await apiAuth.login(authUser);
       console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.access_token;
       setAuth({ user, pass, accessToken });
