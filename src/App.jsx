@@ -99,6 +99,7 @@ import Viewdetails from "components/Viewdetail/viewDetails.jsx";
 import Search from "components/Search/Search.jsx";
 
 //auth
+import RequireAuth from "components/AuthForm/requireAuth.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -114,7 +115,7 @@ const router = createBrowserRouter(
         <Route path="/Viewdetail/:id" element={<Viewdetails />}></Route>
         <Route path="/Search/:search" element={<Search />}></Route>
         <Route path="/CheckouPage"></Route>
-        <Route path="/user">
+        <Route path="/user" element={<RequireAuth />}>
           <Route
             path="/user/account/profile"
             element={<SiteUser extraProps="profile" />}
@@ -129,10 +130,12 @@ const router = createBrowserRouter(
           />
         </Route>
       </Route>
-      <Route path="/admin" element={<AdminNav />}>
-        <Route path="/admin/product" element={<AdminProduct />} />
-        <Route path="/admin/account" element={<AdminUser />} />
-        <Route path="/admin/shop" element={<AdminShop />} />
+      <Route element={<RequireAuth />}>
+        <Route path="/admin" element={<AdminNav />}>
+          <Route path="/admin/product" element={<AdminProduct />} />
+          {/* <Route path="/admin/account" element={<AdminUser />} /> */}
+          <Route path="/admin/shop" element={<AdminShop />} />
+        </Route>
       </Route>
       {/* 404 page */}
       <Route path="*" element={<ErrorPage />} />

@@ -1,7 +1,6 @@
-import axiosClient from "./axiosClient";
+import axiosClient from "./axiosClient.js";
 
 //link to api to get profile
-
 const GET_PROFILE_URL = "customers/profile";
 
 const apiCustomerProfile = {

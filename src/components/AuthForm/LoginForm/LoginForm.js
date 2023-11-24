@@ -1,19 +1,34 @@
 import React from "react";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-// import AuthContext from "../../../context/AuthProvider";
-import AuthContext from "context/AuthProvider";
+import apiCustomerProfile from "api/apiCustomerProfile";
 import apiAuth from "api/apiAuth";
+import useAuth from "hook/useAuth";
 
 function LoginForm() {
   // define states
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
 
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  useEffect(() => {
+    console.log("success", success);
+    try {
+      const fetchUser = async () => {
+        const response = await apiCustomerProfile.getProfile({
+          token: auth.access_token,
+        });
+        setAuth({ name: response.data.name });
+      };
+      fetchUser();
+    } catch (err) {
+      console.log(err);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success]);
 
   // if user is typing, clear error message
   useEffect(() => {
@@ -26,22 +41,15 @@ function LoginForm() {
 
     try {
       const response = await apiAuth.login(authUser);
-      console.log(JSON.stringify(response?.data));
-      const accessToken = response?.data?.access_token;
-      setAuth({ user, pass, accessToken });
+      setAuth({
+        customer_id: response.customer_id,
+        access_token: response.access_token,
+      });
       setUser("");
       setPass("");
       setSuccess(true);
     } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
+      console.log(err);
     }
   };
   return (

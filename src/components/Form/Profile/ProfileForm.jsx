@@ -8,11 +8,12 @@ import React, { useEffect, useState } from "react";
 //import api for customer profile
 import apiCustomerProfile from "api/apiCustomerProfile.js";
 //import useAuth hook
-import useAuth from "Hook/useAuth.js";
+import useAuth from "hook/useAuth.js";
 
 const ProfileForm = () => {
   const { auth } = useAuth();
   const [User, setUserDTB] = useState({});
+  //get user profile
   useEffect(() => {
     try {
       const fetchUser = async () => {
