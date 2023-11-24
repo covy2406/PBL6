@@ -5,6 +5,7 @@ import "./DatePicker.css";
 import "./Profile.css";
 
 import React, { useEffect, useState } from "react";
+import apiCustomerProfile from "API/apiCustomerProfile.js";
 import useAuth from "Hook/useAuth.js";
 
 //Need to add useState to change sex and birthday
@@ -21,7 +22,19 @@ const User = {
 const ProfileForm = () => {
   const { auth } = useAuth();
   const [User, setUserDTB] = useState({});
-  useEffect(() => {}, [auth.access_token]);
+  useEffect(() => {
+    try {
+      const fetchUser = async () => {
+        const response = await apiCustomerProfile.getProfile({
+          token: auth.access_token,
+        });
+        setUserDTB(response.data);
+      };
+      fetchUser();
+    } catch (err) {
+      console.log(err);
+    }
+  });
   // Masked email and phone number
   const maskedEmail =
     User.email.substring(0, 3) +
