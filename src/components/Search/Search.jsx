@@ -2,7 +2,7 @@ import { React } from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import apiSearch from "API/apiSearch";
+import apiSearch from "api/apiSearch";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";

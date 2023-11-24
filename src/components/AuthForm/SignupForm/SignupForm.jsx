@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import apiAuth from "API/apiAuth";
+import apiAuth from "api/apiAuth";
 import "../AuthForm.css";
 
 const PHONE_REGEX = /^\d{10}$/;

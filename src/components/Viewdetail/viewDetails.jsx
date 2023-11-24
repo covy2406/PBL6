@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 import { useParams } from "react-router-dom";
-import apiProductDetail from "API/apiProductDetail";
+import apiProductDetail from "api/apiProductDetail";
 //import axiosClient from 'api/axiosClient';
 
 const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {

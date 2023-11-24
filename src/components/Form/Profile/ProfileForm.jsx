@@ -5,19 +5,10 @@ import "./DatePicker.css";
 import "./Profile.css";
 
 import React, { useEffect, useState } from "react";
-import apiCustomerProfile from "API/apiCustomerProfile.js";
+//import api for customer profile
+import apiCustomerProfile from "api/apiCustomerProfile.js";
+//import useAuth hook
 import useAuth from "Hook/useAuth.js";
-
-//Need to add useState to change sex and birthday
-const User = {
-  name: "Linh",
-  email: "duylinh12102002@gmail.com",
-  phone: "0123456789",
-  sex: "Nam",
-  birthday: "12/10/2002",
-};
-//import data
-// import { User } from "../../../Data/Userdata.js";
 
 const ProfileForm = () => {
   const { auth } = useAuth();
@@ -45,7 +36,7 @@ const ProfileForm = () => {
   const [user, setUser] = useState(User.name);
   const [sex, setSex] = useState(User.sex);
 
-  const birthday = User.birthday.split("/");
+  const birthday = User.dateOfBirth.split("/");
 
   const [dayy, setDays] = useState(birthday[0]);
   const [monthh, setMonths] = useState(birthday[1]);
