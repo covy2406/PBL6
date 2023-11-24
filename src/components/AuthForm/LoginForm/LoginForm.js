@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 // import AuthContext from "../../../context/AuthProvider";
 import AuthContext from "context/AuthProvider";
-import Login from "api/login";
+import Login from "API/login";
 
 function LoginForm() {
   // define states

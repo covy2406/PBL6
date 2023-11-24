@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import './home.css';
-import apiProductHome from 'api/apiProductHome';
+import apiProductHome from 'API/apiProductHome';
 //import { toast } from 'react-toastify';
 
 
