@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import Signup from "API/signup";
+import Signup from "api/signup";
 import "../AuthForm.css";
 
 const PHONE_REGEX = /^\d{10}$/;
