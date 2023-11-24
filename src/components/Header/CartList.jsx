@@ -12,9 +12,9 @@ const CartList = ({ cart }) => {
                 <div className="header__cart-wrap">
                     <Link to="../Cart">
                         <i className="header__cart-icon"><BsCart2 /></i>
-                        <span className="header__cart-notice">
+                        {/* <span className="header__cart-notice">
                             {cart.length === 0 ? "" : cart.length}
-                        </span>
+                        </span> */}
                     </Link>
 
                     {/* <!-- No cart: header__cart-list--no-cart --> */}

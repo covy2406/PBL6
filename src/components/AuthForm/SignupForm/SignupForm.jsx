@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import Signup from "api/signup";
+import apiAuth from "api/apiAuth";
 import "../AuthForm.css";
 
 const PHONE_REGEX = /^\d{10}$/;
@@ -91,7 +91,7 @@ function SignupForm() {
 
     // send request to server
     try {
-      const res = await Signup(newAccount);
+      const res = await apiAuth.signup(newAccount);
       console.log(res);
       setSuccess(true);
       setUser("");

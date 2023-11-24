@@ -141,55 +141,14 @@ import Search from "components/Search/Search.jsx";
 
 const App = () => {
 
-  //auth
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route>
-        <Route path="login" element={<SiteLogin />}></Route>
-        <Route path="signup" element={<SiteSignup />}></Route>
-        <Route path="reset" element={<SiteReset />}></Route>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home view={view} addtocart={addtocart}/>} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/oldphone" element={<Oldphone/>}></Route>
-          <Route path="/cart" element={<Cart/>}></Route>
-          <Route path="/Viewdetail/:id" element={<Viewdetails/>}></Route>
-          <Route path="/Search/:search" element={<Search/>}></Route>
-          <Route path="/CheckouPage"></Route>
-          <Route path="/user">
-            <Route
-              path="/user/account/profile"
-              element={<SiteUser extraProps="profile" />}
-            />
-            <Route
-              path="/user/account/address"
-              element={<SiteUser extraProps="address" />}
-            />
-            <Route
-              path="/user/account/change-password"
-              element={<SiteUser extraProps="change-pass" />}
-            />
-          </Route>
-        </Route>
-        {/* <Route path="/admin" element={<AdminNav />}>
-          <Route path="/admin/product" element={<AdminProduct />} />
-          <Route path="/admin/account" element={<AdminUser />} />
-          <Route path="/admin/shop" element={<AdminShop />} />
-        </Route> */}
-        {/* 404 page */}
-        <Route path="*" element={<ErrorPage />} />
-      </Route>
-    )
-  );
-
-      // add to cart
+    // add to cart
     const [cart, setCart] = useState([])
     //product Detail
     const [close, setClose] = useState(false)
     const [detail, setDetail] = useState([])
     //filter product
     //const [oldData, setOldproduct] = useState(OldphoneData)
-    const [product, setProduct] = useState([])
+    //const [product, setProduct] = useState(productdetails)
     // const searchbtn = (product) => 
     // {
     //     const change = Productdetail.filter((x) => 
@@ -227,6 +186,49 @@ const App = () => {
             setCart([...cart, {...product, qty:1}])
         }
     } 
+
+  //auth
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route path="login" element={<SiteLogin />}></Route>
+        <Route path="signup" element={<SiteSignup />}></Route>
+        <Route path="reset" element={<SiteReset />}></Route>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home view={view} addtocart={addtocart}/>} />
+          <Route path='/product' element={<Product  view={view} addtocart={addtocart} />}></Route>
+          <Route path='/oldphone' element={<Oldphone detail={detail} view={view} close={close} setClose={setClose} cart={cart} addtocart={addtocart} />}></Route>
+          <Route path='/cart' element={<Cart cart={cart} setCart={setCart} />}></Route>
+          <Route path='/Viewdetail/:id' element={<Viewdetails addtocart={addtocart} view={view} detail={detail} close={close} setClose={setClose} />} ></Route>
+          <Route path='/CheckoutPage'></Route>
+          <Route path='/Search/:search' element={<Search view={view} detail={detail} addtocart={addtocart}></Search>}></Route>
+          <Route path="/user">
+            <Route
+              path="/user/account/profile"
+              element={<SiteUser extraProps="profile" />}
+            />
+            <Route
+              path="/user/account/address"
+              element={<SiteUser extraProps="address" />}
+            />
+            <Route
+              path="/user/account/change-password"
+              element={<SiteUser extraProps="change-pass" />}
+            />
+          </Route>
+        </Route>
+        {/* <Route path="/admin" element={<AdminNav />}>
+          <Route path="/admin/product" element={<AdminProduct />} />
+          <Route path="/admin/account" element={<AdminUser />} />
+          <Route path="/admin/shop" element={<AdminShop />} />
+        </Route> */}
+        {/* 404 page */}
+        <Route path="*" element={<ErrorPage />} />
+      </Route>
+    )
+  );
+
+    
 
   return (
     <>

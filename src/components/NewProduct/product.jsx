@@ -1,4 +1,4 @@
-import { React} from 'react';
+import { React, useEffect} from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -9,16 +9,18 @@ import { AiOutlineRight } from 'react-icons/ai';
 import { AiOutlineStar } from 'react-icons/ai';
 import { useAuth0 } from "@auth0/auth0-react";
 import BannerProducts from '../BannerProduct/BannerProducts.jsx';
-import Pagination from '../Pagination/Pagination.jsx';
+// import Pagination from '../Pagination/Pagination.jsx';
+// import Productdetail from '../Productdetail/Productdetail.jsx';
 import './product.css';
 import '../Header/nav.css';
 import '../../assets/css/base.css';
 import '../Home/home.css';
 import Category from './Category.jsx';
+import apiProductHome from 'api/apiProductHome.js';
 //import PaginationControlled from './PaginationControlled.jsx';
 //import apiBrand from 'api/apiBrand.js';
 
-const Product = ({ product, setProduct, view, addtocart }) => {
+const Product = ({ view, addtocart }) => {
 
     const { loginWithRedirect, isAuthenticated } = useAuth0();
 
@@ -29,17 +31,37 @@ const Product = ({ product, setProduct, view, addtocart }) => {
     //     _page: 1,
     // });
 
-    const [pagination, setPagination] = useState({
-        _page: 1,
-        _limit: 9,
-        _totalRows: 11
-    })
+    const [ProductNew, setProductNew] = useState([]);
+    const [error, setError] = useState(null)
 
-    const handlePageChange = (newPage) => {
-        console.log('New page: ' + newPage)
-        // setCurrentPage(pageNumber);
-        // Thực hiện truy vấn API hoặc cập nhật danh sách sản phẩm theo trang pageNumber
-    };
+    useEffect(() => {
+        const fectchProductNew = async () => {
+            try {
+                const response = await apiProductHome.getAll();
+                setProductNew(response.data);
+            }
+            catch (error) {
+                setError(error);
+            }
+        }
+        fectchProductNew();
+    },[]);
+
+    if(error) {
+        return <p>error: {error.message}</p>
+    }
+
+    // const [pagination, setPagination] = useState({
+    //     _page: 1,
+    //     _limit: 9,
+    //     _totalRows: 11
+    // })
+
+    // const handlePageChange = (newPage) => {
+    //     console.log('New page: ' + newPage)
+    //     // setCurrentPage(pageNumber);
+    //     // Thực hiện truy vấn API hoặc cập nhật danh sách sản phẩm theo trang pageNumber
+    // };
     return (
         <div className='products'>
             <div className='grid'>
@@ -51,7 +73,7 @@ const Product = ({ product, setProduct, view, addtocart }) => {
 
                 <div className='products-list'>
                     {/* BRAND CATEGORY - LỌC SẢN PHẨM THEO TÊN HÃNG VÀ GIÁ ĐIỆN THOẠI */}
-                    <Category product={product} setProduct={setProduct}/>
+                    <Category product={ProductNew} setProduct={setProductNew}/>
 
                     <div className='grid__column-10'>
                         <div className="home-filter">
@@ -89,11 +111,11 @@ const Product = ({ product, setProduct, view, addtocart }) => {
                         </div>
                         <div className='contant'>
                             {
-                                product.map((curElm) => {
+                                ProductNew.map((curElm) => {
                                     return (
                                         <div className='box' key={curElm.id}>
                                             <div className='img_box'>
-                                                <img src={curElm.Img} alt={curElm.Title}></img>
+                                                <img src={`http://0.tcp.ap.ngrok.io:12419/${curElm.image}`} alt={curElm.name}></img>
                                                 <div className='icon'>
                                                     {
                                                         isAuthenticated ?
@@ -107,11 +129,11 @@ const Product = ({ product, setProduct, view, addtocart }) => {
                                             </div>
                                             <div className='detail'>
                                                 <h4 className="home-product-item__name">
-                                                    {curElm.Title}
+                                                    {curElm.name}
                                                 </h4>
                                                 <div className="home-product-item__price">
-                                                    <span className="home-product-item__price-old">{curElm.Price_old} đ</span>
-                                                    <span className="home-product-item__price-current">{curElm.Price} đ</span>
+                                                    <span className="home-product-item__price-old"> </span>
+                                                    <span className="home-product-item__price-current">{curElm.price} đ</span>
                                                 </div>
                                                 <div className="home-product-item__action">
                                                     <div className="home-product-item__rating">
@@ -124,7 +146,7 @@ const Product = ({ product, setProduct, view, addtocart }) => {
                                                     {/* <span className="home-product-item__sold">88 đã bán</span> */}
                                                 </div>
                                                 <div className="home-product-item__origin">
-                                                    <span className="home-product-item__brand">{curElm.brand}</span>
+                                                    <span className="home-product-item__brand">{curElm.shopName}</span>
                                                     <span className="home-product-item__origin-name">{curElm.origin}</span>
                                                 </div>
                                             </div>
@@ -134,7 +156,7 @@ const Product = ({ product, setProduct, view, addtocart }) => {
                             }
                         </div>
                         {/* PHÂN TRANG: PAGINATION */}
-                        <Pagination pagination = {pagination} onPageChange={handlePageChange} />
+                        {/* <Pagination pagination = {pagination} onPageChange={handlePageChange} /> */}
                         
                     </div>
                 </div>

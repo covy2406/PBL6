@@ -1,21 +1,32 @@
 import React from "react";
 import { useState } from "react";
 import './product.css';
-import Productdetail from "./productdetail";
+//import ProductNew from "./productdetail";
 
-const Category = ({ product, setProduct }) => {
+const Category = ({ ProductNew, setProductNew }) => {
     // Hàm xử lý lọc sản phẩm:
-    const [productBrand, setBrand] = useState('all')
+    const [productBrand, setBrand] = useState('all');
+
+    // useEffect(() => {
+    //     const fetchCategory = () => {
+    //         try {
+    //             const response = await apiCategory.get(id);
+
+    //         }
+    //     };
+    //     fetchCategory();
+    // })
+
     const handleBrandchange = (event) => {
         const value = event.target.value;
         if (value === 'all') {
             setBrand('all');
-            setProduct(Productdetail);
+            setProductNew(ProductNew);
         }
         else {
             setBrand(value);
             const filtterproducts = filterProductsByBrand(value);
-            setProduct(filtterproducts);
+            setProductNew(filtterproducts);
         }
     }
 
@@ -23,23 +34,23 @@ const Category = ({ product, setProduct }) => {
     const filterProductsByBrand = (productBrand) => {
         switch (productBrand) {
             case 'SamSung':
-                return Productdetail.filter((product) => product.brand === 'SamSung');
+                return ProductNew.filter((ProductNew) => ProductNew.brand === 'SamSung');
             case 'Apple':
-                return Productdetail.filter((product) => product.brand === 'Apple');
+                return ProductNew.filter((ProductNew) => ProductNew.brand === 'Apple');
             case 'Vivo':
-                return Productdetail.filter((product) => product.brand === 'Vivo');
+                return ProductNew.filter((ProductNew) => ProductNew.brand === 'Vivo');
             case 'Nokia':
-                return Productdetail.filter((product) => product.brand === 'Nokia');
+                return ProductNew.filter((ProductNew) => ProductNew.brand === 'Nokia');
             case 'Oppo':
-                return Productdetail.filter((product) => product.brand === 'Oppo');
+                return ProductNew.filter((ProductNew) => ProductNew.brand === 'Oppo');
             case 'Realmi':
-                return Productdetail.filter((product) => product.brand === 'Realmi');
+                return ProductNew.filter((ProductNew) => ProductNew.brand === 'Realmi');
             case 'Xiaomi':
-                return Productdetail.filter((product) => product.brand === 'Xiaomi');
+                return ProductNew.filter((ProductNew) => ProductNew.brand === 'Xiaomi');
             case 'Huawei':
-                return Productdetail.filter((product) => product.brand === 'Huawei');
+                return ProductNew.filter((ProductNew) => ProductNew.brand === 'Huawei');
             default:
-                return Productdetail;
+                return ProductNew;
         }
     }
 
@@ -50,11 +61,11 @@ const Category = ({ product, setProduct }) => {
 
         if (value === 'all') {
             setPrice('all');
-            setProduct(Productdetail);
+            setProductNew(ProductNew);
         } else {
             setPrice(value);
             const filteredProducts = filterProductsByPrice(value);
-            setProduct(filteredProducts);
+            setProductNew(filteredProducts);
         }
     };
 
@@ -62,17 +73,17 @@ const Category = ({ product, setProduct }) => {
     const filterProductsByPrice = (priceRange) => {
         switch (priceRange) {
             case '0-2':
-                return Productdetail.filter((product) => product.Price <= 2000000);
+                return ProductNew.filter((ProductNew) => ProductNew.Price <= 2000000);
             case '2-4':
-                return Productdetail.filter((product) => product.Price > 2000000 && product.Price <= 4000000);
+                return ProductNew.filter((ProductNew) => ProductNew.Price > 2000000 && ProductNew.Price <= 4000000);
             case '4-7':
-                return Productdetail.filter((product) => product.Price > 4000000 && product.Price <= 7000000);
+                return ProductNew.filter((ProductNew) => ProductNew.Price > 4000000 && ProductNew.Price <= 7000000);
             case '7-13':
-                return Productdetail.filter((product) => product.Price > 7000000 && product.Price <= 13000000);
+                return ProductNew.filter((ProductNew) => ProductNew.Price > 7000000 && ProductNew.Price <= 13000000);
             case '13+':
-                return Productdetail.filter((product) => product.Price > 13000000);
+                return ProductNew.filter((ProductNew) => ProductNew.Price > 13000000);
             default:
-                return Productdetail;
+                return ProductNew;
         }
     }
 

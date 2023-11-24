@@ -16,12 +16,13 @@ import './secondHand.css';
 import BannerProducts from 'components/BannerProduct/BannerProducts';
 import CategoryOld from './CategoryOld';
 import Pagination from '../Pagination/Pagination.jsx';
+import oldPhoneData from './oldPhoneData';
 
 
 const Oldphone = ({ view, addtocart }) => {
 
     // oldData, setOldproduct,
-    const [oldData, setOldproduct] = useState([]);
+    const [oldData, setOldproduct] = useState(oldPhoneData);
 
     const { loginWithRedirect, isAuthenticated } = useAuth0();
     // const filtterproduct = (oldData) => {

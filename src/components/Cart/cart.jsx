@@ -1,13 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useState } from 'react';
 import './cart.css';
 import '../../assets/css/base.css';
 
 
 
-const Cart = ({ cart, setCart }) => {
+const Cart = () => {
     // increace qty: tăng số lượng trên cùng một mặt hàng
+    const [cart, setCart] = useState([])
     const incqty = (product) => {
         const exsit = cart.find((item) => {
             return item.id === product.id

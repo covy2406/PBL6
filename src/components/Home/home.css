@@ -212,7 +212,8 @@
 
 .home-product-item__price-current {
     font-size: 1.6rem;
-    color: var(--primary-color-rgb);
+    background-color: var(--primary-red-rgb);
+    color: var(--white-color);
     margin-left: 10px;
 }
 
