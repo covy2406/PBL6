@@ -13,7 +13,7 @@ const Category = ({ product, setProduct }) => {
             setProduct(Productdetail);
         }
         else {
-            setBrand(value);;
+            setBrand(value);
             const filtterproducts = filterProductsByBrand(value);
             setProduct(filtterproducts);
         }
