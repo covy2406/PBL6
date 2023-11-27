@@ -1,5 +1,5 @@
 import ResetForm from "../components/AuthForm/ResetForm/ResetForm";
-import Navlogin from "../components/Header/navlogin";
+import Navlogin from "../components/Header/navAuth";
 import Footer from "../components/Footer/footer";
 import "./Css/form.css";
 

@@ -12,6 +12,13 @@ const apiCustomerProfile = {
       },
     });
   },
+  updateProfile(data) {
+    return axiosClient.put(GET_PROFILE_URL, data, {
+      headers: {
+        Authorization: `Bearer ${data.token}`,
+      },
+    });
+  },
 };
 
 export default apiCustomerProfile;

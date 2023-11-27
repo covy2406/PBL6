@@ -1,0 +1,25 @@
+.navAuth {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  background-color: var(--primary-color);
+}
+.navAuth--toHome {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.navAuth--info {
+  text-decoration: none;
+  font-size: 2.5rem;
+  color: beige;
+}
+.navAuth--logo {
+  position: relative;
+  top: 1.5rem;
+  width: 17rem;
+}

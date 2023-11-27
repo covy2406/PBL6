@@ -99,7 +99,7 @@ import Viewdetails from "components/Viewdetail/viewDetails.jsx";
 import Search from "components/Search/Search.jsx";
 
 //auth
-import RequireAuth from "components/AuthForm/requireAuth.js";
+import RequireAuth from "./components/AuthForm/requireAuth.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -115,7 +115,7 @@ const router = createBrowserRouter(
         <Route path="/Viewdetail/:id" element={<Viewdetails />}></Route>
         <Route path="/Search/:search" element={<Search />}></Route>
         <Route path="/CheckouPage"></Route>
-        <Route path="/user" element={<RequireAuth />}>
+        <Route path="/user">
           <Route
             path="/user/account/profile"
             element={<SiteUser extraProps="profile" />}

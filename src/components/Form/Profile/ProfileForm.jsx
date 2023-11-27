@@ -5,20 +5,24 @@ import "./DatePicker.css";
 import "./Profile.css";
 
 import React, { useEffect, useState } from "react";
-//import api for customer profile
 import apiCustomerProfile from "api/apiCustomerProfile.js";
-//import useAuth hook
-import useAuth from "hook/useAuth.js";
+import useAuth from "../../../Hook/useAuth";
 
 const ProfileForm = () => {
   const { auth } = useAuth();
-  const [User, setUserDTB] = useState({});
+  const [User, setUserDTB] = useState({
+    name: "Linh",
+    phone: "123456789",
+    email: "duylinh@gmail.com",
+    sex: "Nam",
+    dateOfBirth: "1/1/2000",
+  });
   //get user profile
   useEffect(() => {
     try {
       const fetchUser = async () => {
         const response = await apiCustomerProfile.getProfile({
-          token: auth.access_token,
+          token: auth.access_token || "",
         });
         setUserDTB(response.data);
       };
@@ -30,7 +34,7 @@ const ProfileForm = () => {
   // Masked email and phone number
   const maskedEmail =
     User.email.substring(0, 3) +
-    "*".repeat(User.email.length - 12) +
+    "*".repeat(User.email.length - 0) +
     "@gmail.com";
   const maskedPhone = "*".repeat(8) + User.phone.substring(8, 10);
   //user

@@ -1,6 +1,6 @@
 import SignupForm from "../components/AuthForm/SignupForm/SignupForm";
 import Footer from "../components/Footer/footer";
-import Navlogin from "../components/Header/navlogin";
+import Navlogin from "../components/Header/navAuth";
 import "./Css/form.css";
 
 function SiteSignup() {

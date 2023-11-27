@@ -1,39 +1,39 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import apiCustomerProfile from "api/apiCustomerProfile";
 import apiAuth from "api/apiAuth";
-import useAuth from "hook/useAuth";
+import useAuth from "../../../Hook/useAuth";
 
 function LoginForm() {
   // define states
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-  useEffect(() => {
-    console.log("success", success);
-    try {
-      const fetchUser = async () => {
-        const response = await apiCustomerProfile.getProfile({
-          token: auth.access_token,
-        });
-        setAuth({ name: response.data.name });
-      };
-      fetchUser();
-    } catch (err) {
-      console.log(err);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [success]);
+
+  //save user info for next login
+  const [remember, setRemember] = useState(false);
 
   // if user is typing, clear error message
   useEffect(() => {
     setErrMsg("");
   }, [user, pass]);
+
+  useEffect(() => {
+    // Check if there are saved credentials in localStorage
+    const savedUser = localStorage.getItem("username");
+    const savedPass = localStorage.getItem("password");
+    const savedRemember = localStorage.getItem("remember") === "true";
+
+    if (savedRemember) {
+      setUser(savedUser || "");
+      setPass(savedPass || "");
+      setRemember(savedRemember);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +44,12 @@ function LoginForm() {
       setAuth({
         customer_id: response.customer_id,
         access_token: response.access_token,
+        isAuth: true,
       });
+      localStorage.setItem("user", user);
+      localStorage.setItem("pass", pass);
+      localStorage.setItem("remember", remember);
+
       setUser("");
       setPass("");
       setSuccess(true);
