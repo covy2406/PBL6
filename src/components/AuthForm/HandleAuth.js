@@ -9,6 +9,9 @@ export function UserData(access_token) {
     })
     .then((res) => {
       return console.log(res);
+    })
+    .catch((err) => {
+      return console.log(err);
     });
   console.log(access_token);
   console.log(response);
@@ -18,14 +21,16 @@ export function UserData(access_token) {
 //Handle Login
 export function Login(authUser, { setAuth, setUser, setPass }, navigate, from) {
   try {
-    const response = apiAuth.login(authUser);
-    console.log("login: ", response);
-    setAuth({
-      customer_id: response.customer_id,
-      access_token: response.access_token,
-      isAuth: true,
-      name: UserData(response.access_token).name,
+    const response = apiAuth.login(authUser).then((res) => {
+      setAuth({
+        customer_id: response.customer_id,
+        access_token: response.access_token,
+        isAuth: true,
+        name: UserData(response.access_token).name,
+      });
     });
+    console.log("login: ", response);
+
     setUser("");
     setPass("");
     navigate(from, { replace: true });

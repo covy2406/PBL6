@@ -6,7 +6,7 @@ import { Login } from "../HandleAuth";
 
 function LoginForm() {
   // define states
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
