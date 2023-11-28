@@ -115,7 +115,7 @@ const router = createBrowserRouter(
         <Route path="/Viewdetail/:id" element={<Viewdetails />}></Route>
         <Route path="/Search/:search" element={<Search />}></Route>
         <Route path="/CheckouPage"></Route>
-        <Route path="/user">
+        <Route path="/user" element={<RequireAuth />}>
           <Route
             path="/user/account/profile"
             element={<SiteUser extraProps="profile" />}

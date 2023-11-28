@@ -14,9 +14,10 @@
   align-items: center;
 }
 .navAuth--info {
+  background-color: var(--primary-color);
   text-decoration: none;
-  font-size: 2.5rem;
-  color: beige;
+  font-size: 2rem;
+  color: whitesmoke;
 }
 .navAuth--logo {
   position: relative;
