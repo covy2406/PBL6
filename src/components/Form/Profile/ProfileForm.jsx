@@ -4,31 +4,44 @@ import "../AccountForm.css";
 import "./DatePicker.css";
 import "./Profile.css";
 
-import React, { useState } from "react";
-
-//Need to add useState to change sex and birthday
-const User = {
-  name: "Linh",
-  email: "duylinh12102002@gmail.com",
-  phone: "0123456789",
-  sex: "Nữ",
-  birthday: "12/10/2002",
-};
-//import data
-// import { User } from "../../../Data/Userdata.js";
+import React, { useEffect, useState } from "react";
+import apiCustomerProfile from "api/apiCustomerProfile.js";
+import useAuth from "../../../Hook/useAuth";
 
 const ProfileForm = () => {
+  const { auth } = useAuth();
+  const [User, setUserDTB] = useState({
+    name: "Linh",
+    phone: "123456789",
+    email: "duylinh@gmail.com",
+    sex: "Nam",
+    dateOfBirth: "1/1/2000",
+  });
+  //get user profile
+  useEffect(() => {
+    try {
+      const fetchUser = async () => {
+        const response = await apiCustomerProfile.getProfile({
+          token: auth.access_token || "",
+        });
+        setUserDTB(response.data);
+      };
+      fetchUser();
+    } catch (err) {
+      console.log(err);
+    }
+  });
   // Masked email and phone number
   const maskedEmail =
     User.email.substring(0, 3) +
-    "*".repeat(User.email.length - 12) +
+    "*".repeat(User.email.length - 0) +
     "@gmail.com";
   const maskedPhone = "*".repeat(8) + User.phone.substring(8, 10);
   //user
   const [user, setUser] = useState(User.name);
   const [sex, setSex] = useState(User.sex);
 
-  const birthday = User.birthday.split("/");
+  const birthday = User.dateOfBirth.split("/");
 
   const [dayy, setDays] = useState(birthday[0]);
   const [monthh, setMonths] = useState(birthday[1]);

@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
@@ -16,8 +16,8 @@ const ProductHome = ({ view, addtocart }) => {
     const isAuth = true;
 
 
-    const [productList, setProductList] = useState([]);
-    const [error, setError] = useState(null);
+  const [productList, setProductList] = useState([]);
+  const [error, setError] = useState(null);
 
     // const [cartHome, setCartHome] = useState([]);
     // const {id} = useParams();
@@ -37,9 +37,9 @@ const ProductHome = ({ view, addtocart }) => {
     }, []);
     console.log(productList)
 
-    if (error) {
-        return <p>Error: {error.message}</p>
-    }
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
     
     // // call api addtocart

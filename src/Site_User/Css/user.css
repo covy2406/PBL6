@@ -1,12 +1,18 @@
 .siteuser {
-  height: 60vh;
-  width: 100vw;
+  display: flex;
+  position: relative;
+  height: 50vh;
+  margin: 5rem;
 }
 .siteuser__nav {
+  position: absolute;
+  top: 5vh;
+  left: 20vw;
   width: fit-content;
-  height: fit-content;
 }
 .siteuser__forms {
+  position: absolute;
+  left: 30vw;
   background-color: #f5f5f5;
 
   width: fit-content;

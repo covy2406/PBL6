@@ -6,7 +6,15 @@ const GET_PROFILE_URL = "customers/profile";
 
 const apiCustomerProfile = {
   getProfile(data) {
-    return axiosClient.get(GET_PROFILE_URL, {
+    const response = axiosClient.get(GET_PROFILE_URL, {
+      headers: {
+        Authorization: `Bearer ${data.token}`,
+      },
+    });
+    return response;
+  },
+  updateProfile(data) {
+    return axiosClient.put(GET_PROFILE_URL, data, {
       headers: {
         Authorization: `Bearer ${data.token}`,
       },
