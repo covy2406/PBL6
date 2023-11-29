@@ -8,8 +8,10 @@ import "./Css/user.css";
 
 function SiteUser({ extraProps = "profile" }) {
   return (
-    <div className="siteuser siteuser__nav">
-      <UserNav></UserNav>
+    <div className="siteuser">
+      <div className="siteuser__nav">
+        <UserNav></UserNav>
+      </div>
       <div className="siteuser__forms">
         {extraProps === "profile" ? (
           <ProfileForm></ProfileForm>
