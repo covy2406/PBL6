@@ -31,7 +31,7 @@ const CartList = ({ cart }) => {
                                 cart.map((curElm) => {
                                     return (
                                         <li className="header__cart-item" key={curElm.id}  >
-                                            <img src={`http://0.tcp.ap.ngrok.io:17403/${curElm.image}`} alt={curElm.name} className="header__cart-img"></img>
+                                            <img src={`http://0.tcp.ap.ngrok.io:19912/${curElm.image}`} alt={curElm.name} className="header__cart-img"></img>
                                             <div className="header__cart-item-info">
                                                 <div className="header__cart-item-head">
                                                     <h5 className="header__cart-item-name">{curElm.name}</h5>

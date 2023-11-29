@@ -15,20 +15,6 @@ import apiProductDetail from 'api/apiProductDetail';;
 const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
     // CALL API PRODUCT DETAIL
     const [productDetail, setProductDetail] = useState([]);
-//     const { id } = useParams(); // Sử dụng useParams để lấy giá trị ID từ URL
-
-//     console.log();
-//   useEffect(() => {
-//     // Gọi API để lấy chi tiết sản phẩm dựa trên ID
-//     axios.get(`http://0.tcp.ap.ngrok.io:17403/api/getdetailshop_product/${id}`)
-//       .then(response => {
-//         // Xử lý dữ liệu trả về từ API
-//         setProductDetail(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching product details:', error);
-//       });
-//   }, [id]); // Thêm id vào mảng dependencies để useEffect chạy khi id thay đổi
 
     const {id} = useParams();
 
@@ -45,11 +31,13 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
         }
         fetchProuductDetail();
     }, [id]);
+
     console.log(productDetail)
 
     if (error) {
         return <p>Erorr: {error.message}</p>
     }
+    
     return (
         <>
             {
@@ -58,9 +46,6 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
                         <div className='product_detail'>
                             <div className='container'>
                                 <button onClick={() => setClose(false)} className='closebtn'><AiOutlineCloseCircle /></button>
-
-                                
-
                                 {
                                     productDetail.map((item) => {
                                         return (
@@ -89,20 +74,59 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
                                                         </thead>
                                                         <tbody className='table__head-body'>
                                                             <tr>
+                                                                <td>Name</td>
                                                                 <td>{item.name}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Color</td>
                                                                 <td>{item.color}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Camera trước</td>
                                                                 <td>{item.forwardCameras}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Camera sau</td>
                                                                 <td>{item.backwardCameras}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Loại sản phẩm</td>
                                                                 <td>{item.isNew}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Bộ nhớ</td>
                                                                 <td>{item.memoryStorage}</td>
-                                                                <td>{item.VAT}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Màn hình</td>
                                                                 <td>{item.screen}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>CPU</td>
                                                                 <td>{item.CPU}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Ram</td>
                                                                 <td>{item.RAM}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Xu hướng</td>
                                                                 <td>{item.isTrending}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Thông tin chi tiết</td>
                                                                 <td>{item.details}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Trạng thái</td>
                                                                 <td>{item.status}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Sim</td>
                                                                 <td>{item.sim}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Dung lượng pin</td>
                                                                 <td>{item.battery}</td>
                                                             </tr>
                                                         </tbody>
@@ -158,6 +182,9 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
                                     })
                                 }
                                 {/* <div className='productbox'></div> */}
+                            </div>
+                            <div container__comment>
+
                             </div>
                         </div>
                     </div> : null

@@ -5,9 +5,11 @@ import { Link, NavLink } from "react-router-dom";
 import AuthContext from "context/AuthProvider";
 import apiAuth from "api/apiAuth";
 
+import { setHeaderConfigAxios } from "api/axiosClient";
+
 function LoginForm() {
   // define states
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, addTocart } = useContext(AuthContext);
 
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
@@ -28,6 +30,7 @@ function LoginForm() {
       const response = await apiAuth.login(authUser);
       console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.access_token;
+      setHeaderConfigAxios(accessToken)
       setAuth({ user, pass, accessToken });
       setUser("");
       setPass("");

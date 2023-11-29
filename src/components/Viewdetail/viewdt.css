@@ -89,6 +89,7 @@
     color: #010f1c;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: 20px;
 }
 
 .product_detail .container .productbox .detail p {
@@ -119,4 +120,24 @@
 .product_detail .container .productbox .detail button:hover {
     background-color: var(--primary-color);
     color: var(--white-color);
+}
+
+
+/* TABLE CHI TIẾT SẢN PHẨM */
+
+.detail-table {
+    width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  behavior: scroll;
+}
+
+.table__head-title th, .table__head-body td {
+    border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table__head-title th {
+    background-color: #f2f2f2;
 }

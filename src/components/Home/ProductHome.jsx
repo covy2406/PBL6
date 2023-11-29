@@ -5,21 +5,26 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import './home.css';
 import apiProductHome from 'api/apiProductHome';
+// import apiAddToCart from 'api/apiAddToCart';
+// import { useParams } from 'react-router-dom';
 //import { toast } from 'react-toastify';
 
 
 
-const ProductHome = ({ view, addtocart, detail }) => {
-    const { loginWithRedirect, isAuthenticated } = useAuth0();
+const ProductHome = ({ view, addtocart }) => {
+    const { loginWithRedirect} = useAuth0();
+    const isAuth = true;
+
 
     const [productList, setProductList] = useState([]);
     const [error, setError] = useState(null);
 
+    // const [cartHome, setCartHome] = useState([]);
+    // const {id} = useParams();
+
     useEffect(() => {
         const fetchProductHome = async () => {
             try {
-                //const response = await axiosClient.get('/getall/shop_products');
-                //const response = await axios.get('https://e059-171-225-185-98.ngrok-free.app/api/shop_products');
                 const response = await apiProductHome.getAll();
                 setProductList(response.data)
     
@@ -35,7 +40,49 @@ const ProductHome = ({ view, addtocart, detail }) => {
     if (error) {
         return <p>Error: {error.message}</p>
     }
+
     
+    // // call api addtocart
+    // const addtocart = async (productId) => {
+    //     try {
+    //         const response = await apiAddToCart.add(id);
+    //         //setCartHome(response.productId, response.data)
+
+    //         if(response.statusCode === 200) {
+    //             // Lấy thông tin chi tiết sản phẩm từ dữ liệu phản hồi
+    //             const productDetail = response.data;
+
+    //             // sau đó, thêm sản phẩm vào giỏ hàng với thông tin chi tiết
+    //             handleAddToCart(productDetail);
+    //         }
+    //         else {
+    //             throw new Error('Thêm sản phẩm vào giỏ hàng thất bại')
+    //         }
+    //     }
+    //     catch (error) {
+    //         setError(error);
+    //     }
+    // };
+    
+    // // Hàm xử lý thêm sản phẩm vào giỏ hàng
+    // const handleAddToCart = (productList) => {
+    //     const exist = cartHome.find((item) => item.id === productList.id);
+        
+    //     if(exist) {
+    //         // nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng sản phẩm lên 1 và cập nhật lại giỏ hàng
+    //         setCartHome(
+    //             cartHome.map((item) => {
+    //                 return item.id === productList.id ? {...exist, qty: exist.qty + 1} : item;
+    //             })
+    //         );
+    //         alert('Sản phẩm này đã được thêm vào giỏ hàng')
+    //     }
+    //     else {
+    //         // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
+    //         setCartHome([...cartHome], {...productList, qty: 1});
+    //     }
+    // }
+
     return (
         <div className='container'>
             {/* <p >{productList}</p> */}
@@ -47,16 +94,14 @@ const ProductHome = ({ view, addtocart, detail }) => {
                             <div className='box' key={curElm.id}>
                                 <div className='img_box'>
                                     {/* {`http://localhost:8000${curElm.image}`} */}
-                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:12419/${curElm.image}`} alt={curElm.name}></img>
+                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:19912/${curElm.image}`} alt={curElm.name}></img>
                                     <div className='icon'>
                                         {
-                                            isAuthenticated ?
-                                                <li onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></li>
+                                            isAuth ?
+                                                <li onClick={() => addtocart(curElm.id)}><AiOutlineShoppingCart /></li>
                                                 :
                                                 <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
                                         }
-                                        {/* {`../Viewdetail/${curElm.id}`} */}
-                                        {/* <Link to={`../Viewdetail/${curElm.id}`}><BsEye /></Link> */}
                                         <li className='icon__link' onClick={() => view(curElm.id)}><Link to={`../Viewdetail/${curElm.id}`}><BsEye /></Link></li>
                                     </div>
                                 </div>
@@ -65,7 +110,7 @@ const ProductHome = ({ view, addtocart, detail }) => {
                                         {curElm.name}
                                     </h4>
                                     <div className="home-product-item__description">
-                                        {curElm.details}
+                                        {curElm.detail}
                                     </div>
                                     <div className="home-product-item__price">
                                         <span className="home-product-item__price-old"></span>
@@ -93,10 +138,7 @@ const ProductHome = ({ view, addtocart, detail }) => {
                         <p >{productList}</p>
                     </>
             }
-
         </div>
     )
 }
-
-
 export default ProductHome;

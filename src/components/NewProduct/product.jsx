@@ -20,7 +20,7 @@ import apiProductHome from 'api/apiProductHome.js';
 //import PaginationControlled from './PaginationControlled.jsx';
 //import apiBrand from 'api/apiBrand.js';
 
-const Product = ({ view, addtocart }) => {
+const Product = ({ view, addtocart, detail, setDetail, close, setClose }) => {
 
     const { loginWithRedirect, isAuthenticated } = useAuth0();
 
@@ -50,6 +50,14 @@ const Product = ({ view, addtocart }) => {
     if(error) {
         return <p>error: {error.message}</p>
     }
+
+    // const viewProductNew = (ProductNew) => 
+    // {
+    //     // Cập nhật trạng thái detail với đối tượng sản phẩm để hiển thị chi tiết sản phẩm
+    //     setDetail([{...ProductNew}])
+    //     // Đặt trạng thái close thành true để đóng hộp thoại chi tiết sản phẩm
+    //     setClose(true)
+    // }
 
     // const [pagination, setPagination] = useState({
     //     _page: 1,
@@ -115,7 +123,7 @@ const Product = ({ view, addtocart }) => {
                                     return (
                                         <div className='box' key={curElm.id}>
                                             <div className='img_box'>
-                                                <img src={`http://0.tcp.ap.ngrok.io:12419/${curElm.image}`} alt={curElm.name}></img>
+                                                <img src={`http://0.tcp.ap.ngrok.io:19912/${curElm.image}`} alt={curElm.name}></img>
                                                 <div className='icon'>
                                                     {
                                                         isAuthenticated ?
@@ -123,7 +131,7 @@ const Product = ({ view, addtocart }) => {
                                                             :
                                                             <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart /></li>
                                                     }
-                                                    <li className='icon__link' onClick={() => view(curElm)}><Link to='../Viewdetail'><BsEye /></Link></li>
+                                                    <li className='icon__link' onClick={() => view(curElm)}><Link to={`../Viewdetail/${curElm.id}`}><BsEye /></Link></li>
                                                     {/* <li><AiOutlineHeart /></li> */}
                                                 </div>
                                             </div>

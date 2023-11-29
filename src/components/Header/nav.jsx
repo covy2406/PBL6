@@ -61,6 +61,7 @@ const Nav = ({ cart, handleSearchChange, handleSearchSubmit, searchTerm, searchb
                             </li>
                         </ul> */}
 
+                        {/* NAV INFO THÔNG TIN TÀI KHOẢN */}
                         <Navinfo />
 
                         <ul className="header__navbar-list ">
@@ -170,7 +171,7 @@ const Nav = ({ cart, handleSearchChange, handleSearchSubmit, searchTerm, searchb
                                         </span>
                                         <ul className="header__navbar-user-menu">
                                             <li className="header__navbar-user-item">
-                                                <Link to="/">Tài khoản của tôi</Link>
+                                                <Link to="/user/account/profile">Tài khoản của tôi</Link>
                                             </li>
                                             <li className="header__navbar-user-item">
                                                 <Link to="/">Địa chỉ của tôi</Link>
