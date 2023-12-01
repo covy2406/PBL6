@@ -17,20 +17,24 @@ export function UserData(access_token) {
   console.log(response);
   return response;
 }
-
+// vcl
 //Handle Login
 export function Login(authUser, { setAuth, setUser, setPass }, navigate, from) {
   try {
     const response = apiAuth.login(authUser).then((res) => {
-      setAuth({
-        customer_id: response.customer_id,
-        access_token: response.access_token,
-        isAuth: true,
-        name: UserData(response.access_token).name,
-      });
+      if(res && res.status === 200) {
+        console.log("resssssss", res);
+        setAuth({
+          customer_id: res.data.customer_id,
+          access_token: res.data.access_token,
+          isAuth: true,
+          name: UserData(res.data.access_token).name,
+        });
+        localStorage.setItem("access_token", res.data.access_token);
+      }
+      
     });
-    console.log("login: ", response);
-
+    console.log(response);
     setUser("");
     setPass("");
     navigate(from, { replace: true });

@@ -8,10 +8,9 @@ export const AuthProvider = ({ children }) => {
     customer_id: "",
     access_token: "", //empty string instead of null to avoid errors
     name: "test tên trong file AuthProvider.js",
-    isAuth: false, //set this to true if server not working to see the UI
+    isAuth: true, //set this to true if server not working to see the UI
   });
 
-  
   const contextData = {
     auth, setAuth,
   }

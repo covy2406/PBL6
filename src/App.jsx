@@ -33,48 +33,6 @@ import apiAddToCart from 'api/apiAddToCart';
 //auth
 import RequireAuth from "./components/AuthForm/requireAuth.jsx";
 
-// const router = createBrowserRouter(
-//     createRoutesFromElements(
-//         <Route>
-//             <Route path="login" element={<SiteLogin />}></Route>
-//             <Route path="signup" element={<SiteSignup />}></Route>
-//             <Route path="reset" element={<SiteReset />}></Route>
-//             <Route path="/" element={<Layout />}>
-//                 <Route index element={<Home />} />
-//                 <Route path="/product" element={<Product />} />
-//                 <Route path="/oldphone" element={<Oldphone />}></Route>
-//                 <Route path="/cart" element={<Cart />}></Route>
-//                 <Route path="/Viewdetail/:id" element={<Viewdetails />}></Route>
-//                 <Route path="/Search/:search" element={<Search />}></Route>
-//                 <Route path="/CheckouPage"></Route>
-//                 <Route path="/user" element={<RequireAuth />}>
-//                     <Route
-//                         path="/user/account/profile"
-//                         element={<SiteUser extraProps="profile" />}
-//                     />
-//                     <Route
-//                         path="/user/account/address"
-//                         element={<SiteUser extraProps="address" />}
-//                     />
-//                     <Route
-//                         path="/user/account/change-password"
-//                         element={<SiteUser extraProps="change-pass" />}
-//                     />
-//                 </Route>
-//             </Route>
-//             <Route element={<RequireAuth />}>
-//                 <Route path="/admin" element={<AdminNav />}>
-//                     <Route path="/admin/product" element={<AdminProduct />} />
-//                     {/* <Route path="/admin/account" element={<AdminUser />} /> */}
-//                     <Route path="/admin/shop" element={<AdminShop />} />
-//                 </Route>
-//             </Route>
-//             {/* 404 page */}
-//             <Route path="*" element={<ErrorPage />} />
-//         </Route>
-//     )
-// );
-
 const App = () => {
     // add to cart
     const [cart, setCart] = useState([]);
@@ -101,28 +59,29 @@ const App = () => {
         setClose(true)
     }
 
-
+// sao mã lỗi 200 thế kia, mà lại sai
     // call api addtocart
-    const addtocart = async (productId) => {
+    const addtocart = async (productId, quantity, data) => {
         try {
             console.log(productId);
-            const response = await apiAddToCart.add(productId);
-            setCart(response.productId, response.data)
-
-            if (response.statusCode === 200) {
+            const response = await apiAddToCart.add(productId, quantity,);
+            console.log("response add to cart", response);
+            setCart( response.data)
+            if (response.status === 200) { 
                 // Lấy thông tin chi tiết sản phẩm từ dữ liệu phản hồi
                 const productDetail = response.data;
-
+                console.log(productDetail);
+                alert('Thêm sản phẩm vào giỏ hàng thanh cong');
                 // sau đó, thêm sản phẩm vào giỏ hàng với thông tin chi tiết
                 handleAddToCart(productDetail);
             }
             else {
-                throw new Error('Thêm sản phẩm vào giỏ hàng thất bại')
-                && alert('Thêm sản phẩm vào giỏ hàng thất bại')
+                throw new Error('Thêm sản phẩm vào giỏ hàng thất bại');
             }
+            //alert('Thêm sản phẩm vào giỏ hàng thất bại');
         }
         catch (error) {
-            console.error('Lỗi không thể thêm sản phẩm vào giỏ hàng: ', error);
+            console.error( error);
         }
     };
 

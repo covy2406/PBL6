@@ -34,6 +34,7 @@ const Nav = ({
 
     useEffect(() => {
         setCurrentPath(location.pathname);
+        console.log(auth.name);
     }, [location]);
 
     const handdleLogout = (e) => {
@@ -53,34 +54,7 @@ const Nav = ({
             <div className="header">
                 <div className="grid">
                     <nav className="header__navbar">
-                        {/* <ul className="header__navbar-list">
-                            <li className="header__navbar-item header__navbar-item--separate">Kênh người bán</li>
-                            <li className="header__navbar-item header__navbar-item--separate">Trở thành người bán hàng</li>
-                            <li className="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
-                                Vào cửa hàng trên ứng dụng shop
-                                
-                                <div className="header__qr">
-                                    <img src="./img/qrcode.png" alt="QRcode" className="header__qr-img"></img>
-                                    <div className="header__qr-apps">
-                                        <div className="header__qr-link">
-                                            <img src="./img/google_play_logo.png" alt="google play" className="header__qr-dowload-img"></img>
-                                        </div>
-                                        <div className="header__qr-link">
-                                            <img src="./img/apple_logo.png" alt="app store" className="header__qr-dowload-img"></img>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className="header__navbar-item"><span className="header__navbar-item--connect">Kết nối</span></li>
-                            <li className="header__navbar-item">
-                                <Link to="/" className="header__navbar-item-link"><i className="header__navbar-icon"><BsFacebook /></i></Link>
-
-                            </li>
-                            <li className="header__navbar-item">
-                                <Link to="/" className="header__navbar-item-link" ><i className="header__navbar-icon"><BiLogoInstagramAlt /></i></Link>
-
-                            </li>
-                        </ul> */}
+                        
                         <Navinfo />
 
                         <ul className="header__navbar-list ">
@@ -98,71 +72,6 @@ const Nav = ({
                                     </header>
                                     <ul className="header__notify-list">
                                         <li className="header__notify-item header__notify-item--viewed">
-                                            <Link to="/" className="header__notify-link">
-                                                <img
-                                                    src="./img/dienthoai.jpg"
-                                                    alt=""
-                                                    className="header__notify-img"></img>
-                                                <div className="header__notify-info">
-                                                    <span className="header__notify-name">
-                                                        Xác thực chính hãng nguồn gốc sản phẩm Ohui
-                                                    </span>
-                                                    <span className="header__notify-description">
-                                                        Xác thực chính xác nguồn gốc sản phẩm Ohui
-                                                    </span>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                        <li className="header__notify-item">
-                                            <Link to="/" className="header__notify-link">
-                                                <img
-                                                    src="./img/dienthoai.jpg"
-                                                    alt=""
-                                                    className="header__notify-img"></img>
-                                                <div className="header__notify-info">
-                                                    <span className="header__notify-name">
-                                                        Dòng sản phẩm chăm sóc da cao cấp của Ohui luôn mang
-                                                        lại chất lượng tin dùng trong hơn 30 năm qua
-                                                    </span>
-                                                    <span className="header__notify-description">
-                                                        Xác thực chính xác nguồn gốc sản phẩm Ohui
-                                                    </span>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                        <li className="header__notify-item">
-                                            <Link to="/" className="header__notify-link">
-                                                <img
-                                                    src="./img/dienthoai.jpg"
-                                                    alt=""
-                                                    className="header__notify-img"></img>
-                                                <div className="header__notify-info">
-                                                    <span className="header__notify-name">
-                                                        Xác thực chính hãng nguồn gốc sản phẩm Ohui
-                                                    </span>
-                                                    <span className="header__notify-description">
-                                                        Xác thực chính xác nguồn gốc sản phẩm Ohui
-                                                    </span>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                        <li className="header__notify-item">
-                                            <Link to="/" className="header__notify-link">
-                                                <img
-                                                    src="./img/dienthoai.jpg"
-                                                    alt=""
-                                                    className="header__notify-img"></img>
-                                                <div className="header__notify-info">
-                                                    <span className="header__notify-name">
-                                                        Xác thực chính hãng nguồn gốc sản phẩm Ohui
-                                                    </span>
-                                                    <span className="header__notify-description">
-                                                        Xác thực chính xác nguồn gốc sản phẩm Ohui
-                                                    </span>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                        <li className="header__notify-item">
                                             <Link to="/" className="header__notify-link">
                                                 <img
                                                     src="./img/dienthoai.jpg"
@@ -316,24 +225,32 @@ const Nav = ({
                 </div>
             </div>
 
-            <div className="nav__home">
-                <ul className="nav__home-list">
-                    <li className="nav__home-item">
-                        <Link to="/" className={`nav__home-item-link ${currentPath === '/' ? 'active' : ''}`}>Home</Link>
-                    </li>
-                    <li className="nav__home-item">
-                        <Link to="/product" className={`nav__home-item-link ${currentPath === '/product' ? 'active' : ''}`}>Product</Link>
-                    </li>
-                    <li className="nav__home-item">
-                        <Link to="/oldphone" className={`nav__home-item-link ${currentPath === '/oldphone' ? 'active' : ''}`}>Old Phone</Link>
-                    </li>
-                    <li className="nav__home-item">
-                        <Link to="/contact" className={`nav__home-item-link ${currentPath === '/contact' ? 'active' : ''}`}>Contact</Link>
-                    </li>
-                </ul>
+            {/* PHẦN MENU THANH CHỌN DI CHUYỂN GIỮA CÁC PAGE */}
+            <div className="header__menu">
+                <div className="grid">
+                    <div className="header__menu_container">
+
+                        <div className="nav__home">
+                            <ul className="nav__home-list">
+                                <li className="nav__home-item">
+                                    <Link to="/" className={`nav__home-item-link ${currentPath === '/' ? 'active' : ''}`}>Home</Link>
+                                </li>
+                                <li className="nav__home-item">
+                                    <Link to="/product" className={`nav__home-item-link ${currentPath === '/product' ? 'active' : ''}`}>Product</Link>
+                                </li>
+                                <li className="nav__home-item">
+                                    <Link to="/oldphone" className={`nav__home-item-link ${currentPath === '/oldphone' ? 'active' : ''}`}>Old Phone</Link>
+                                </li>
+                                <li className="nav__home-item">
+                                    <Link to="/contact" className={`nav__home-item-link ${currentPath === '/contact' ? 'active' : ''}`}>Contact</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
-  );
+    );
 };
 
 export default Nav;

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../../Hook/useAuth";
 import { Login } from "../HandleAuth";
+import apiAuth from "api/apiAuth";
+import axiosClient from "api/axiosClient";
 
 function LoginForm() {
   // define states
@@ -42,7 +44,18 @@ function LoginForm() {
       window.localStorage.setItem("pass", pass);
       window.localStorage.setItem("isLoggedIn", remember);
     }
-    Login(authUser, { setAuth, setUser, setPass }, navigate, from);
+    try {
+      const response = await axiosClient.post("customers/login", {
+        email: user,
+        password: pass,
+      });
+      console.log("login: ", response);
+      setUser("");
+      setPass("");
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.log("err: " + err);
+    }
   };
   return (
     <div>

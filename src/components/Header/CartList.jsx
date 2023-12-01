@@ -64,11 +64,11 @@ const CartList = ({ cart }) => {
                     </div>
                 </div>
             </div>
-            <Link
+            {/* <Link
                 to="../Cart"
                 className="header__cart-view-cart btn btn--primary">
                 Xem giỏ hàng
-            </Link>
+            </Link> */}
         </>
     );
 };

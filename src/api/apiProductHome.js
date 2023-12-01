@@ -1,11 +1,9 @@
 import axiosClient from "./axiosClient.js";
-//import {useState, useEffect} from 'react'
-
 
 const apiProductHome = {
     // lấy tất cả
     getAll() {
-        const url = '/getall/shop_products';
+        const url = '/getall/shop_products ';
         return axiosClient.get(url);
     },
 
@@ -32,12 +30,5 @@ const apiProductHome = {
         return axiosClient.delete(url);
     }
 }
-
-
-// 
-// export const getAllProducts = () => {
-//     return axiosClient.get('/products')
-// }
-
 
 export default apiProductHome;

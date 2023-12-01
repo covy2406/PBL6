@@ -15,9 +15,13 @@ const ProductHome = ({ view, addtocart }) => {
     const { loginWithRedirect} = useAuth0();
     const isAuth = true;
 
+    // const formattedPrice = new Intl.NumberFormat('vi-VN', {
+    //     style: 'currency',
+    //     currency: 'VND',
+    // }).format(price);
 
-  const [productList, setProductList] = useState([]);
-  const [error, setError] = useState(null);
+    const [productList, setProductList] = useState([]);
+    const [error, setError] = useState(null);
 
     // const [cartHome, setCartHome] = useState([]);
     // const {id} = useParams();
@@ -41,48 +45,6 @@ const ProductHome = ({ view, addtocart }) => {
     return <p>Error: {error.message}</p>;
   }
 
-    
-    // // call api addtocart
-    // const addtocart = async (productId) => {
-    //     try {
-    //         const response = await apiAddToCart.add(id);
-    //         //setCartHome(response.productId, response.data)
-
-    //         if(response.statusCode === 200) {
-    //             // Lấy thông tin chi tiết sản phẩm từ dữ liệu phản hồi
-    //             const productDetail = response.data;
-
-    //             // sau đó, thêm sản phẩm vào giỏ hàng với thông tin chi tiết
-    //             handleAddToCart(productDetail);
-    //         }
-    //         else {
-    //             throw new Error('Thêm sản phẩm vào giỏ hàng thất bại')
-    //         }
-    //     }
-    //     catch (error) {
-    //         setError(error);
-    //     }
-    // };
-    
-    // // Hàm xử lý thêm sản phẩm vào giỏ hàng
-    // const handleAddToCart = (productList) => {
-    //     const exist = cartHome.find((item) => item.id === productList.id);
-        
-    //     if(exist) {
-    //         // nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng sản phẩm lên 1 và cập nhật lại giỏ hàng
-    //         setCartHome(
-    //             cartHome.map((item) => {
-    //                 return item.id === productList.id ? {...exist, qty: exist.qty + 1} : item;
-    //             })
-    //         );
-    //         alert('Sản phẩm này đã được thêm vào giỏ hàng')
-    //     }
-    //     else {
-    //         // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
-    //         setCartHome([...cartHome], {...productList, qty: 1});
-    //     }
-    // }
-
     return (
         <div className='container'>
             {/* <p >{productList}</p> */}
@@ -98,7 +60,7 @@ const ProductHome = ({ view, addtocart }) => {
                                     <div className='icon'>
                                         {
                                             isAuth ?
-                                                <li onClick={() => addtocart(curElm.id)}><AiOutlineShoppingCart /></li>
+                                                <li onClick={() => addtocart(curElm.id) }><AiOutlineShoppingCart /></li>
                                                 :
                                                 <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
                                         }

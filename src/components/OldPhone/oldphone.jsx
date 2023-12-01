@@ -25,47 +25,6 @@ const Oldphone = ({ view, addtocart }) => {
     const [oldData, setOldproduct] = useState(oldPhoneData);
 
     const { loginWithRedirect, isAuthenticated } = useAuth0();
-    // const filtterproduct = (oldData) => {
-    //     const update = oldphoneData.filter((x) => {
-    //         return x.Cat === oldData;
-    //     })
-    //     setOldproduct(update);
-    // }
-    // const AllProducts = () => {
-    //     setOldproduct(oldphoneData)
-    // }
-
-    // const [priceRange, setPrice] = useState('all');
-    // const handlePriceChange = (event) => {
-    //     const value = event.target.value;
-
-    //     if (value === 'all') {
-    //         setPrice('all');
-    //         setOldproduct(oldphoneData);
-    //     } else {
-    //         setPrice(value);
-    //         const filteredProducts = filterProductsByPrice(value);
-    //         setOldproduct(filteredProducts);
-    //     }
-    // };
-
-    // // Hàm lọc sản phẩm theo mức giá:
-    // const filterProductsByPrice = (priceRange) => {
-    //     switch (priceRange) {
-    //         case '0-2':
-    //             return oldphoneData.filter((product) => product.price <= 2000000);
-    //         case '2-4':
-    //             return oldphoneData.filter((product) => product.price > 2000000 && product.price <= 4000000);
-    //         case '4-7':
-    //             return oldphoneData.filter((product) => product.price > 4000000 && product.price <= 7000000);
-    //         case '7-13':
-    //             return oldphoneData.filter((product) => product.price > 7000000 && product.price <= 13000000);
-    //         case '13+':
-    //             return oldphoneData.filter((product) => product.price > 13000000);
-    //         default:
-    //             return oldphoneData;
-    //     }
-    // }
 
     const [pagination, setPagination] = useState({
         _page: 1,
