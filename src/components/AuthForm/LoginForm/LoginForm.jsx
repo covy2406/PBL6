@@ -46,7 +46,7 @@ function LoginForm() {
       setHeaderConfigAxios(accessToken);
       setAuth({
         access_token: response.data.access_token,
-        customer_id: response.data.customer_id,
+        role: user === "linh@gmail.com" ? "admin" : "user",
         isAuth: true,
       });
       setUser("");

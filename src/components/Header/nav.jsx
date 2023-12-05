@@ -204,27 +204,6 @@ const Nav = ({
               {/* <!-- <li className="header__navbar-item header__navbar-item--bold header__navbar-item--separate">Đăng ký</li>
                     <li className="header__navbar-item header__navbar-item--bold">Đăng nhập</li> --> */}
               {isAuth ? (
-                <Link
-                  to="/user/account/profile"
-                  className="header__navbar-item-link">
-                  <i className="header__navbar-icon-right fa-regular fa-circle-question"></i>
-                  Tài khoản
-                </Link>
-              ) : (
-                <ul className="header__navbar-item">
-                  <a
-                    href="/signup"
-                    className="header__navbar-item header__navbar-item--bold header__navbar-item--separate">
-                    Đăng ký
-                  </a>
-                  <Link
-                    to="/login"
-                    className="header__navbar-item header__navbar-item--bold">
-                    Đăng nhập
-                  </Link>
-                </ul>
-              )}
-              {isAuth && (
                 <li className="header__navbar-item header__navbar-user">
                   <img
                     src="./img/dienthoai.jpg"
@@ -237,6 +216,11 @@ const Nav = ({
                     <li className="header__navbar-user-item">
                       <Link to="/user/account/profile">Tài khoản của tôi</Link>
                     </li>
+                    {auth.role === "admin" ? (
+                      <li className="header__navbar-user-item">
+                        <Link to="/admin/product">Trang admin</Link>
+                      </li>
+                    ) : null}
                     <li className="header__navbar-user-item">
                       <Link to="/">Địa chỉ của tôi</Link>
                     </li>
@@ -250,6 +234,19 @@ const Nav = ({
                     </li>
                   </ul>
                 </li>
+              ) : (
+                <ul className="header__navbar-item">
+                  <a
+                    href="/signup"
+                    className="header__navbar-item header__navbar-item--bold header__navbar-item--separate">
+                    Đăng ký
+                  </a>
+                  <Link
+                    to="/login"
+                    className="header__navbar-item header__navbar-item--bold">
+                    Đăng nhập
+                  </Link>
+                </ul>
               )}
             </ul>
           </nav>

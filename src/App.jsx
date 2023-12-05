@@ -88,10 +88,10 @@ import SiteReset from "./Site_User/Reset.jsx";
 import Product from "./components/NewProduct/product";
 import Home from "./components/Home/home";
 import ErrorPage from "./ErrorPage.jsx";
-// import AdminNav from "./components/Header/adminNav.js";
-// import AdminProduct from "./Site_Admin/AdminProduct.js";
-// import AdminUser from "./Site_Admin/AdminUser.js";
-// import AdminShop from "./Site_Admin/AdminShop.js";
+import AdminNav from "./components/Header/adminNav.jsx";
+import AdminProduct from "./Site_Admin/AdminProduct.jsx";
+import AdminUser from "./Site_Admin/AdminUser.jsx";
+import AdminShop from "./Site_Admin/AdminShop.jsx";
 
 import Oldphone from "components/OldPhone/oldphone.jsx";
 import Cart from "components/Cart/cart.jsx";
@@ -296,11 +296,11 @@ const App = () => {
             />
           </Route>
         </Route>
-        {/* <Route path="/admin" element={<AdminNav />}>
-                <Route path="/admin/product" element={<AdminProduct />} />
-                <Route path="/admin/account" element={<AdminUser />} />
-                <Route path="/admin/shop" element={<AdminShop />} />
-                </Route> */}
+        <Route path="/admin" element={<AdminNav />}>
+          <Route path="/admin/product" element={<AdminProduct />} />
+          <Route path="/admin/account" element={<AdminUser />} />
+          <Route path="/admin/shop" element={<AdminShop />} />
+        </Route>
         {/* 404 page */}
         <Route path="*" element={<ErrorPage />} />
       </Route>

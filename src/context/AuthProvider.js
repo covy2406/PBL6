@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
     //if already logged in, get the access_token from localStorage
     access_token: window.localStorage.getItem("access_token") || null,
     isAuth: window.localStorage.getItem("loggedIn") || false,
+    role: "user",
   });
 
   const [profile, setProfile] = useState({
