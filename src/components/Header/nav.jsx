@@ -12,7 +12,6 @@ import CartList from "./CartList";
 //import Logo from '../../assets/Logo/Main_logo.png';
 import Navinfo from "./navinfo";
 import useAuth from "hook/useAuth";
-import useProfile from "hook/useProfile";
 // import { useParams } from 'react-router-dom';
 // import apiSearch from "api/apiSearch";
 
@@ -24,21 +23,13 @@ const Nav = ({
   searchbtn = " ",
 }) => {
   // const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
-  const { auth, setAuth } = useAuth();
-  const { data } = useProfile();
-
-  const [authUser, setAuthUser] = useState("loading");
+  const { auth, setAuth, profile } = useAuth();
+  const [authUser, setAuthUser] = useState(profile.name);
   //   const authUser = auth.user;
   const isAuth = auth.isAuth;
 
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-
-  useEffect(() => {
-    if (data) {
-      setAuthUser(data.name);
-    }
-  }, [data]);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -54,7 +45,6 @@ const Nav = ({
     });
     localStorage.clear();
   };
-
   return (
     <>
       <div className="header">
@@ -227,20 +217,20 @@ const Nav = ({
                     <li className="header__navbar-user-item">
                       <Link to="/">Đơn mua</Link>
                     </li>
-                    <li className="header__navbar-user-item header__navbar-user-item--separate">
-                      <Link to="/login" onClick={(e) => handleLogout(e)}>
-                        Đăng xuất
-                      </Link>
+                    <li
+                      className="header__navbar-user-item header__navbar-user-item--separate"
+                      onClick={(e) => handleLogout(e)}>
+                      <Link to="/login">Đăng xuất</Link>
                     </li>
                   </ul>
                 </li>
               ) : (
                 <ul className="header__navbar-item">
-                  <a
-                    href="/signup"
+                  <Link
+                    to="/signup"
                     className="header__navbar-item header__navbar-item--bold header__navbar-item--separate">
                     Đăng ký
-                  </a>
+                  </Link>
                   <Link
                     to="/login"
                     className="header__navbar-item header__navbar-item--bold">
