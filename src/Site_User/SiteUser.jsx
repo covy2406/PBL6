@@ -8,16 +8,18 @@ import "./Css/user.css";
 
 function SiteUser({ extraProps = "profile" }) {
   return (
-    <div className="siteuser siteuser__nav">
-      <UserNav></UserNav>
-      <div className="siteuser__forms">
-        {extraProps === "profile" ? (
-          <ProfileForm></ProfileForm>
-        ) : extraProps === "address" ? (
-          <AddressForm></AddressForm>
-        ) : extraProps === "change-pass" ? (
-          <ChangePassform></ChangePassform>
-        ) : null}
+    <div className="siteuser">
+      <div className="siteuser__nav">
+        <UserNav />
+        <div className="siteuser__forms">
+          {extraProps === "profile" ? (
+            <ProfileForm></ProfileForm>
+          ) : extraProps === "address" ? (
+            <AddressForm></AddressForm>
+          ) : extraProps === "change-pass" ? (
+            <ChangePassform></ChangePassform>
+          ) : null}
+        </div>
       </div>
     </div>
   );

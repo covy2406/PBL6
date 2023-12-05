@@ -2,14 +2,14 @@ import React from "react";
 import App from "./App.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 import ReactDOM from "react-dom/client";
-//import { Auth0Provider } from '@auth0/auth0-react';
-//import AuthProvider from "react-auth-kit/AuthProvider";
-
+import { AuthProvider } from "context/AuthProvider.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </React.StrictMode>
   //<App />
 );
