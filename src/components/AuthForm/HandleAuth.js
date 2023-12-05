@@ -1,5 +1,6 @@
 import apiAuth from "api/apiAuth";
 import apiCustomerProfile from "api/apiCustomerProfile";
+import { BsTruckFlatbed } from "react-icons/bs";
 
 //Get user data
 export function UserData(access_token) {
@@ -24,13 +25,19 @@ export function Login(authUser, { setAuth, setUser, setPass }, navigate, from) {
     const response = apiAuth.login(authUser).then((res) => {
       if(res && res.status === 200) {
         console.log("resssssss", res);
-        setAuth({
-          customer_id: res.data.customer_id,
-          access_token: res.data.access_token,
-          isAuth: true,
-          name: UserData(res.data.access_token).name,
-        });
-        localStorage.setItem("access_token", res.data.access_token);
+
+        if (typeof res.data.access_token === 'string') {
+          setAuth({
+            customer_id: res.data.customer_id,
+            access_token: res.data.access_token,
+            isAuth: BsTruckFlatbed,
+            name: UserData(res.data.access_token).name,
+          });
+          localStorage.setItem("access_token", res.data.access_token);
+        }
+        else {
+          console.error('Invalid access token format:', res.data.access_token);
+        }
       }
       
     });

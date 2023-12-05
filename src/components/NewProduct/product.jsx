@@ -1,4 +1,4 @@
- import { React, useEffect} from 'react';
+import { React, useEffect} from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -17,12 +17,13 @@ import '../../assets/css/base.css';
 import '../Home/home.css';
 import Category from './Category.jsx';
 import apiProductHome from 'api/apiProductHome.js';
+import { useCart } from "context/AddToCartContext";
+
+
 //import PaginationControlled from './PaginationControlled.jsx';
 //import apiBrand from 'api/apiBrand.js';
 
-const Product = ({ view, addtocart, detail, setDetail, close, setClose }) => {
-
-    const { loginWithRedirect, isAuthenticated } = useAuth0();
+const Product = ({ view, detail, setDetail, close, setClose }) => {
 
     // const [currentPage, setCurrentPage] = useState(1);
     // const totalPages = 10; // Tổng số trang
@@ -30,6 +31,11 @@ const Product = ({ view, addtocart, detail, setDetail, close, setClose }) => {
     //     _limit: 10,
     //     _page: 1,
     // });
+
+    const { loginWithRedirect} = useAuth0();
+    const isAuth = true;
+
+    const { addtocart } = useCart();
 
     const [ProductNew, setProductNew] = useState([]);
     const [error, setError] = useState(null)
@@ -123,11 +129,11 @@ const Product = ({ view, addtocart, detail, setDetail, close, setClose }) => {
                                     return (
                                         <div className='box' key={curElm.id}>
                                             <div className='img_box'>
-                                                <img src={`http://0.tcp.ap.ngrok.io:19912/${curElm.image}`} alt={curElm.name}></img>
+                                                <img src={`http://0.tcp.ap.ngrok.io:18596/${curElm.image}`} alt={curElm.name}></img>
                                                 <div className='icon'>
                                                     {
-                                                        isAuthenticated ?
-                                                            <li onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></li>
+                                                        isAuth ?
+                                                            <li onClick={() => addtocart(curElm, 1)}><AiOutlineShoppingCart /></li>
                                                             :
                                                             <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart /></li>
                                                     }

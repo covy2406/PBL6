@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { CartProvider } from "./AddToCartContext";
 
 const AuthContext = createContext({});
 
@@ -8,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     customer_id: "",
     access_token: "", //empty string instead of null to avoid errors
     name: "test tên trong file AuthProvider.js",
-    isAuth: true, //set this to true if server not working to see the UI
+    isAuth: false, //set this to true if server not working to see the UI
   });
 
   const contextData = {
@@ -16,7 +17,9 @@ export const AuthProvider = ({ children }) => {
   }
   return (
     <AuthContext.Provider value={contextData}>
-      {children}
+      <CartProvider>
+        {children}
+      </CartProvider>
     </AuthContext.Provider>
   );
 };

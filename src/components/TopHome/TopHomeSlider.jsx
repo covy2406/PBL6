@@ -8,18 +8,26 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
-import Tdata from "./Topdata";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+
+import { useCart } from "context/AddToCartContext";
+import AuthContext from "context/AuthProvider";
 
 // import { useEffect, useState } from "react";
-// import apiProductHome from "api/apiProductHome.js";
+//import apiProductHome from "api/apiProductHome.js";
+import Tdata from "./Topdata";
 
-function TopHomeSlider({ view, addtocart, productList, setProductList }) {
+function TopHomeSlider({ view }) {
 
-    const { isAuthenticated, loginWithRedirect } = useAuth0();
+    const {loginWithRedirect } = useAuth0();
+    const { auth } = useContext(AuthContext);
+    const { addtocart } = useCart();
+    
     //CALL API:
     // const [productSlider, setProductSlider] = useState([]);
     // const [error, setError] = useState([]);
+
 
     // useEffect(() => {
     //     fetchProductSlider()
@@ -27,8 +35,8 @@ function TopHomeSlider({ view, addtocart, productList, setProductList }) {
 
     // const fetchProductSlider = async () => {
     //     try {
-    //         const responseSlider = await apiProductHome.getAll();
-    //         setProductSlider(responseSlider);
+    //         const response = await apiProductHome.getAll();
+    //         setProductSlider(response);
     //     }
     //     catch(error) {
     //         setError(error);
@@ -58,10 +66,14 @@ function TopHomeSlider({ view, addtocart, productList, setProductList }) {
                             <img className="box__img-hot-image" src={value.image} alt={value.name} />
                             <div className="icon__hide">
                                 {
-                                    isAuthenticated ?
+                                    auth.isAuth ?
+                                    (
                                         <li onClick={() => addtocart(value)}><AiOutlineShoppingCart /></li>
-                                        :
+                                    )
+                                    :
+                                    (
                                         <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart /></li>
+                                    )
                                 }
                                 <li className='icon__link' onClick={() => view(value)}><Link to='../Viewdetail'><BsEye /></Link></li>
                             </div>

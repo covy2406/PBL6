@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import './home.css';
 import apiProductHome from 'api/apiProductHome';
+import { useCart } from "context/AddToCartContext";
+import AuthContext from "context/AuthProvider";
+import { toast } from "react-toastify";
+
 // import apiAddToCart from 'api/apiAddToCart';
 // import { useParams } from 'react-router-dom';
 //import { toast } from 'react-toastify';
 
 
 
-const ProductHome = ({ view, addtocart }) => {
+const ProductHome = ({ view }) => {
     const { loginWithRedirect} = useAuth0();
-    const isAuth = true;
+    // const isAuth = true;
+    const { auth } = useContext(AuthContext);
+    const { addtocart } = useCart();
 
     // const formattedPrice = new Intl.NumberFormat('vi-VN', {
     //     style: 'currency',
@@ -34,7 +40,7 @@ const ProductHome = ({ view, addtocart }) => {
     
             } catch (error) {
                 setError(error);
-                //toast.error(error?.message);
+                toast.error(error?.message);
             }
         }
         fetchProductHome();
@@ -56,13 +62,18 @@ const ProductHome = ({ view, addtocart }) => {
                             <div className='box' key={curElm.id}>
                                 <div className='img_box'>
                                     {/* {`http://localhost:8000${curElm.image}`} */}
-                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:19912/${curElm.image}`} alt={curElm.name}></img>
+                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:18596/${curElm.image}`} alt={curElm.name}></img>
                                     <div className='icon'>
                                         {
-                                            isAuth ?
-                                                <li onClick={() => addtocart(curElm.id) }><AiOutlineShoppingCart /></li>
-                                                :
+                                            auth.isAuth ?
+                                            (
+                                                <li onClick={() => addtocart(curElm.id, 1)}><AiOutlineShoppingCart /></li>
+                                                
+                                            )
+                                            :
+                                            (
                                                 <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
+                                            )
                                         }
                                         <li className='icon__link' onClick={() => view(curElm.id)}><Link to={`../Viewdetail/${curElm.id}`}><BsEye /></Link></li>
                                     </div>

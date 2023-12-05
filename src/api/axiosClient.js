@@ -1,33 +1,37 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://0.tcp.ap.ngrok.io:19912/api",
+  baseURL: "http://0.tcp.ap.ngrok.io:18596/api",
   headers: {
     "content-type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
   },
 });
 
 // Add a request interceptor
-axios.interceptors.request.use(
+axiosClient.interceptors.request.use(
   function (config) {
-  // config.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'; // Thay đổi thành nguồn của trang web của bạn
-  // config.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE';
-  // config.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
     // Do something before request is sent
-    // const accessToken = localStorage.getItem('access_token');
-    // console.log(accessToken);
-    // console.log('access_token_local', accessToken);
+    const accessToken = localStorage.getItem('access_token');
+    console.log('access_token_local', accessToken);
     // if (accessToken) {
     //   config.headers.Authorization = `Bearer ${JSON.parse(accessToken)}`;
     // }
-    // if (accessToken && accessToken !== 'undefined' && accessToken !== null) {
-    //   config.headers.Authorization = `Bearer ${JSON.parse(accessToken)}`;
-    // }
-    
+
+    if (accessToken) {
+      try {
+        const parsedToken = JSON.parse(accessToken);
+        if (parsedToken && typeof parsedToken === 'string') {
+          config.headers.Authorization = `Bearer ${parsedToken}`;
+        } else {
+          console.error('Invalid access token format:', accessToken);
+        }
+      } catch (error) {
+        console.error('Error parsing access token:', error);
+      }
+    }
     return config;
   },
+  
   function (error) {
     // Do something with request error
     return Promise.reject(error);
@@ -35,7 +39,7 @@ axios.interceptors.request.use(
 );
 
 // Add a response interceptor
-axios.interceptors.response.use(
+axiosClient.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data

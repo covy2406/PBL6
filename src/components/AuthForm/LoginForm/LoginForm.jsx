@@ -49,6 +49,13 @@ function LoginForm() {
         email: user,
         password: pass,
       });
+      setAuth({
+        customer_id: response.data.customer_id,
+        access_token: response.data.access_token, //empty string instead of null to avoid errors
+        name: "Thao Vy",
+        isAuth: true, //set this to true if server not working to see the UI
+      });
+    
       console.log("login: ", response);
       setUser("");
       setPass("");
