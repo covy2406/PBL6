@@ -11,10 +11,9 @@ import "../BannerHome/bannerSlider.css";
 import CartList from "./CartList";
 //import Logo from '../../assets/Logo/Main_logo.png';
 import Navinfo from "./navinfo";
-import useAuth from "../../hook/useAuth";
+import useAuth from "hook/useAuth";
 // import { useParams } from 'react-router-dom';
 // import apiSearch from "api/apiSearch";
-
 const Nav = ({
     cart,
     handleSearchChange,
@@ -22,11 +21,9 @@ const Nav = ({
     searchTerm,
     searchbtn = " ",
 }) => {
-    // const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
-    //   const { authUser, isAuth } = { authUser: "admin", isAuth: true };
-    //Đổi cái trên thành như dưới
-    const { auth, setAuth } = useAuth();
-    const authUser = auth.name;
+    const { auth, setAuth, profile } = useAuth();
+
+    const authUser = useState(profile.name);
     const isAuth = auth.isAuth;
 
     const location = useLocation();
@@ -34,27 +31,25 @@ const Nav = ({
 
     useEffect(() => {
         setCurrentPath(location.pathname);
-        console.log(auth.name);
     }, [location]);
 
-    const handdleLogout = (e) => {
-        window.localStorage.removeItem("user");
-        window.localStorage.removeItem("pass");
-        window.localStorage.removeItem("isLoggedIn");
+    // clear all when logout
+    const handleLogout = (e) => {
+        e.preventDefault();
         setAuth({
-            customer_id: "",
-            access_token: "", //empty string instead of null to avoid errors
-            name: "test tên trong file AuthProvider.js",
-            isAuth: false, //set this to true if server not working to see the UI });
+            access_token: null,
+            customer_id: null,
+            isAuth: false,
         });
+        localStorage.clear();
     };
 
     return (
-        <>
+        <div>
             <div className="header">
                 <div className="grid">
                     <nav className="header__navbar">
-                        
+
                         <Navinfo />
 
                         <ul className="header__navbar-list ">
@@ -102,7 +97,7 @@ const Nav = ({
                                 </Link>
                             </li>
                             {/* <!-- <li className="header__navbar-item header__navbar-item--bold header__navbar-item--separate">Đăng ký</li>
-                    <li className="header__navbar-item header__navbar-item--bold">Đăng nhập</li> --> */}
+                            <li className="header__navbar-item header__navbar-item--bold">Đăng nhập</li> --> */}
                             {isAuth ? (
                                 <li className="header__navbar-item header__navbar-user">
                                     <img
@@ -114,28 +109,33 @@ const Nav = ({
                                     </span>
                                     <ul className="header__navbar-user-menu">
                                         <li className="header__navbar-user-item">
-                                            <Link to="/">Tài khoản của tôi</Link>
+                                            <Link to="/user/account/profile">Tài khoản của tôi</Link>
                                         </li>
+                                        {auth.role === "admin" ? (
+                                            <li className="header__navbar-user-item">
+                                                <Link to="/admin/product">Trang admin</Link>
+                                            </li>
+                                        ) : null}
                                         <li className="header__navbar-user-item">
                                             <Link to="/">Địa chỉ của tôi</Link>
                                         </li>
                                         <li className="header__navbar-user-item">
                                             <Link to="/">Đơn mua</Link>
                                         </li>
-                                        <li className="header__navbar-user-item header__navbar-user-item--separate">
-                                            <Link to="/" onClick={(e) => handdleLogout(e)}>
-                                                Đăng xuất
-                                            </Link>
+                                        <li
+                                            className="header__navbar-user-item header__navbar-user-item--separate"
+                                            onClick={(e) => handleLogout(e)}>
+                                            <Link to="/login">Đăng xuất</Link>
                                         </li>
                                     </ul>
                                 </li>
                             ) : (
                                 <ul className="header__navbar-item">
-                                    <a
-                                        href="/signup"
+                                    <Link
+                                        to="/signup"
                                         className="header__navbar-item header__navbar-item--bold header__navbar-item--separate">
                                         Đăng ký
-                                    </a>
+                                    </Link>
                                     <Link
                                         to="/login"
                                         className="header__navbar-item header__navbar-item--bold">
@@ -249,7 +249,7 @@ const Nav = ({
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

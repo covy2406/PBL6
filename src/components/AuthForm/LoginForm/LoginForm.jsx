@@ -1,71 +1,73 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../../hook/useAuth";
-import { Login } from "../HandleAuth";
+import useAuth from "hook/useAuth";
 import apiAuth from "api/apiAuth";
-import axiosClient from "api/axiosClient";
+import apiCustomerProfile from "api/apiCustomerProfile";
+import { setHeaderConfigAxios } from "api/axiosClient";
 
 function LoginForm() {
   // define states
-  const { auth, setAuth } = useAuth();
-
-  const location = useLocation();
-  const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
+  const { setAuth, setProfile } = useAuth();
 
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
 
-  const [errMsg, setErrMsg] = useState("");
-  const authUser = { email: user, password: pass };
-
-  //save user info for next login
   const [remember, setRemember] = useState(false);
+
+  const [errMsg, setErrMsg] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // if user is typing, clear error message
   useEffect(() => {
     setErrMsg("");
   }, [user, pass]);
-
-  // if user is logged in, auto login for next time
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // if user go straight to login page, clear local storage
   useEffect(() => {
-    "auto login";
-    if (window.localStorage.getItem("isLoggedIn")) {
-      Login(authUser, { setAuth, setUser, setPass }, navigate, from);
-    }
-  });
+    setAuth({
+      access_token: null,
+      customer_id: null,
+      isAuth: false,
+    });
+    localStorage.clear();
+  }, [setAuth]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // save user info for next login
-    if (remember) {
-      window.localStorage.setItem("user", user);
-      window.localStorage.setItem("pass", pass);
-      window.localStorage.setItem("isLoggedIn", remember);
-    }
+
+    const authUser = { email: user, password: pass };
     try {
-      const response = await axiosClient.post("customers/login", {
-        email: user,
-        password: pass,
-      });
+      const response = await apiAuth.login(authUser);
+      const accessToken = response?.data?.access_token;
+      setHeaderConfigAxios(accessToken);
       setAuth({
-        customer_id: response.data.customer_id,
-        access_token: response.data.access_token, //empty string instead of null to avoid errors
-        name: "Thao Vy",
-        isAuth: true, //set this to true if server not working to see the UI
+        access_token: response.data.access_token,
+        role: user === "linh@gmail.com" ? "admin" : "user",
+        isAuth: true,
       });
-    
-      console.log("login: ", response);
       setUser("");
       setPass("");
-      navigate(from, { replace: true });
+      window.localStorage.setItem("loggedIn", true);
+      if (remember) {
+        window.localStorage.setItem("access_token", accessToken);
+      }
     } catch (err) {
-      console.log("err: " + err);
+      console.log("login api: " + err);
     }
+    // after login, get profile data
+    try {
+      const response = await apiCustomerProfile.getProfile();
+      setProfile(response.data);
+    } catch (err) {
+      console.log("get profile data: " + err);
+    }
+    navigate(from, { replace: true });
   };
   return (
-    <div>
+    <>
       <form className="authform" onSubmit={(e) => handleSubmit(e)}>
         <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
           {errMsg}
@@ -80,7 +82,7 @@ function LoginForm() {
           <input
             type="text"
             className="input"
-            placeholder="Số điện thoại"
+            placeholder="Email"
             autoComplete="off"
             onChange={(e) => setUser(e.target.value)}
             value={user}
@@ -104,11 +106,8 @@ function LoginForm() {
           />
         </div>
         <div className="authform--details">
-          <input
-            type="checkbox"
-            value={remember}
-            onClick={(e) => setRemember(!remember)}
-          />
+          <input type="checkbox" onChange={() => setRemember(!remember)} />
+          {remember}
           Lưu mật khẩu
         </div>
         <Link to="/reset" className="authform--go-others authform--details">
@@ -122,7 +121,7 @@ function LoginForm() {
           </Link>
         </p>
       </form>
-    </div>
+    </>
   );
 }
 

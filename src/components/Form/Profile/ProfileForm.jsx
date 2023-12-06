@@ -5,60 +5,83 @@ import "./DatePicker.css";
 import "./Profile.css";
 
 import React, { useEffect, useState } from "react";
+import useAuth from "hook/useAuth.js";
 import apiCustomerProfile from "api/apiCustomerProfile.js";
-import useAuth from "../../../hook/useAuth.js";
+//import useAuth from "../../../hook/useAuth.js";
 
 const ProfileForm = () => {
-  const { auth } = useAuth();
-  const [User, setUserDTB] = useState({
-    name: "Linh",
-    phone: "123456789",
-    email: "duylinh@gmail.com",
-    sex: "Nam",
-    dateOfBirth: "1/1/2000",
-  });
-  //get user profile
-  useEffect(() => {
-    try {
-      const fetchUser = async () => {
-        const response = await apiCustomerProfile.getProfile({
-          token: auth.access_token || "",
-        });
-        setUserDTB(response.data);
-      };
-      fetchUser();
-    } catch (err) {
-      console.log(err);
-    }
-  });
-  // Masked email and phone number
-  const maskedEmail =
-    User.email.substring(0, 3) +
-    "*".repeat(User.email.length - 0) +
-    "@gmail.com";
-  const maskedPhone = "*".repeat(8) + User.phone.substring(8, 10);
-  //user
-  const [user, setUser] = useState(User.name);
-  const [sex, setSex] = useState(User.sex);
-
-  const birthday = User.dateOfBirth.split("/");
-
+  // get current date if user has not set birthday
+  const currentDate = new Date();
+  // get data from useProfile hook
+  const { profile } = useAuth();
+  // define states
+  const [email, setEmail] = useState();
+  const [phone, setPhone] = useState();
+  const [user, setUser] = useState();
+  const [sex, setSex] = useState("Nam");
+  const [birthday, setBirthday] = useState([
+    currentDate.getDate(),
+    currentDate.getMonth(),
+    currentDate.getFullYear() - 18,
+  ]);
   const [dayy, setDays] = useState(birthday[0]);
   const [monthh, setMonths] = useState(birthday[1]);
   const [yearr, setYears] = useState(birthday[2]);
+  useEffect(() => {
+    // Access and use the data from useProfile hook here
+    if (profile) {
+      if (profile.dayOfBirth) {
+        setBirthday(profile.dayOfBirth);
+      }
+      setEmail(profile.email);
+      setPhone(profile.phone);
+      setUser(profile.name);
+      if (profile.sex !== null) {
+        setSex(profile.sex);
+      }
+    }
+  }, [profile]);
+  useEffect(() => {
+    setBirthday([dayy, monthh, yearr]);
+  }, [dayy, monthh, yearr]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    apiCustomerProfile
+      .updateProfile(
+        {
+          name: user,
+          email: email,
+          phone: phone,
+          sex: sex === "Nam" ? true : false,
+          //reverse birthday array to match api format yyyy-mm-dd
+          dayOfBirth: birthday
+            .reverse()
+            .map((value) => (value < 10 ? `0${value}` : value))
+            .join("-"),
+        },
+        profile.id
+      )
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("put error: ", err);
+      });
+  };
 
   return (
-    <div className="profileform">
+    <>
       <div className="profileform__title">
         <p className="profileform__title__item">Hồ sơ của tôi</p>
       </div>
       <div className="profileform__details">
         <div className="profileform__table">
           <table>
-            <tr className="profileform__table__row">
+            {/* <tr className="profileform__table__row">
               <td className="profileform__table--left">Tên đăng nhập</td>
               <td className="profileform__table--right">admin</td>
-            </tr>
+            </tr> */}
             <tr className="profileform__table__row">
               <td className="profileform__table--left">Họ và tên</td>
               <td className="profileform__table--right">
@@ -75,7 +98,7 @@ const ProfileForm = () => {
             <tr className="profileform__table__row ">
               <td className="profileform__table--left">Email</td>
               <td className="profileform__table--right">
-                {maskedEmail}
+                {email}
                 <Link className="profileform--link" to="/change-email">
                   Thay đổi
                 </Link>
@@ -84,7 +107,7 @@ const ProfileForm = () => {
             <tr className="profileform__table__row">
               <td className="profileform__table--left">Số điện thoại</td>
               <td className="profileform__table--right">
-                {maskedPhone}
+                {phone}
                 <Link className="profileform--link" to="/change-phone">
                   Thay đổi
                 </Link>
@@ -173,9 +196,13 @@ const ProfileForm = () => {
               </td>
             </tr>
             <tr className="profileform__table__row">
-              <td></td>
-              <td className="profileform__table--right">
-                <button className="profileform__button">Lưu</button>
+              <td className="noborder"></td>
+              <td className="profileform__table--right noborder">
+                <button
+                  className="profileform__button"
+                  onClick={(e) => handleSubmit(e)}>
+                  Lưu
+                </button>
               </td>
             </tr>
           </table>
@@ -189,7 +216,7 @@ const ProfileForm = () => {
           <p>Thay đổi ảnh đại diện</p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

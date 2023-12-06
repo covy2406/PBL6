@@ -2,23 +2,15 @@ import axiosClient from "./axiosClient";
 
 //link to api to get profile
 
-const GET_PROFILE_URL = "customers/profile";
+const GET_PROFILE_URL = "customerProfile";
+const UPDATE_PROFILE_URL = "customers";
 
 const apiCustomerProfile = {
-  getProfile(data) {
-    const response = axiosClient.get(GET_PROFILE_URL, {
-      headers: {
-        Authorization: `Bearer ${data.token}`,
-      },
-    });
-    return response;
+  getProfile() {
+    return axiosClient.get(GET_PROFILE_URL);
   },
-  updateProfile(data) {
-    return axiosClient.put(GET_PROFILE_URL, data, {
-      headers: {
-        Authorization: `Bearer ${data.token}`,
-      },
-    });
+  updateProfile(data, id) {
+    return axiosClient.put(UPDATE_PROFILE_URL + "/" + id, data);
   },
 };
 
