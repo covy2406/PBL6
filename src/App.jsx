@@ -29,7 +29,7 @@ import apiAddToCart from "api/apiAddToCart";
 //import { useParams } from 'react-router-dom';
 
 //auth
-import RequiredAuth from "components/AuthForm/RequiredAuth.js";
+import RequireAuth from "./components/RequireAuth.jsx";
 
 const App = () => {
   const loggedIn = window.localStorage.getItem("loggedIn");
@@ -153,7 +153,7 @@ const App = () => {
         <Route path="login" element={<SiteLogin />}></Route>
         <Route path="signup" element={<SiteSignup />}></Route>
         <Route path="reset" element={<SiteReset />}></Route>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={loggedIn ? <Layout /> : <SiteLogin />}>
           <Route
             index
             element={<Home view={view} close={close} setClose={setClose} />}
