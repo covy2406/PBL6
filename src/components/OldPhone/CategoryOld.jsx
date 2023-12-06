@@ -4,7 +4,10 @@ import '../NewProduct/product.css';
 import './secondHand.css'
 import OldPhoneData from "./oldPhoneData";
 
-const CategoryOld = ({ oldData, setOldproduct }) => {
+const CategoryOld = ({oldData, setOldproduct}) => {
+
+    // const [oldData, setOldproduct] = useState([]);
+
     // Hàm xử lý lọc sản phẩm:
     const [productBrand, setBrand] = useState('all')
     const handleBrandchange = (event) => {

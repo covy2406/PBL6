@@ -1,20 +1,30 @@
-import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
 import './home.css';
 import apiProductHome from 'api/apiProductHome';
+import { useCart } from "context/AddToCartContext";
+import AuthContext from "context/AuthProvider";
+import { toast } from "react-toastify";
+
 // import apiAddToCart from 'api/apiAddToCart';
 // import { useParams } from 'react-router-dom';
 //import { toast } from 'react-toastify';
 
 
 
-const ProductHome = ({ view, addtocart }) => {
+const ProductHome = ({ view }) => {
     const { loginWithRedirect} = useAuth0();
-    const isAuth = true;
+    // const isAuth = true;
+    const { auth } = useContext(AuthContext);
+    const { addtocart } = useCart();
 
+    // const formattedPrice = new Intl.NumberFormat('vi-VN', {
+    //     style: 'currency',
+    //     currency: 'VND',
+    // }).format(price);
 
     const [productList, setProductList] = useState([]);
     const [error, setError] = useState(null);
@@ -30,58 +40,16 @@ const ProductHome = ({ view, addtocart }) => {
     
             } catch (error) {
                 setError(error);
-                //toast.error(error?.message);
+                toast.error(error?.message);
             }
         }
         fetchProductHome();
     }, []);
-    console.log(productList)
+    //console.log(productList)
 
-    if (error) {
-        return <p>Error: {error.message}</p>
-    }
-
-    
-    // // call api addtocart
-    // const addtocart = async (productId) => {
-    //     try {
-    //         const response = await apiAddToCart.add(id);
-    //         //setCartHome(response.productId, response.data)
-
-    //         if(response.statusCode === 200) {
-    //             // Lấy thông tin chi tiết sản phẩm từ dữ liệu phản hồi
-    //             const productDetail = response.data;
-
-    //             // sau đó, thêm sản phẩm vào giỏ hàng với thông tin chi tiết
-    //             handleAddToCart(productDetail);
-    //         }
-    //         else {
-    //             throw new Error('Thêm sản phẩm vào giỏ hàng thất bại')
-    //         }
-    //     }
-    //     catch (error) {
-    //         setError(error);
-    //     }
-    // };
-    
-    // // Hàm xử lý thêm sản phẩm vào giỏ hàng
-    // const handleAddToCart = (productList) => {
-    //     const exist = cartHome.find((item) => item.id === productList.id);
-        
-    //     if(exist) {
-    //         // nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng sản phẩm lên 1 và cập nhật lại giỏ hàng
-    //         setCartHome(
-    //             cartHome.map((item) => {
-    //                 return item.id === productList.id ? {...exist, qty: exist.qty + 1} : item;
-    //             })
-    //         );
-    //         alert('Sản phẩm này đã được thêm vào giỏ hàng')
-    //     }
-    //     else {
-    //         // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
-    //         setCartHome([...cartHome], {...productList, qty: 1});
-    //     }
-    // }
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
     return (
         <div className='container'>
@@ -94,13 +62,18 @@ const ProductHome = ({ view, addtocart }) => {
                             <div className='box' key={curElm.id}>
                                 <div className='img_box'>
                                     {/* {`http://localhost:8000${curElm.image}`} */}
-                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:19912/${curElm.image}`} alt={curElm.name}></img>
+                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:18596/${curElm.image}`} alt={curElm.name}></img>
                                     <div className='icon'>
                                         {
-                                            isAuth ?
-                                                <li onClick={() => addtocart(curElm.id)}><AiOutlineShoppingCart /></li>
-                                                :
+                                            auth.isAuth ?
+                                            (
+                                                <li onClick={() => addtocart(curElm.id, 1)}><AiOutlineShoppingCart /></li>
+                                                
+                                            )
+                                            :
+                                            (
                                                 <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
+                                            )
                                         }
                                         <li className='icon__link' onClick={() => view(curElm.id)}><Link to={`../Viewdetail/${curElm.id}`}><BsEye /></Link></li>
                                     </div>

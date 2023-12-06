@@ -25,7 +25,6 @@ function LoginForm() {
   useEffect(() => {
     setErrMsg("");
   }, [user, pass]);
-
   // if user go straight to login page, clear local storage
   useEffect(() => {
     setAuth({
