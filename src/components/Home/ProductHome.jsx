@@ -62,7 +62,7 @@ const ProductHome = ({ view }) => {
                             <div className='box' key={curElm.id}>
                                 <div className='img_box'>
                                     {/* {`http://localhost:8000${curElm.image}`} */}
-                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:18596/${curElm.image}`} alt={curElm.name}></img>
+                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:10504/${curElm.image}`} alt={curElm.name}></img>
                                     <div className='icon'>
                                         {
                                             auth.isAuth ?

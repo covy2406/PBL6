@@ -11,7 +11,7 @@ import "../BannerHome/bannerSlider.css";
 import CartList from "./CartList";
 //import Logo from '../../assets/Logo/Main_logo.png';
 import Navinfo from "./navinfo";
-import useAuth from "../../Hook/useAuth";
+import useAuth from "../../hook/useAuth";
 // import { useParams } from 'react-router-dom';
 // import apiSearch from "api/apiSearch";
 

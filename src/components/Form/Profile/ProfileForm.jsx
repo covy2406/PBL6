@@ -6,7 +6,7 @@ import "./Profile.css";
 
 import React, { useEffect, useState } from "react";
 import apiCustomerProfile from "api/apiCustomerProfile.js";
-import useAuth from "../../../Hook/useAuth";
+import useAuth from "../../../hook/useAuth.js";
 
 const ProfileForm = () => {
   const { auth } = useAuth();

@@ -4,17 +4,24 @@ import Footer from "../Footer/footer";
 import { Outlet } from "react-router-dom";
 //import { Outlet } from "react-router-dom";
 
-function Layout(product, setProduct, priceRange,
-    setPrice, oldData, setOldproduct, detail,
-    view, close, setClose, cart, setCart, addtocart) {
+function Layout( cart ) {
     return (
         <div className="Layout">
             <Nav cart={cart}/>
-            <Outlet product={product} setProduct={setProduct} priceRange={priceRange} setPrice={setPrice} view={view} addtocart={addtocart}
-            oldData={oldData} setOldproduct={setOldproduct} detail={detail} close={close} setClose={setClose} cart={cart} setCart={setCart}
+            <Outlet 
+                
             />
             <Footer />
         </div>
     );
 }
 export default Layout;
+
+// product={product} setProduct={setProduct} priceRange={priceRange} setPrice={setPrice} 
+//                 view={view} addtocart={addtocart}
+//                 oldData={oldData} setOldproduct={setOldproduct} detail={detail} close={close} setClose={setClose} 
+//                 cart={cart} setCart={setCart}
+
+// product, setProduct, priceRange,
+//     setPrice, oldData, setOldproduct, detail,
+//     view, close, setClose, cart, setCart, addtocart
