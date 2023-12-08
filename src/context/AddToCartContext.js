@@ -42,11 +42,14 @@ export const CartProvider = ({ children }) => {
 
   const fetchCartList = async () => {
     try {
-      const cartlist = JSON.parse(
-        window.localStorage.getItem("cartListProduct")
-      );
-      setCartListProduct(cartlist);
-      if (!cartlist) {
+      // check if cartListProduct is already in localStorage
+      if (window.localStorage.getItem("cartListProduct")) {
+        const cartlist = JSON.parse(
+          window.localStorage.getItem("cartListProduct")
+        );
+        setCartListProduct(cartlist);
+      } else {
+        // call api to get cartListProduct if not in localStorage
         const response = await apiViewCart.getViewCart();
         setCartListProduct(response.data);
         console.log("response cart list", response.data);
