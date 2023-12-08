@@ -8,9 +8,7 @@ import { CartProvider } from "context/AddToCartContext.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
-    <CartProvider>
-      <App />
-    </CartProvider>
+    <App />
   </AuthProvider>
 );
 // If you want to start measuring performance in your app, pass a function

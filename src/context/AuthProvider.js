@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     //if already logged in, get the access_token from localStorage
     access_token: window.localStorage.getItem("access_token") || null,
-    isAuth: window.localStorage.getItem("loggedIn") || null,
+    isAuth: window.localStorage.getItem("loggedIn") || true,
     role: "user",
   });
 
@@ -29,9 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={contextData}>
-      <CartProvider>
-        {children}
-      </CartProvider>
+      <CartProvider>{children}</CartProvider>
     </AuthContext.Provider>
   );
 };

@@ -9,7 +9,7 @@ import "./nav.css";
 import "../../assets/css/base.css";
 import "../BannerHome/bannerSlider.css";
 import CartList from "./CartList";
-//import Logo from '../../assets/Logo/Main_logo.png';
+import Logo from "../../assets/Logo/4B1G.png";
 import Navinfo from "./navinfo";
 import useAuth from "hook/useAuth";
 import useProfile from "hook/useProfile";
@@ -169,21 +169,7 @@ const Nav = ({
             <div className="header__logo">
               <div className="header__logo">
                 <Link to="/" className="header__logo-link">
-                  <svg
-                    width="120"
-                    height="86"
-                    xmlns="http://www.w3.org/2000/svg"
-                    src="../../assets/Logo/4B1G.png">
-                    {/* <rect x="10" y="10" width="40" height="40" rx="10" fill="#FF5733" /> */}
-                    {/* <text
-                                            x="25"
-                                            y="60"
-                                            fontFamily="Roboto, sans-serif"
-                                            fontSize="35"
-                                            fill="#FFFFFF">
-                                            4B1G
-                                        </text> */}
-                  </svg>
+                  <img src={Logo} alt="" className="header__logo-img"></img>
                 </Link>
               </div>
             </div>

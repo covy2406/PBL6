@@ -23,6 +23,7 @@ import AdminProduct from "./Site_Admin/AdminProduct.jsx";
 import AdminUser from "./Site_Admin/AdminUser.jsx";
 import AdminShop from "./Site_Admin/AdminShop.jsx";
 import About from "./components/About/About.jsx";
+import Contact from "./components/About/Contact.jsx";
 
 import Oldphone from "components/OldPhone/oldphone.jsx";
 import Cart from "components/Cart/cart.jsx";
@@ -129,11 +130,12 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route path="about" element={<About />}></Route>
         <Route path="login" element={<SiteLogin />}></Route>
         <Route path="signup" element={<SiteSignup />}></Route>
         <Route path="reset" element={<SiteReset />}></Route>
         <Route path="/" element={<Layout />}>
+          <Route path="contact" element={<Contact />}></Route>
+          <Route path="about" element={<About />}></Route>
           <Route
             index
             element={<Home view={view} close={close} setClose={setClose} />}
