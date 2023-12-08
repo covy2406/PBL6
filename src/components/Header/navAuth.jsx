@@ -7,7 +7,7 @@ function Navlogin({ Title = "" }) {
     <div className="navAuth">
       <div>
         <NavLink to="/" className="navAuth--toHome">
-          {/* <img src={Logo} alt="Logo" className="navAuth--logo"></img> */}
+          <div>Logo nè</div>
           <div className="navAuth--info">{Title}</div>
         </NavLink>
       </div>

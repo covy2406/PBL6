@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Route,
   createBrowserRouter,
@@ -6,18 +6,21 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 //page import
 import Layout from "./components/Layout/Layout.jsx";
 import SiteUser from "./Site_User/SiteUser.jsx";
-import SiteLogin from "./Site_User/Login";
-import SiteSignup from './Site_User/Signup';
+import SiteLogin from "./Site_User/Login.jsx";
+import SiteSignup from "./Site_User/Signup.jsx";
 import SiteReset from "./Site_User/Reset.jsx";
 import Product from "./components/NewProduct/product";
 import Home from "./components/Home/home";
 import ErrorPage from "./ErrorPage.jsx";
 import AdminNav from "./components/Header/adminNav.jsx";
 import AdminProduct from "./Site_Admin/AdminProduct.jsx";
-//import AdminUser from "./Site_Admin/AdminUser.jsx";
+import AdminUser from "./Site_Admin/AdminUser.jsx";
 import AdminShop from "./Site_Admin/AdminShop.jsx";
 
 import Oldphone from "components/OldPhone/oldphone.jsx";
@@ -34,7 +37,7 @@ import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 
 const App = () => {
   const loggedIn = window.localStorage.getItem("loggedIn");
-  //const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]);
   //const {id} = useParams();
   //product Detail
   const [close, setClose] = useState(false);
@@ -58,31 +61,6 @@ const App = () => {
     // Đặt trạng thái close thành true để đóng hộp thoại chi tiết sản phẩm
     setClose(true);
   };
-
-  // call api addtocart
-  // const addtocart = async (productId) => {
-  //   try {
-  //     console.log(productId);
-  //     const response = await apiAddToCart.add(productId);
-  //     setCart(response.productId, response.data);
-
-  //     if (response.statusCode === 200) {
-  //       // Lấy thông tin chi tiết sản phẩm từ dữ liệu phản hồi
-  //       const productDetail = response.data;
-
-  //       // sau đó, thêm sản phẩm vào giỏ hàng với thông tin chi tiết
-  //       handleAddToCart(productDetail);
-  //     } else {
-  //       throw (
-  //         new Error("Thêm sản phẩm vào giỏ hàng thất bại") &&
-  //         alert("Thêm sản phẩm vào giỏ hàng thất bại")
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Lỗi không thể thêm sản phẩm vào giỏ hàng: ", error);
-  //   }
-  // };
-
   // sao mã lỗi 200 thế kia, mà lại sai
   // call api addtocart
   // const addtocart = async (productId, quantity, data) => {
@@ -160,22 +138,19 @@ const App = () => {
             index
             element={<Home view={view} close={close} setClose={setClose} />}
           />
-          <Route path="/product" element={<Product view={view} />}></Route>
+          <Route path="/product" element={<Product view={view} />} />
           <Route
             path="/oldphone"
-            element={
-              <Oldphone view={view} close={close} setClose={setClose} />
-            }>
-          </Route>
-          <Route path="/cart" element={<Cart />}></Route>
+            element={<Oldphone view={view} close={close} setClose={setClose} />}
+          />
+          <Route path="/cart" element={<Cart />} />
           <Route
             path="/Viewdetail/:id"
             element={<Viewdetails close={close} setClose={setClose} />}></Route>
           <Route path="/CheckoutPage"></Route>
           <Route
             path="/Search/:search"
-            element={<Search view={view}></Search>}>  
-          </Route>
+            element={<Search view={view}></Search>}></Route>
           <Route path="/Shop" elemen={<Shop />}></Route>
           <Route path="/user">
             <Route
@@ -195,7 +170,7 @@ const App = () => {
         <Route element={<RequiredAuth />}>
           <Route path="/admin" element={<AdminNav />}>
             <Route path="/admin/product" element={<AdminProduct />} />
-            {/* <Route path="/admin/account" element={<AdminUser />} /> */}
+            <Route path="/admin/account" element={<AdminUser />} />
             <Route path="/admin/shop" element={<AdminShop />} />
           </Route>
         </Route>
@@ -208,6 +183,7 @@ const App = () => {
   return (
     <>
       <RouterProvider router={router} />
+      <ToastContainer />
     </>
   );
 };

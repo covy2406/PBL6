@@ -1,22 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+//import hook
+import useLogin from "hook/useLogin";
 import useAuth from "hook/useAuth";
-import apiAuth from "api/apiAuth";
-import apiCustomerProfile from "api/apiCustomerProfile";
-import { setHeaderConfigAxios } from "api/axiosClient";
+
+import { toast } from "react-toastify";
 
 function LoginForm() {
-  // define states
-  const { setAuth, setProfile } = useAuth();
+  // define hooks
+  const { profile, setAuth } = useAuth();
+  const login = useLogin();
 
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
-
+  //define states
+  const [user, setUser] = useState(window.localStorage.getItem("email") || "");
+  const [pass, setPass] = useState(
+    window.localStorage.getItem("password") || ""
+  );
   const [remember, setRemember] = useState(false);
-
   const [errMsg, setErrMsg] = useState("");
 
+  //define url
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -25,46 +29,41 @@ function LoginForm() {
   useEffect(() => {
     setErrMsg("");
   }, [user, pass]);
+
   // if user go straight to login page, clear local storage
   useEffect(() => {
+    localStorage.clear();
     setAuth({
       access_token: null,
-      customer_id: null,
       isAuth: false,
+      role: "user",
     });
-    localStorage.clear();
   }, [setAuth]);
 
+  // handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    //define data package
     const authUser = { email: user, password: pass };
-    try {
-      const response = await apiAuth.login(authUser);
-      const accessToken = response?.data?.access_token;
-      setHeaderConfigAxios(accessToken);
-      setAuth({
-        access_token: response.data.access_token,
-        role: user === "linh@gmail.com" ? "admin" : "user",
-        isAuth: true,
+    //call api
+    await login(authUser, remember);
+    console.log("handling submit");
+    //check if login success
+    if (profile.id) {
+      toast.success("loading...!", {
+        position: "top-right",
+        autoClose: 500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       });
-      setUser("");
-      setPass("");
-      window.localStorage.setItem("loggedIn", true);
-      if (remember) {
-        window.localStorage.setItem("access_token", accessToken);
-      }
-    } catch (err) {
-      console.log("login api: " + err);
+      navigate(from, { replace: true });
+    } else {
+      toast.error("Đăng nhập thất bại!");
     }
-    // after login, get profile data
-    try {
-      const response = await apiCustomerProfile.getProfile();
-      setProfile(response.data);
-    } catch (err) {
-      console.log("get profile data: " + err);
-    }
-    navigate(from, { replace: true });
   };
   return (
     <>

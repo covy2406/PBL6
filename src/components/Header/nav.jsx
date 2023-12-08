@@ -12,6 +12,7 @@ import CartList from "./CartList";
 //import Logo from '../../assets/Logo/Main_logo.png';
 import Navinfo from "./navinfo";
 import useAuth from "hook/useAuth";
+import useProfile from "hook/useProfile";
 // import { useParams } from 'react-router-dom';
 // import apiSearch from "api/apiSearch";
 const Nav = ({
@@ -22,27 +23,45 @@ const Nav = ({
     searchbtn = " ",
 }) => {
     const { auth, setAuth, profile } = useAuth();
+  const { useprofile } = useProfile();
 
-    const authUser = useState(profile.name);
-    const isAuth = auth.isAuth;
+  const [authUser, setAuthUser] = useState(profile.name || null);
+  const isAuth = window.localStorage.getItem("loggedIn");
 
     const location = useLocation();
     const [currentPath, setCurrentPath] = useState("");
 
-    useEffect(() => {
-        setCurrentPath(location.pathname);
-    }, [location]);
+  useEffect(() => {
+    setCurrentPath(location.pathname);
+  }, [location]);
 
-    // clear all when logout
-    const handleLogout = (e) => {
-        e.preventDefault();
+  //each time page is reload, get profile by using the current access_token
+  useEffect(() => {
+    useprofile()
+      .then((res) => {
+        setAuthUser(profile.name);
+      })
+      // if there is an error which mean access_token is expired, clear all
+      .catch(() => {
         setAuth({
-            access_token: null,
-            customer_id: null,
-            isAuth: false,
+          access_token: null,
+          role: "user",
         });
-        localStorage.clear();
-    };
+        window.localStorage.removeItem("access_token");
+        window.localStorage.removeItem("loggedIn");
+      });
+  }, []);
+
+  // clear all when logout
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setAuth({
+      access_token: null,
+      role: "user",
+    });
+    window.localStorage.removeItem("access_token");
+    window.localStorage.removeItem("loggedIn");
+  };
 
     return (
         <div>
@@ -151,8 +170,7 @@ const Nav = ({
                         <div className="header__logo">
                             <div className="header__logo">
                                 <Link to="/" className="header__logo-link">
-                                    {/* <img src={Logo} alt="" className="header__logo-img"></img> */}
-                                    <svg
+                                                      <svg
                                         width="120"
                                         height="86"
                                         xmlns="http://www.w3.org/2000/svg">
