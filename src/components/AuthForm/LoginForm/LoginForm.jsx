@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 function LoginForm() {
   // define hooks
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
   const login = useLogin();
 
   //define states

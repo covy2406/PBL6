@@ -156,7 +156,7 @@ const App = () => {
             path="/Search/:search"
             element={<Search view={view}></Search>}></Route>
           <Route path="/Shop" elemen={<Shop />}></Route>
-          <Route path="/user">
+          <Route path="/user" element={<RequiredAuth />}>
             <Route
               path="/user/account/profile"
               element={<SiteUser extraProps="profile" />}

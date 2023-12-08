@@ -11,7 +11,6 @@ const useLogin = () => {
       console.log(response);
       const accessToken = response.data.access_token;
       if (accessToken) {
-        setHeaderConfigAxios(accessToken);
         await setAuth({
           access_token: accessToken,
           isAuth: true,
@@ -28,6 +27,7 @@ const useLogin = () => {
           window.localStorage.setItem("password", authUser.password);
         }
         console.log("login success:", auth);
+        setHeaderConfigAxios(accessToken);
         return true;
       } else {
         console.log("login failed");

@@ -3,7 +3,6 @@ import App from "./App.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 import ReactDOM from "react-dom/client";
 import { AuthProvider } from "context/AuthProvider.js";
-import { CartProvider } from "context/AddToCartContext.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

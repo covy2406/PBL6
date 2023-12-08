@@ -18,9 +18,9 @@ export const CartProvider = ({ children }) => {
     try {
       // Gọi hàm addtocart từ api hoặc chỗ nào bạn đã định nghĩa
       const response = await apiAddToCart.add(productId, quantity);
-      console.log("in ra productId", productId);
+      // console.log("in ra productId", productId);
 
-      console.log("response add to cart", response);
+      // console.log("response add to cart", response);
       setCart(response.data);
 
       if (response.status === 200) {
@@ -30,18 +30,31 @@ export const CartProvider = ({ children }) => {
         alert("Thêm sản phẩm vào giỏ hàng thành công");
         // sau đó, thêm sản phẩm vào giỏ hàng với thông tin chi tiết
         //handleAddToCart(productDetail);
+        return true;
       } else {
         throw new Error("Thêm sản phẩm vào giỏ hàng thất bại");
       }
     } catch (error) {
       console.error(error);
+      return false;
     }
   };
 
   const fetchCartList = async () => {
     try {
-      const response = await apiViewCart.getViewCart();
-      setCartListProduct(response.data);
+      const cartlist = JSON.parse(
+        window.localStorage.getItem("cartListProduct")
+      );
+      setCartListProduct(cartlist);
+      if (!cartlist) {
+        const response = await apiViewCart.getViewCart();
+        setCartListProduct(response.data);
+        console.log("response cart list", response.data);
+        window.localStorage.setItem(
+          "cartListProduct",
+          JSON.stringify(response.data)
+        );
+      }
     } catch (error) {
       console.error(
         "Loi khong the hien thi san pham da them vao gio hang: ",
@@ -51,10 +64,10 @@ export const CartProvider = ({ children }) => {
   };
   // console.log('Danh sach san pham da them vao gio hang:', cartListProduct);
 
-  useEffect(() => {
-    fetchCartList();
-    addtocart();
-  }, []);
+  // useEffect(() => {
+  //   fetchCartList();
+  //   addtocart();
+  // }, []);
   // const handleAddToCart = (product) => {
   //     // product được truyền vào hàm addtocart là sản phẩm được call từ api
   //     const exist = cart.find((item) => item.id === product.id);

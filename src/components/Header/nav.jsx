@@ -5,7 +5,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
-import "./nav.css";
+import "./css/nav.css";
 import "../../assets/css/base.css";
 import "../BannerHome/bannerSlider.css";
 import CartList from "./CartList";
@@ -13,9 +13,6 @@ import Logo from "../../assets/Logo/4B1G.png";
 import Navinfo from "./navinfo";
 import useAuth from "hook/useAuth";
 import useProfile from "hook/useProfile";
-import { get } from "stream-http";
-// import { useParams } from 'react-router-dom';
-// import apiSearch from "api/apiSearch";
 const Nav = ({
   cart,
   handleSearchChange,
@@ -23,7 +20,7 @@ const Nav = ({
   searchTerm,
   searchbtn = " ",
 }) => {
-  const { auth, setAuth, profile } = useAuth();
+  const { auth, setAuth, profile, setProfile } = useAuth();
   const { useprofile } = useProfile();
 
   const [authUser, setAuthUser] = useState(profile.name || null);
@@ -38,8 +35,13 @@ const Nav = ({
 
   //each time page is reload, get profile by using the current access_token
   useEffect(() => {
-    console.log("get profile");
-    useprofile();
+    setProfile(JSON.parse(window.localStorage.getItem("profile")));
+    console.log(profile.name);
+    if (!profile.name) {
+      console.log(!profile.name);
+      console.log("get profile from api");
+      useprofile();
+    }
     setAuthUser(profile.name);
     console.log("auth", auth, "profile", profile);
   }, [profile.name]);
@@ -177,14 +179,6 @@ const Nav = ({
                   <h3 className="header__search-history-heading">
                     Lịch sử tìm kiếm
                   </h3>
-                  <ul className="header__search-history-list">
-                    <li className="header__search-history-item">
-                      <Link to="/">Kaka</Link>
-                    </li>
-                    <li className="header__search-history-item">
-                      <Link to="/">hehe</Link>
-                    </li>
-                  </ul>
                 </div>
               </div>
               <div className="header__search-select">

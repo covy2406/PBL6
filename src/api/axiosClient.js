@@ -11,27 +11,14 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    // if (accessToken) {
-    //   config.headers.Authorization = `Bearer ${JSON.parse(accessToken)}`;
-    // }
-    // const accessToken = localStorage.getItem("access_token");
-    // console.log("access_token_local", accessToken);
+    const accessToken = localStorage.getItem("access_token");
+    console.log("access_token_local", accessToken);
 
-    // if (accessToken) {
-    //   try {
-    //     const parsedToken = JSON.parse(accessToken);
-    //     if (parsedToken && typeof parsedToken === "string") {
-    //       config.headers.Authorization = `Bearer ${parsedToken}`;
-    //     } else {
-    //       console.error("Invalid access token format:", accessToken);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error parsing access token:", error);
-    //   }
-    // }
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
     return config;
   },
-
   function (error) {
     // Do something with request error
     return Promise.reject(error);
