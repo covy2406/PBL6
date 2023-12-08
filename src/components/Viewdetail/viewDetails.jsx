@@ -1,22 +1,29 @@
 import React from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import ImageSlider from "../ImageSlider/ImageSlider";
+import { useState } from "react";
+import { useEffect, useContext } from "react";
 import "./viewdt.css";
 import "../../assets/css/base.css";
-import { useState } from "react";
-import { useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 import apiProductDetail from "api/apiProductDetail";
-//import axiosClient from 'api/axiosClient';
+import { useCart } from "context/AddToCartContext";
+import AuthContext from "context/AuthProvider";
+import { useAuth0 } from "@auth0/auth0-react";
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
-const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
+
+const Viewdetails = ({ close, setClose }) => {
+
+    const { auth } = useContext(AuthContext);
+    const { addtocart } = useCart();
+    const { loginWithRedirect} = useAuth0();
     // CALL API PRODUCT DETAIL
     const [productDetail, setProductDetail] = useState([]);
-
+    const [error, setError] = useState(null);
     const { id } = useParams();
 
-    const [error, setError] = useState(null);
     useEffect(() => {
         const fetchProuductDetail = async () => {
             try {
@@ -29,14 +36,12 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
         fetchProuductDetail();
     }, [id]);
 
-    console.log(productDetail)
-
     if (error) {
         return <p>Erorr: {error.message}</p>
     }
 
     return (
-        <>
+        <div>
             {
                 close ?
                     <div className='grid'>
@@ -44,7 +49,7 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
                             <div className='container'>
                                 <button onClick={() => setClose(false)} className='closebtn'><AiOutlineCloseCircle /></button>
                                 {
-                                    productDetail.map((item) => {
+                                    productDetail.shop_products.map((item) => {
                                         return (
                                             <div className='productbox' >
                                                 {/* <h4>{curElm.Cat}</h4>
@@ -55,7 +60,7 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
                                                         <h2 className='box__image-title'>{curElm.Title}</h2>
                                                     </div> */}
                                                     <div className="img-box">
-                                                        <ImageSlider />
+                                                        {/* <ImageSlider /> */}
                                                     </div>
                                                 </div>
 
@@ -128,9 +133,15 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    
-                                                    <button onClick={() => addtocart(item)}>Thêm vào giỏ hàng</button>
-                                                    <button onClick>Thanh Toán Ngay</button>
+                                                    auth.isAuth ?
+                                                    (
+                                                        <button onClick={() => addtocart(item)}>Thêm vào giỏ hàng</button>
+                                                        <button onClick>Thanh Toán Ngay</button>
+                                                    )
+                                                    :
+                                                    (
+                                                        <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
+                                                    )
                                                 </div>
                                             </div>
                                         )
@@ -144,7 +155,7 @@ const Viewdetails = ({ addtocart, view, detail, close, setClose, match }) => {
                         </div>
                     </div> : null
             }
-        </>
+        </div>
     )
 }
 

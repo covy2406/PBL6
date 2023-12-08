@@ -4,10 +4,13 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useState } from 'react';
 import './cart.css';
 import '../../assets/css/base.css';
-
+import { useCart } from "context/AddToCartContext";
+import { useEffect } from 'react';
 
 
 const Cart = () => {
+    const { cartListProduct, fetchCartList } = useCart();
+
     // increace qty: tăng số lượng trên cùng một mặt hàng
     const [cart, setCart] = useState([])
     const incqty = (product) => {
@@ -48,12 +51,21 @@ const Cart = () => {
         }
     }
     // Total price
-    const Totalprice = cart.reduce((price, item) => { return price + item.qty * item.price } , 0)
+    const Totalprice = cartListProduct.data.reduce((price, item) => { return price + item.quantity_product * item.price } , 0)
+
+   
+
+    useEffect(() => {
+        fetchCartList(); 
+      }, [fetchCartList])
+
+
+
     return (
         <>
             <div className='cartcontainer'>
                 <div className='grid'>
-                    {cart.length === 0 &&
+                    {cartListProduct.data.length === 0 &&
                         <div className='emptycart'>
                             <h2 className='empty'>Cart is Empty</h2>
                             <Link to='/product' className='emptycartbtn'>Shop Now</Link>
@@ -61,12 +73,12 @@ const Cart = () => {
                     }
                     <div className='contant'>
                         {
-                            cart.length > 0 &&
+                            cartListProduct.data.length > 0 &&
                             <>
                                 <div className='grid'>
                                     <div className='cart__totalprice'>
                                         <h2 className='totalprice'>total: {Totalprice} đ</h2>
-                                        <button className='btn__checkout'>Checkout</button>
+                                        <button className='btn__checkout'>Thanh toán ngay</button>
                                     </div>
                                 </div>
                             </>
@@ -83,22 +95,22 @@ const Cart = () => {
                                 </tr>
                             </thead>
                             {
-                                cart.map((item) => {
+                                cartListProduct.data.map((item) => {
                                     return (
                                         <tbody>
                                             <tr key={item.id}>
-                                                <td><img src={`http://0.tcp.ap.ngrok.io:19912/${item.image}`} alt={item.name}></img></td>
+                                                <td><img src={`http://0.tcp.ap.ngrok.io:19356/${item.image}`} alt={item.name}></img></td>
                                                 <td>{item.name}</td>
                                                 <td>{item.price} đ</td>
                                                 <td>
                                                     <div className='qty'>
                                                         <button className='incqty' onClick={() => incqty(item)}>+</button>
-                                                        <input type='text' value={item.qty}></input>
+                                                        <input type='text' value={item.quantity_order}></input>
                                                         <button className='decqty' onClick={() => decqty(item)}>-</button>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <p className='subtotal'>{item.price * item.qty} đ</p>
+                                                    <p className='subtotal'>{item.price * item.quantity_order} đ</p>
                                                 </td>
                                                 <td>
                                                     <div className='close'>

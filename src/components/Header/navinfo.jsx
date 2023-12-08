@@ -10,6 +10,7 @@ const Navinfo = () => {
     <div>
       <ul className="header__navbar-list">
         <li className="header__navbar-item header__navbar-item--separate">
+            <Link path='/Shop'></Link>
             Kênh người bán
         </li>
         <li className="header__navbar-item header__navbar-item--separate">

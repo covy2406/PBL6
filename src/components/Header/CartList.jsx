@@ -1,12 +1,21 @@
 import React from 'react'
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BsCart2 } from 'react-icons/bs';
 import './nav.css';
-//import {BsEye} from 'react-icons/bs';
+import AuthContext from "context/AuthProvider";
+import { useCart } from "context/AddToCartContext";
 
-const CartList = ({ cart }) => {
+const CartList = () => {
+    const { auth } = useContext(AuthContext);
+    const { cartListProduct, fetchCartList } = useCart();
+
+    useEffect(() => {
+        fetchCartList(); 
+      }, [])
+
     return (
-        <>
+        <div>
             <div className="header__cart">
                 <div className="header__cart-wrap">
                     <Link to="../Cart">
@@ -14,7 +23,7 @@ const CartList = ({ cart }) => {
                             <BsCart2 />
                         </i>
                         <span className="header__cart-notice">
-                            {cart?.length === 0 ? "" : cart?.length}
+                            {cartListProduct.data?.length === 0 ? 0 : cartListProduct.data?.length}
                         </span>
                     </Link>
 
@@ -31,18 +40,21 @@ const CartList = ({ cart }) => {
                         <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
                         <ul className="header__cart-list-item">
                             {
-                                Array.isArray(cart) ?
-                                    cart.map((curElm) => {
+                                //Array.isArray(cartListProduct) ?
+                                auth.isAuth ?
+                                (
+                                    cartListProduct.data && cartListProduct.data.length > 0 ?
+                                    cartListProduct.data.map((curElm) => {
                                         return (
                                             <li className="header__cart-item" key={curElm.id}  >
-                                                <img src={`http://0.tcp.ap.ngrok.io:19912/${curElm.image}`} alt={curElm.name} className="header__cart-img"></img>
+                                                <img src={`http://0.tcp.ap.ngrok.io:19356/${curElm.image}`} alt={curElm.name} className="header__cart-img"></img>
                                                 <div className="header__cart-item-info">
                                                     <div className="header__cart-item-head">
                                                         <h5 className="header__cart-item-name">{curElm.name}</h5>
                                                         <div className="header__cart-item-price-wrap">
                                                             <span className="header__cart-item-price">{curElm.price} đ</span>
-                                                            {/* <span className="header__cart-item-multiply">x</span> */}
-                                                            {/* <span className="header__cart-item-quantity">{qty}</span> */}
+                                                            <span className="header__cart-item-multiply">x</span>
+                                                            <span className="header__cart-item-quantity">{curElm.quantity_order}</span>
                                                         </div>
                                                     </div>
                                                     <div className="header__cart-item-body">
@@ -54,10 +66,19 @@ const CartList = ({ cart }) => {
                                         )
                                     })
                                     :
-                                    <>
+                                    (
                                         <p>Không có sản phẩm nào</p>
-                                    </>
+                                    )
+                                )
+                                :
+                                <>
+                                    <p>Hãy đăng nhập để thêm sản phẩm vào giỏ hàng</p>
+                                </>
+                                
                             }
+                           
+                            
+                            
                         </ul>
 
                         <Link to="../Cart" className="header__cart-view-cart btn btn--primary">Xem giỏ hàng</Link>
@@ -69,7 +90,7 @@ const CartList = ({ cart }) => {
                 className="header__cart-view-cart btn btn--primary">
                 Xem giỏ hàng
             </Link> */}
-        </>
+        </div>
     );
 };
 export default CartList;

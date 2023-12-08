@@ -4,9 +4,18 @@ import {AiFillRightCircle} from 'react-icons/ai';
 //import images  from './carouselDt';
 import './imageSlider.css';
 import Slider from 'react-slick';
+//import { useEffect } from 'react';
 
 
-const ImageSlider = ({detail}) => {
+const ImageSlider = () => {
+
+    // const [imageList, setImageList] = useState([]);
+    // const [error, setError] = useState(null);
+
+    // useEffect(() => {
+    //     const fetch
+    // })
+
     const settings = {
         dots: true,
         infinite: true,

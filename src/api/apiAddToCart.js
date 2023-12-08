@@ -2,14 +2,14 @@ import axiosClient from "./axiosClient";
 
 const apiAddToCart = {
     // tạo mới
-    add(data, productId, quantity, token) {
+    add( productId, quantity) {
         const url = `/cart/add-product/`;
         return axiosClient.post(
             url, 
             {
-                productId,
+                shop_product_id: productId,
                 quantity: quantity,
-            }, 
+            },
             );
     },
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://0.tcp.ap.ngrok.io:10504/api",
+  baseURL: "http://0.tcp.ap.ngrok.io:19356/api",
   headers: {
     "content-type": "application/json",
   },
@@ -11,24 +11,24 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    const accessToken = localStorage.getItem("access_token");
-    console.log("access_token_local", accessToken);
     // if (accessToken) {
     //   config.headers.Authorization = `Bearer ${JSON.parse(accessToken)}`;
     // }
+    // const accessToken = localStorage.getItem("access_token");
+    // console.log("access_token_local", accessToken);
 
-    if (accessToken) {
-      try {
-        const parsedToken = JSON.parse(accessToken);
-        if (parsedToken && typeof parsedToken === "string") {
-          config.headers.Authorization = `Bearer ${parsedToken}`;
-        } else {
-          console.error("Invalid access token format:", accessToken);
-        }
-      } catch (error) {
-        console.error("Error parsing access token:", error);
-      }
-    }
+    // if (accessToken) {
+    //   try {
+    //     const parsedToken = JSON.parse(accessToken);
+    //     if (parsedToken && typeof parsedToken === "string") {
+    //       config.headers.Authorization = `Bearer ${parsedToken}`;
+    //     } else {
+    //       console.error("Invalid access token format:", accessToken);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error parsing access token:", error);
+    //   }
+    // }
     return config;
   },
 

@@ -24,6 +24,7 @@ import Oldphone from "components/OldPhone/oldphone.jsx";
 import Cart from "components/Cart/cart.jsx";
 import Viewdetails from "components/Viewdetail/viewDetails.jsx";
 import Search from "components/Search/Search.jsx";
+import Shop from "components/Shop/Shop.jsx";
 //import apiAddToCart from "api/apiAddToCart";
 
 //import { useParams } from 'react-router-dom';
@@ -173,7 +174,9 @@ const App = () => {
           <Route path="/CheckoutPage"></Route>
           <Route
             path="/Search/:search"
-            element={<Search view={view}></Search>}></Route>
+            element={<Search view={view}></Search>}>  
+          </Route>
+          <Route path="/Shop" elemen={<Shop />}></Route>
           <Route path="/user">
             <Route
               path="/user/account/profile"

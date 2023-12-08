@@ -14,9 +14,6 @@ import '../../assets/css/base.css';
 
 
 const Home = ({ view, addtocart }) => {
-    // useEffect(() => {
-    //     getAll()
-    // }, [])
 
     return (
         <>
@@ -85,13 +82,13 @@ const Home = ({ view, addtocart }) => {
                 </div>
             </div>
             <BannerProducts/>
-            <div className='grid'>
+            {/* <div className='grid'>
                 <div className='product'>
                     <h2 className='product_item_name'>Deal ngon - Giá luôn rẻ</h2>
-                    {/* CALL API TRẢ VỀ DANH SÁCH SẢN PHẨM TRANG CHỦ: */}
+                    
                     <ProductHome view={view} addtocart={addtocart} />
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

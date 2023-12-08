@@ -57,15 +57,15 @@ const ProductHome = ({ view }) => {
                 // Array.isArray(productList) ? or productList && productList.lenght > 0 ? đều kiểm tra xem có phải dữ liệu từ api là mảng hay ko.
                     productList.map((curElm) => {
                         return (
-                            <div className='box' key={curElm.id}>
+                            <div className='box' key={curElm.shop_product_id}>
                                 <div className='img_box'>
                                     {/* {`http://localhost:8000${curElm.image}`} */}
-                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:10504/${curElm.image}`} alt={curElm.name}></img>
+                                    <img className='product-main__item' src={`http://0.tcp.ap.ngrok.io:19356/${curElm.image}`} alt={curElm.name}></img>
                                     <div className='icon'>
                                         {
                                             auth.isAuth ?
                                             (
-                                                <li onClick={() => addtocart(curElm.id, 1)}><AiOutlineShoppingCart /></li>
+                                                <li onClick={() => addtocart(curElm.shop_product_id, 1)}><AiOutlineShoppingCart /></li>
                                                 
                                             )
                                             :
@@ -73,7 +73,7 @@ const ProductHome = ({ view }) => {
                                                 <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
                                             )
                                         }
-                                        <li className='icon__link' onClick={() => view(curElm.id)}><Link to={`../Viewdetail/${curElm.id}`}><BsEye /></Link></li>
+                                        <li className='icon__link' onClick={() => view(curElm.shop_product_id)}><Link to={`../Viewdetail/${curElm.shop_product_id}`}><BsEye /></Link></li>
                                     </div>
                                 </div>
                                 <div className='detail'>

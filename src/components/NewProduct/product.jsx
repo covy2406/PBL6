@@ -1,5 +1,5 @@
 import { React, useEffect} from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsEye } from 'react-icons/bs';
@@ -18,12 +18,13 @@ import '../Home/home.css';
 import Category from './Category.jsx';
 import apiProductHome from 'api/apiProductHome.js';
 import { useCart } from "context/AddToCartContext";
+import AuthContext from "context/AuthProvider";
 
 
 //import PaginationControlled from './PaginationControlled.jsx';
 //import apiBrand from 'api/apiBrand.js';
 
-const Product = ({ view, detail, setDetail, close, setClose }) => {
+const Product = ({ view }) => {
 
     // const [currentPage, setCurrentPage] = useState(1);
     // const totalPages = 10; // Tổng số trang
@@ -33,9 +34,10 @@ const Product = ({ view, detail, setDetail, close, setClose }) => {
     // });
 
     const { loginWithRedirect} = useAuth0();
-    const isAuth = true;
-
+    // const isAuth = true;
+    const { auth } = useContext(AuthContext);
     const { addtocart } = useCart();
+
 
     const [ProductNew, setProductNew] = useState([]);
     const [error, setError] = useState(null)
@@ -56,14 +58,6 @@ const Product = ({ view, detail, setDetail, close, setClose }) => {
     if(error) {
         return <p>error: {error.message}</p>
     }
-
-    // const viewProductNew = (ProductNew) => 
-    // {
-    //     // Cập nhật trạng thái detail với đối tượng sản phẩm để hiển thị chi tiết sản phẩm
-    //     setDetail([{...ProductNew}])
-    //     // Đặt trạng thái close thành true để đóng hộp thoại chi tiết sản phẩm
-    //     setClose(true)
-    // }
 
     // const [pagination, setPagination] = useState({
     //     _page: 1,
@@ -127,17 +121,21 @@ const Product = ({ view, detail, setDetail, close, setClose }) => {
                             {
                                 ProductNew.map((curElm) => {
                                     return (
-                                        <div className='box' key={curElm.id}>
+                                        <div className='box' key={curElm.shop_product_id}>
                                             <div className='img_box'>
-                                                <img src={`http://0.tcp.ap.ngrok.io:18596/${curElm.image}`} alt={curElm.name}></img>
+                                                <img src={`http://0.tcp.ap.ngrok.io:19356/${curElm.image}`} alt={curElm.name}></img>
                                                 <div className='icon'>
                                                     {
-                                                        isAuth ?
-                                                            <li onClick={() => addtocart(curElm, 1)}><AiOutlineShoppingCart /></li>
-                                                            :
+                                                        auth.isAuth ?
+                                                        (
+                                                            <li onClick={() => addtocart(curElm.shop_product_id, 1)}><AiOutlineShoppingCart /></li>
+                                                        )
+                                                        :
+                                                        (
                                                             <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart /></li>
+                                                        )
                                                     }
-                                                    <li className='icon__link' onClick={() => view(curElm)}><Link to={`../Viewdetail/${curElm.id}`}><BsEye /></Link></li>
+                                                    <li className='icon__link' onClick={() => view(curElm.shop_product_id)}><Link to={`../Viewdetail/${curElm.shop_product_id}`}><BsEye /></Link></li>
                                                     {/* <li><AiOutlineHeart /></li> */}
                                                 </div>
                                             </div>
