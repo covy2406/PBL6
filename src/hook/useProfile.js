@@ -2,14 +2,15 @@ import apiCustomerProfile from "api/apiCustomerProfile";
 import useAuth from "hook/useAuth";
 
 const useProfile = () => {
-  const { profile, setProfile } = useAuth();
+  const { setProfile } = useAuth();
   const useprofile = async () => {
     try {
       const response = await apiCustomerProfile.getProfile();
-      setProfile(response.data);
-      console.log("get profile success: ", profile);
+      await setProfile(response.data);
+      return true;
     } catch (err) {
       console.log("get profile data: " + err);
+      return false;
     }
   };
   return { useprofile };

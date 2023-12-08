@@ -1,7 +1,13 @@
 import React from "react";
+import { useState } from "react";
 import "./css/Contact.css";
 
 const Contact = () => {
+  //define state
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
   return (
     <>
       <div className="aboutform">
@@ -11,12 +17,24 @@ const Contact = () => {
         </div>
         <div className="aboutform--form">
           <div className="aboutform--form__input">
-            <input type="text" placeholder="Họ và tên" />
-            <input type="text" placeholder="Email" />
+            <input
+              type="text"
+              placeholder="Họ và tên"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <input
               type="text"
               placeholder="Lời nhắn"
               className="aboutform--form__input--message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
             />
             <button>Gửi</button>
           </div>

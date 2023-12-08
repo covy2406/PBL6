@@ -13,6 +13,7 @@
   margin-bottom: 2rem;
 }
 .aboutform--decription {
+  width: 30vw;
   font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 2rem;
@@ -48,10 +49,9 @@
   position: absolute;
   height: fit-content;
   width: 20vw;
-  padding: 2rem 5rem;
-  padding-bottom: 3rem;
-  top: 3rem;
-  right: 3rem;
+  padding: 3rem 5rem;
+  top: 15%;
+  right: 5%;
 }
 .aboutform--info__title {
   font-size: 3rem;
@@ -63,4 +63,6 @@
   flex-direction: column;
   gap: 4rem;
   font-size: 1.5rem;
+}
+.aboutform--form__input ::placeholder {
 }

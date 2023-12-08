@@ -13,6 +13,7 @@ import Logo from "../../assets/Logo/4B1G.png";
 import Navinfo from "./navinfo";
 import useAuth from "hook/useAuth";
 import useProfile from "hook/useProfile";
+import { get } from "stream-http";
 // import { useParams } from 'react-router-dom';
 // import apiSearch from "api/apiSearch";
 const Nav = ({
@@ -37,20 +38,11 @@ const Nav = ({
 
   //each time page is reload, get profile by using the current access_token
   useEffect(() => {
-    useprofile()
-      .then((res) => {
-        setAuthUser(profile.name);
-      })
-      // if there is an error which mean access_token is expired, clear all
-      .catch(() => {
-        setAuth({
-          access_token: null,
-          role: "user",
-        });
-        window.localStorage.removeItem("access_token");
-        window.localStorage.removeItem("loggedIn");
-      });
-  }, []);
+    console.log("get profile");
+    useprofile();
+    setAuthUser(profile.name);
+    console.log("auth", auth, "profile", profile);
+  }, [profile.name]);
 
   // clear all when logout
   const handleLogout = (e) => {

@@ -46,10 +46,10 @@ function LoginForm() {
     //define data package
     const authUser = { email: user, password: pass };
     //call api
-    login(authUser, remember);
+    const loggedIn = await login(authUser, remember);
     console.log("handling submit");
     //check if login success
-    if (auth.isAuth) {
+    if (loggedIn) {
       toast.success("loading...!", {
         position: "top-right",
         autoClose: 500,
