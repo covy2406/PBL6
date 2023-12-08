@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Route,
   createBrowserRouter,
@@ -22,6 +22,7 @@ import AdminNav from "./components/Header/adminNav.jsx";
 import AdminProduct from "./Site_Admin/AdminProduct.jsx";
 import AdminUser from "./Site_Admin/AdminUser.jsx";
 import AdminShop from "./Site_Admin/AdminShop.jsx";
+import About from "./components/About/About.jsx";
 
 import Oldphone from "components/OldPhone/oldphone.jsx";
 import Cart from "components/Cart/cart.jsx";
@@ -36,7 +37,6 @@ import Shop from "components/Shop/Shop.jsx";
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 
 const App = () => {
-  const loggedIn = window.localStorage.getItem("loggedIn");
   const [cart, setCart] = useState([]);
   //const {id} = useParams();
   //product Detail
@@ -129,11 +129,11 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
+        <Route path="about" element={<About />}></Route>
         <Route path="login" element={<SiteLogin />}></Route>
         <Route path="signup" element={<SiteSignup />}></Route>
         <Route path="reset" element={<SiteReset />}></Route>
         <Route path="/" element={<Layout />}>
-          {/* <Route path="/" element={loggedIn ? <Layout /> : <SiteLogin />}> */}
           <Route
             index
             element={<Home view={view} close={close} setClose={setClose} />}

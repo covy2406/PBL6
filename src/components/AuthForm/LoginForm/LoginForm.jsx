@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 function LoginForm() {
   // define hooks
-  const { profile, setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const login = useLogin();
 
   //define states
@@ -46,10 +46,10 @@ function LoginForm() {
     //define data package
     const authUser = { email: user, password: pass };
     //call api
-    await login(authUser, remember);
+    login(authUser, remember);
     console.log("handling submit");
     //check if login success
-    if (profile.id) {
+    if (auth.isAuth) {
       toast.success("loading...!", {
         position: "top-right",
         autoClose: 500,

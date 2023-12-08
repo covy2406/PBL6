@@ -3,8 +3,7 @@
   justify-content: space-between;
   align-items: center;
   height: 14rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding: 0 35rem;
   background-color: var(--primary-color);
 }
 .navAuth--toHome {
@@ -15,7 +14,8 @@
 .navAuth--info {
   background-color: var(--primary-color);
   text-decoration: none;
-  font-size: 2rem;
+  margin-left: 3rem;
+  font-size: 2.5rem;
   color: whitesmoke;
 }
 .navAuth--logo {

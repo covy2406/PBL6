@@ -1,11 +1,9 @@
 import apiAuth from "api/apiAuth";
 import { setHeaderConfigAxios } from "api/axiosClient";
 import useAuth from "hook/useAuth";
-import useProfile from "./useProfile";
 
 const useLogin = () => {
   const { auth, setAuth } = useAuth();
-  const { useprofile } = useProfile();
   const login = async (authUser, remember) => {
     try {
       const response = await apiAuth.login(authUser);
@@ -25,7 +23,6 @@ const useLogin = () => {
           window.localStorage.setItem("password", authUser.password);
         }
         console.log("login success:", auth);
-        useprofile();
       } else {
         console.log("login failed");
       }
