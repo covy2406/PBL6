@@ -105,8 +105,8 @@ function LoginForm() {
           />
         </div>
         <div className="authform--details">
-          <input type="checkbox" onChange={() => setRemember(!remember)} />
-          {remember}
+          <input type="checkbox" onClick={() => setRemember(!remember)} />
+          {/* {remember ? 1 : 0} */}
           Lưu mật khẩu
         </div>
         <Link to="/reset" className="authform--go-others authform--details">

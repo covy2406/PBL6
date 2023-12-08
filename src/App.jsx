@@ -24,6 +24,7 @@ import AdminUser from "./Site_Admin/AdminUser.jsx";
 import AdminShop from "./Site_Admin/AdminShop.jsx";
 import About from "./components/About/About.jsx";
 import Contact from "./components/About/Contact.jsx";
+import Term from "components/About/Term.jsx";
 
 import Oldphone from "components/OldPhone/oldphone.jsx";
 import Cart from "components/Cart/cart.jsx";
@@ -134,6 +135,7 @@ const App = () => {
         <Route path="signup" element={<SiteSignup />}></Route>
         <Route path="reset" element={<SiteReset />}></Route>
         <Route path="/" element={<Layout />}>
+          <Route path="term" element={<Term />}></Route>
           <Route path="contact" element={<Contact />}></Route>
           <Route path="about" element={<About />}></Route>
           <Route
