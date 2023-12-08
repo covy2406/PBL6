@@ -56,6 +56,10 @@ const ProductHome = ({ view }) => {
                 productList && productList.length > 0 ?
                 // Array.isArray(productList) ? or productList && productList.lenght > 0 ? đều kiểm tra xem có phải dữ liệu từ api là mảng hay ko.
                     productList.map((curElm) => {
+                        const formattedPrice = new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                          }).format(curElm.price);
                         return (
                             <div className='box' key={curElm.shop_product_id}>
                                 <div className='img_box'>
@@ -85,7 +89,7 @@ const ProductHome = ({ view }) => {
                                     </div>
                                     <div className="home-product-item__price">
                                         <span className="home-product-item__price-old"></span>
-                                        <span className="home-product-item__price-current">{curElm.price} đ</span>
+                                        <span className="home-product-item__price-current">{formattedPrice}</span>
                                     </div>
 
                                     <div className="home-product-item__origin">

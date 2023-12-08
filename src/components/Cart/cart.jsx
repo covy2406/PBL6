@@ -6,35 +6,61 @@ import './cart.css';
 import '../../assets/css/base.css';
 import { useCart } from "context/AddToCartContext";
 import { useEffect } from 'react';
-
+// import apiRemoveProduct from 'api/apiRemoveProduct';
+// import { useParams } from 'react-router-dom';
 
 const Cart = () => {
+    const [cart, setCart] = useState([]);
     const { cartListProduct, fetchCartList } = useCart();
+    // const [removeProduct, setRemoveProduct] = useState([]);
+    // const [error, setError] = useState(null);
+
+    //const {product_order_id} = useParams();
+
+    
+    useEffect(() => {
+        // const fetchRemove = async () => {
+        //     try {
+        //         const reponse = await apiRemoveProduct.deleteProduct(product_order_id);
+        //         setRemoveProduct(reponse.data)
+        //     }
+        //     catch(error) {
+        //         setError(error)
+        //     }
+        // }
+        fetchCartList();
+        //fetchRemove();
+    },[fetchCartList])
+
+    // if(error) {
+    //     return <p>Error: {error.message}</p>
+    // }
+
 
     // increace qty: tăng số lượng trên cùng một mặt hàng
-    const [cart, setCart] = useState([])
-    const incqty = (product) => {
-        const exsit = cart.find((item) => {
-            return item.id === product.id
-        })
-        setCart(cart.map((item) => {
-            return item.id === product.id ? { ...exsit, qty: exsit.qty + 1 } : item
-        }).filter((item) => item.qty > 0));
-    }
+    // const [cart, setCart] = useState([])
+    // const incqty = (product) => {
+    //     const exsit = cart.find((item) => {
+    //         return item.id === product.id
+    //     })
+    //     setCart(cart.map((item) => {
+    //         return item.id === product.id ? { ...exsit, qty: exsit.qty + 1 } : item
+    //     }).filter((item) => item.qty > 0));
+    // }
 
-    // Descrease Qty: giảm số lượng trên cùng một mặt hàng
-    const decqty = (product) => {
-        // x === item
-        const exsit = cart.find((x) => {
-            return x.id === product.id
-        })
-        if(exsit.qty === 1) {
-            setCart(cart.filter((x) => x.id !== product.id))
-        }
-        else {
-            setCart(cart.map((item) => { return item.id === product.id ? { ...exsit, qty: exsit.qty - 1 } : item}))
-        }
-    }
+    // // Descrease Qty: giảm số lượng trên cùng một mặt hàng
+    // const decqty = (product) => {
+    //     // x === item
+    //     const exsit = cart.find((x) => {
+    //         return x.id === product.id
+    //     })
+    //     if(exsit.qty === 1) {
+    //         setCart(cart.filter((x) => x.id !== product.id))
+    //     }
+    //     else {
+    //         setCart(cart.map((item) => { return item.id === product.id ? { ...exsit, qty: exsit.qty - 1 } : item}))
+    //     }
+    // }
 
     //Remove cart product: xóa sản phẩm khỏi giỏ hàng (CLOSE)
     const removeproduct = (product) => {
@@ -52,14 +78,6 @@ const Cart = () => {
     }
     // Total price
     const Totalprice = cartListProduct.data.reduce((price, item) => { return price + item.quantity_product * item.price } , 0)
-
-   
-
-    useEffect(() => {
-        fetchCartList(); 
-      }, [fetchCartList])
-
-
 
     return (
         <>
@@ -98,15 +116,15 @@ const Cart = () => {
                                 cartListProduct.data.map((item) => {
                                     return (
                                         <tbody>
-                                            <tr key={item.id}>
+                                            <tr key={item.product_order_id}>
                                                 <td><img src={`http://0.tcp.ap.ngrok.io:19356/${item.image}`} alt={item.name}></img></td>
                                                 <td>{item.name}</td>
                                                 <td>{item.price} đ</td>
                                                 <td>
                                                     <div className='qty'>
-                                                        <button className='incqty' onClick={() => incqty(item)}>+</button>
+                                                        {/* <button className='incqty' onClick={() => fetchRemove(item.product_order_id)}>+</button>
                                                         <input type='text' value={item.quantity_order}></input>
-                                                        <button className='decqty' onClick={() => decqty(item)}>-</button>
+                                                        <button className='decqty' onClick={() => fetchRemove(item.product_order_id)}>-</button> */}
                                                     </div>
                                                 </td>
                                                 <td>
@@ -114,7 +132,7 @@ const Cart = () => {
                                                 </td>
                                                 <td>
                                                     <div className='close'>
-                                                        <button onClick={() => removeproduct(item)}><AiOutlineClose /></button>
+                                                        <button onClick={() => removeproduct(item.product_order_id)}><AiOutlineClose /></button>
                                                     </div>
                                                 </td>
                                             </tr>

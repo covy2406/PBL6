@@ -12,7 +12,7 @@ const CartList = () => {
 
     useEffect(() => {
         fetchCartList(); 
-      }, [])
+      }, [fetchCartList])
 
     return (
         <div>
@@ -45,6 +45,10 @@ const CartList = () => {
                                 (
                                     cartListProduct.data && cartListProduct.data.length > 0 ?
                                     cartListProduct.data.map((curElm) => {
+                                        const formattedPrice = new Intl.NumberFormat('vi-VN', {
+                                            style: 'currency',
+                                            currency: 'VND',
+                                          }).format(curElm.price);
                                         return (
                                             <li className="header__cart-item" key={curElm.id}  >
                                                 <img src={`http://0.tcp.ap.ngrok.io:19356/${curElm.image}`} alt={curElm.name} className="header__cart-img"></img>
@@ -52,7 +56,7 @@ const CartList = () => {
                                                     <div className="header__cart-item-head">
                                                         <h5 className="header__cart-item-name">{curElm.name}</h5>
                                                         <div className="header__cart-item-price-wrap">
-                                                            <span className="header__cart-item-price">{curElm.price} đ</span>
+                                                            <span className="header__cart-item-price">{formattedPrice} </span>
                                                             <span className="header__cart-item-multiply">x</span>
                                                             <span className="header__cart-item-quantity">{curElm.quantity_order}</span>
                                                         </div>
