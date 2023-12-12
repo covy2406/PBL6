@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://0.tcp.ap.ngrok.io:19356/api",
+  baseURL: "http://0.tcp.ap.ngrok.io:13168/api",
   headers: {
     "content-type": "application/json",
   },
@@ -16,6 +16,8 @@ axiosClient.interceptors.request.use(
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+    } else {
+      delete axiosClient.defaults.headers.common["Authorization"];
     }
     return config;
   },

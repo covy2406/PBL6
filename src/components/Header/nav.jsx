@@ -40,10 +40,9 @@ const Nav = ({
       useprofile();
     } else {
       setProfile(JSON.parse(window.localStorage.getItem("profile")));
-      console.log(profile.name);
+      useprofile();
     }
     setAuthUser(profile.name);
-    console.log("auth", auth, "profile", profile);
   }, [profile.name]);
 
   // clear all when logout
@@ -113,7 +112,7 @@ const Nav = ({
               {isAuth ? (
                 <li className="header__navbar-item header__navbar-user">
                   <img
-                    src="./img/dienthoai.jpg"
+                    src={profile.avatar}
                     alt=""
                     className="header__navbar-user-img"></img>
                   <span className="header__navbar-user-name header__navbar-item--bold">
@@ -128,11 +127,11 @@ const Nav = ({
                         <Link to="/admin/product">Trang admin</Link>
                       </li>
                     ) : null}
-                    <li className="header__navbar-user-item">
+                    {/* <li className="header__navbar-user-item">
                       <Link to="/">Địa chỉ của tôi</Link>
-                    </li>
+                    </li> */}
                     <li className="header__navbar-user-item">
-                      <Link to="/">Đơn mua</Link>
+                      <Link to="/user/purchase">Đơn mua</Link>
                     </li>
                     <li
                       className="header__navbar-user-item header__navbar-user-item--separate"

@@ -1,5 +1,5 @@
 .authform {
-  border: 2px solid #5d58a1;
+  border: 2px solid var(--primary-color);
   border-radius: 1rem;
   display: flex;
   flex-direction: column;

@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import apiAuth from "api/apiAuth";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import useSignup from "hook/useSignup";
+import { toast } from "react-toastify";
 import "../AuthForm.css";
 
 const PHONE_REGEX = /^\d{10}$/;
@@ -10,8 +10,9 @@ const PWD_REGEX = /^.{8,}$/;
 const EMAIL_REGEX = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 
 function SignupForm() {
+  const navigate = useNavigate();
   // define hooks
-  const { signup } = useSignup();
+  const signup = useSignup();
   // define states
   const [user, setUser] = useState("");
 
@@ -35,9 +36,7 @@ function SignupForm() {
   useEffect(() => {
     setValidPass(PWD_REGEX.test(pass));
     if (passFocus && !validPass) {
-      setErrMsg(
-        "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 kí tự đặc biệt"
-      );
+      setErrMsg("Mật khẩu phải có ít nhất 8 kí tự");
     }
   }, [pass, passFocus, validPass]);
 
@@ -94,7 +93,17 @@ function SignupForm() {
 
     // send request to server
     if (signup(newAccount)) {
-      setSuccess(true);
+      toast.success("Đăng ký thành công!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      navigate("/login", { replace: true });
     }
   };
 

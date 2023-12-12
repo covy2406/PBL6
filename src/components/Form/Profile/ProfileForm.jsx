@@ -3,6 +3,9 @@ import { days, months, years } from "./DateData.js";
 import "../AccountForm.css";
 import "./DatePicker.css";
 import "./Profile.css";
+import Logo from "../../../assets/Logo/4B1G.png";
+
+import Avatar from "react-avatar-edit";
 
 import React, { useEffect, useState } from "react";
 import useAuth from "hook/useAuth.js";
@@ -10,34 +13,65 @@ import apiCustomerProfile from "api/apiCustomerProfile.js";
 //import useAuth from "../../../hook/useAuth.js";
 
 const ProfileForm = () => {
+  //img states
+  const [avatar, setAvatar] = useState(Logo);
+  const [preview, setPreview] = useState();
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
+  const onClose = () => {
+    toggleVisibility();
+    setAvatar(preview);
+    setPreview(null);
+  };
+  const onCrop = (preview) => {
+    setPreview(preview);
+  };
+
   // get current date if user has not set birthday
   const currentDate = new Date();
   // get data from useProfile hook
   const { profile } = useAuth();
   // define states
+
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
   const [user, setUser] = useState();
-  const [sex, setSex] = useState("Nam");
+  const [sex, setSex] = useState(1);
   const [birthday, setBirthday] = useState([
     currentDate.getDate(),
-    currentDate.getMonth(),
+    currentDate.getMonth() + 1,
     currentDate.getFullYear() - 18,
   ]);
   const [dayy, setDays] = useState(birthday[0]);
   const [monthh, setMonths] = useState(birthday[1]);
   const [yearr, setYears] = useState(birthday[2]);
   useEffect(() => {
-    // Access and use the data from useProfile hook here
+    console.log("profile: ", profile);
     if (profile) {
       if (profile.dayOfBirth) {
-        setBirthday(profile.dayOfBirth);
+        setBirthday(
+          profile.dayOfBirth
+            .split(" ")[0]
+            .split("-")
+            .map((value) => +value)
+            .reverse()
+        );
+        //change from yyyy-mm-dd hh:mm:ss to dd-mm-yyyy
+        setDays(birthday[0]);
+        setMonths(birthday[1]);
+        setYears(birthday[2]);
       }
       setEmail(profile.email);
       setPhone(profile.phone);
       setUser(profile.name);
-      if (profile.sex !== null) {
-        setSex(profile.sex);
+      if (profile.sex === 1) {
+        setSex("Nam");
+      } else {
+        setSex("Nữ");
       }
     }
   }, [profile]);
@@ -46,27 +80,27 @@ const ProfileForm = () => {
   }, [dayy, monthh, yearr]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    const data = {
+      avatar: avatar,
+      name: user,
+      email: email,
+      phone: phone,
+      sex: sex === "Nam" ? true : false,
+      //reverse birthday array to match api format yyyy-mm-dd
+      dayOfBirth: birthday
+        .reverse()
+        .map((value) => (value < 10 ? `0${value}` : value))
+        .join("-"),
+    };
     apiCustomerProfile
-      .updateProfile(
-        {
-          name: user,
-          email: email,
-          phone: phone,
-          sex: sex === "Nam" ? true : false,
-          //reverse birthday array to match api format yyyy-mm-dd
-          dayOfBirth: birthday
-            .reverse()
-            .map((value) => (value < 10 ? `0${value}` : value))
-            .join("-"),
-        },
-        profile.id
-      )
+      .updateProfile(data, profile.id)
       .then((res) => {
         console.log("success");
+        window.localStorage.setItem("profile", JSON.stringify(data));
+        window.location.reload();
       })
       .catch((err) => {
-        console.log("put error: ", err);
+        console.log("update error: ", err);
       });
   };
 
@@ -78,10 +112,6 @@ const ProfileForm = () => {
       <div className="profileform__details">
         <div className="profileform__table">
           <table>
-            {/* <tr className="profileform__table__row">
-              <td className="profileform__table--left">Tên đăng nhập</td>
-              <td className="profileform__table--right">admin</td>
-            </tr> */}
             <tr className="profileform__table__row">
               <td className="profileform__table--left">Họ và tên</td>
               <td className="profileform__table--right">
@@ -140,7 +170,7 @@ const ProfileForm = () => {
                 />
                 <div class="circle"></div>
                 <label for="option2">Nữ</label>
-                <input
+                {/* <input
                   type="radio"
                   name="choice"
                   id="otherRadio"
@@ -151,7 +181,7 @@ const ProfileForm = () => {
                   }}
                 />
                 <div class="circle"></div>
-                <label for="option3">Khác</label>
+                <label for="option3">Khác</label> */}
               </td>
             </tr>
             <tr className="profileform__table__row">
@@ -207,15 +237,47 @@ const ProfileForm = () => {
             </tr>
           </table>
         </div>
+        {/* Change Avatar section */}
         <div className="profileform__avatar">
           <img
-            src="https://cf.shopee.vn/file/4f3c7e7e0d2d9d9c2b1f3d7f6a3d0c5c_tn"
-            alt="avatar"
+            src={avatar}
+            alt="avatar avatar"
+            className="profileform__avatar--img"
           />
-          <button className="profileform__avatar--button">Chọn ảnh</button>
-          <p>Thay đổi ảnh đại diện</p>
+          <button
+            className="profileform__avatar--button"
+            onClick={toggleVisibility}>
+            Chọn ảnh
+          </button>
+          {avatar.length}
         </div>
       </div>
+      {isVisible ? (
+        <div className="profileform__avatar--overlay">
+          <div className="profileform__avatar--preview">
+            <Avatar
+              height={500}
+              width={500}
+              onCrop={onCrop}
+              onClose={onClose}
+              onImageLoad={(e) => {}}
+              label="Chọn ảnh"
+              labelStyle={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
+              exportAsSquare={true}
+              exportSize={2018}
+            />
+          </div>
+          <button
+            className="profileform__avatar--button profileform__avatar--preview profileform__avatar--preview--button"
+            onClick={onClose}>
+            Lưu
+          </button>
+        </div>
+      ) : null}
     </>
   );
 };

@@ -50,9 +50,9 @@ function LoginForm() {
     console.log("handling submit");
     //check if login success
     if (loggedIn) {
-      toast.success("loading...!", {
+      toast.success("Đang tải", {
         position: "top-right",
-        autoClose: 500,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
