@@ -14,7 +14,16 @@ const useProfile = () => {
       return false;
     }
   };
-  return { useprofile };
+  const updatepassword = async (data) => {
+    try {
+      await apiCustomerProfile.updatePassword(data);
+      return true;
+    } catch (err) {
+      console.log("updatepassword err: " + err);
+      return false;
+    }
+  };
+  return { useprofile, updatepassword };
 };
 
 export default useProfile;

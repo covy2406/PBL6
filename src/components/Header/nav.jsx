@@ -68,7 +68,7 @@ const Nav = ({
                 <Link to="#" className="header__navbar-item-link">
                   <i className="header__navbar-icon-right far fa-bell">
                     <AiOutlineBell />
-                  </i>{" "}
+                  </i>
                   Thông báo
                 </Link>
                 {/* LIST CÁC MẶT HÀNG SAU KHI ĐƯỢC THÊM VÀO GIỎ HÀNG */}
@@ -95,7 +95,7 @@ const Nav = ({
                     </li>
                   </ul>
                   <div className="header__notify-footer">
-                    <Link href="/" className="header__notify-footer-btn">
+                    <Link to="/" className="header__notify-footer-btn">
                       Xem tất cả
                     </Link>
                   </div>

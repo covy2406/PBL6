@@ -81,8 +81,8 @@ const ProfileForm = () => {
 
   const handleSubmit = (e) => {
     const data = {
-      avatar: avatar,
       name: user,
+      avatar: avatar,
       email: email,
       phone: phone,
       sex: sex === "Nam" ? true : false,
@@ -92,6 +92,7 @@ const ProfileForm = () => {
         .map((value) => (value < 10 ? `0${value}` : value))
         .join("-"),
     };
+    console.log("data: ", data);
     apiCustomerProfile
       .updateProfile(data, profile.id)
       .then((res) => {
