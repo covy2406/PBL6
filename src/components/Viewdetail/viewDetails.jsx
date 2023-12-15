@@ -49,18 +49,14 @@ const Viewdetails = ({ close, setClose }) => {
                             <div className='container'>
                                 <button onClick={() => setClose(false)} className='closebtn'><AiOutlineCloseCircle /></button>
                                 {
-                                    productDetail.shop_products.map((item) => {
+                                    Array.isArray(productDetail.shop_products) && productDetail.shop_products.map((item) => {
                                         return (
                                             <div className='productbox' >
                                                 {/* <h4>{curElm.Cat}</h4>
                                                 <h2>{curElm.Title}</h2> */}
                                                 <div className="box__image">
-                                                    {/* <div className="box__image-name">
-                                                        <h2 className='box__image-cat'>{curElm.Cat}</h2>
-                                                        <h2 className='box__image-title'>{curElm.Title}</h2>
-                                                    </div> */}
                                                     <div className="img-box">
-                                                        {/* <ImageSlider /> */}
+                                                        <ImageSlider />
                                                     </div>
                                                 </div>
 
@@ -131,17 +127,25 @@ const Viewdetails = ({ close, setClose }) => {
                                                                 <td>Dung lượng pin</td>
                                                                 <td>{item.battery}</td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>Hệ điều hành</td>
+                                                                <td>{item.type}</td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
-                                                    auth.isAuth ?
-                                                    (
-                                                        <button onClick={() => addtocart(item)}>Thêm vào giỏ hàng</button>
-                                                        <button onClick>Thanh Toán Ngay</button>
-                                                    )
-                                                    :
-                                                    (
-                                                        <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
-                                                    )
+                                                    {
+                                                        auth.isAuth ?
+                                                        (
+                                                            <div>
+                                                                <button onClick={() => addtocart(item.id, 1)}>Thêm vào giỏ hàng</button>
+                                                                <button onClick>Thanh Toán Ngay</button>
+                                                            </div>
+                                                        )
+                                                        :
+                                                        (
+                                                            <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
+                                                        )
+                                                    }
                                                 </div>
                                             </div>
                                         )

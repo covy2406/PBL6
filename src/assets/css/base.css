@@ -37,16 +37,16 @@
   box-sizing: border-box;
 }
 
-html {
-  /* 1rem = 16px, font-size: 100% được hiểu là 16px*/
-  /* font-size: 62.5% thì 1rem = 10px */
-  /* hack */
-  font-size: 62.5%;
-  line-height: 1.6rem;
-  font-family: "Roboto", sans-serif;
-  box-sizing: border-box;
-  /* background-color: #ddd; */
-  background-color: var(--primary-html-color);
+html{
+    /* 1rem = 16px, font-size: 100% được hiểu là 16px*/
+    /* font-size: 62.5% thì 1rem = 10px */
+    /* hack */
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    /* background-color: #ddd; */
+    background-color: var(--primary-html-color);
 }
 
 /* ------------------------------------------------------------ */

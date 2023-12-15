@@ -8,9 +8,7 @@ function Layout( cart ) {
     return (
         <div className="Layout">
             <Nav cart={cart}/>
-            <Outlet 
-                
-            />
+            <Outlet />
             <Footer />
         </div>
     );

@@ -1,13 +1,10 @@
 import axiosClient from "./axiosClient";
 
 const apiRemoveProduct = {
-    deleteProduct(id) {
-        const url = `/in_decreaseAmount/`;
-        return axiosClient.delete(
-            url,
-            {
-                product_order_id: id
-            }
+    deleteProduct(product_order_id) {
+        const url = `/product_orders/${product_order_id}`;
+        return axiosClient.delete(url
+           
         );
     }
 }
