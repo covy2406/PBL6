@@ -2,10 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  height: 14rem;
+  padding: 0 35rem;
   background-color: var(--primary-color);
 }
 .navAuth--toHome {
@@ -16,7 +14,8 @@
 .navAuth--info {
   background-color: var(--primary-color);
   text-decoration: none;
-  font-size: 2rem;
+  margin-left: 3rem;
+  font-size: 2.5rem;
   color: whitesmoke;
 }
 .navAuth--logo {

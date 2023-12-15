@@ -6,11 +6,11 @@ import Footer from "../components/Footer/footer";
 function SiteLogin() {
   return (
     <div>
-      <Navlogin Title="Đăng nhập"></Navlogin>
+      <Navlogin Title="ĐĂNG NHẬP"></Navlogin>
       <div className="site__form">
         <LoginForm></LoginForm>
       </div>
-      <Footer className="site__form--footer" />
+      <Footer />
     </div>
   );
 }

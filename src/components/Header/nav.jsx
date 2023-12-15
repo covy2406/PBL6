@@ -5,15 +5,14 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
-import "./nav.css";
+import "./css/nav.css";
 import "../../assets/css/base.css";
 import "../BannerHome/bannerSlider.css";
 import CartList from "./CartList";
-//import Logo from '../../assets/Logo/Main_logo.png';
+import Logo from "../../assets/Logo/4B1G.png";
 import Navinfo from "./navinfo";
 import useAuth from "hook/useAuth";
-// import { useParams } from 'react-router-dom';
-// import apiSearch from "api/apiSearch";
+import useProfile from "hook/useProfile";
 const Nav = ({
     cart,
     handleSearchChange,
@@ -21,10 +20,11 @@ const Nav = ({
     searchTerm,
     searchbtn = " ",
 }) => {
-    const { auth, setAuth, profile } = useAuth();
+    const { auth, setAuth, profile, setProfile } = useAuth();
+    const { useprofile } = useProfile();
 
-    const authUser = useState(profile.name);
-    const isAuth = auth.isAuth;
+    const [authUser, setAuthUser] = useState(profile.name || null);
+    const isAuth = window.localStorage.getItem("loggedIn");
 
     const location = useLocation();
     const [currentPath, setCurrentPath] = useState("");
@@ -33,15 +33,28 @@ const Nav = ({
         setCurrentPath(location.pathname);
     }, [location]);
 
+    //each time page is reload, get profile by using the current access_token
+    useEffect(() => {
+        if (window.localStorage.getItem("profile") === null) {
+            console.log("get profile from api");
+            useprofile();
+        } else {
+            setProfile(JSON.parse(window.localStorage.getItem("profile")));
+            console.log(profile.name);
+        }
+        setAuthUser(profile.name);
+        console.log("auth", auth, "profile", profile);
+    }, [profile.name]);
+
     // clear all when logout
     const handleLogout = (e) => {
         e.preventDefault();
         setAuth({
             access_token: null,
-            customer_id: null,
-            isAuth: false,
+            role: "user",
         });
-        localStorage.clear();
+        window.localStorage.removeItem("access_token");
+        window.localStorage.removeItem("loggedIn");
     };
 
     return (
@@ -49,7 +62,6 @@ const Nav = ({
             <div className="header">
                 <div className="grid">
                     <nav className="header__navbar">
-
                         <Navinfo />
 
                         <ul className="header__navbar-list ">
@@ -181,14 +193,6 @@ const Nav = ({
                                     <h3 className="header__search-history-heading">
                                         Lịch sử tìm kiếm
                                     </h3>
-                                    <ul className="header__search-history-list">
-                                        <li className="header__search-history-item">
-                                            <Link to="/">Kaka</Link>
-                                        </li>
-                                        <li className="header__search-history-item">
-                                            <Link to="/">hehe</Link>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                             <div className="header__search-select">
@@ -229,20 +233,39 @@ const Nav = ({
             <div className="header__menu">
                 <div className="grid">
                     <div className="header__menu_container">
-
                         <div className="nav__home">
                             <ul className="nav__home-list">
                                 <li className="nav__home-item">
-                                    <Link to="/" className={`nav__home-item-link ${currentPath === '/' ? 'active' : ''}`}>Home</Link>
+                                    <Link
+                                        to="/"
+                                        className={`nav__home-item-link ${currentPath === "/" ? "active" : ""
+                                            }`}>
+                                        Home
+                                    </Link>
                                 </li>
                                 <li className="nav__home-item">
-                                    <Link to="/product" className={`nav__home-item-link ${currentPath === '/product' ? 'active' : ''}`}>Product</Link>
+                                    <Link
+                                        to="/product"
+                                        className={`nav__home-item-link ${currentPath === "/product" ? "active" : ""
+                                            }`}>
+                                        Product
+                                    </Link>
                                 </li>
                                 <li className="nav__home-item">
-                                    <Link to="/oldphone" className={`nav__home-item-link ${currentPath === '/oldphone' ? 'active' : ''}`}>Old Phone</Link>
+                                    <Link
+                                        to="/oldphone"
+                                        className={`nav__home-item-link ${currentPath === "/oldphone" ? "active" : ""
+                                            }`}>
+                                        Old Phone
+                                    </Link>
                                 </li>
                                 <li className="nav__home-item">
-                                    <Link to="/contact" className={`nav__home-item-link ${currentPath === '/contact' ? 'active' : ''}`}>Contact</Link>
+                                    <Link
+                                        to="/contact"
+                                        className={`nav__home-item-link ${currentPath === "/contact" ? "active" : ""
+                                            }`}>
+                                        Contact
+                                    </Link>
                                 </li>
                             </ul>
                         </div>

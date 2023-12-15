@@ -6,7 +6,7 @@
   gap: 2rem;
   background-color: #ffffff;
   padding: 3rem;
-  width: 23vw;
+  width: 20vw;
   height: fit-content;
 }
 .errmsg {
@@ -21,7 +21,7 @@
   width: 100%;
   color: #151717;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 2.5rem;
   margin-bottom: 10px;
 }
 .authform--details {
@@ -37,7 +37,7 @@
 .authform--input {
   position: relative;
   border: 1.5px solid #ecedec;
-  border-radius: 1rem;
+  border-radius: 4px;
   height: 50px;
   transition: 0.2s ease-in-out;
 }
@@ -50,9 +50,9 @@
 .input:focus {
   outline: none;
 }
-
 .authform--input:focus-within {
   border: 1.5px solid #2d79f3;
+  border-radius: 4px;
 }
 
 .flex-row {

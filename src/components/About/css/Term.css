@@ -1,0 +1,26 @@
+.terms {
+  background-color: antiquewhite;
+  height: fit-content;
+  padding: 5rem 20vw;
+}
+.terms--title {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.terms--descriptions {
+  list-style-type: none;
+}
+.terms--descriptions li:nth-child(even) {
+  text-align: justify;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 3rem;
+}
+
+/* Apply styles to odd lines */
+.terms--descriptions li:nth-child(odd) {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}

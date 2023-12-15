@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import apiAuth from "api/apiAuth";
+import useSignup from "hook/useSignup";
 import "../AuthForm.css";
 
 const PHONE_REGEX = /^\d{10}$/;
@@ -9,6 +10,8 @@ const PWD_REGEX = /^.{8,}$/;
 const EMAIL_REGEX = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 
 function SignupForm() {
+  // define hooks
+  const { signup } = useSignup();
   // define states
   const [user, setUser] = useState("");
 
@@ -90,19 +93,8 @@ function SignupForm() {
     };
 
     // send request to server
-    try {
-      const res = await apiAuth.signup(newAccount);
-      console.log(res);
+    if (signup(newAccount)) {
       setSuccess(true);
-      setUser("");
-    } catch (err) {
-      if (!err?.res) {
-        setErrMsg("No response from server");
-      } else if (err.res?.message) {
-        setErrMsg("Phone number already exists");
-      } else {
-        setErrMsg("Signup Failed");
-      }
     }
   };
 

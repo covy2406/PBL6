@@ -7,8 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     //if already logged in, get the access_token from localStorage
     access_token: window.localStorage.getItem("access_token") || null,
-    isAuth: window.localStorage.getItem("loggedIn") || false,
-    role: "user",
+    isAuth: window.localStorage.getItem("loggedIn") || true,
+    role: window.localStorage.getItem("role") || "user",
   });
 
   const [profile, setProfile] = useState({
@@ -29,9 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={contextData}>
-      <CartProvider>
-        {children}
-      </CartProvider>
+      <CartProvider>{children}</CartProvider>
     </AuthContext.Provider>
   );
 };

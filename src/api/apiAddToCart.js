@@ -4,19 +4,12 @@ const apiAddToCart = {
     // tạo mới
     add( productId, quantity) {
         const url = `/cart/add-product/`;
-        return axiosClient.post(
+        return axiosClient.post( 
             url, 
             {
-                shop_product_id: productId,
                 quantity: quantity,
-            },
-            );
+                shop_product_id: productId, 
+            });
     },
 }
 export default apiAddToCart;
-
-// {
-//     headers: {
-//       Authorization: `Bearer ${data.token}`,
-//     },
-// }
