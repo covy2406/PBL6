@@ -31,26 +31,11 @@ import Cart from "components/Cart/cart.jsx";
 import Viewdetails from "components/Viewdetail/viewDetails.jsx";
 import Search from "components/Search/Search.jsx";
 import Shop from "./Site_Shop/Shop.jsx";
-//import apiAddToCart from "api/apiAddToCart";
 
 //auth
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 
 const App = () => {
-  //product Detail
-  //filter product
-  //const [oldData, setOldproduct] = useState(OldphoneData)
-  //const [product, setProduct] = useState(productdetails)
-  // const searchbtn = (product) =>
-  // {
-  //     const change = Productdetail.filter((x) =>
-  //     {
-  //         return x.Cat === product
-  //     })
-  //     setProduct(change)
-  // }
-
-  //auth
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
@@ -64,27 +49,27 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/product" element={<Product />} />
           <Route path="/oldphone" element={<Oldphone />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/Viewdetail/:id" element={<Viewdetails />}></Route>
-          <Route path="/CheckoutPage"></Route>
-          <Route path="/Search/:search" element={<Search />}></Route>
-          <Route path="/Shop" elemen={<Shop />}></Route>
-          <Route path="/user" element={<RequiredAuth />}>
-            <Route
-              path="/user/account/profile"
-              element={<SiteUser extraProps="profile" />}
-            />
-            <Route
-              path="/user/account/address"
-              element={<SiteUser extraProps="address" />}
-            />
-            <Route
-              path="/user/account/change-password"
-              element={<SiteUser extraProps="change-pass" />}
-            />
+          <Route path="/" element={<RequiredAuth />}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/Viewdetail/:id" element={<Viewdetails />} />
+            <Route path="/CheckoutPage"></Route>
+            <Route path="/Search/:search" element={<Search />}></Route>
+            <Route path="/Shop" elemen={<Shop />}></Route>
+            <Route path="/user">
+              <Route
+                path="/user/account/profile"
+                element={<SiteUser extraProps="profile" />}
+              />
+              <Route
+                path="/user/account/address"
+                element={<SiteUser extraProps="address" />}
+              />
+              <Route
+                path="/user/account/change-password"
+                element={<SiteUser extraProps="change-pass" />}
+              />
+            </Route>
           </Route>
-        </Route>
-        <Route element={<RequiredAuth />}>
           <Route path="/admin" element={<AdminNav />}>
             <Route path="/admin/product" element={<AdminProduct />} />
             <Route path="/admin/account" element={<AdminUser />} />

@@ -12,8 +12,6 @@ axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     const accessToken = localStorage.getItem("access_token");
-    console.log("access_token_local", accessToken);
-
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     } else {

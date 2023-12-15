@@ -9,11 +9,11 @@
   display: flex;
   flex-direction: column;
   z-index: 0;
-
   align-items: center;
   height: 100%;
   width: 70%;
   font-size: 1.8rem;
+  font-weight: lighter;
   color: var(--text-color);
 }
 .profileform__avatar {
@@ -103,7 +103,9 @@
   width: 100%;
   height: 5rem;
 }
-
+.profileform__table__row td {
+  font-weight: normal;
+}
 /* avatar button */
 .profileform__avatar--button {
   margin: 20px 0 10px 0;

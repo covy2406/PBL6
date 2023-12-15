@@ -10,7 +10,7 @@ import Avatar from "react-avatar-edit";
 import React, { useEffect, useState } from "react";
 import useAuth from "hook/useAuth.js";
 import apiCustomerProfile from "api/apiCustomerProfile.js";
-//import useAuth from "../../../hook/useAuth.js";
+import { toast } from "react-toastify";
 
 const ProfileForm = () => {
   //img states
@@ -50,7 +50,6 @@ const ProfileForm = () => {
   const [monthh, setMonths] = useState(birthday[1]);
   const [yearr, setYears] = useState(birthday[2]);
   useEffect(() => {
-    console.log("profile: ", profile);
     if (profile) {
       if (profile.dayOfBirth) {
         setBirthday(
@@ -96,12 +95,13 @@ const ProfileForm = () => {
     apiCustomerProfile
       .updateProfile(data, profile.id)
       .then((res) => {
-        console.log("success");
+        toast.success("Cập nhật thành công");
         window.localStorage.setItem("profile", JSON.stringify(data));
         window.location.reload();
       })
       .catch((err) => {
-        console.log("update error: ", err);
+        toast.error("Cập nhật thất bại");
+        console.log("updae profile err: ", err);
       });
   };
 
