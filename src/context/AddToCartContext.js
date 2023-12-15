@@ -99,12 +99,13 @@ export const CartProvider = ({ children }) => {
         setClose(true);
     };
 
-    useEffect(() => {
-        addtocart();
+    // useEffect(() => {
+    //     addtocart();
         
-    }, []);
+    // }, []);
 
     useEffect(() => {
+        addtocart();
         showCartList();
     }, [])
 

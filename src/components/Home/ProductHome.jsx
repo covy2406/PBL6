@@ -16,10 +16,19 @@ import { toast } from "react-toastify";
 const ProductHome = () => {
     const { loginWithRedirect } = useAuth0();
     const { auth } = useAuth();
-    const { addtocart, view} = useCart();
+    const { addtocart, view, showCartList} = useCart();
 
     const [productList, setProductList] = useState([]);
     const [error, setError] = useState(null);
+
+
+    const handleSubmit = (curElm) => {
+        const res = addtocart(curElm.shop_product_id, 1)
+        if(res){
+            showCartList();
+        }
+    
+    }
 
     useEffect(() => {
         const fetchProductHome = async () => {
@@ -54,7 +63,7 @@ const ProductHome = () => {
                                         {
                                             auth.isAuth ?
                                                 (
-                                                    <li onClick={() => addtocart(curElm.shop_product_id, 1)}><AiOutlineShoppingCart /></li>
+                                                    <li onClick={() => handleSubmit(curElm)}><AiOutlineShoppingCart /></li>
 
                                                 )
                                                 :

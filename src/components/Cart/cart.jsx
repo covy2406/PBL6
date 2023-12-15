@@ -11,7 +11,7 @@ import apiDecreaseProduct from "api/apiDecreaseProduct";
 // import apiRemoveProduct from 'api/apiRemoveProduct';
 
 const Cart = () => {
-    const { cartListProduct, updateQuantity, cart } = useCart();
+    const { cartListProduct, updateQuantity } = useCart();
     // const [inCrease, setIncrease] = useState([]);
     // const [decrease, setDecrease] = useState([]);
     const [error, setError] = useState(null);

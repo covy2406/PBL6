@@ -15,9 +15,7 @@ const CartList = () => {
     //     console.log('san pham da them: ', cartListProduct);
     // }, [profile]);
 
-    useEffect(() => {
-        console.log('cartListProduct updated: ', cartListProduct);
-    }, [cartListProduct])
+  
 
     return (
         <div>
