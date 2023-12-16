@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useSignup from "hook/useSignup";
 import { toast } from "react-toastify";
 import "../AuthForm.css";
@@ -30,7 +30,6 @@ function SignupForm() {
 
   const [errMsg, setErrMsg] = useState(""); // error message
   const [next, setNext] = useState(false); // next = true => show form 2
-  const [success, setSuccess] = useState(false);
 
   // check password, phone, email
   useEffect(() => {
@@ -109,118 +108,103 @@ function SignupForm() {
 
   return (
     <>
-      {success ? (
-        <form className="form">
-          <h1>Đăng ký thành công</h1>
-          <span className="authform--go-others">
-            {(window.location.href = "/login")}
-          </span>
+      {next ? (
+        <form className="authform" onSubmit={handleSubmit}>
+          <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+            {errMsg}
+          </p>
+          <div className="authform--name">
+            <h1>ĐĂNG KÝ</h1>
+          </div>
+          {/*     USER      */}
+          <div className="authform--details">
+            <label htmlFor="phone">Tên người dùng </label>
+          </div>
+          <div className="authform--input">
+            <input
+              type="text"
+              className="input"
+              placeholder="Tên người dùng"
+              autoComplete="off"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+              required
+            />
+          </div>
+          {/*     PASSWORD      */}
+          <div className="authform--details">
+            <label htmlFor="phone">Mật khẩu </label>
+          </div>
+          <div className="authform--input">
+            <input
+              type="password"
+              className="input"
+              placeholder="Mật khẩu"
+              autoComplete="off"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              onFocus={() => setPassFocus(true)}
+              onBlur={() => setPassFocus(false)}
+              required
+            />
+          </div>
+          <div className="authform--details">
+            <label htmlFor="email">Email </label>
+          </div>
+          <div className="authform--input">
+            <input
+              id="email"
+              type="text"
+              className="input"
+              placeholder="Email"
+              autoComplete="off"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
+              required
+            />
+          </div>
+          <button className="button-submit">Đăng ký</button>
+          <p className="p">
+            Đã có tài khoản?
+            <NavLink to="/login" className="authform--go-others">
+              Đăng Nhập
+            </NavLink>
+          </p>
         </form>
       ) : (
-        <>
-          {next ? (
-            <form className="authform" onSubmit={handleSubmit}>
-              <p
-                className={errMsg ? "errmsg" : "offscreen"}
-                aria-live="assertive">
-                {errMsg}
-              </p>
-              <div className="authform--name">
-                <h1>ĐĂNG KÝ</h1>
-              </div>
-              {/*     USER      */}
-              <div className="authform--details">
-                <label htmlFor="phone">Tên người dùng </label>
-              </div>
-              <div className="authform--input">
-                <input
-                  type="text"
-                  className="input"
-                  placeholder="Tên người dùng"
-                  autoComplete="off"
-                  value={user}
-                  onChange={(e) => setUser(e.target.value)}
-                  required
-                />
-              </div>
-              {/*     PASSWORD      */}
-              <div className="authform--details">
-                <label htmlFor="phone">Mật khẩu </label>
-              </div>
-              <div className="authform--input">
-                <input
-                  type="password"
-                  className="input"
-                  placeholder="Mật khẩu"
-                  autoComplete="off"
-                  value={pass}
-                  onChange={(e) => setPass(e.target.value)}
-                  onFocus={() => setPassFocus(true)}
-                  onBlur={() => setPassFocus(false)}
-                  required
-                />
-              </div>
-              <div className="authform--details">
-                <label htmlFor="email">Email </label>
-              </div>
-              <div className="authform--input">
-                <input
-                  id="email"
-                  type="text"
-                  className="input"
-                  placeholder="Email"
-                  autoComplete="off"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onFocus={() => setEmailFocus(true)}
-                  onBlur={() => setEmailFocus(false)}
-                  required
-                />
-              </div>
-              <button className="button-submit">Đăng ký</button>
-              <p className="p">
-                Đã có tài khoản?
-                <NavLink to="/login" className="authform--go-others">
-                  Đăng Nhập
-                </NavLink>
-              </p>
-            </form>
-          ) : (
-            <form className="authform" onSubmit={handleNext}>
-              <p
-                className={errMsg ? "errmsg" : "offscreen"}
-                aria-live="assertive">
-                {errMsg}
-              </p>
-              <div className="authform--name">
-                <h1>ĐĂNG KÝ</h1>
-              </div>
-              <div className="authform--details">
-                <label htmlFor="phone">Số điện thoại </label>
-              </div>
-              <div className="authform--input">
-                <input
-                  type="text"
-                  className="input"
-                  placeholder="Số điện thoại"
-                  autoComplete="off"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  onFocus={() => setPhoneFocus(true)}
-                  onBlur={() => setPhoneFocus(false)}
-                  required
-                />
-              </div>
-              <button className="button-submit">Tiếp theo</button>
-              <p className="p">
-                Đã có tài khoản?
-                <span className="authform--go-others">
-                  <NavLink to="/login">Đăng Nhập</NavLink>
-                </span>
-              </p>
-            </form>
-          )}
-        </>
+        <form className="authform" onSubmit={handleNext}>
+          <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+            {errMsg}
+          </p>
+          <div className="authform--name">
+            <h1>ĐĂNG KÝ</h1>
+          </div>
+          <div className="authform--details">
+            <label htmlFor="phone">Số điện thoại </label>
+          </div>
+          <div className="authform--input">
+            <input
+              type="text"
+              className="input"
+              placeholder="Số điện thoại"
+              autoComplete="off"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              onFocus={() => setPhoneFocus(true)}
+              onBlur={() => setPhoneFocus(false)}
+              required
+            />
+          </div>
+          <button className="button-submit">Tiếp theo</button>
+          <p className="p">
+            Đã có tài khoản?
+            <span className="authform--go-others">
+              <NavLink to="/login">Đăng Nhập</NavLink>
+            </span>
+          </p>
+        </form>
       )}
     </>
   );

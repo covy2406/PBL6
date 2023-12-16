@@ -13,9 +13,11 @@ function LoginForm() {
   const login = useLogin();
 
   //define states
-  const [user, setUser] = useState(window.localStorage.getItem("email") || "");
+  const [user, setUser] = useState(
+    window.sessionStorage.getItem("email") || ""
+  );
   const [pass, setPass] = useState(
-    window.localStorage.getItem("password") || ""
+    window.sessionStorage.getItem("password") || ""
   );
   const [remember, setRemember] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -32,7 +34,7 @@ function LoginForm() {
 
   // if user go straight to login page, clear local storage
   useEffect(() => {
-    localStorage.clear();
+    sessionStorage.clear();
     setAuth({
       access_token: null,
       isAuth: false,

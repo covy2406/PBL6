@@ -7,7 +7,7 @@ const useProfile = () => {
     try {
       const response = await apiCustomerProfile.getProfile();
       await setProfile(response.data);
-      window.localStorage.setItem("profile", JSON.stringify(response.data));
+      window.sessionStorage.setItem("profile", JSON.stringify(response.data));
       return true;
     } catch (err) {
       console.log("useProfile err: " + err);

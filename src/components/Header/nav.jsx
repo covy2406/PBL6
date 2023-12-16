@@ -28,7 +28,7 @@ const Nav = ({
   const { useprofile } = useProfile();
 
   const [authUser, setAuthUser] = useState(profile.name || null);
-  const isAuth = window.localStorage.getItem("loggedIn");
+  const isAuth = window.sessionStorage.getItem("loggedIn");
 
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
@@ -37,14 +37,13 @@ const Nav = ({
     setCurrentPath(location.pathname);
   }, [location]);
 
-
   //each time page is reload, get profile by using the current access_token
   useEffect(() => {
-    if (window.localStorage.getItem("profile") === null) {
+    if (window.sessionStorage.getItem("profile") === null) {
       console.log("get profile from api");
       useprofile();
     } else {
-      setProfile(JSON.parse(window.localStorage.getItem("profile")));
+      setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
     }
     setAuthUser(profile.name);
   }, [profile.name]);
@@ -56,7 +55,7 @@ const Nav = ({
       access_token: null,
       role: "user",
     });
-    window.localStorage.clear();
+    window.sessionStorage.clear();
   };
 
   return (

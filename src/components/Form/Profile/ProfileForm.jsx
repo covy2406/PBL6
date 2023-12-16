@@ -96,7 +96,7 @@ const ProfileForm = () => {
       .updateProfile(data, profile.id)
       .then((res) => {
         toast.success("Cập nhật thành công");
-        window.localStorage.setItem("profile", JSON.stringify(data));
+        window.sessionStorage.setItem("profile", JSON.stringify(data));
         window.location.reload();
       })
       .catch((err) => {

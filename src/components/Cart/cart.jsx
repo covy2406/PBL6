@@ -7,8 +7,8 @@ import useCartHandle from "hook/useCartHandle";
 import { toast } from "react-toastify";
 
 const Cart = () => {
-    const { cartListProduct, setCartListProduct } = useCart();
-    const { decreaseQuantity, increaseQuantity, showCartList } = useCartHandle();
+  const { cartListProduct, setCartListProduct } = useCart();
+  const { decreaseQuantity, increaseQuantity } = useCartHandle();
 
     const updateQuantity = (productId, state) => {
         setCartListProduct((prevCart) => {
