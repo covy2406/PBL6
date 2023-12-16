@@ -16,12 +16,12 @@ const CartList = () => {
   }, [cartListProduct]);
 
   useEffect(() => {
-    if (window.localStorage.getItem("cartListProduct") === null) {
+    if (window.sessionStorage.getItem("cartListProduct") === null) {
       console.log("get profile from api");
       showCartList();
     } else {
       setCartListProduct(
-        JSON.parse(window.localStorage.getItem("cartListProduct"))
+        JSON.parse(window.sessionStorage.getItem("cartListProduct"))
       );
     }
   }, []);

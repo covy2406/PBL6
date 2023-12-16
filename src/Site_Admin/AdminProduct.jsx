@@ -1,6 +1,3 @@
-import apiAdmin from "api/apiAdmin";
-import { useState } from "react";
-
 function AdminProduct() {
   return (
     <div>

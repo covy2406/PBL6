@@ -20,13 +20,13 @@ const useCartHandle = () => {
   const showCartList = async () => {
     const response = await apiHandleCart.view();
     if (response) {
-      // Cập nhật state và lưu vào localStorage nếu API trả về thành công
-      window.localStorage.setItem(
+      // Cập nhật state và lưu vào sessionStorage nếu API trả về thành công
+      window.sessionStorage.setItem(
         "cartListProduct",
         JSON.stringify(response.data.data)
       );
       setCartListProduct(
-        JSON.parse(window.localStorage.getItem("cartListProduct"))
+        JSON.parse(window.sessionStorage.getItem("cartListProduct"))
       );
       return true;
     } else {
