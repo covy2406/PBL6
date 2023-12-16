@@ -1,6 +1,34 @@
+import React, { useState } from "react";
 import "../AccountForm.css";
 import "./ChangePass.css";
+import useProfile from "hook/useProfile";
+import { toast } from "react-toastify";
+
 function ChangePassform() {
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [reNewPassword, setReNewPassword] = useState("");
+
+  const useprofile = useProfile();
+
+  const handdleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      current_password: password,
+      new_password: newPassword,
+      confirm_password: reNewPassword,
+    };
+    const res = await useprofile.updatepassword(data);
+    if (res) {
+      toast.success("Đổi mật khẩu thành công");
+      setPassword("");
+      setNewPassword("");
+      setReNewPassword("");
+    } else {
+      toast.error("Đổi mật khẩu thất bại");
+    }
+  };
+
   return (
     <div className="profileform">
       <div className="profileform__title">
@@ -14,9 +42,12 @@ function ChangePassform() {
               <td className="passform__table--right">
                 <input
                   className="passform--passinput"
-                  type="text"
-                  value=""
-                  onChange={() => {}}></input>
+                  type="password"
+                  value={password}
+                  autoComplete="off"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}></input>
               </td>
             </tr>
             <tr className="passform__table__row">
@@ -24,9 +55,11 @@ function ChangePassform() {
               <td className="passform__table--right">
                 <input
                   className="passform--passinput"
-                  type="text"
-                  value=""
-                  onChange={() => {}}></input>
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => {
+                    setNewPassword(e.target.value);
+                  }}></input>
               </td>
             </tr>
             <tr className="passform__table__row">
@@ -34,13 +67,19 @@ function ChangePassform() {
               <td className="passform__table--right">
                 <input
                   className="passform--passinput"
-                  type="text"
-                  value=""
-                  onChange={() => {}}></input>
+                  type="password"
+                  value={reNewPassword}
+                  onChange={(e) => {
+                    setReNewPassword(e.target.value);
+                  }}></input>
               </td>
             </tr>
           </table>
-          <button className="passform__button">Xác nhận</button>
+          <button
+            className="passform__button"
+            onClick={(e) => handdleSubmit(e)}>
+            Xác nhận
+          </button>
         </div>
       </div>
     </div>

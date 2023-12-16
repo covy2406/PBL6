@@ -7,8 +7,6 @@ const useLogin = () => {
   const login = async (authUser, remember) => {
     try {
       const response = await apiAuth.login(authUser);
-      console.log("waiting for login api");
-      console.log(response);
       const accessToken = response.data.access_token;
       if (accessToken) {
         await setAuth({
@@ -26,7 +24,6 @@ const useLogin = () => {
           window.localStorage.setItem("email", authUser.email);
           window.localStorage.setItem("password", authUser.password);
         }
-        console.log("login success:", auth);
         setHeaderConfigAxios(accessToken);
         return true;
       } else {

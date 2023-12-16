@@ -1,13 +1,9 @@
 import { React, useEffect } from "react";
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { BsEye } from "react-icons/bs";
+import { useState } from "react";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
-import { useAuth0 } from "@auth0/auth0-react";
 import BannerProducts from "../BannerProduct/BannerProducts.jsx";
 // import Pagination from '../Pagination/Pagination.jsx';
 // import Productdetail from '../Productdetail/Productdetail.jsx';
@@ -17,8 +13,6 @@ import "../../assets/css/base.css";
 import "../Home/home.css";
 import Category from "./Category.jsx";
 import apiProductHome from "api/apiProductHome.js";
-import { useCart } from "context/AddToCartContext";
-import AuthContext from "context/AuthProvider";
 
 //import PaginationControlled from './PaginationControlled.jsx';
 //import apiBrand from 'api/apiBrand.js';
@@ -31,10 +25,7 @@ const Product = () => {
     //     _page: 1,
     // });
 
-    const { loginWithRedirect } = useAuth0();
     // const isAuth = true;
-    const { auth } = useContext(AuthContext);
-    const { addtocart, view } = useCart();
 
     const [ProductNew, setProductNew] = useState([]);
     const [error, setError] = useState(null);
@@ -133,7 +124,7 @@ const Product = () => {
                                     <div className="box" key={curElm.shop_product_id}>
                                         <div className="img_box">
                                             <img
-                                                src={`http://0.tcp.ap.ngrok.io:13168/${curElm.image}`}
+                                                src={`http://0.tcp.ap.ngrok.io:19513/${curElm.image}`}
                                                 alt={curElm.name}></img>
                                             {/* <div className="icon">
                                                 {auth.isAuth ? 
