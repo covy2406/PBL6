@@ -5,10 +5,10 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
-    //if already logged in, get the access_token from localStorage
-    access_token: window.localStorage.getItem("access_token") || null,
-    isAuth: window.localStorage.getItem("loggedIn") || true,
-    role: window.localStorage.getItem("role") || "user",
+    //if already logged in, get the access_token from sessionStorage
+    access_token: window.sessionStorage.getItem("access_token") || null,
+    isAuth: window.sessionStorage.getItem("loggedIn") || true,
+    role: window.sessionStorage.getItem("role") || "user",
   });
 
   const [profile, setProfile] = useState({

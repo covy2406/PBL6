@@ -2,18 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BsFacebook } from "react-icons/bs";
 import { BiLogoInstagramAlt } from "react-icons/bi";
-import "../../assets/css/base.css";
 
 const Navinfo = () => {
   return (
     <div>
       <ul className="header__navbar-list">
         <li className="header__navbar-item header__navbar-item--separate">
-          <Link path="/Shop"></Link>
-          Kênh người bán
-        </li>
-        <li className="header__navbar-item header__navbar-item--separate">
-          Trở thành người bán hàng
+          <Link to="/shop" className="header__navbar-item-link">
+            Kênh người bán
+          </Link>
         </li>
         <li className="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
           Vào cửa hàng trên ứng dụng shop

@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   height: 14rem;
-  padding: 0 35rem;
+  padding: 0 20rem;
   background-color: var(--primary-color);
 }
 .navAuth--toHome {

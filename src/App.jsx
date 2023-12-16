@@ -1,9 +1,9 @@
 import React from "react";
 import {
-    Route,
-    createBrowserRouter,
-    createRoutesFromElements,
-    RouterProvider,
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
 } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
@@ -30,89 +30,64 @@ import Oldphone from "components/OldPhone/oldphone.jsx";
 import Cart from "components/Cart/cart.jsx";
 import Viewdetails from "components/Viewdetail/viewDetails.jsx";
 import Search from "components/Search/Search.jsx";
-import Shop from "components/Shop/Shop.jsx";
-
+import Shop from "./Site_Shop/Shop.jsx";
 
 //auth
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 
 const App = () => {
-
-    //product Detail
-    //filter product
-    //const [oldData, setOldproduct] = useState(OldphoneData)
-    //const [product, setProduct] = useState(productdetails)
-    // const searchbtn = (product) =>
-    // {
-    //     const change = Productdetail.filter((x) =>
-    //     {
-    //         return x.Cat === product
-    //     })
-    //     setProduct(change)
-    // }
-
-    //auth
-    const router = createBrowserRouter(
-        createRoutesFromElements(
-            <Route>
-                <Route path="login" element={<SiteLogin />}></Route>
-                <Route path="signup" element={<SiteSignup />}></Route>
-                <Route path="reset" element={<SiteReset />}></Route>
-                <Route path="/" element={<Layout />}>
-                    <Route path="term" element={<Term />}></Route>
-                    <Route path="contact" element={<Contact />}></Route>
-                    <Route path="about" element={<About />}></Route>
-                    <Route
-                        index
-                        element={<Home />}
-                    />
-                    <Route path="/product" element={<Product />} />
-                    <Route
-                        path="/oldphone"
-                        element={<Oldphone />}
-                    />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route
-                        path="/Viewdetail/:id"
-                        element={<Viewdetails />}></Route>
-                    <Route path="/CheckoutPage"></Route>
-                    <Route
-                        path="/Search/:search" element={<Search />}></Route>
-                    <Route path="/Shop" elemen={<Shop />}></Route>
-                    <Route path="/user" element={<RequiredAuth />}>
-                        <Route
-                            path="/user/account/profile"
-                            element={<SiteUser extraProps="profile" />}
-                        />
-                        <Route
-                            path="/user/account/address"
-                            element={<SiteUser extraProps="address" />}
-                        />
-                        <Route
-                            path="/user/account/change-password"
-                            element={<SiteUser extraProps="change-pass" />}
-                        />
-                    </Route>
-                </Route>
-                <Route element={<RequiredAuth />}>
-                    <Route path="/admin" element={<AdminNav />}>
-                        <Route path="/admin/product" element={<AdminProduct />} />
-                        <Route path="/admin/account" element={<AdminUser />} />
-                        <Route path="/admin/shop" element={<AdminShop />} />
-                    </Route>
-                </Route>
-                {/* 404 page */}
-                <Route path="*" element={<ErrorPage />} />
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route path="login" element={<SiteLogin />}></Route>
+        <Route path="signup" element={<SiteSignup />}></Route>
+        <Route path="reset" element={<SiteReset />}></Route>
+        <Route path="/" element={<Layout />}>
+          <Route path="term" element={<Term />}></Route>
+          <Route path="contact" element={<Contact />}></Route>
+          <Route path="about" element={<About />}></Route>
+          <Route index element={<Home />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/oldphone" element={<Oldphone />} />
+          <Route path="/" element={<RequiredAuth />}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/Viewdetail/:id" element={<Viewdetails />} />
+            <Route path="/CheckoutPage"></Route>
+            <Route path="/Search/:search" element={<Search />}></Route>
+            <Route path="/Shop" elemen={<Shop />}></Route>
+            <Route path="/user">
+              <Route
+                path="/user/account/profile"
+                element={<SiteUser extraProps="profile" />}
+              />
+              <Route
+                path="/user/account/address"
+                element={<SiteUser extraProps="address" />}
+              />
+              <Route
+                path="/user/account/change-password"
+                element={<SiteUser extraProps="change-pass" />}
+              />
             </Route>
-        )
-    );
+          </Route>
+          <Route path="/admin" element={<AdminNav />}>
+            <Route path="/admin/product" element={<AdminProduct />} />
+            <Route path="/admin/account" element={<AdminUser />} />
+            <Route path="/admin/shop" element={<AdminShop />} />
+          </Route>
+        </Route>
+        {/* 404 page */}
+        <Route path="*" element={<ErrorPage />} />
+      </Route>
+    )
+  );
 
-    return (
-        <>
-            <RouterProvider router={router} />
-            <ToastContainer />
-        </>
-    );
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </>
+  );
 };
 
 export default App;

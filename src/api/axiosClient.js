@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://0.tcp.ap.ngrok.io:19947/api",
+  baseURL: "http://0.tcp.ap.ngrok.io:19513/api",
   headers: {
-    "content-type": "application/json",
+    "content-type": "application/json, multipart/form-data",
   },
 });
 
@@ -11,11 +11,11 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    const accessToken = localStorage.getItem("access_token");
-    console.log("access_token_local", accessToken);
-
+    const accessToken = sessionStorage.getItem("access_token");
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+    } else {
+      delete axiosClient.defaults.headers.common["Authorization"];
     }
     return config;
   },

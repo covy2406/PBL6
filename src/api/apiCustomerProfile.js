@@ -4,6 +4,7 @@ import axiosClient from "./axiosClient";
 
 const GET_PROFILE_URL = "customerProfile";
 const UPDATE_PROFILE_URL = "customers";
+const CHANGE_PASSWORD_URL = "customers/changepassword";
 
 const apiCustomerProfile = {
   getProfile() {
@@ -11,6 +12,9 @@ const apiCustomerProfile = {
   },
   updateProfile(data, id) {
     return axiosClient.put(UPDATE_PROFILE_URL + "/" + id, data);
+  },
+  updatePassword(data) {
+    return axiosClient.post(CHANGE_PASSWORD_URL, data);
   },
 };
 

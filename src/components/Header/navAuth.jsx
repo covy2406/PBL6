@@ -2,8 +2,13 @@ import { NavLink } from "react-router-dom";
 //import Logo from "../../assets/Logo/Main_logo.png";
 import "./css/navAuth.css";
 import Logo from "../../assets/Logo/4B1G.png";
+import { useEffect } from "react";
+import { setHeaderConfigAxios } from "api/axiosClient";
 
 function Navlogin({ Title = "" }) {
+  useEffect(() => {
+    setHeaderConfigAxios(null);
+  }, []);
   return (
     <div className="navAuth">
       <div>
