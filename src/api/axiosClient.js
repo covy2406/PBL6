@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://0.tcp.ap.ngrok.io:19513/api",
+  baseURL: "http://0.tcp.ap.ngrok.io:12354/api",
   headers: {
     "content-type": "application/json, multipart/form-data",
   },
@@ -31,9 +31,6 @@ axiosClient.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
-    // if (response && response.data) {
-    //   return response.data;
-    //   }
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger

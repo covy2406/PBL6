@@ -45,7 +45,7 @@ const ProductHome = () => {
                             <div className="img_box">
                                 <img
                                     className="product-main__item"
-                                    src={`http://0.tcp.ap.ngrok.io:19513/${curElm.image}`}
+                                    src={`http://0.tcp.ap.ngrok.io:12354/${curElm.image}`}
                                     alt={curElm.name}></img>
                                 <div className="icon">
                                     {auth.isAuth ? (

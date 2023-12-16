@@ -23,7 +23,7 @@ const useCartHandle = () => {
       // Cập nhật state và lưu vào sessionStorage nếu API trả về thành công
       window.sessionStorage.setItem(
         "cartListProduct",
-        JSON.stringify(response.data.data)
+        JSON.stringify(response.data)
       );
       setCartListProduct(
         JSON.parse(window.sessionStorage.getItem("cartListProduct"))
