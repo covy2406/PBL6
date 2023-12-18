@@ -35,7 +35,7 @@ const CartList = () => {
                             <BsCart2 />
                         </i>
                         <span className="header__cart-notice">
-                            {cartListProduct?.length === 0 ? "0" : cartListProduct?.length}
+                            {cartListProduct ? cartListProduct.length : "0"}
                         </span>
                     </Link>
 
