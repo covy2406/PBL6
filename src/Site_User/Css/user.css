@@ -1,19 +1,29 @@
+@import url(../../assets/css/base.css);
+
 .siteuser {
   position: relative;
   height: 60rem;
+  padding: 40px 30px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--white-color);
+  margin: 30px 0;
 }
 .siteuser__nav {
   position: absolute;
   top: 5rem;
-  left: 35rem;
+  left: 10rem;
   width: fit-content;
   height: fit-content;
+  display: flex;
+  justify-content: space-between;
 }
 .siteuser__forms {
   position: absolute;
   background-color: #f5f5f5;
-  top: -2rem;
-  left: 20rem;
+  left: 30rem;
   height: fit-content;
   width: fit-content;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
 }

@@ -5,7 +5,6 @@
 .profileform__details {
   width: 50vw;
   height: fit-content;
-  max-height: calc(50vh - 6rem);
   overflow-y: auto;
 }
 .profileform__title__item {

@@ -62,7 +62,7 @@ const Cart = () => {
             return price + item.quantity_product * item.price;
         }, 0);
         setTotalprice(total);
-    }, [cartListProduct]);
+    }, [Totalprice]);
 
     return (
         <>
@@ -105,7 +105,7 @@ const Cart = () => {
                                                 <tr key={item.id}>
                                                     <td>
                                                         <img
-                                                            src={`http://0.tcp.ap.ngrok.io:12354/${item.image}`}
+                                                            src={`http://0.tcp.ap.ngrok.io:14139/${item.image}`}
                                                             alt={item.name}></img>
                                                     </td>
                                                     <td>{item.name}</td>

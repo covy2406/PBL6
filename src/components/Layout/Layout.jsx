@@ -14,12 +14,3 @@ function Layout( cart ) {
     );
 }
 export default Layout;
-
-// product={product} setProduct={setProduct} priceRange={priceRange} setPrice={setPrice} 
-//                 view={view} addtocart={addtocart}
-//                 oldData={oldData} setOldproduct={setOldproduct} detail={detail} close={close} setClose={setClose} 
-//                 cart={cart} setCart={setCart}
-
-// product, setProduct, priceRange,
-//     setPrice, oldData, setOldproduct, detail,
-//     view, close, setClose, cart, setCart, addtocart

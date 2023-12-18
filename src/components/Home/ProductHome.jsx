@@ -41,11 +41,11 @@ const ProductHome = () => {
                 productList.map((curElm) => {
                     return (
                         <div className="box" key={curElm.shop_product_id}>
-                            {curElm.shop_product_id}
+                            {/* {curElm.shop_product_id} */}
                             <div className="img_box">
                                 <img
                                     className="product-main__item"
-                                    src={`http://0.tcp.ap.ngrok.io:12354/${curElm.image}`}
+                                    src={`http://0.tcp.ap.ngrok.io:14139/${curElm.image}`}
                                     alt={curElm.name}></img>
                                 <div className="icon">
                                     {auth.isAuth ? (
