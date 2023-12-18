@@ -9,33 +9,29 @@ import useAuth from "hook/useAuth";
 import useCartHandle from "hook/useCartHandle";
 import { toast } from "react-toastify";
 
-// import apiAddToCart from 'api/apiAddToCart';
-// import { useParams } from 'react-router-dom';
-//import { toast } from 'react-toastify';
-
 const ProductHome = () => {
-  const { auth } = useAuth();
-  const { view } = useCart();
-  const { addtocart } = useCartHandle();
+    const { auth } = useAuth();
+    const { view } = useCart();
+    const { addtocart } = useCartHandle();
 
-  const [productList, setProductList] = useState([]);
-  const [error, setError] = useState(null);
+    const [productList, setProductList] = useState([]);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchProductHome = async () => {
-      try {
-        const response = await apiProductHome.getAll();
-        setProductList(response.data);
-      } catch (error) {
-        setError(error);
-        toast.error(error?.message);
-      }
-    };
-    fetchProductHome();
-  }, []);
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
+    useEffect(() => {
+        const fetchProductHome = async () => {
+            try {
+                const response = await apiProductHome.getAll();
+                setProductList(response.data);
+            } catch (error) {
+                setError(error);
+                toast.error(error?.message);
+            }
+        };
+        fetchProductHome();
+    }, []);
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
 
   return (
     <div className="container">
@@ -82,30 +78,30 @@ const ProductHome = () => {
                   </span>
                 </div>
 
-                <div className="home-product-item__origin">
-                  <span className="home-product-item__brand">
-                    {curElm.shopName}
-                  </span>
-                  <span className="home-product-item__origin-name"></span>
-                </div>
-                {/* {
+                                <div className="home-product-item__origin">
+                                    <span className="home-product-item__brand">
+                                        {curElm.shopName}
+                                    </span>
+                                    <span className="home-product-item__origin-name"></span>
+                                </div>
+                                {/* {
                                         shop &&
                                         <div className="home-product-item__origin">
                                             <span className="home-product-item__brand">{shop.shopName}</span>
                                             <span className="home-product-item__origin-name">{shop.shopAddress}</span>
                                         </div>
                                     } */}
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <div>
-          <p>Không có sản phẩm nào</p>
-          <p>{productList}</p>
+                            </div>
+                        </div>
+                    );
+                })
+            ) : (
+                <div>
+                    <p>Không có sản phẩm nào</p>
+                    <p>{productList}</p>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 export default ProductHome;

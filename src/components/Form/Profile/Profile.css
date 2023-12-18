@@ -1,9 +1,11 @@
 .profileform {
   height: fit-content;
 }
+
 .profileform__details {
   height: 40rem;
 }
+
 .profileform__table {
   position: absolute;
   display: flex;
@@ -16,6 +18,7 @@
   font-weight: lighter;
   color: var(--text-color);
 }
+
 .profileform__avatar {
   display: flex;
   flex-direction: column;
@@ -25,7 +28,9 @@
   padding-top: 5%;
   width: 30%;
   left: 70%;
+  z-index: 0;
 }
+
 .profileform__avatar--img {
   width: 10rem;
   height: 10rem;
@@ -33,6 +38,7 @@
   object-fit: cover;
   border: 1px solid var(--primary-color);
 }
+
 .profileform__avatar--overlay {
   position: fixed;
   top: 0px;
@@ -41,31 +47,41 @@
   right: 0px;
   z-index: 3;
   background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
+
 .profileform__avatar--preview {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: whitesmoke;
+  background-color: white;
+  position: relative;
+  animation: modalFadeIn ease 0.5s;
   content: "Chọn ảnh";
+  flex-direction: column;
+  display: flex;
 }
+
 .profileform__avatar--preview--button {
   top: 70%;
+  background-color: var(--primary-color);
 }
+
 .profileform__table--left {
   width: 25%;
   filter: opacity(0.6);
   text-align: right;
 }
+
 .profileform__table--right {
   font-size: 1.5rem;
   height: 3rem;
   padding-left: 2rem;
 }
+
 .noborder {
   border: none;
 }
+
 .profileform--link {
   color: var(--primary-color);
   text-decoration: underline;
@@ -74,6 +90,7 @@
   position: relative;
   left: 2rem;
 }
+
 /* name field input */
 .profileform--nameinput {
   padding: 1rem;
@@ -97,14 +114,33 @@
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
 }
+
+.avatar__btn {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  border: 1px solid var(--white-color);
+  color: var(--white-color);
+}
+
+.avatar__btn:hover {
+  background-color: var(--white-color);
+  color: var(--primary-color);
+}
+
 .profileform__table__row {
   position: relative;
   width: 100%;
   height: 5rem;
 }
+
 .profileform__table__row td {
   font-weight: normal;
 }
+
 /* avatar button */
 .profileform__avatar--button {
   margin: 20px 0 10px 0;
@@ -117,6 +153,7 @@
   width: 8rem;
   cursor: pointer;
 }
+
 .profileform__avatar--button:hover {
   background-color: var(--primary-color);
   border: none;
@@ -127,6 +164,7 @@
 .radio-input label {
   margin-right: 2rem;
 }
+
 .radio-input {
   height: 55px;
   display: flex;
@@ -153,6 +191,7 @@
   scale: 0;
   border-radius: 50%;
 }
+
 .radio-input input {
   border: 1px solid rgba(21, 23, 23, 0.2);
 }
@@ -161,6 +200,6 @@
   border: 1px solid var(--primary-color);
 }
 
-.radio-input input:checked + .circle {
+.radio-input input:checked+.circle {
   scale: 1;
 }

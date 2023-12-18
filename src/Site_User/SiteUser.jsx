@@ -7,21 +7,25 @@ import UserNav from "../components/Header/usernav";
 import "./Css/user.css";
 
 function SiteUser({ extraProps = "profile" }) {
-  return (
-    <div className="siteuser">
-      <div className="siteuser__nav">
-        <UserNav />
-        <div className="siteuser__forms">
-          {extraProps === "profile" ? (
-            <ProfileForm></ProfileForm>
-          ) : extraProps === "address" ? (
-            <AddressForm></AddressForm>
-          ) : extraProps === "change-pass" ? (
-            <ChangePassform></ChangePassform>
-          ) : null}
+    return (
+        <div className="grid">
+            <div className="siteuser">
+                <div className="siteuser__nav">
+                    <div className="siteuser__nav-beside">
+                        <UserNav />
+                    </div>
+                    <div className="siteuser__forms">
+                        {extraProps === "profile" ? (
+                            <ProfileForm></ProfileForm>
+                        ) : extraProps === "address" ? (
+                            <AddressForm></AddressForm>
+                        ) : extraProps === "change-pass" ? (
+                            <ChangePassform></ChangePassform>
+                        ) : null}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 export default SiteUser;

@@ -23,76 +23,76 @@ const Product = () => {
   //     _page: 1,
   // });
 
-  const [ProductNew, setProductNew] = useState([]);
-  const [error, setError] = useState(null);
+    const [ProductNew, setProductNew] = useState([]);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fectchProductNew = async () => {
-      try {
-        const response = await apiProductHome.getAll();
-        setProductNew(response.data);
-      } catch (error) {
-        setError(error);
-      }
-    };
-    fectchProductNew();
-  }, []);
+    useEffect(() => {
+        const fectchProductNew = async () => {
+            try {
+                const response = await apiProductHome.getAll();
+                setProductNew(response.data);
+            } catch (error) {
+                setError(error);
+            }
+        };
+        fectchProductNew();
+    }, []);
 
-  if (error) {
-    return <p>error: {error.message}</p>;
-  }
+    if (error) {
+        return <p>error: {error.message}</p>;
+    }
 
-  // const [pagination, setPagination] = useState({
-  //     _page: 1,
-  //     _limit: 9,
-  //     _totalRows: 11
-  // })
+    // const [pagination, setPagination] = useState({
+    //     _page: 1,
+    //     _limit: 9,
+    //     _totalRows: 11
+    // })
 
-  // const handlePageChange = (newPage) => {
-  //     console.log('New page: ' + newPage)
-  //     // setCurrentPage(pageNumber);
-  //     // Thực hiện truy vấn API hoặc cập nhật danh sách sản phẩm theo trang pageNumber
-  // };
-  return (
-    <div className="products">
-      <div className="grid">
-        {/* <h2># Products</h2>
+    // const handlePageChange = (newPage) => {
+    //     console.log('New page: ' + newPage)
+    //     // setCurrentPage(pageNumber);
+    //     // Thực hiện truy vấn API hoặc cập nhật danh sách sản phẩm theo trang pageNumber
+    // };
+    return (
+        <div className="products">
+            <div className="grid">
+                {/* <h2># Products</h2>
                     <p>Home . products</p> */}
 
-        {/* BANNER QUẢNG CÁO CHO TRANG PRODUCT - ĐIỆN THOẠI MỚI */}
-        <BannerProducts />
+                {/* BANNER QUẢNG CÁO CHO TRANG PRODUCT - ĐIỆN THOẠI MỚI */}
+                <BannerProducts />
 
-        <div className="products-list">
-          {/* BRAND CATEGORY - LỌC SẢN PHẨM THEO TÊN HÃNG VÀ GIÁ ĐIỆN THOẠI */}
-          <Category product={ProductNew} setProduct={setProductNew} />
+                <div className="products-list">
+                    {/* BRAND CATEGORY - LỌC SẢN PHẨM THEO TÊN HÃNG VÀ GIÁ ĐIỆN THOẠI */}
+                    <Category product={ProductNew} setProduct={setProductNew} />
 
-          <div className="grid__column-10">
-            <div className="home-filter">
-              <span className="home-filter__label">Sắp xếp theo</span>
-              <button className="btn home-filter__btn ">Phổ biến</button>
-              <button className="btn home-filter__btn btn--primary ">
-                Mới nhất
-              </button>
-              <button className="btn home-filter__btn">Bán chạy</button>
+                    <div className="grid__column-10">
+                        <div className="home-filter">
+                            <span className="home-filter__label">Sắp xếp theo</span>
+                            <button className="btn home-filter__btn ">Phổ biến</button>
+                            <button className="btn home-filter__btn btn--primary ">
+                                Mới nhất
+                            </button>
+                            <button className="btn home-filter__btn">Bán chạy</button>
 
-              <div className="select-input">
-                <span className="select-input__label">Giá</span>
-                <i className="select-input__icon ">
-                  <AiOutlineDown />
-                </i>
-                <ul className="select-input__list">
-                  <li className="select-input__item">
-                    <a href="/" className="select-input__link">
-                      Giá: Cao đến thấp
-                    </a>
-                  </li>
-                  <li className="select-input__item">
-                    <a href="/" className="select-input__link">
-                      Giá: Thấp đến cao
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                            <div className="select-input">
+                                <span className="select-input__label">Giá</span>
+                                <i className="select-input__icon ">
+                                    <AiOutlineDown />
+                                </i>
+                                <ul className="select-input__list">
+                                    <li className="select-input__item">
+                                        <a href="/" className="select-input__link">
+                                            Giá: Cao đến thấp
+                                        </a>
+                                    </li>
+                                    <li className="select-input__item">
+                                        <a href="/" className="select-input__link">
+                                            Giá: Thấp đến cao
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
               <div className="home-filter__page">
                 <span className="home-filter__page-num">
