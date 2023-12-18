@@ -65,7 +65,7 @@ const ProductHome = () => {
                   <li
                     className="icon__link"
                     onClick={() => view(curElm.shop_product_id)}>
-                    <Link to={`../Viewdetail/${curElm.shop_product_id}`}>
+                    <Link to={`Viewdetail/${curElm.shop_product_id}`}>
                       <BsEye />
                     </Link>
                   </li>

@@ -6,7 +6,6 @@ import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
-import { useAuth0 } from "@auth0/auth0-react";
 //import oldphoneData from './oldPhoneData';
 import "../NewProduct/product.css";
 // import '../Header/nav.css';
@@ -18,13 +17,15 @@ import CategoryOld from "./CategoryOld";
 import Pagination from "../Pagination/Pagination.jsx";
 import oldPhoneData from "./oldPhoneData";
 
+import useAuth from "hook/useAuth";
+
 const Oldphone = ({ view, addtocart }) => {
   // oldData, setOldproduct,
   const [oldData, setOldproduct] = useState(oldPhoneData);
 
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { auth } = useAuth();
 
-  const [pagination, setPagination] = useState({
+  const [pagination] = useState({
     _page: 1,
     _limit: 9,
     _totalRows: 11,
@@ -170,12 +171,12 @@ const Oldphone = ({ view, addtocart }) => {
                     <div className="img_box">
                       <img src={curElm.Img} alt={curElm.Title}></img>
                       <div className="icon">
-                        {isAuthenticated ? (
+                        {auth.isAuth ? (
                           <li onClick={() => addtocart(curElm)}>
                             <AiOutlineShoppingCart />
                           </li>
                         ) : (
-                          <li onClick={() => loginWithRedirect()}>
+                          <li>
                             <AiOutlineShoppingCart />
                           </li>
                         )}

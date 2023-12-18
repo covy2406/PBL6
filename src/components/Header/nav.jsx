@@ -28,7 +28,7 @@ const Nav = ({
   const { useprofile } = useProfile();
 
   const [authUser, setAuthUser] = useState(profile.name || null);
-  const isAuth = window.sessionStorage.getItem("loggedIn");
+  const isAuth = window.sessionStorage.getItem("isAuth");
 
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
@@ -40,7 +40,7 @@ const Nav = ({
   //each time page is reload, get profile by using the current access_token
   useEffect(() => {
     if (window.sessionStorage.getItem("profile") === null) {
-      console.log("get profile from api");
+      console.log("get profile from api 1");
       useprofile();
     } else {
       setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
@@ -228,7 +228,7 @@ const Nav = ({
                     className={`nav__home-item-link ${
                       currentPath === "/" ? "active" : ""
                     }`}>
-                    Home
+                    Trang chủ
                   </Link>
                 </li>
                 <li className="nav__home-item">
@@ -237,7 +237,7 @@ const Nav = ({
                     className={`nav__home-item-link ${
                       currentPath === "/product" ? "active" : ""
                     }`}>
-                    Product
+                    Sản phẩm
                   </Link>
                 </li>
                 <li className="nav__home-item">
@@ -246,7 +246,7 @@ const Nav = ({
                     className={`nav__home-item-link ${
                       currentPath === "/oldphone" ? "active" : ""
                     }`}>
-                    Old Phone
+                    Hàng cũ
                   </Link>
                 </li>
                 <li className="nav__home-item">
@@ -255,7 +255,7 @@ const Nav = ({
                     className={`nav__home-item-link ${
                       currentPath === "/contact" ? "active" : ""
                     }`}>
-                    Contact
+                    Liên hệ
                   </Link>
                 </li>
               </ul>

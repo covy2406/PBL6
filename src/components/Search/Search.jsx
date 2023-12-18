@@ -3,15 +3,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import apiSearch from "api/apiSearch";
-import { useAuth0 } from "@auth0/auth0-react";
+import useAuth from "hook/useAuth";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import "../../components/Home/home.css";
 import "../Header/css/nav.css";
 
 const Search = ({ view, addtocart, detail }) => {
-  const { loginWithRedirect } = useAuth0();
-  const isAuth = true;
+  const { auth } = useAuth();
   // CALL API SEARCH
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -61,12 +60,12 @@ const Search = ({ view, addtocart, detail }) => {
                   src={`http://0.tcp.ap.ngrok.io:17403/${item.image}`}
                   alt={item.name}></img>
                 <div className="icon">
-                  {isAuth ? (
+                  {auth.isAuth ? (
                     <li onClick={() => addtocart(item)}>
                       <AiOutlineShoppingCart />
                     </li>
                   ) : (
-                    <li onClick={() => loginWithRedirect()}>
+                    <li>
                       <AiOutlineShoppingCart />
                     </li>
                   )}

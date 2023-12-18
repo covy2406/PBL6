@@ -13,11 +13,11 @@ const CartList = () => {
 
   useEffect(() => {
     showCartList();
-  }, [cartListProduct]);
+  }, []);
 
   useEffect(() => {
-    if (window.sessionStorage.getItem("cartListProduct") === null) {
-      console.log("get profile from api");
+    if (window.sessionStorage.getItem("cartListProduct")) {
+      console.log("get cartlist from api");
       showCartList();
     } else {
       setCartListProduct(
@@ -35,7 +35,7 @@ const CartList = () => {
               <BsCart2 />
             </i>
             <span className="header__cart-notice">
-              {cartListProduct?.length === 0 ? "0" : cartListProduct?.length}
+              {cartListProduct ? cartListProduct?.length : "0"}
             </span>
           </Link>
 
@@ -56,7 +56,7 @@ const CartList = () => {
                   return (
                     <li className="header__cart-item" key={curElm.id}>
                       <img
-                        src={`http://0.tcp.ap.ngrok.io:19947/${curElm.image}`}
+                        src={`http://0.tcp.ap.ngrok.io:12354/${curElm.image}`}
                         alt={curElm.name}
                         className="header__cart-img"></img>
                       <div className="header__cart-item-info">

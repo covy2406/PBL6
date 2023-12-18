@@ -8,14 +8,12 @@ import BannerProducts from "../BannerProduct/BannerProducts.jsx";
 // import Pagination from '../Pagination/Pagination.jsx';
 // import Productdetail from '../Productdetail/Productdetail.jsx';
 import "./product.css";
-// import '../Header/nav.css';
 import "../../assets/css/base.css";
 import "../Home/home.css";
 import Category from "./Category.jsx";
 import apiProductHome from "api/apiProductHome.js";
 
 //import PaginationControlled from './PaginationControlled.jsx';
-//import apiBrand from 'api/apiBrand.js';
 
 const Product = () => {
   // const [currentPage, setCurrentPage] = useState(1);
@@ -24,8 +22,6 @@ const Product = () => {
   //     _limit: 10,
   //     _page: 1,
   // });
-
-  // const isAuth = true;
 
   const [ProductNew, setProductNew] = useState([]);
   const [error, setError] = useState(null);
@@ -124,33 +120,8 @@ const Product = () => {
                   <div className="box" key={curElm.shop_product_id}>
                     <div className="img_box">
                       <img
-                        src={`http://0.tcp.ap.ngrok.io:13168/${curElm.image}`}
+                        src={`http://0.tcp.ap.ngrok.io:12354/${curElm.image}`}
                         alt={curElm.name}></img>
-                      {/* <div className="icon">
-                                                {auth.isAuth ? 
-                                                (
-                                                    <li
-                                                        onClick={() =>
-                                                            addtocart(curElm.shop_product_id, 1)
-                                                        }>
-                                                        <AiOutlineShoppingCart />
-                                                    </li>
-                                                ) 
-                                                : 
-                                                (
-                                                    <li onClick={() => loginWithRedirect()}>
-                                                        <AiOutlineShoppingCart />
-                                                    </li>
-                                                )}
-                                                <li
-                                                    className="icon__link"
-                                                    onClick={() => view(curElm.shop_product_id)}>
-                                                    <Link to={`../Viewdetail/${curElm.shop_product_id}`}>
-                                                        <BsEye />
-                                                    </Link>
-                                                </li>
-                                                
-                                            </div> */}
                     </div>
                     <div className="detail">
                       <h4 className="home-product-item__name">{curElm.name}</h4>

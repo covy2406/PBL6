@@ -4,11 +4,15 @@ import { CartProvider } from "./AddToCartContext";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+  const storage = JSON.parse(window.sessionStorage.getItem("auth"));
+  const role = window.sessionStorage.getItem("role");
+  const isAuth = window.sessionStorage.getItem("isAuth");
   const [auth, setAuth] = useState({
     //if already logged in, get the access_token from sessionStorage
-    access_token: window.sessionStorage.getItem("access_token") || null,
-    isAuth: window.sessionStorage.getItem("loggedIn") || true,
-    role: window.sessionStorage.getItem("role") || "user",
+    access_token: storage?.access_token || null,
+    isAuth: isAuth || false,
+    role: role || "user",
+    id: storage?.customer_id || "",
   });
 
   const [profile, setProfile] = useState({

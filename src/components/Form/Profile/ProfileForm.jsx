@@ -33,8 +33,10 @@ const ProfileForm = () => {
 
   // get current date if user has not set birthday
   const currentDate = new Date();
+
   // get data from useProfile hook
   const { profile } = useAuth();
+
   // define states
 
   const [email, setEmail] = useState();
@@ -51,7 +53,8 @@ const ProfileForm = () => {
   const [yearr, setYears] = useState(birthday[2]);
   useEffect(() => {
     if (profile) {
-      if (profile.dayOfBirth) {
+      console.log("load profile: ", profile);
+      if (profile.dayOfBirth !== null) {
         setBirthday(
           profile.dayOfBirth
             .split(" ")[0]
@@ -59,6 +62,7 @@ const ProfileForm = () => {
             .map((value) => +value)
             .reverse()
         );
+        console.log("birthday: ", birthday);
         //change from yyyy-mm-dd hh:mm:ss to dd-mm-yyyy
         setDays(birthday[0]);
         setMonths(birthday[1]);
@@ -73,7 +77,8 @@ const ProfileForm = () => {
         setSex("Nữ");
       }
     }
-  }, [profile]);
+  }, [profile, birthday]);
+
   useEffect(() => {
     setBirthday([dayy, monthh, yearr]);
   }, [dayy, monthh, yearr]);

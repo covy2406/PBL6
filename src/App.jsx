@@ -43,38 +43,40 @@ const App = () => {
         <Route path="signup" element={<SiteSignup />}></Route>
         <Route path="reset" element={<SiteReset />}></Route>
         <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
           <Route path="term" element={<Term />}></Route>
           <Route path="contact" element={<Contact />}></Route>
           <Route path="about" element={<About />}></Route>
-          <Route index element={<Home />} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/oldphone" element={<Oldphone />} />
-          <Route path="/" element={<RequiredAuth />}>
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/Viewdetail/:id" element={<Viewdetails />} />
-            <Route path="/CheckoutPage"></Route>
-            <Route path="/Search/:search" element={<Search />}></Route>
-            <Route path="/Shop" elemen={<Shop />}></Route>
-            <Route path="/user">
+          <Route path="product" element={<Product />} />
+          <Route path="oldphone" element={<Oldphone />} />
+          <Route path="Viewdetail/:id" element={<Viewdetails />} />
+        </Route>
+        <Route path="/" element={<Layout />}>
+          <Route element={<RequiredAuth />}>
+            <Route path="Cart" element={<Cart />} />
+            <Route path="CheckoutPage"></Route>
+            <Route path="Search/:search" element={<Search />}></Route>
+            <Route path="Shop" element={<Shop />}></Route>
+            <Route path="user">
               <Route
-                path="/user/account/profile"
+                path="account/profile"
                 element={<SiteUser extraProps="profile" />}
               />
               <Route
-                path="/user/account/address"
+                path="account/address"
                 element={<SiteUser extraProps="address" />}
               />
               <Route
-                path="/user/account/change-password"
+                path="account/change-password"
                 element={<SiteUser extraProps="change-pass" />}
               />
             </Route>
           </Route>
-          <Route path="/admin" element={<AdminNav />}>
-            <Route path="/admin/product" element={<AdminProduct />} />
-            <Route path="/admin/account" element={<AdminUser />} />
-            <Route path="/admin/shop" element={<AdminShop />} />
-          </Route>
+        </Route>
+        <Route path="/admin" element={<AdminNav />}>
+          <Route path="product" element={<AdminProduct />} />
+          <Route path="account" element={<AdminUser />} />
+          <Route path="shop" element={<AdminShop />} />
         </Route>
         {/* 404 page */}
         <Route path="*" element={<ErrorPage />} />

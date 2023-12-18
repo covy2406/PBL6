@@ -1,13 +1,17 @@
 import apiCustomerProfile from "api/apiCustomerProfile";
-import useAuth from "hook/useAuth";
+import useAuth from "./useAuth";
 
 const useProfile = () => {
   const { setProfile } = useAuth();
   const useprofile = async () => {
     try {
       const response = await apiCustomerProfile.getProfile();
-      await setProfile(response.data);
+      if (response.data?.message) {
+        console.log("profile err", response);
+        return false;
+      }
       window.sessionStorage.setItem("profile", JSON.stringify(response.data));
+      setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
       return true;
     } catch (err) {
       console.log("useProfile err: " + err);

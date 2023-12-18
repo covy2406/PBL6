@@ -20,6 +20,11 @@ const useCartHandle = () => {
   const showCartList = async () => {
     const response = await apiHandleCart.view();
     if (response) {
+      if (response.data?.message) {
+        console.log("Show cart list err", response);
+        return false;
+      }
+      console.log("Show cart list success", response);
       // Cập nhật state và lưu vào sessionStorage nếu API trả về thành công
       window.sessionStorage.setItem(
         "cartListProduct",

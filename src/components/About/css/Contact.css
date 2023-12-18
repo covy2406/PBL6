@@ -27,22 +27,29 @@
   flex-direction: column;
   gap: 2rem;
   /* input and button*/
-  input,
-  button {
-    width: 100%;
-    height: 3rem;
-    border: 1px solid #000;
-    border-radius: 1px;
-    padding-left: 1.5rem;
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
-  .aboutform--form__input--message {
-    text-align: initial;
-    height: 10rem;
-  }
 }
-
+.aboutform--form__input input {
+  width: 100%;
+  height: 3rem;
+  border: 1px solid #000;
+  border-radius: 1px;
+  padding-left: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.aboutform--form__input button {
+  width: 100%;
+  height: 3rem;
+  border: 1px solid #000;
+  border-radius: 1px;
+  padding-left: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.aboutform--form__input .aboutform--form__input--message {
+  text-align: initial;
+  height: 10rem;
+}
 .aboutform--info {
   color: whitesmoke;
   background-color: var(--primary-color);
