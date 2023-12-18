@@ -8,15 +8,17 @@ import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 
 const CartList = () => {
-    const { cartListProduct, setCartListProduct } = useCart();
-    const { showCartList } = useCartHandle();
-
-    useEffect(() => {
-        showCartList();
-    }, [cartListProduct]);
+  const { cartListProduct, setCartListProduct } = useCart();
+  const { showCartList } = useCartHandle();
 
   useEffect(() => {
+    showCartList();
+  }, [cartListProduct]);
+
+  useEffect(() => {
+    console.log("cartListProduct", cartListProduct);
     if (window.sessionStorage.getItem("cartListProduct")) {
+      console.log("get cartlist from api");
       showCartList();
     } else {
       setCartListProduct(
@@ -34,19 +36,19 @@ const CartList = () => {
               <BsCart2 />
             </i>
             <span className="header__cart-notice">
-              {cartListProduct ? cartListProduct?.length : "0"}
+              {cartListProduct ? cartListProduct.length : "0"}
             </span>
           </Link>
 
-                    {/* <!-- No cart: header__cart-list--no-cart --> */}
-                    <div className="header__cart-list ">
-                        <img
-                            src="./img/no_cart.png"
-                            alt=""
-                            className="header__cart-no-cart-img"></img>
-                        <span className="header__cart-list-no-cart-msg">
-                            Chưa có sản phẩm
-                        </span>
+          {/* <!-- No cart: header__cart-list--no-cart --> */}
+          <div className="header__cart-list ">
+            <img
+              src="./img/no_cart.png"
+              alt=""
+              className="header__cart-no-cart-img"></img>
+            <span className="header__cart-list-no-cart-msg">
+              Chưa có sản phẩm
+            </span>
 
             <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
             <ul className="header__cart-list-item">
@@ -90,15 +92,15 @@ const CartList = () => {
               )}
             </ul>
 
-                        <Link
-                            to="/Cart"
-                            className="header__cart-view-cart btn btn--primary">
-                            Xem giỏ hàng
-                        </Link>
-                    </div>
-                </div>
-            </div>
+            <Link
+              to="/Cart"
+              className="header__cart-view-cart btn btn--primary">
+              Xem giỏ hàng
+            </Link>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 export default CartList;
