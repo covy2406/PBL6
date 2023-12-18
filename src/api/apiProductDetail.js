@@ -2,7 +2,7 @@ import axiosClient from './axiosClient.js';
 
 
 const apiProductDetail = {
-    get(id) {
+    viewDetail(id) {
         const url = `/getdetailshop_product/${id}`;
         return axiosClient.get(url);
     },

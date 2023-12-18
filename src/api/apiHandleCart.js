@@ -11,8 +11,9 @@ const apiHandleCart = {
             shop_product_id: productId,
         });
     },
+
     // show all product in cart
-    view() {
+    viewCart() {
         return axiosClient.get(VIEW_CART_URL);
     },
 
