@@ -11,7 +11,7 @@ const useLogin = () => {
         window.sessionStorage.setItem("isAuth", true);
         window.sessionStorage.setItem(
           "role",
-          authUser === "linh@gmail.com" ? "admin" : "user"
+          authUser.email === "linh@gmail.com" ? "admin" : "user"
         );
         if (remember) {
           window.sessionStorage.setItem("email", authUser.email);

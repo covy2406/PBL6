@@ -8,7 +8,6 @@ const useCartHandle = () => {
     const response = await apiHandleCart.add(productId, quantity);
     if (response) {
       showCartList();
-      console.log("Add to cart success", response);
       return true;
     } else {
       console.error("Add to cart err", response);
@@ -24,7 +23,6 @@ const useCartHandle = () => {
         console.log("Show cart list err", response);
         return false;
       }
-      console.log("Show cart list success", response);
       // Cập nhật state và lưu vào sessionStorage nếu API trả về thành công
       window.sessionStorage.setItem(
         "cartListProduct",

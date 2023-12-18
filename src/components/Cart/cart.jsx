@@ -104,9 +104,7 @@ const Cart = () => {
                       item.quantity_order > 0 && (
                         <tr key={item.id}>
                           <td>
-                            <img
-                              src={`http://0.tcp.ap.ngrok.io:19947/${item.image}`}
-                              alt={item.name}></img>
+                            <img src={item.image} alt={item.name}></img>
                           </td>
                           <td>{item.name}</td>
                           <td>

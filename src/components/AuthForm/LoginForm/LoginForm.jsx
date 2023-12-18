@@ -64,7 +64,7 @@ function LoginForm() {
       setAuth({
         access_token: res?.access_token,
         isAuth: true,
-        role: authUser === "linh@gmail.com" ? "admin" : "user",
+        role: window.sessionStorage.getItem("role"),
         id: res?.customer_id,
       });
       const from = location.state?.from?.pathname || "/";

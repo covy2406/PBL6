@@ -31,6 +31,7 @@ import Cart from "components/Cart/cart.jsx";
 import Viewdetails from "components/Viewdetail/viewDetails.jsx";
 import Search from "components/Search/Search.jsx";
 import Shop from "./Site_Shop/Shop.jsx";
+import ShopSignup from "./Site_Shop/ShopSignup.jsx";
 
 //auth
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
@@ -56,7 +57,9 @@ const App = () => {
             <Route path="Cart" element={<Cart />} />
             <Route path="CheckoutPage"></Route>
             <Route path="Search/:search" element={<Search />}></Route>
-            <Route path="Shop" element={<Shop />}></Route>
+            <Route path="Shop">
+              <Route path="onboarding" element={<ShopSignup />}></Route>
+            </Route>
             <Route path="user">
               <Route
                 path="account/profile"

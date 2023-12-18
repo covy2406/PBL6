@@ -31,7 +31,6 @@
   height: 10rem;
   border-radius: 50%;
   object-fit: cover;
-  z-index: 3;
   border: 1px solid var(--primary-color);
 }
 .profileform__avatar--overlay {

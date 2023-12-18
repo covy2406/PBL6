@@ -1,5 +1,5 @@
 import apiCustomerProfile from "api/apiCustomerProfile";
-import useAuth from "./useAuth";
+import useAuth from "hook/useAuth";
 
 const useProfile = () => {
   const { setProfile } = useAuth();
@@ -11,7 +11,15 @@ const useProfile = () => {
         return false;
       }
       window.sessionStorage.setItem("profile", JSON.stringify(response.data));
-      setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
+      await setProfile({
+        id: response.data.customer_id,
+        name: response.data.name,
+        email: response.data.email,
+        phone: response.data.phone,
+        sex: response.data.sex,
+        dayOfBirth: response.data.dayOfBirth,
+      });
+
       return true;
     } catch (err) {
       console.log("useProfile err: " + err);

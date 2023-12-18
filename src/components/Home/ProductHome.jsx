@@ -47,7 +47,6 @@ const ProductHome = () => {
             <div className="box" key={curElm.shop_product_id}>
               {curElm.shop_product_id}
               <div className="img_box">
-                {/* {`http://localhost:8000${curElm.image}`} */}
                 <img
                   className="product-main__item"
                   src={`http://0.tcp.ap.ngrok.io:19947/${curElm.image}`}

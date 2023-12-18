@@ -39,8 +39,9 @@ const Nav = ({
 
   //each time page is reload, get profile by using the current access_token
   useEffect(() => {
+    console.log("profile", profile);
     if (window.sessionStorage.getItem("profile") === null) {
-      console.log("get profile from api 1");
+      console.log("get profile from api");
       useprofile();
     } else {
       setProfile(JSON.parse(window.sessionStorage.getItem("profile")));

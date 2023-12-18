@@ -17,7 +17,6 @@ const CartList = () => {
 
   useEffect(() => {
     if (window.sessionStorage.getItem("cartListProduct")) {
-      console.log("get cartlist from api");
       showCartList();
     } else {
       setCartListProduct(

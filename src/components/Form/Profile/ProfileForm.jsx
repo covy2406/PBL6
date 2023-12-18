@@ -9,6 +9,7 @@ import Avatar from "react-avatar-edit";
 
 import React, { useEffect, useState } from "react";
 import useAuth from "hook/useAuth.js";
+import useProfile from "hook/useProfile.js";
 import apiCustomerProfile from "api/apiCustomerProfile.js";
 import { toast } from "react-toastify";
 
@@ -36,6 +37,7 @@ const ProfileForm = () => {
 
   // get data from useProfile hook
   const { profile } = useAuth();
+  const { useprofile } = useProfile();
 
   // define states
 
@@ -43,47 +45,51 @@ const ProfileForm = () => {
   const [phone, setPhone] = useState();
   const [user, setUser] = useState();
   const [sex, setSex] = useState(1);
-  const [birthday, setBirthday] = useState([
-    currentDate.getDate(),
-    currentDate.getMonth() + 1,
-    currentDate.getFullYear() - 18,
-  ]);
+  const [birthday, setBirthday] = useState(
+    [
+      currentDate.getDate(),
+      currentDate.getMonth() + 1,
+      currentDate.getFullYear() - 18,
+    ].map((value) => String(value))
+  );
   const [dayy, setDays] = useState(birthday[0]);
   const [monthh, setMonths] = useState(birthday[1]);
   const [yearr, setYears] = useState(birthday[2]);
+
+  useEffect(() => {
+    useprofile();
+  }, []);
+
   useEffect(() => {
     if (profile) {
       console.log("load profile: ", profile);
       if (profile.dayOfBirth !== null) {
-        setBirthday(
-          profile.dayOfBirth
-            .split(" ")[0]
-            .split("-")
-            .map((value) => +value)
-            .reverse()
-        );
-        console.log("birthday: ", birthday);
+        const new_birthday = profile.dayOfBirth
+          .split(" ")[0]
+          .split("-")
+          .reverse();
+        setBirthday(new_birthday);
         //change from yyyy-mm-dd hh:mm:ss to dd-mm-yyyy
-        setDays(birthday[0]);
-        setMonths(birthday[1]);
-        setYears(birthday[2]);
       }
       setEmail(profile.email);
       setPhone(profile.phone);
       setUser(profile.name);
-      if (profile.sex === 1) {
-        setSex("Nam");
-      } else {
-        setSex("Nữ");
-      }
+      setSex(profile.sex === 1 ? "Nam" : "Nữ");
     }
-  }, [profile, birthday]);
+  }, [profile]);
+
+  useEffect(() => {
+    console.log("get days ", birthday);
+    setDays(birthday[0]);
+    setMonths(birthday[1]);
+    setYears(birthday[2]);
+  }, [birthday]);
 
   useEffect(() => {
     setBirthday([dayy, monthh, yearr]);
   }, [dayy, monthh, yearr]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const data = {
       name: user,
       avatar: avatar,
@@ -97,7 +103,7 @@ const ProfileForm = () => {
         .join("-"),
     };
     console.log("data: ", data);
-    apiCustomerProfile
+    await apiCustomerProfile
       .updateProfile(data, profile.id)
       .then((res) => {
         toast.success("Cập nhật thành công");
@@ -106,7 +112,7 @@ const ProfileForm = () => {
       })
       .catch((err) => {
         toast.error("Cập nhật thất bại");
-        console.log("updae profile err: ", err);
+        console.log("update profile err: ", err);
       });
   };
 
