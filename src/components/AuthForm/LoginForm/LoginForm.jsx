@@ -25,7 +25,6 @@ function LoginForm() {
   //define url
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   // if user is typing, clear error message
   useEffect(() => {
@@ -39,6 +38,7 @@ function LoginForm() {
       access_token: null,
       isAuth: false,
       role: "user",
+      id: null,
     });
   }, [setAuth]);
 
@@ -48,10 +48,9 @@ function LoginForm() {
     //define data package
     const authUser = { email: user, password: pass };
     //call api
-    const loggedIn = await login(authUser, remember);
-    console.log("handling submit");
+    const res = await login(authUser, remember);
     //check if login success
-    if (loggedIn) {
+    if (res) {
       toast.success("Đang tải", {
         position: "top-right",
         autoClose: 1500,
@@ -62,9 +61,16 @@ function LoginForm() {
         progress: undefined,
         theme: "light",
       });
+      setAuth({
+        access_token: res?.access_token,
+        isAuth: true,
+        role: window.sessionStorage.getItem("role"),
+        id: res?.customer_id,
+      });
+      const from = location.state?.from?.pathname || "/";
       navigate(from, { replace: true });
     } else {
-      toast.error("Đăng nhập thất bại!");
+      toast.error("Đăng nhập thất bại!", { autoClose: 500 });
     }
   };
   return (

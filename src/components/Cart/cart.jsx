@@ -7,8 +7,8 @@ import useCartHandle from "hook/useCartHandle";
 import { toast } from "react-toastify";
 
 const Cart = () => {
-  const { cartListProduct, setCartListProduct } = useCart();
-  const { decreaseQuantity, increaseQuantity } = useCartHandle();
+    const { cartListProduct, setCartListProduct } = useCart();
+    const { decreaseQuantity, increaseQuantity } = useCartHandle();
 
     const updateQuantity = (productId, state) => {
         setCartListProduct((prevCart) => {
@@ -104,9 +104,7 @@ const Cart = () => {
                                             item.quantity_order > 0 && (
                                                 <tr key={item.id}>
                                                     <td>
-                                                        <img
-                                                            src={`http://0.tcp.ap.ngrok.io:14139/${item.image}`}
-                                                            alt={item.name}></img>
+                                                        <img src={`http://0.tcp.ap.ngrok.io:14557/${item.image}`} alt={item.name}></img>
                                                     </td>
                                                     <td>{item.name}</td>
                                                     <td>
@@ -153,6 +151,95 @@ const Cart = () => {
             </div>
         </>
     );
+    // return (
+    //     <>
+    //         <div className="cartcontainer">
+    //             <div className="grid">
+    //                 {cartListProduct.length === 0 ? (
+    //                     <div className="emptycart">
+    //                         <h2 className="empty">Cart is Empty</h2>
+    //                         <Link to="/product" className="emptycartbtn">
+    //                             Shop Now
+    //                         </Link>
+    //                     </div>
+    //                 ) : (
+    //                     <div className="contant">
+    //                         <div>
+    //                             <div className="grid">
+    //                                 <div className="cart__totalprice">
+    //                                     <h2 className="totalprice">
+    //                                         total: {Totalprice.toLocaleString("vn-VN")} đ
+    //                                     </h2>
+    //                                     <button className="btn__checkout">Mua hàng</button>
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                         <table className="cart-table">
+    //                             <thead>
+    //                                 <tr>
+    //                                     <th>sản phẩm</th>
+    //                                     <th>Tên sản phẩm</th>
+    //                                     <th>Đơn giá</th>
+    //                                     <th>Số lượng</th>
+    //                                     <th>Thành tiền</th>
+    //                                     <th>Xóa</th>
+    //                                 </tr>
+    //                             </thead>
+    //                             <tbody>
+    //                                 {cartListProduct.map(
+    //                                     (item) =>
+    //                                         item.quantity_order > 0 && (
+    //                                             <tr key={item.id}>
+    //                                                 <td>
+    //                                                     <img
+    //                                                         src={`http://0.tcp.ap.ngrok.io:14139/${item.image}`}
+    //                                                         alt={item.name}></img>
+    //                                                 </td>
+    //                                                 <td>{item.name}</td>
+    //                                                 <td>
+    //                                                     {parseInt(item.price).toLocaleString("vn-VN")} đ
+    //                                                 </td>
+    //                                                 <td>
+    //                                                     <div className="qty">
+    //                                                         <button
+    //                                                             className="incqty"
+    //                                                             onClick={() => incQuantity(item.id)}>
+    //                                                             +
+    //                                                         </button>
+    //                                                         <input
+    //                                                             type="text"
+    //                                                             value={item.quantity_order}></input>
+    //                                                         <button
+    //                                                             className="incqty"
+    //                                                             onClick={() => decQuantity(item.id)}>
+    //                                                             -
+    //                                                         </button>
+    //                                                     </div>
+    //                                                 </td>
+    //                                                 <td>
+    //                                                     <p className="subtotal">
+    //                                                         {(
+    //                                                             item.price * item.quantity_order
+    //                                                         ).toLocaleString("vn-VN")}{" "}
+    //                                                         đ
+    //                                                     </p>
+    //                                                 </td>
+    //                                                 <td>
+    //                                                     <div className="close">
+    //                                                         {/* <button onClick={() => removeproduct(item.product_order_id)}><AiOutlineClose /></button> */}
+    //                                                     </div>
+    //                                                 </td>
+    //                                             </tr>
+    //                                         )
+    //                                 )}
+    //                             </tbody>
+    //                         </table>
+    //                     </div>
+    //                 )}
+    //             </div>
+    //         </div>
+    //     </>
+    // );
 };
 
 export default Cart;

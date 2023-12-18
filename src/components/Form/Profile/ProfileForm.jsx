@@ -9,6 +9,7 @@ import Avatar from "react-avatar-edit";
 
 import React, { useEffect, useState } from "react";
 import useAuth from "hook/useAuth.js";
+import useProfile from "hook/useProfile.js";
 import apiCustomerProfile from "api/apiCustomerProfile.js";
 import { toast } from "react-toastify";
 
@@ -31,52 +32,62 @@ const ProfileForm = () => {
         setPreview(preview);
     };
 
-    // get current date if user has not set birthday
-    const currentDate = new Date();
-    // get data from useProfile hook
-    const { profile } = useAuth();
-    // define states
+  // get current date if user has not set birthday
+  const currentDate = new Date();
 
-    const [email, setEmail] = useState();
-    const [phone, setPhone] = useState();
-    const [user, setUser] = useState();
-    const [sex, setSex] = useState(1);
-    const [birthday, setBirthday] = useState([
-        currentDate.getDate(),
-        currentDate.getMonth() + 1,
-        currentDate.getFullYear() - 18,
-    ]);
-    const [dayy, setDays] = useState(birthday[0]);
-    const [monthh, setMonths] = useState(birthday[1]);
-    const [yearr, setYears] = useState(birthday[2]);
-    useEffect(() => {
-        if (profile) {
-            if (profile.dayOfBirth) {
-                setBirthday(
-                    profile.dayOfBirth
-                        .split(" ")[0]
-                        .split("-")
-                        .map((value) => +value)
-                        .reverse()
-                );
-                //change from yyyy-mm-dd hh:mm:ss to dd-mm-yyyy
-                setDays(birthday[0]);
-                setMonths(birthday[1]);
-                setYears(birthday[2]);
-            }
-            setEmail(profile.email);
-            setPhone(profile.phone);
-            setUser(profile.name);
-            if (profile.sex === 1) {
-                setSex("Nam");
-            } else {
-                setSex("Nữ");
-            }
-        }
-    }, [profile]);
-    useEffect(() => {
-        setBirthday([dayy, monthh, yearr]);
-    }, [dayy, monthh, yearr]);
+  // get data from useProfile hook
+  const { profile } = useAuth();
+  const { useprofile } = useProfile();
+
+  // define states
+
+  const [email, setEmail] = useState();
+  const [phone, setPhone] = useState();
+  const [user, setUser] = useState();
+  const [sex, setSex] = useState(1);
+  const [birthday, setBirthday] = useState(
+    [
+      currentDate.getDate(),
+      currentDate.getMonth() + 1,
+      currentDate.getFullYear() - 18,
+    ].map((value) => String(value))
+  );
+  const [dayy, setDays] = useState(birthday[0]);
+  const [monthh, setMonths] = useState(birthday[1]);
+  const [yearr, setYears] = useState(birthday[2]);
+
+  useEffect(() => {
+    useprofile();
+  }, []);
+
+  useEffect(() => {
+    if (profile) {
+      console.log("load profile: ", profile);
+      if (profile.dayOfBirth !== null) {
+        const new_birthday = profile.dayOfBirth
+          .split(" ")[0]
+          .split("-")
+          .reverse();
+        setBirthday(new_birthday);
+        //change from yyyy-mm-dd hh:mm:ss to dd-mm-yyyy
+      }
+      setEmail(profile.email);
+      setPhone(profile.phone);
+      setUser(profile.name);
+      setSex(profile.sex === 1 ? "Nam" : "Nữ");
+    }
+  }, [profile]);
+
+  useEffect(() => {
+    console.log("get days ", birthday);
+    setDays(birthday[0]);
+    setMonths(birthday[1]);
+    setYears(birthday[2]);
+  }, [birthday]);
+
+  useEffect(() => {
+    setBirthday([dayy, monthh, yearr]);
+  }, [dayy, monthh, yearr]);
 
     const handleSubmit = (e) => {
         const data = {

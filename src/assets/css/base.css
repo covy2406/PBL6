@@ -1,8 +1,6 @@
 :root {
   /* khai báo biến */
-  /* --primary-color: #5d58a1; */
   --primary-color: rgb(196, 67, 53);
-  /* --primary-color-rgb: rgb(238, 75, 43); */
   --primary-color-rgb: #ce6257;
   --primary-red-rgb: rgb(196, 67, 53);
   --primary-html-color: #f0f1f5;

@@ -41,7 +41,7 @@ const ProductHome = () => {
                 productList.map((curElm) => {
                     return (
                         <div className="box" key={curElm.shop_product_id}>
-                            {/* {curElm.shop_product_id} */}
+                            {curElm.shop_product_id}
                             <div className="img_box">
                                 <img
                                     className="product-main__item"
@@ -60,7 +60,7 @@ const ProductHome = () => {
                                     <li
                                         className="icon__link"
                                         onClick={() => view(curElm.shop_product_id)}>
-                                        <Link to={`../Viewdetail/${curElm.shop_product_id}`}>
+                                        <Link to={`Viewdetail/${curElm.shop_product_id}`}>
                                             <BsEye />
                                         </Link>
                                     </li>

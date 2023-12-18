@@ -6,8 +6,20 @@ const useProfile = () => {
   const useprofile = async () => {
     try {
       const response = await apiCustomerProfile.getProfile();
-      await setProfile(response.data);
+      if (response.data?.message) {
+        console.log("profile err", response);
+        return false;
+      }
       window.sessionStorage.setItem("profile", JSON.stringify(response.data));
+      await setProfile({
+        id: response.data.customer_id,
+        name: response.data.name,
+        email: response.data.email,
+        phone: response.data.phone,
+        sex: response.data.sex,
+        dayOfBirth: response.data.dayOfBirth,
+      });
+
       return true;
     } catch (err) {
       console.log("useProfile err: " + err);

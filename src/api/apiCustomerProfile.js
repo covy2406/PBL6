@@ -11,7 +11,7 @@ const apiCustomerProfile = {
     return axiosClient.get(GET_PROFILE_URL);
   },
   updateProfile(data, id) {
-    return axiosClient.put(UPDATE_PROFILE_URL + "/" + id, data);
+    return axiosClient.post(UPDATE_PROFILE_URL + "/" + id, data);
   },
   updatePassword(data) {
     return axiosClient.post(CHANGE_PASSWORD_URL, data);

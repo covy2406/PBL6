@@ -10,7 +10,6 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 
 import useAuth from "hook/useAuth";
-import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 
 // import { useEffect, useState } from "react";

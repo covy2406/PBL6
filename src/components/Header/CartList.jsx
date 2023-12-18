@@ -16,8 +16,9 @@ const CartList = () => {
     }, [cartListProduct]);
 
     useEffect(() => {
-        if (window.sessionStorage.getItem("cartListProduct") === null) {
-            console.log("get profile from api");
+        console.log("cartListProduct", cartListProduct);
+        if (window.sessionStorage.getItem("cartListProduct")) {
+            console.log("get cartlist from api");
             showCartList();
         } else {
             setCartListProduct(
