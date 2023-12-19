@@ -33,50 +33,50 @@ const ProductHome = () => {
         return <p>Error: {error.message}</p>;
     }
 
-  return (
-    <div className="container">
-      {/* <p >{productList}</p> */}
-      {productList && productList.length > 0 ? (
-        // Array.isArray(productList) ? or productList && productList.lenght > 0 ? đều kiểm tra xem có phải dữ liệu từ api là mảng hay ko.
-        productList.map((curElm) => {
-          return (
-            <div className="box" key={curElm.shop_product_id}>
-              {curElm.shop_product_id}
-              <div className="img_box">
-                <img
-                  className="product-main__item"
-                  src={`http://0.tcp.ap.ngrok.io:19947/${curElm.image}`}
-                  alt={curElm.name}></img>
-                <div className="icon">
-                  {auth.isAuth ? (
-                    <li onClick={() => addtocart(curElm.shop_product_id, 1)}>
-                      <AiOutlineShoppingCart />
-                    </li>
-                  ) : (
-                    <li>
-                      <AiOutlineShoppingCart />
-                    </li>
-                  )}
-                  <li
-                    className="icon__link"
-                    onClick={() => view(curElm.shop_product_id)}>
-                    <Link to={`Viewdetail/${curElm.shop_product_id}`}>
-                      <BsEye />
-                    </Link>
-                  </li>
-                </div>
-              </div>
-              <div className="detail">
-                <h4 className="home-product-item__name">{curElm.name}</h4>
-                <div className="home-product-item__description">
-                  {curElm.detail}
-                </div>
-                <div className="home-product-item__price">
-                  <span className="home-product-item__price-old"></span>
-                  <span className="home-product-item__price-current">
-                    {parseInt(curElm.price).toLocaleString("vn-VN")} đ
-                  </span>
-                </div>
+    return (
+        <div className="container">
+            {/* <p >{productList}</p> */}
+            {productList && productList.length > 0 ? (
+                // Array.isArray(productList) ? or productList && productList.lenght > 0 ? đều kiểm tra xem có phải dữ liệu từ api là mảng hay ko.
+                productList.map((curElm) => {
+                    return (
+                        <div className="box" key={curElm.shop_product_id}>
+                            {curElm.shop_product_id}
+                            <div className="img_box">
+                                <img
+                                    className="product-main__item"
+                                    src={`http://0.tcp.ap.ngrok.io:14557/${curElm.image}`}
+                                    alt={curElm.name}></img>
+                                <div className="icon">
+                                    {auth.isAuth ? (
+                                        <li onClick={() => addtocart(curElm.shop_product_id, 1)}>
+                                            <AiOutlineShoppingCart />
+                                        </li>
+                                    ) : (
+                                        <li>
+                                            <AiOutlineShoppingCart />
+                                        </li>
+                                    )}
+                                    <li
+                                        className="icon__link"
+                                        onClick={() => view(curElm.shop_product_id)}>
+                                        <Link to={`Viewdetail/${curElm.shop_product_id}`}>
+                                            <BsEye />
+                                        </Link>
+                                    </li>
+                                </div>
+                            </div>
+                            <div className="detail">
+                                <h4 className="home-product-item__name">{curElm.name}</h4>
+                                <div className="home-product-item__description">
+                                    {curElm.detail}
+                                </div>
+                                <div className="home-product-item__price">
+                                    <span className="home-product-item__price-old"></span>
+                                    <span className="home-product-item__price-current">
+                                        {parseInt(curElm.price).toLocaleString("vn-VN")} đ
+                                    </span>
+                                </div>
 
                                 <div className="home-product-item__origin">
                                     <span className="home-product-item__brand">

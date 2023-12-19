@@ -57,8 +57,9 @@ const App = () => {
             <Route path="Cart" element={<Cart />} />
             <Route path="CheckoutPage"></Route>
             <Route path="Search/:search" element={<Search />}></Route>
-            <Route path="Shop">
+            <Route path="Shop" element={<Shop />}>
               <Route path="onboarding" element={<ShopSignup />}></Route>
+              <Route path="Shop" element={<Shop />}></Route>
             </Route>
             <Route path="user">
               <Route

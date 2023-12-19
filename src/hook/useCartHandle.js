@@ -26,7 +26,7 @@ const useCartHandle = () => {
 
   // Show all product in cart
   const showCartList = async () => {
-    const response = await apiHandleCart.view();
+    const response = await apiHandleCart.viewCart();
     if (response) {
       if (response.data?.message) {
         console.log("Show cart list err", response);
