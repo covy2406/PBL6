@@ -19,9 +19,9 @@ import Product from "./components/NewProduct/product";
 import Home from "./components/Home/home";
 import ErrorPage from "./ErrorPage.jsx";
 import AdminNav from "./components/Header/adminNav.jsx";
-import AdminProduct from "./Site_Admin/AdminProduct.jsx";
-import AdminUser from "./Site_Admin/AdminUser.jsx";
-import AdminShop from "./Site_Admin/AdminShop.jsx";
+import AdminProduct from "Site_Admin/AdminProduct.jsx";
+import AdminUser from "Site_Admin/AdminUser.jsx";
+import AdminShop from "Site_Admin/AdminShop.jsx";
 import About from "./components/About/About.jsx";
 import Contact from "./components/About/Contact.jsx";
 import Term from "components/About/Term.jsx";
@@ -30,8 +30,12 @@ import Oldphone from "components/OldPhone/oldphone.jsx";
 import Cart from "components/Cart/cart.jsx";
 import Viewdetails from "components/Viewdetail/viewDetails.jsx";
 import Search from "components/Search/Search.jsx";
+
 import Shop from "./Site_Shop/Shop.jsx";
 import ShopSignup from "./Site_Shop/ShopSignup.jsx";
+import ShopOrders from "./Site_Shop/Components/ShopOrders.jsx";
+import ShopProduct from "Site_Shop/Components/ShopProducts.jsx";
+import ShopProductAdd from "Site_Shop/Components/ShopProductsAdd.jsx";
 
 //auth
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
@@ -39,7 +43,7 @@ import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route>
+      <>
         <Route path="login" element={<SiteLogin />}></Route>
         <Route path="signup" element={<SiteSignup />}></Route>
         <Route path="reset" element={<SiteReset />}></Route>
@@ -57,9 +61,25 @@ const App = () => {
             <Route path="Cart" element={<Cart />} />
             <Route path="CheckoutPage"></Route>
             <Route path="Search/:search" element={<Search />}></Route>
-            <Route path="Shop" element={<Shop />}>
-              <Route path="onboarding" element={<ShopSignup />}></Route>
-              <Route path="Shop" element={<Shop />}></Route>
+            <Route path="shop">
+              <Route path="details" element={<Shop extraProps="details" />} />
+              <Route path="onboarding" element={<ShopSignup />} />
+              <Route path="orders" element={<Shop extraProps="orders" />}>
+                <Route path="all" element={<ShopOrders />} />
+                <Route path="processing" element={<ShopOrders />} />
+                <Route path="confirmed" element={<ShopOrders />} />
+                <Route path="shipping" element={<ShopOrders />} />
+                <Route path="delivered" element={<ShopOrders />} />
+                <Route path="cancelled" element={<ShopOrders />} />
+              </Route>
+              <Route
+                path="products/add"
+                element={<Shop extraProps="products/add" />}
+              />
+              <Route path="products" element={<Shop extraProps="products" />}>
+                <Route path="all" element={<ShopProduct />} />
+                <Route path="active" element={<ShopProduct />} />
+              </Route>
             </Route>
             <Route path="user">
               <Route
@@ -74,6 +94,10 @@ const App = () => {
                 path="account/change-password"
                 element={<SiteUser extraProps="change-pass" />}
               />
+              <Route
+                path="account/order"
+                element={<SiteUser extraProps="order" />}
+              />
             </Route>
           </Route>
         </Route>
@@ -84,7 +108,7 @@ const App = () => {
         </Route>
         {/* 404 page */}
         <Route path="*" element={<ErrorPage />} />
-      </Route>
+      </>
     )
   );
 

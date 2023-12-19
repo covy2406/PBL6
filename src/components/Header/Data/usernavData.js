@@ -24,7 +24,7 @@ const usernavData = [
   {
     title: "Đơn mua",
     icon: <icons.FaFileInvoiceDollar />,
-    link: "/user/purchase",
+    link: "/user/account/order",
   },
 ];
 export default usernavData;
