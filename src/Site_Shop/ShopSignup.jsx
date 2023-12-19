@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "./css/ShopSignup.css";
 
 import useAuth from "hook/useAuth";
 
@@ -13,7 +14,7 @@ const ShopSignup = () => {
 
   const handleSubmit = (e) => {};
   return (
-    <>
+    <div className="grid">
       <div className="Onboard__progress">
         <div className="Onboard__progress-bar">Step 1</div>
         <div className="Onboard__progress-bar">Step 2</div>
@@ -81,7 +82,7 @@ const ShopSignup = () => {
           </tr>
         </table>
       </div>
-    </>
+    </div>
   );
 };
 

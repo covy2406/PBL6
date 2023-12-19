@@ -14,6 +14,15 @@ const useCartHandle = () => {
       return false;
     }
   };
+  const delfromcart = async (productID) => {
+    const response = await apiHandleCart.del(productID);
+    if (response) {
+      showCartList();
+      return true;
+    } else {
+      console.error("Delete from cart error", response);
+    }
+  };
 
   // Show all product in cart
   const showCartList = async () => {
@@ -67,7 +76,13 @@ const useCartHandle = () => {
     }
   };
 
-  return { addtocart, showCartList, increaseQuantity, decreaseQuantity };
+  return {
+    addtocart,
+    delfromcart,
+    showCartList,
+    increaseQuantity,
+    decreaseQuantity,
+  };
 };
 
 export default useCartHandle;

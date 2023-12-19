@@ -13,12 +13,10 @@ const CartList = () => {
 
   useEffect(() => {
     showCartList();
-  }, [cartListProduct]);
+  }, []);
 
   useEffect(() => {
-    console.log("cartListProduct", cartListProduct);
     if (window.sessionStorage.getItem("cartListProduct")) {
-      console.log("get cartlist from api");
       showCartList();
     } else {
       setCartListProduct(
