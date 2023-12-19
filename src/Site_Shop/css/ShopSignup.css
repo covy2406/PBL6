@@ -1,0 +1,6 @@
+.Onboard__progress {
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  height: 20rem;
+}

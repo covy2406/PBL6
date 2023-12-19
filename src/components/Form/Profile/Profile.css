@@ -4,6 +4,7 @@
 
 .profileform__details {
   height: 40rem;
+  width: 80rem;
 }
 
 .profileform__table {
@@ -200,6 +201,6 @@
   border: 1px solid var(--primary-color);
 }
 
-.radio-input input:checked+.circle {
+.radio-input input:checked + .circle {
   scale: 1;
 }
