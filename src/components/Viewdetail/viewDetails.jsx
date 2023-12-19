@@ -22,9 +22,10 @@ const Viewdetails = ({ close, setClose }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchProuductDetail = async (id) => {
+    const fetchProuductDetail = async () => {
       try {
         const response = await apiProductDetail.viewDetail(id);
+        console.log(response);
         setProductDetail(response.data);
       } catch (error) {
         setError(error);
