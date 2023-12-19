@@ -30,7 +30,9 @@ const ShopSignup = () => {
                 type="text"
                 placeholder="Tên shop"
                 value={shopName}
-                onChange={(e) => setShopName(e.target.value)}></input>
+                onChange={(e) => setShopName(e.target.value)}>
+                {profile.name}
+              </input>
             </td>
           </tr>
           <tr className="profileform__table__row ">

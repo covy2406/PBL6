@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     isAuth: isAuth || false,
     role: role || "user",
     id: storage?.customer_id || "",
+    url: "http://0.tcp.ap.ngrok.io:19542/api",
   });
 
   const [profile, setProfile] = useState({

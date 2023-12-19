@@ -13,7 +13,7 @@ const apiHandleCart = {
     });
   },
   // show all product in cart
-  view() {
+  viewCart() {
     return axiosClient.get(VIEW_CART_URL);
   },
   del() {

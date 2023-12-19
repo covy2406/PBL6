@@ -1,10 +1,10 @@
-import axiosClient from './axiosClient.js';
-
+import axiosClient from "./axiosClient.js";
 
 const apiProductDetail = {
-    viewDetail(id) {
-        const url = `/getdetailshop_product/${id}`;
-        return axiosClient.get(url);
-    },
-}
+  viewDetail(id) {
+    console.log("apiProductDetail", id);
+    const url = `/getdetailshop_product/${id}`;
+    return axiosClient.get(url);
+  },
+};
 export default apiProductDetail;
