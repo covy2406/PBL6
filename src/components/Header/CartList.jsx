@@ -11,21 +11,19 @@ const CartList = () => {
     const { cartListProduct, setCartListProduct } = useCart();
     const { showCartList } = useCartHandle();
 
-    useEffect(() => {
-        showCartList();
-    }, [cartListProduct]);
+  useEffect(() => {
+    showCartList();
+  }, []);
 
-    useEffect(() => {
-        console.log("cartListProduct", cartListProduct);
-        if (window.sessionStorage.getItem("cartListProduct")) {
-            console.log("get cartlist from api");
-            showCartList();
-        } else {
-            setCartListProduct(
-                JSON.parse(window.sessionStorage.getItem("cartListProduct"))
-            );
-        }
-    }, []);
+  useEffect(() => {
+    if (window.sessionStorage.getItem("cartListProduct")) {
+      showCartList();
+    } else {
+      setCartListProduct(
+        JSON.parse(window.sessionStorage.getItem("cartListProduct"))
+      );
+    }
+  }, []);
 
     return (
         <div>

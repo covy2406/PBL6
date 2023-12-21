@@ -3,20 +3,27 @@ import useCart from "./useCart";
 import apiHandleCart from "api/apiHandleCart";
 
 const useCartHandle = () => {
-    const { setCartListProduct } = useCart();
-    // Add to cart
-    const addtocart = async (productId, quantity) => {
-        const response = await apiHandleCart.add(productId, quantity);
-        if (response) {
-            showCartList();
-            toast.success('Đã thêm vào giỏ hàng')
-            return true;
-        } else {
-            console.error("Add to cart err", response);
-            toast.error('Lỗi không thể thêm vào giỏ hàng')
-            return false;
-        }
-    };
+  const { setCartListProduct } = useCart();
+  // Add to cart
+  const addtocart = async (productId, quantity) => {
+    const response = await apiHandleCart.add(productId, quantity);
+    if (response) {
+      showCartList();
+      return true;
+    } else {
+      console.error("Add to cart err", response);
+      return false;
+    }
+  };
+  const delfromcart = async (productID) => {
+    const response = await apiHandleCart.del(productID);
+    if (response) {
+      showCartList();
+      return true;
+    } else {
+      console.error("Delete from cart error", response);
+    }
+  };
 
     // Show all product in cart
     const showCartList = async () => {
@@ -70,7 +77,13 @@ const useCartHandle = () => {
         }
     };
 
-    return { addtocart, showCartList, increaseQuantity, decreaseQuantity };
+  return {
+    addtocart,
+    delfromcart,
+    showCartList,
+    increaseQuantity,
+    decreaseQuantity,
+  };
 };
 
 export default useCartHandle;
