@@ -4,26 +4,28 @@ import { Link } from "react-router-dom";
 import { BsCart2 } from "react-icons/bs";
 import "./css/nav.css";
 //import hooks
+import useAuth from "hook/useAuth";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 
 const CartList = () => {
+    const { auth } = useAuth();
     const { cartListProduct, setCartListProduct } = useCart();
     const { showCartList } = useCartHandle();
 
-  useEffect(() => {
-    showCartList();
-  }, []);
+    useEffect(() => {
+        showCartList();
+    }, []);
 
-  useEffect(() => {
-    if (window.sessionStorage.getItem("cartListProduct")) {
-      showCartList();
-    } else {
-      setCartListProduct(
-        JSON.parse(window.sessionStorage.getItem("cartListProduct"))
-      );
-    }
-  }, []);
+    useEffect(() => {
+        if (window.sessionStorage.getItem("cartListProduct")) {
+            showCartList();
+        } else {
+            setCartListProduct(
+                JSON.parse(window.sessionStorage.getItem("cartListProduct"))
+            );
+        }
+    }, []);
 
     return (
         <div>
@@ -55,7 +57,7 @@ const CartList = () => {
                                     return (
                                         <li className="header__cart-item" key={curElm.id}>
                                             <img
-                                                src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
+                                                src={`${auth.url}/${curElm.image}`}
                                                 alt={curElm.name}
                                                 className="header__cart-img"></img>
                                             <div className="header__cart-item-info">

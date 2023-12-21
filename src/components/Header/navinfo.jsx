@@ -8,7 +8,7 @@ const Navinfo = () => {
     <div>
       <ul className="header__navbar-list">
         <li className="header__navbar-item header__navbar-item--separate">
-          <Link to="/shop" className="header__navbar-item-link">
+          <Link to="/shop/details" className="header__navbar-item-link">
             Kênh người bán
           </Link>
         </li>

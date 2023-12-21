@@ -12,6 +12,7 @@ import "../../assets/css/base.css";
 import "../Home/home.css";
 import Category from "./Category.jsx";
 import apiProductHome from "api/apiProductHome.js";
+import useAuth from "hook/useAuth.js";
 
 //import PaginationControlled from './PaginationControlled.jsx';
 
@@ -22,7 +23,7 @@ const Product = () => {
     //     _limit: 10,
     //     _page: 1,
     // });
-
+    const { auth } = useAuth();
     const [ProductNew, setProductNew] = useState([]);
     const [error, setError] = useState(null);
 

@@ -57,7 +57,7 @@ const Search = ({ view, addtocart, detail }) => {
                 {/* {`http://localhost:8000${item.image}`} */}
                 <img
                   className="product-main__item"
-                  src={`http://0.tcp.ap.ngrok.io:17403/${item.image}`}
+                  src={`${auth.url}/${item.image}`}
                   alt={item.name}></img>
                 <div className="icon">
                   {auth.isAuth ? (

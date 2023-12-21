@@ -4,12 +4,24 @@ import "./cart.css";
 import "../../assets/css/base.css";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
+import useAuth from "hook/useAuth";
 import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
 
 const Cart = () => {
+  const { auth } = useAuth();
   const { cartListProduct, setCartListProduct } = useCart();
   const { decreaseQuantity, increaseQuantity, delfromcart } = useCartHandle();
+
+  const [Totalprice, setTotalprice] = useState(0);
+  // Total price
+  useEffect(() => {
+    console.log(Totalprice);
+    const total = cartListProduct.reduce((price, item) => {
+      return price + parseInt(item.price) * item.quantity_order;
+    }, 0);
+    setTotalprice(total);
+  }, [cartListProduct]); // <-- cartListProduct is the dependency
 
   const updateQuantity = (productId, state) => {
     setCartListProduct((prevCart) => {
@@ -29,6 +41,7 @@ const Cart = () => {
         }
         return item;
       });
+      toast.success("Cập nhật giỏ hàng thành công", { autoClose: 1000 });
       return updatedCart;
     });
   };
@@ -54,16 +67,6 @@ const Cart = () => {
       console.log("Decreasing quantity fail " + id);
     }
   };
-
-  const [Totalprice, setTotalprice] = useState(0);
-  // Total price
-  useEffect(() => {
-    console.log(Totalprice);
-    const total = cartListProduct.reduce((price, item) => {
-      return price + item.quantity_product * item.price;
-    }, 0);
-    setTotalprice(total);
-  }, [updateQuantity]);
 
   return (
     <>
@@ -105,7 +108,9 @@ const Cart = () => {
                       item.quantity_order > 0 && (
                         <tr key={item.id}>
                           <td>
-                            <img src={item.image} alt={item.name}></img>
+                            <img
+                              src={`${auth.url}/${item.image}`}
+                              alt={item.name}></img>
                           </td>
                           <td>{item.name}</td>
                           <td>

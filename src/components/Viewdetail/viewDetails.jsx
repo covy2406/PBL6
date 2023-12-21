@@ -88,7 +88,7 @@ const Viewdetails = () => {
                                             ></div>
                                         ))}
                                     </div>
-                                    
+
                                 </div>
 
                                 <div className="detail">
@@ -184,13 +184,9 @@ const Viewdetails = () => {
                                     )}
                                 </div>
                             </div>
-                            {/* {Array.isArray(productDetail.shop_products) &&
-                                productDetail.shop_products.map((item) => {
-                                    return (
-                                    );
-                                })} */}
                         </div>
                     </div>
+                    <div container__comment></div>
                 </div>
             ) : null}
         </div>
