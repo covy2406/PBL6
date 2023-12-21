@@ -64,6 +64,8 @@ const Cart = () => {
         setTotalprice(total);
     }, [Totalprice]);
 
+    
+
     return (
         <>
             <div className="cartcontainer">
@@ -104,7 +106,7 @@ const Cart = () => {
                                             item.quantity_order > 0 && (
                                                 <tr key={item.id}>
                                                     <td>
-                                                        <img src={`http://0.tcp.ap.ngrok.io:14557/${item.image}`} alt={item.name}></img>
+                                                        <img src={`http://0.tcp.ap.ngrok.io:15234/${item.image}`} alt={item.name}></img>
                                                     </td>
                                                     <td>{item.name}</td>
                                                     <td>

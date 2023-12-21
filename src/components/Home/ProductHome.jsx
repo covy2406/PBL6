@@ -41,12 +41,13 @@ const ProductHome = () => {
                 productList.map((curElm) => {
                     return (
                         <div className="box" key={curElm.shop_product_id}>
-                            {curElm.shop_product_id}
+                            {/* {curElm.shop_product_id} */}
                             <div className="img_box">
                                 <img
                                     className="product-main__item"
-                                    src={`http://0.tcp.ap.ngrok.io:14557/${curElm.image}`}
-                                    alt={curElm.name}></img>
+                                    src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
+                                    alt={curElm.name}>
+                                </img>
                                 <div className="icon">
                                     {auth.isAuth ? (
                                         <li onClick={() => addtocart(curElm.shop_product_id, 1)}>

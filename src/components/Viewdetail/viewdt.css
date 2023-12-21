@@ -10,7 +10,7 @@
 
 .product_detail .container .closebtn {
     right: 30px;
-    position: absolute; 
+    position: absolute;
     border: none;
     outline: none;
     background: none;
@@ -22,27 +22,27 @@
     align-items: center;
 }
 
+/* ẢNH SẢN PHẨM VÀ CHI TIẾT SẢN PHẨM */
 .product_detail .container .productbox {
     max-width: 100%;
     display: flex;
     /* padding: 20px 30px; */
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
-.box__image .box__image-name {
-    display: flex;
-    text-transform: uppercase;
-    font-weight: 400;
-    margin-bottom: 15px;
-}
+/* .box__image {
+    width: 50%;
+} */
 
-.box__image-name .box__image-cat {
-    margin-right: 15px;
+
+
+.product_detail {
+    width: 1;
 }
 
 .product_detail .container .productbox .img-box {
-    width: 420px;
-    height: 400px;
+    width: 430px;
+    height: 420px;
     background: url('../../../public/img/khungsp_slider.jpg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -56,6 +56,32 @@
     background-color: var(--white-color);
     z-index: 1;
     margin-top: 15px;
+}
+
+.img-box__real {
+    width: 70% !important;
+    height: auto !important;
+    /* Tự động điều chỉnh chiều cao để giữ tỷ lệ khung hình ban đầu */
+    /* width: 350px ;
+    height: 350px; */
+    z-index: -1 !important;
+}
+
+.box__image .box__image-select {
+    display: flex;
+    margin-top: 10px;
+}
+
+.color-option {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    cursor: pointer;
+    border: 1px solid #000;
+  }
+
+.img-box .color-option.selected {
+    border: 2px solid #f00;
 }
 
 /* .container .productbox .img-box::before {
@@ -112,7 +138,7 @@
     color: var(--primary-color);
     background-color: #ede9e9;
     transition: 0.5s;
-    border: none;
+    border: 1px solid var(--primary-color);
     outline: none;
     cursor: pointer;
 }
@@ -127,15 +153,16 @@
 
 .detail-table {
     width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  behavior: scroll;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    behavior: scroll;
 }
 
-.table__head-title th, .table__head-body td {
+.table__head-title th,
+.table__head-body td {
     border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+    padding: 8px;
+    text-align: left;
 }
 
 .table__head-title th {
