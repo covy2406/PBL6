@@ -8,7 +8,7 @@ const AddressForm = () => {
       <div className="profileform__title">
         <p className="profileform__title__item">Địa chỉ của tôi</p>
       </div>
-      <div className="profileform__details">
+      <div className="profileform__details profileform__address__flex">
         {AddressData.map((item, index) => {
           return (
             <div className="profileform__address">
