@@ -2,10 +2,10 @@ import Nav from "../Header/nav";
 import Footer from "../Footer/footer";
 import { Outlet } from "react-router-dom";
 
-function Layout(cart) {
+function Layout() {
   return (
     <div className="Layout">
-      <Nav cart={cart} />
+      <Nav />
       <Outlet />
       <Footer />
     </div>

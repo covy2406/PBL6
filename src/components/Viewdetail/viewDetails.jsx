@@ -1,6 +1,6 @@
 import React from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import ImageSlider from "../ImageSlider/ImageSlider";
+//import ImageSlider from "./ImageSlider/ImageSlider";
 import { useState } from "react";
 import { useEffect } from "react";
 import "./viewdt.css";
@@ -8,190 +8,189 @@ import "../../assets/css/base.css";
 
 import { useParams } from "react-router-dom";
 import apiProductDetail from "api/apiProductDetail";
-import useCart from "hook/useCart";
+
 import useAuth from "hook/useAuth";
+import useCartHandle from "hook/useCartHandle";
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import useCart from "hook/useCart";
 
-const Viewdetails = ({ close, setClose }) => {
-  const { addtocart } = useCart();
-  const { auth } = useAuth();
-  // CALL API PRODUCT DETAIL
-  const [productDetail, setProductDetail] = useState([]);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
+const Viewdetails = () => {
+    const { addtocart } = useCartHandle();
+    const { close, setClose } = useCart();
+    const { auth } = useAuth();
+    // CALL API PRODUCT DETAIL
+    const [productDetail, setProductDetail] = useState([]);
+    const [error, setError] = useState(null);
+    const { id } = useParams();
 
-  useEffect(() => {
-    const fetchProuductDetail = async () => {
-      try {
-        const response = await apiProductDetail.viewDetail(id);
-        console.log(response);
-        setProductDetail(response.data);
-      } catch (error) {
-        setError(error);
-      }
+    const [selectedColor, setSelectedColor] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
+
+    useEffect(() => {
+        const fetchProuductDetail = async () => {
+            try {
+                const response = await apiProductDetail.viewDetail(id);
+
+                setProductDetail(response.data);
+                // Mặc định chọn màu đầu tiên
+                if (response.data.listshop_product.length > 0) {
+                    setSelectedColor(response.data.listshop_product[0].color);
+                    setSelectedImage(response.data.listshop_product[0].image); // Mặc định chọn hình ảnh đầu tiên
+                }
+            } catch (error) {
+                setError(error);
+            }
+        };
+        fetchProuductDetail();
+    }, [id]);
+
+    const handleColorClick = (color, image) => {
+        setSelectedColor(color);
+        selectedImage(image)
     };
-    fetchProuductDetail();
-  }, [id]);
 
-  if (error) {
-    return <p>Erorr: {error.message}</p>;
-  }
+    // console.log('id chi tiet san pham: ', id);
+    console.log('productDetail', productDetail);
+    if (error) {
+        return <p>Erorr: {error.message}</p>;
+    }
 
-  return (
-    <div>
-      {close ? (
-        <div className="grid">
-          <div className="product_detail">
-            <div className="container">
-              <button onClick={() => setClose(false)} className="closebtn">
-                <AiOutlineCloseCircle />
-              </button>
-              {Array.isArray(productDetail.shop_products) &&
-                productDetail.shop_products.map((item) => {
-                  return (
-                    <div className="productbox">
-                      {/* <h4>{curElm.Cat}</h4>
-                                                <h2>{curElm.Title}</h2> */}
-                      <div className="box__image">
-                        <div className="img-box">
-                          {/* <ImageSlider /> */}
-                          <img src={`${auth.url}/${item.image}`} alt="" />
-                        </div>
-                      </div>
+    // Kiểm tra nếu shop_products không tồn tại hoặc là mảng rỗng
+    if (!productDetail.shop_products || productDetail.shop_products.length === 0) {
+        return <p>Product not found</p>;
+    }
 
-                      <div className="detail">
-                        {/* <h4>{curElm.Cat}</h4> */}
-                        <h2>{item.name}</h2>
-                        <table className="detail-table" key={item.id}>
-                          <thead className="table__head-title">
-                            <tr>
-                              <th>Bộ Phận</th>
-                              <th>Thông Số Kỹ Thuật</th>
-                            </tr>
-                          </thead>
-                          <tbody className="table__head-body">
-                            <tr>
-                              <td>Name</td>
-                              <td>{item.name}</td>
-                            </tr>
-                            <tr>
-                              <td>Color</td>
-                              <td>{item.color}</td>
-                            </tr>
-                            <tr>
-                              <td>Camera trước</td>
-                              <td>{item.forwardCameras}</td>
-                            </tr>
-                            <tr>
-                              <td>Camera sau</td>
-                              <td>{item.backwardCameras}</td>
-                            </tr>
-                            <tr>
-                              <td>Loại sản phẩm</td>
-                              <td>{item.isNew}</td>
-                            </tr>
-                            <tr>
-                              <td>Bộ nhớ</td>
-                              <td>{item.memoryStorage}</td>
-                            </tr>
-                            <tr>
-                              <td>Màn hình</td>
-                              <td>{item.screen}</td>
-                            </tr>
-                            <tr>
-                              <td>CPU</td>
-                              <td>{item.CPU}</td>
-                            </tr>
-                            <tr>
-                              <td>Ram</td>
-                              <td>{item.RAM}</td>
-                            </tr>
-                            <tr>
-                              <td>Xu hướng</td>
-                              <td>{item.isTrending}</td>
-                            </tr>
-                            <tr>
-                              <td>Thông tin chi tiết</td>
-                              <td>{item.details}</td>
-                            </tr>
-                            <tr>
-                              <td>Trạng thái</td>
-                              <td>{item.status}</td>
-                            </tr>
-                            <tr>
-                              <td>Sim</td>
-                              <td>{item.sim}</td>
-                            </tr>
-                            <tr>
-                              <td>Dung lượng pin</td>
-                              <td>{item.battery}</td>
-                            </tr>
-                            <tr>
-                              <td>Hệ điều hành</td>
-                              <td>{item.type}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        {auth.isAuth ? (
-                          <div>
-                            <button onClick={() => addtocart(item.id, 1)}>
-                              Thêm vào giỏ hàng
+
+    const { shop_products, listshop_product } = productDetail;
+
+    return (
+        <div>
+            {close ? (
+                <div className="grid">
+                    <div className="product_detail">
+                        <div className="container">
+                            <button onClick={() => setClose(false)} className="closebtn">
+                                <AiOutlineCloseCircle />
                             </button>
-                            <button onClick>Thanh Toán Ngay</button>
-                          </div>
-                        ) : (
-                          <li>
-                            <AiOutlineShoppingCart />
-                          </li>
-                        )}
-                      </div>
+                            <div className="productbox">
+                                <div className="box__image">
+                                    <div className="img-box">
+                                        <img className="img-box__real" src={`http://0.tcp.ap.ngrok.io:15234/${selectedImage}`} alt={shop_products.name} />
+                                    </div>
+                                    <div className="box__image-select">
+                                        {listshop_product.map((product) => (
+                                            <div
+                                                key={product.shop_product_id}
+                                                className={`color-option ${selectedColor === product.color ? 'selected' : ''}`}
+                                                style={{ backgroundColor: product.color }}
+                                                onClick={() => handleColorClick(product.color, product.image)}
+                                            ></div>
+                                        ))}
+                                    </div>
+
+                                </div>
+
+                                <div className="detail">
+                                    {
+                                        shop_products ? (
+                                            <div>
+                                                <h2>{shop_products.name}</h2>
+                                                <table className="detail-table" key={shop_products.id}>
+                                                    <thead className="table__head-title">
+                                                        <tr>
+                                                            <th>Bộ Phận</th>
+                                                            <th>Thông Số Kỹ Thuật</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody className="table__head-body">
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>{shop_products.name}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Color</td>
+                                                            <td>{shop_products.color}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Camera trước</td>
+                                                            <td>{shop_products.forwardCameras}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Camera sau</td>
+                                                            <td>{shop_products.backwardCameras}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Loại sản phẩm</td>
+                                                            <td>{shop_products.isNew}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bộ nhớ</td>
+                                                            <td>{shop_products.memoryStorage}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Màn hình</td>
+                                                            <td>{shop_products.screen}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>CPU</td>
+                                                            <td>{shop_products.CPU}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ram</td>
+                                                            <td>{shop_products.RAM}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Xu hướng</td>
+                                                            <td>{shop_products.isTrending}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Thông tin chi tiết</td>
+                                                            <td>{shop_products.details}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Trạng thái</td>
+                                                            <td>{shop_products.status}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Sim</td>
+                                                            <td>{shop_products.sim}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Dung lượng pin</td>
+                                                            <td>{shop_products.battery}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Hệ điều hành</td>
+                                                            <td>{shop_products.type}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        ) : null
+                                    }
+                                    {auth.isAuth ? (
+                                        <div>
+                                            <button onClick={() => addtocart(shop_products.id, 1)}>
+                                                Thêm vào giỏ hàng
+                                            </button>
+                                            <button onClick>Thanh Toán Ngay</button>
+                                        </div>
+                                    ) : (
+                                        <li>
+                                            <AiOutlineShoppingCart />
+                                        </li>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  );
-                })}
-              {/* <div className='productbox'></div> */}
-            </div>
-            <div container__comment></div>
-          </div>
+                    <div container__comment></div>
+                </div>
+            ) : null}
         </div>
-      ) : null}
-    </div>
-  );
+    );
 };
 
 export default Viewdetails;
-// const ProductDetail = () => {
-//     const { id } = useParams();
-//     const [productData, setProductData] = useState(null);
-//     console.log(id)
-//     useEffect(() => {
-//       // Sử dụng giá trị id để gọi API
-//       const fetchData = async () => {
-//         try {
-//           const response = await fetch(`${auth.url}/api/getdetailshop_product/${id}`);
-//           const data = await response.json();
-//           setProductData(data);
-//         } catch (error) {
-//           console.error('Error fetching product details:', error);
-//         }
-//       };
-
-//       fetchData();
-//     }, [id]);
-
-//     if (!productData) {
-//       return <div>Loading...</div>;
-//     }
-
-//     // Hiển thị thông tin chi tiết sản phẩm
-//     return (
-//       <div>
-//         <h2>{productData.name}</h2>
-//         <p>{productData.id}</p>
-//         {/* Hiển thị các thông tin khác của sản phẩm */}
-//       </div>
-//     );
-//   };
-
-//   export default ProductDetail;
-// export default Viewdetails
