@@ -8,8 +8,9 @@ import useShop from "hook/useShop";
 import ShopOrders from "./Components/ShopOrders";
 import ShopDetails from "./Components/ShopDetails";
 import ShopProduct from "./Components/ShopProducts";
+import ShopProductAdd from "./Components/ShopProductsAdd";
 
-const Shop = ({ extraProps = "details" }) => {
+const Shop = ({ extraProps } = "details") => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
   const { getShopdetails } = useShop();
@@ -60,9 +61,11 @@ const Shop = ({ extraProps = "details" }) => {
               <h3>Quản lý sản phẩm</h3>
               <li className="sidbar-menu__item-link">
                 <Link
-                  to="/shop/products/all"
+                  to="/shop/products/list/all"
                   className="shop__home-item-link"
-                  id={currentPath === "/shop/products/all" ? "active" : ""}>
+                  id={
+                    currentPath === "/shop/products/list/all" ? "active" : ""
+                  }>
                   Tất cả sản phẩm
                 </Link>
               </li>
@@ -92,9 +95,9 @@ const Shop = ({ extraProps = "details" }) => {
           <ShopDetails />
         ) : extraProps === "orders" ? (
           <ShopOrders />
+        ) : extraProps === "add" ? (
+          <ShopProductAdd />
         ) : extraProps === "products" ? (
-          <ShopProduct />
-        ) : extraProps === "products/add" ? (
           <ShopProduct />
         ) : null}
       </div>

@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useShop from "hook/useShop";
 
-const ShopProduct = ({ extraProps }) => {
+const ShopProduct = ({ extraProps } = "all") => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
   const { getShopdetails } = useShop();
@@ -22,10 +22,10 @@ const ShopProduct = ({ extraProps }) => {
           <ul className="shop__home-list">
             <li className="shop__home-item">
               <Link
-                to="/shop/products/all"
+                to="/shop/products/list/all"
                 className="shop__home-item-link"
                 id={
-                  currentPath === "/shop/products/all" || extraProps === "all"
+                  currentPath === "/shop/products/list/all"
                     ? "active"
                     : "inactive"
                 }>
@@ -34,10 +34,10 @@ const ShopProduct = ({ extraProps }) => {
             </li>
             <li className="shop__home-item">
               <Link
-                to="/shop/products/active"
+                to="/shop/products/list/active"
                 className="shop__home-item-link"
                 id={
-                  currentPath === "/shop/products/active" ||
+                  currentPath === "/shop/products/list/active" ||
                   extraProps === "active"
                     ? "active"
                     : "inactive"

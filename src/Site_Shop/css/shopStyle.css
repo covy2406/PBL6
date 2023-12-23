@@ -35,7 +35,6 @@
 }
 
 .shop__container-nav {
-  display: flex;
   list-style: none;
   border-left: 2px solid #d5d5d5;
   background-color: #f5f5f5;
@@ -58,7 +57,7 @@
 .shop__home-item {
   text-decoration: none;
   padding: 0px 20px;
-  font-weight: 500;
+  font-weight: bold;
 }
 .shop__home-item .shop__home-item-link {
   font-weight: bold;
@@ -78,4 +77,97 @@
 
 .shop__menu_container {
   width: 90rem;
+}
+.shop__content {
+  display: flex;
+  padding: 2rem 5rem;
+  gap: 3rem;
+}
+.shop__content--body {
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.shop__content--title {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.shop__content-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 3rem;
+  padding-left: 10px;
+  font-size: 1.4rem;
+  color: #333;
+  font-weight: 400;
+}
+.shop__content-change {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.4rem;
+  color: #333;
+  font-weight: 400;
+}
+.shop__content-change#active {
+  color: green;
+  font-weight: bold;
+}
+.shop__content-change#inactive {
+  color: var(--primary-red-rgb);
+  font-weight: bold;
+}
+.shop__content-text#active {
+  color: green;
+  font-weight: bold;
+}
+.shop__content-text#inactive {
+  color: var(--primary-red-rgb);
+  font-weight: bold;
+}
+.shop__content--button {
+  display: flex;
+  padding: 0 1rem;
+  gap: 2rem;
+}
+.shop__button {
+  height: 3rem;
+  width: fit-content;
+  padding: 0 1rem;
+}
+.shop--change-status {
+  width: fit-content;
+  padding: 1rem 2rem;
+}
+
+.shop--change-status#inactive {
+  width: fit-content;
+  padding: 1rem 2rem;
+  color: whitesmoke;
+  background-color: var(--primary-red-rgb);
+  border: 1px solid whitesmoke;
+}
+.shop--change-status#inactive:hover {
+  cursor: pointer;
+  padding: 1rem 2rem;
+  color: var(--primary-red-rgb);
+  background-color: whitesmoke;
+  border: 1px solid var(--primary-red-rgb);
+}
+.shop--change-status#active {
+  width: fit-content;
+  padding: 1rem 2rem;
+  color: whitesmoke;
+  background-color: green;
+  border: 1px solid whitesmoke;
+}
+.shop--change-status#active:hover {
+  cursor: pointer;
+  padding: 1rem 2rem;
+  color: green;
+  background-color: whitesmoke;
+  border: 1px solid green;
 }

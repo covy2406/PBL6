@@ -41,11 +41,6 @@ const Footer = () => {
                     Giới thiệu
                   </Link>
                 </li>
-                {/* <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
-                    Tuyển dụng
-                  </Link>
-                </li> */}
                 <li className="footer-item">
                   <Link to="/term" className="footer-item__link">
                     Điều khoản
@@ -137,9 +132,7 @@ const Footer = () => {
         </div>
         <div className="footer__bottom">
           <div className="grid__grow">
-            <p className="footer__text">
-              2023 - Bản quyền thuộc về nguyentranthaovy2406@gmail.com
-            </p>
+            <p className="footer__text">Đồ án PBL6 - 4B1G Shop - 2023-2024</p>
           </div>
         </div>
         {/* <div className="grid">

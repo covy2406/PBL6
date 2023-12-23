@@ -72,13 +72,18 @@ const App = () => {
                 <Route path="delivered" element={<ShopOrders />} />
                 <Route path="cancelled" element={<ShopOrders />} />
               </Route>
-              <Route
-                path="products/add"
-                element={<Shop extraProps="products/add" />}
-              />
-              <Route path="products" element={<Shop extraProps="products" />}>
-                <Route path="all" element={<ShopProduct />} />
-                <Route path="active" element={<ShopProduct />} />
+              <Route path="products">
+                <Route path="add" element={<Shop extraProps="add" />} />
+                <Route path="list" element={<Shop extraProps="products" />}>
+                  <Route
+                    path="all"
+                    element={<ShopProduct extraProps="all" />}
+                  />
+                  <Route
+                    path="active"
+                    element={<ShopProduct extraProps="active" />}
+                  />
+                </Route>
               </Route>
             </Route>
             <Route path="user">
