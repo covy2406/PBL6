@@ -18,15 +18,18 @@ const ShopDetails = () => {
     bankAccount: shopProfile?.bankAccount,
   });
 
-  const handleChangeStatus = () => {
+  const handleChangeStatus = (e) => {
+    e.preventDefault();
     Swal.fire({
-      title: (shop.status ? "Dừng hoạt động " : "Hoạt động lại ") + "cửa hàng",
+      title: (shop.state ? "Dừng hoạt động " : "Hoạt động lại ") + "cửa hàng",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Đồng ý",
       cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (!result.isConfirmed) return;
+      setShop({ ...shop, state: !shop.state });
     });
-    setShop({ ...shop, status: !shop.status });
   };
 
   const handleSubmit = (e) => {
@@ -38,7 +41,8 @@ const ShopDetails = () => {
       confirmButtonText: "Đồng ý",
       cancelButtonText: "Hủy",
     }).then((result) => {
-      updateShopdetails(shop, shopProfile.id);
+      if (!result.isConfirmed) return;
+      updateShopdetails({ ...shop, state: shop.state ? 1 : 0 }, shopProfile.id);
       setEditform(!editform);
     });
   };
@@ -103,7 +107,7 @@ const ShopDetails = () => {
                 <div
                   className="shop__content-text"
                   id={shop.state ? "active" : "inactive"}>
-                  {shop.status ? "Hoạt động" : "Dừng hoạt động"}
+                  {shop.state ? "Hoạt động" : "Dừng hoạt động"}
                 </div>
                 <div className="shop__content-text">{shop.bankAccount}</div>
                 <div className="shop__content--button">
@@ -142,7 +146,7 @@ const ShopDetails = () => {
                   <button
                     className="shop--change-status"
                     id={shop.state ? "inactive" : "active"}
-                    onClick={() => handleChangeStatus()}>
+                    onClick={(e) => handleChangeStatus(e)}>
                     {shop.state ? "Dừng hoạt động" : "Hoạt động lại"}
                   </button>
                 </div>
