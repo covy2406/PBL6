@@ -7,6 +7,9 @@
   padding-bottom: 1rem;
   border-bottom: solid 0.5px rgba(21, 23, 23, 0.2);
 }
+.profileform__address__flex {
+  flex-direction: column;
+}
 /* del change button */
 .profileform__address__button {
   background-color: var(--primary-color);

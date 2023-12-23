@@ -9,21 +9,19 @@ import "./Css/user.css";
 
 function SiteUser({ extraProps = "profile" }) {
   return (
-    <div className="grid">
-      <div className="siteuser">
-        <div className="siteuser__nav">
-          <UserNav />
-          <div className="siteuser__forms">
-            {extraProps === "profile" ? (
-              <ProfileForm></ProfileForm>
-            ) : extraProps === "address" ? (
-              <AddressForm></AddressForm>
-            ) : extraProps === "change-pass" ? (
-              <ChangePassform></ChangePassform>
-            ) : extraProps === "order" ? (
-              <Orders></Orders>
-            ) : null}
-          </div>
+    <div className="grid siteuser">
+      <div className="siteuser__nav">
+        <UserNav />
+        <div className="siteuser__forms">
+          {extraProps === "profile" ? (
+            <ProfileForm></ProfileForm>
+          ) : extraProps === "address" ? (
+            <AddressForm></AddressForm>
+          ) : extraProps === "change-pass" ? (
+            <ChangePassform></ChangePassform>
+          ) : extraProps === "order" ? (
+            <Orders></Orders>
+          ) : null}
         </div>
       </div>
     </div>

@@ -11,13 +11,11 @@ function Navlogin({ Title = "" }) {
   }, []);
   return (
     <div className="navAuth">
-      <div>
+      <div className="grid navAuth__container">
         <NavLink to="/" className="navAuth--toHome">
           <img src={Logo} alt="Logo" height="200px" />
           <div className="navAuth--info"> {Title}</div>
         </NavLink>
-      </div>
-      <div>
         <NavLink to="/about" className="navAuth--info">
           Bạn cần giúp đỡ?
         </NavLink>

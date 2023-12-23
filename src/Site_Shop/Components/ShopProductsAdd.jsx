@@ -3,18 +3,6 @@ import { useState, useEffect } from "react";
 import useShop from "hook/useShop";
 
 const ShopProductAdd = () => {
-  const location = useLocation();
-  const [currentPath, setCurrentPath] = useState("");
-  const { getShopdetails } = useShop();
-
-  useEffect(() => {
-    const res = getShopdetails();
-  }, []);
-
-  useEffect(() => {
-    setCurrentPath(location.pathname);
-  }, [location]);
-
   return (
     <div className="shop__container-nav">
       <div className="shop__menu_container">
@@ -23,6 +11,9 @@ const ShopProductAdd = () => {
             <li className="shop__home-item">Thêm sản phẩm</li>
           </ul>
         </div>
+      </div>
+      <div className="shop__content">
+        <div className="shop__content__list"></div>
       </div>
     </div>
   );

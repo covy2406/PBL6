@@ -25,11 +25,15 @@ export const AuthProvider = ({ children }) => {
     dayOfBirth: "",
   });
 
+  const [shopProfile, setShopProfile] = useState();
+
   const contextData = {
     auth,
     setAuth,
     profile,
     setProfile,
+    shopProfile,
+    setShopProfile,
   };
 
   return (

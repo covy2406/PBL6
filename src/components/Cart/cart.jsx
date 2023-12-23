@@ -81,15 +81,11 @@ const Cart = () => {
             </div>
           ) : (
             <div className="contant">
-              <div>
-                <div className="grid">
-                  <div className="cart__totalprice">
-                    <h2 className="totalprice">
-                      total: {Totalprice.toLocaleString("vn-VN")} đ
-                    </h2>
-                    <button className="btn__checkout">Mua hàng</button>
-                  </div>
-                </div>
+              <div className="cart__totalprice">
+                <h2 className="totalprice">
+                  total: {Totalprice.toLocaleString("vn-VN")} đ
+                </h2>
+                <button className="btn__checkout">Mua hàng</button>
               </div>
               <table className="cart-table">
                 <thead>

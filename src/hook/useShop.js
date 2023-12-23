@@ -1,19 +1,48 @@
 import apiShop from "api/apiShop";
-import { useNavigate } from "react-router-dom";
+import useAuth from "./useAuth";
 
 const useShop = () => {
-  const navigate = useNavigate();
+  const { setShopProfile } = useAuth();
   const getShopdetails = async () => {
     try {
       const response = await apiShop.getinfo();
-      console.log("useShop response: ", response.data);
-      return response.data;
+      window.sessionStorage.setItem(
+        "shopProfile",
+        JSON.stringify(response.data.data)
+      );
+      setShopProfile(JSON.parse(window.sessionStorage.getItem("shopProfile")));
+      return true;
     } catch (err) {
       console.log("useProfile err: " + err);
       return false;
     }
   };
-  return { getShopdetails };
+  const updateShopdetails = async (data, id) => {
+    try {
+      const response = await apiShop.updateinfo(data, id);
+      console.log(response);
+      console.log("useShop updateShopdetails data: ", data);
+      if (response?.message === "Resource updated successfully") {
+        window.sessionStorage.setItem("shopProfile", JSON.stringify(data));
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
+  };
+  const getShopOrdersAll = async () => {
+    try {
+      const response = await apiShop.getProductsAll();
+      console.log("useShop getShopProductsAll response: ", response.data.data);
+      return response.data.data;
+    } catch (err) {
+      console.log("useShop getShopProductsAll err: " + err);
+      return false;
+    }
+  };
+  return { getShopdetails, updateShopdetails };
 };
 
 export default useShop;
