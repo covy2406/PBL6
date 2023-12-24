@@ -83,7 +83,7 @@ const Viewdetails = () => {
                             <div className="productbox">
                                 <div className="box__image">
                                     <div className="img-box">
-                                        <img className="img-box__real" src={`http://0.tcp.ap.ngrok.io:15234/${selectedImage}`} alt={shop_products.name} />
+                                        <img className="img-box__real" src={`http://0.tcp.ap.ngrok.io:15234/${shop_products.image}`} alt={shop_products.name} />
                                         
                                     </div>
                                     <div className="box__image-select">
@@ -106,6 +106,9 @@ const Viewdetails = () => {
                                         shop_products ? (
                                             <div>
                                                 <h2>{shop_products.name}</h2>
+                                                <div className="product__price">
+                                                    {parseInt(shop_products.price).toLocaleString("vn-VN")} đ
+                                                </div>
                                                 <table className="detail-table" key={shop_products.id}>
                                                     <thead className="table__head-title">
                                                         <tr>

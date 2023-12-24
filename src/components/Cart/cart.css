@@ -73,7 +73,6 @@
   color: #9a9a9a;
   /* margin: 0 32px; */
   font-weight: 400;
-  align-items: center;
   line-height: 4rem;
   padding: 0;
 }
@@ -110,6 +109,10 @@ td {
   font-weight: 550;
 }
 
+.cart-table th:first-child ,td:first-child {
+  text-align: center;
+}
+
 .cart-table td {
   text-transform: uppercase;
 }
@@ -118,9 +121,14 @@ td {
   background-color: #f2f2f2;
 }
 
+.cart-table .select__Checkbox {
+  width: 15px;
+  height: 15px;
+}
+
 .cart-table img {
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
 }
 
 /* total price để checkout */
