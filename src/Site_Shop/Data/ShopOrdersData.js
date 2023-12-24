@@ -5,9 +5,9 @@ const ShopOrdersData = [
     props: "all",
   },
   {
-    link: "/shop/orders/processing",
+    link: "/shop/orders/pending",
     title: "Chờ xác nhận",
-    props: "processing",
+    props: "pending",
   },
   {
     link: "/shop/orders/confirmed",

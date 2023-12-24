@@ -66,7 +66,7 @@ const App = () => {
               <Route path="onboarding" element={<ShopSignup />} />
               <Route path="orders" element={<Shop extraProps="orders" />}>
                 <Route path="all" element={<ShopOrders />} />
-                <Route path="processing" element={<ShopOrders />} />
+                <Route path="pending" element={<ShopOrders />} />
                 <Route path="confirmed" element={<ShopOrders />} />
                 <Route path="shipping" element={<ShopOrders />} />
                 <Route path="delivered" element={<ShopOrders />} />

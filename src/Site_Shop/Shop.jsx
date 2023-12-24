@@ -79,6 +79,25 @@ const Shop = ({ extraProps } = "details") => {
               </li>
             </ul>
             <ul className="sidebar-menu__item">
+              <h3>Khuyến mãi</h3>
+              <li className="sidbar-menu__item-link">
+                <Link
+                  to="/shop/promos/list/all"
+                  className="shop__home-item-link"
+                  id={currentPath === "/shop/promos/list/all" ? "active" : ""}>
+                  Danh sách khuyến mãi
+                </Link>
+              </li>
+              <li className="sidbar-menu__item-link">
+                <Link
+                  to="/shop/promos/add"
+                  className="shop__home-item-link"
+                  id={currentPath === "/shop/promos/add" ? "active" : ""}>
+                  Thêm khuyến mãi
+                </Link>
+              </li>
+            </ul>
+            <ul className="sidebar-menu__item">
               <h3>Hồ sơ shop</h3>
               <li className="sidbar-menu__item-link">
                 <Link
