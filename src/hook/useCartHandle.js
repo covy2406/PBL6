@@ -84,6 +84,13 @@ const useCartHandle = () => {
         }
     };
 
+    //     const handleCheckout = async() => {
+    //         // Lấy ra các sản phẩm đã được chọn
+    //   const selectedItems = cartListProduct.filter(
+    //     (item) => selectedProducts[item.id]
+    //   );
+    //     }
+
     return {
         addtocart,
         delfromcart,

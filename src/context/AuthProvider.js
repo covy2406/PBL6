@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { CartProvider } from "./AddToCartContext";
+import { SearchAndBrandProvider } from "./SearchAndBrandContext";
 
 const AuthContext = createContext({});
 
@@ -38,7 +39,9 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={contextData}>
-      <CartProvider>{children}</CartProvider>
+      <SearchAndBrandProvider>
+        <CartProvider>{children}</CartProvider>
+      </SearchAndBrandProvider>
     </AuthContext.Provider>
   );
 };
