@@ -92,14 +92,20 @@
     min-width: 90px;
 }
 
+.home-filter__btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: 1px solid var(--white-color);
+}
+
 .home-filter__page-num {
     font-size: 1.4rem;
-    color: var(--text-color);
+    color: var(--white-color);
     margin-right: 22px;
 }
 
 .home-filter__page-current {
-    color: var(--primary-color);
+    color: var(--white-color);
 }
 
 .home-filter__page-control {

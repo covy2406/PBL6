@@ -215,10 +215,17 @@ các sản phẩm cách nhau */
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.btn.btn--primary {
+/* .btn.btn--primary {
   background-color: var(--primary-red-rgb);
   color: var(--white-color);
   border: 1px solid var(--border-color);
+  line-height: 0;
+} */
+
+.btn.btn--primary {
+  background-color: var(--white-color);
+  color: var(--black-color);
+  border: 1px solid var(--white-color);
   line-height: 0;
 }
 

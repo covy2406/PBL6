@@ -15,6 +15,7 @@ import useAuth from "hook/useAuth.js";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 import apiHandleBrand from "api/apiHandleBrand.js";
+import { toast } from "react-toastify";
 
 const Product = () => {
 
@@ -79,12 +80,13 @@ const Product = () => {
             }
         };
         getProductsByBrand();
-    }, [selectedBrandId, selectedBrands]);
+    }, [selectedBrandId, selectedBrands, ProductNew]);
 
 
     useEffect(() => {
         setFilteredProducts(
-            selectedBrandProducts.length > 0 ? selectedBrandProducts : ProductNew
+
+            (selectedBrandProducts && selectedBrandProducts.length > 0) ? selectedBrandProducts : ProductNew
         );
     }, [selectedBrandProducts, ProductNew, selectedBrands, selectedBrandId]);
 
@@ -99,6 +101,13 @@ const Product = () => {
                 return [...prevBrands, brandId];
             }
         });
+    };
+
+    const handleShowAllProducts = () => {
+        // Đặt selectedBrandId về giá trị null để hiển thị tất cả sản phẩm
+        setSelectedBrandId(null);
+        setSelectedBrands([]);
+        toast.success('Hiển thị tất cả các sản phẩm')
     };
 
     if (error) {
@@ -155,7 +164,10 @@ const Product = () => {
                     <div className="grid__column-10">
                         <div className="home-filter">
                             <span className="home-filter__label">Sắp xếp theo</span>
-                            <button className="btn home-filter__btn ">Phổ biến</button>
+                            <button
+                                className="btn home-filter__btn"
+                                onClick={() => handleShowAllProducts()}
+                            >Tất cả</button>
                             <button className="btn home-filter__btn btn--primary ">
                                 Mới nhất
                             </button>
@@ -202,139 +214,70 @@ const Product = () => {
                         </div>
                         <div className="contant">
                             {
-                                (!selectedBrandProducts) ? (
-                                    ProductNew.map((curElm) => (
-                                        <div className="box" key={curElm.shop_product_id}>
-                                            <div className="img_box">
-                                                <img
-                                                    src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
-                                                    alt={curElm.name}></img>
-                                                <div className="icon">
-                                                    {auth.isAuth ? (
-                                                        <li onClick={() => addtocart(curElm.shop_product_id, 1)}>
-                                                            <AiOutlineShoppingCart />
-                                                        </li>
-                                                    ) : (
-                                                        <li>
-                                                            <AiOutlineShoppingCart />
-                                                        </li>
-                                                    )}
-                                                    <li
-                                                        className="icon__link"
-                                                        onClick={() => view(curElm.shop_product_id)}>
-                                                        <Link to={`Viewdetail/${curElm.shop_product_id}`}>
-                                                            <BsEye />
-                                                        </Link>
+                                filteredProducts.map((curElm) => (
+                                    <div className="box" key={curElm.shop_product_id}>
+                                        <div className="img_box">
+                                            <img
+                                                src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
+                                                alt={curElm.name}></img>
+                                            <div className="icon">
+                                                {auth.isAuth ? (
+                                                    <li onClick={() => addtocart(curElm.shop_product_id, 1)}>
+                                                        <AiOutlineShoppingCart />
                                                     </li>
-                                                </div>
-                                            </div>
-                                            <div className="detail">
-                                                <h4 className="home-product-item__name">{curElm.name}</h4>
-                                                <div className="home-product-item__price">
-                                                    <span className="home-product-item__price-old"> </span>
-                                                    <span className="home-product-item__price-current">
-                                                        {parseInt(curElm.price).toLocaleString("vn-VN")} đ
-                                                    </span>
-                                                </div>
-                                                <div className="home-product-item__action">
-                                                    <div className="home-product-item__rating">
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                    </div>
-                                                    {/* <span className="home-product-item__sold">88 đã bán</span> */}
-                                                </div>
-                                                <div className="home-product-item__origin">
-                                                    <span className="home-product-item__brand">
-                                                        {curElm.shopName}
-                                                    </span>
-                                                    <span className="home-product-item__origin-name">
-                                                        {curElm.origin}
-                                                    </span>
-                                                </div>
+                                                ) : (
+                                                    <li>
+                                                        <AiOutlineShoppingCart />
+                                                    </li>
+                                                )}
+                                                <li
+                                                    className="icon__link"
+                                                    onClick={() => view(curElm.shop_product_id)}>
+                                                    <Link to={`Viewdetail/${curElm.shop_product_id}`}>
+                                                        <BsEye />
+                                                    </Link>
+                                                </li>
                                             </div>
                                         </div>
-                                    ))
-                                ) : (
-                                    selectedBrandProducts.map((curElm) => (
-                                        <div className="box" key={curElm.shop_product_id}>
-                                            <div className="img_box">
-                                                <img
-                                                    src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
-                                                    alt={curElm.name}></img>
-                                                <div className="icon">
-                                                    {auth.isAuth ? (
-                                                        <li onClick={() => addtocart(curElm.shop_product_id, 1)}>
-                                                            <AiOutlineShoppingCart />
-                                                        </li>
-                                                    ) : (
-                                                        <li>
-                                                            <AiOutlineShoppingCart />
-                                                        </li>
-                                                    )}
-                                                    <li
-                                                        className="icon__link"
-                                                        onClick={() => view(curElm.shop_product_id)}>
-                                                        <Link to={`Viewdetail/${curElm.shop_product_id}`}>
-                                                            <BsEye />
-                                                        </Link>
-                                                    </li>
+                                        <div className="detail">
+                                            <h4 className="home-product-item__name">{curElm.name}</h4>
+                                            <div className="home-product-item__price">
+                                                <span className="home-product-item__price-old"> </span>
+                                                <span className="home-product-item__price-current">
+                                                    {parseInt(curElm.price).toLocaleString("vn-VN")} đ
+                                                </span>
+                                            </div>
+                                            <div className="home-product-item__action">
+                                                <div className="home-product-item__rating">
+                                                    <i className="home-product-item__star--gold fas fa-star">
+                                                        <AiOutlineStar />
+                                                    </i>
+                                                    <i className="home-product-item__star--gold fas fa-star">
+                                                        <AiOutlineStar />
+                                                    </i>
+                                                    <i className="home-product-item__star--gold fas fa-star">
+                                                        <AiOutlineStar />
+                                                    </i>
+                                                    <i className="home-product-item__star--gold fas fa-star">
+                                                        <AiOutlineStar />
+                                                    </i>
+                                                    <i className="home-product-item__star--gold fas fa-star">
+                                                        <AiOutlineStar />
+                                                    </i>
                                                 </div>
                                             </div>
-                                            <div className="detail">
-                                                <h4 className="home-product-item__name">{curElm.name}</h4>
-                                                <div className="home-product-item__price">
-                                                    <span className="home-product-item__price-old"> </span>
-                                                    <span className="home-product-item__price-current">
-                                                        {parseInt(curElm.price).toLocaleString("vn-VN")} đ
-                                                    </span>
-                                                </div>
-                                                <div className="home-product-item__action">
-                                                    <div className="home-product-item__rating">
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                        <i className="home-product-item__star--gold fas fa-star">
-                                                            <AiOutlineStar />
-                                                        </i>
-                                                    </div>
-                                                    {/* <span className="home-product-item__sold">88 đã bán</span> */}
-                                                </div>
-                                                <div className="home-product-item__origin">
-                                                    <span className="home-product-item__brand">
-                                                        {curElm.shopName}
-                                                    </span>
-                                                    <span className="home-product-item__origin-name">
-                                                        {curElm.origin}
-                                                    </span>
-                                                </div>
+                                            <div className="home-product-item__origin">
+                                                <span className="home-product-item__brand">
+                                                    {curElm.shopName}
+                                                </span>
+                                                <span className="home-product-item__origin-name">
+                                                    {curElm.origin}
+                                                </span>
                                             </div>
                                         </div>
-                                    ))
-                                )
-                            } 
-                                
+                                    </div>
+                                ))
+                            }
                         </div>
                         {/* PHÂN TRANG: PAGINATION */}
                         {/* <Pagination pagination = {pagination} onPageChange={handlePageChange} /> */}
