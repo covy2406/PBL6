@@ -3,27 +3,34 @@ import useCart from "./useCart";
 import apiHandleCart from "api/apiHandleCart";
 
 const useCartHandle = () => {
-  const { setCartListProduct } = useCart();
-  // Add to cart
-  const addtocart = async (productId, quantity) => {
-    const response = await apiHandleCart.add(productId, quantity);
-    if (response) {
-      showCartList();
-      return true;
-    } else {
-      console.error("Add to cart err", response);
-      return false;
-    }
-  };
-  const delfromcart = async (productID) => {
-    const response = await apiHandleCart.del(productID);
-    if (response) {
-      showCartList();
-      return true;
-    } else {
-      console.error("Delete from cart error", response);
-    }
-  };
+    const { setCartListProduct } = useCart();
+    // Add to cart
+    const addtocart = async (productId, quantity) => {
+        const response = await apiHandleCart.add(productId, quantity);
+        if (response) {
+            showCartList();
+            toast.success('Thêm vào giỏ hàng thành công')
+            return true;
+        } else {
+            console.error("Add to cart err", response);
+            toast.error('Không thể thêm vào giỏ hàng', response);
+            return false;
+        }
+    };
+
+    // xoa 1 san pham trong gio hang
+    const delfromcart = async (productID) => {
+        const response = await apiHandleCart.del(productID);
+        console.log('shop_product_id', productID);
+        if (response) {
+            showCartList();
+            toast.success('Đã xóa sản phẩm ra khỏi giỏ hàng')
+            return true;
+        } else {
+            console.error("Delete from cart error", response);
+            toast.error('Lỗi không thể xóa sản phẩm');
+        }
+    };
 
     // Show all product in cart
     const showCartList = async () => {
@@ -77,13 +84,20 @@ const useCartHandle = () => {
         }
     };
 
-  return {
-    addtocart,
-    delfromcart,
-    showCartList,
-    increaseQuantity,
-    decreaseQuantity,
-  };
+    //     const handleCheckout = async() => {
+    //         // Lấy ra các sản phẩm đã được chọn
+    //   const selectedItems = cartListProduct.filter(
+    //     (item) => selectedProducts[item.id]
+    //   );
+    //     }
+
+    return {
+        addtocart,
+        delfromcart,
+        showCartList,
+        increaseQuantity,
+        decreaseQuantity,
+    };
 };
 
 export default useCartHandle;

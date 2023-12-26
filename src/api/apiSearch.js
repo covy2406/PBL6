@@ -1,8 +1,8 @@
 import axiosClient from './axiosClient.js';
 
 const apiSearch = {
-    getAll() {
-        const url = '/search/shop_products';
+    getAll(i) {
+        const url = `/search/products?search=${i}`;
         return axiosClient.get(url);
     },
 

@@ -45,9 +45,16 @@ const Viewdetails = () => {
         fetchProuductDetail();
     }, [id]);
 
+    // const handleColorClick = (color, image) => {
+    //     console.log(`Color clicked: ${color}, Image: ${image}`);
+    //     setSelectedColor(color);
+    //     setSelectedImage(image);
+    // };
+
     const handleColorClick = (color, image) => {
-        setSelectedColor(color);
-        selectedImage(image)
+        console.log(`Color clicked: ${color}, Image: ${image}`);
+        setSelectedColor((prevColor) => color);
+        setSelectedImage((prevImage) => image);
     };
 
     // console.log('id chi tiet san pham: ', id);
@@ -76,19 +83,22 @@ const Viewdetails = () => {
                             <div className="productbox">
                                 <div className="box__image">
                                     <div className="img-box">
-                                        <img className="img-box__real" src={`http://0.tcp.ap.ngrok.io:15234/${selectedImage}`} alt={shop_products.name} />
+                                        <img className="img-box__real" src={`http://0.tcp.ap.ngrok.io:15234/${shop_products.image}`} alt={shop_products.name} />
+                                        
                                     </div>
                                     <div className="box__image-select">
-                                        {listshop_product.map((product) => (
+                                        {listshop_product.map(product => (
                                             <div
                                                 key={product.shop_product_id}
                                                 className={`color-option ${selectedColor === product.color ? 'selected' : ''}`}
                                                 style={{ backgroundColor: product.color }}
                                                 onClick={() => handleColorClick(product.color, product.image)}
-                                            ></div>
+                                            >
+                                                {/* Hiển thị ảnh của điện thoại từ listshop_product */}
+                                                <img src={`http://0.tcp.ap.ngrok.io:15234/${product.image}`} alt={shop_products.name} />
+                                            </div>
                                         ))}
                                     </div>
-
                                 </div>
 
                                 <div className="detail">
@@ -96,6 +106,9 @@ const Viewdetails = () => {
                                         shop_products ? (
                                             <div>
                                                 <h2>{shop_products.name}</h2>
+                                                <div className="product__price">
+                                                    {parseInt(shop_products.price).toLocaleString("vn-VN")} đ
+                                                </div>
                                                 <table className="detail-table" key={shop_products.id}>
                                                     <thead className="table__head-title">
                                                         <tr>
