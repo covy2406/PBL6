@@ -35,7 +35,20 @@ const useProfile = () => {
       return false;
     }
   };
-  return { useprofile, updatepassword };
+  const getprofileorders = async () => {
+    try {
+      const response = await apiCustomerProfile.getProfileOrders();
+      if (response.data?.message) {
+        console.log("profile err", response);
+        return false;
+      }
+      return response;
+    } catch (err) {
+      console.log("getprofileorders err: " + err);
+      return false;
+    }
+  };
+  return { useprofile, updatepassword, getprofileorders };
 };
 
 export default useProfile;

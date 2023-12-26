@@ -104,7 +104,7 @@ const Nav = ({
                 </div>
               </li>
               <li className="header__navbar-item">
-                <Link to="/" className="header__navbar-item-link">
+                <Link to="/contact" className="header__navbar-item-link">
                   <i className="header__navbar-icon-right fa-regular fa-circle-question"></i>
                   Trợ giúp
                 </Link>
@@ -133,7 +133,7 @@ const Nav = ({
                       <Link to="/">Địa chỉ của tôi</Link>
                     </li> */}
                     <li className="header__navbar-user-item">
-                      <Link to="/user/purchase">Đơn mua</Link>
+                      <Link to="/user/account/order">Đơn mua</Link>
                     </li>
                     <li
                       className="header__navbar-user-item header__navbar-user-item--separate"

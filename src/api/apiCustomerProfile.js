@@ -5,6 +5,7 @@ import axiosClient from "./axiosClient";
 const GET_PROFILE_URL = "customerProfile";
 const UPDATE_PROFILE_URL = "customers";
 const CHANGE_PASSWORD_URL = "customers/changepassword";
+const GET_PROFILE_ORDERS_URL = "customerorders";
 
 const apiCustomerProfile = {
   getProfile() {
@@ -15,6 +16,9 @@ const apiCustomerProfile = {
   },
   updatePassword(data) {
     return axiosClient.post(CHANGE_PASSWORD_URL, data);
+  },
+  getProfileOrders() {
+    return axiosClient.get(GET_PROFILE_ORDERS_URL);
   },
 };
 

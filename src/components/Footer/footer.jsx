@@ -52,24 +52,9 @@ const Footer = () => {
               <h3 className="footer__heading">Thanh Toán</h3>
               <ul className="footer__list">
                 <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
+                  <div className="footer-item__link">
                     <img src="./img/vnpay.png" alt="vnpay" />
-                  </Link>
-                </li>
-                <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
-                    <img src="./img/zalopay.png" alt="zalopay" />
-                  </Link>
-                </li>
-                <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
-                    <img src="./img/visapay.png" alt="visapay" />
-                  </Link>
-                </li>
-                <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
-                    <img src="./img/mastercardpay.png" alt="mastercarpay" />
-                  </Link>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -77,27 +62,13 @@ const Footer = () => {
               <h3 className="footer__heading">Theo dõi</h3>
               <ul className="footer__list">
                 <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
+                  <Link
+                    to="https://www.facebook.com/profile.php?id=61555003499266"
+                    className="footer-item__link">
                     <i className="footer-item__icon fab fa-facebook">
                       <BsFacebook />
                     </i>
                     Facebook
-                  </Link>
-                </li>
-                <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
-                    <i className="footer-item__icon fab fa-instagram">
-                      <BsInstagram />
-                    </i>
-                    Instagram
-                  </Link>
-                </li>
-                <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
-                    <i className="footer-item__icon fab fa-linkedin">
-                      <BsLinkedin />
-                    </i>
-                    linkedin
                   </Link>
                 </li>
               </ul>

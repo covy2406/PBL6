@@ -200,3 +200,10 @@
 .radio-input input:checked + .circle {
   scale: 1;
 }
+
+/*Order pages*/
+.profileorder--list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}

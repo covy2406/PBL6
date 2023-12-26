@@ -9,10 +9,10 @@ const usernavData = [
   //   title: "Ngân hàng",
   //   link: "/user/account/payment",
   // },
-  {
-    title: "Địa chỉ",
-    link: "/user/account/address",
-  },
+  // {
+  //   title: "Địa chỉ",
+  //   link: "/user/account/address",
+  // },
   {
     title: "Đổi mật khẩu",
     link: "/user/account/change-password",
