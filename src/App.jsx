@@ -35,8 +35,6 @@ import Shop from "./Site_Shop/Shop.jsx";
 import ShopSignup from "./Site_Shop/ShopSignup.jsx";
 import ShopOrders from "./Site_Shop/Components/ShopOrders.jsx";
 import ShopProduct from "Site_Shop/Components/ShopProducts.jsx";
-import ShopProductAdd from "Site_Shop/Components/ShopProductsAdd.jsx";
-
 //auth
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 
@@ -73,7 +71,7 @@ const App = () => {
                 <Route path="cancelled" element={<ShopOrders />} />
               </Route>
               <Route path="products">
-                <Route path="add" element={<Shop extraProps="add" />} />
+                <Route path="add" element={<Shop extraProps="productadd" />} />
                 <Route path="list" element={<Shop extraProps="products" />}>
                   <Route
                     path="all"
@@ -84,6 +82,15 @@ const App = () => {
                     element={<ShopProduct extraProps="active" />}
                   />
                 </Route>
+              </Route>
+              <Route path="promos">
+                <Route path="list" element={<Shop extraProps="promos" />}>
+                  <Route path="all" />
+                  <Route path="active" />
+                </Route>
+                <Route
+                  path="add"
+                  element={<Shop extraProps="promosadd" />}></Route>
               </Route>
             </Route>
             <Route path="user">

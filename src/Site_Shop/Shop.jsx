@@ -9,6 +9,8 @@ import ShopOrders from "./Components/ShopOrders";
 import ShopDetails from "./Components/ShopDetails";
 import ShopProduct from "./Components/ShopProducts";
 import ShopProductAdd from "./Components/ShopProductsAdd";
+import ShopPromos from "./Components/ShopPromos";
+import ShopPromosAdd from "./Components/ShopPromosAdd";
 
 const Shop = ({ extraProps } = "details") => {
   const location = useLocation();
@@ -114,10 +116,14 @@ const Shop = ({ extraProps } = "details") => {
           <ShopDetails />
         ) : extraProps === "orders" ? (
           <ShopOrders />
-        ) : extraProps === "add" ? (
+        ) : extraProps === "productadd" ? (
           <ShopProductAdd />
         ) : extraProps === "products" ? (
           <ShopProduct />
+        ) : extraProps === "promos" ? (
+          <ShopPromos />
+        ) : extraProps === "promosadd" ? (
+          <ShopPromosAdd />
         ) : null}
       </div>
     </div>
