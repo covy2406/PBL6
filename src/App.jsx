@@ -22,7 +22,7 @@ import AdminNav from "./components/Header/adminNav.jsx";
 import AdminProduct from "Site_Admin/AdminProduct.jsx";
 import AdminUser from "Site_Admin/AdminUser.jsx";
 import AdminShop from "Site_Admin/AdminShop.jsx";
-import About from "./components/About/About.jsx";
+import About from "./components/About/About/About.jsx";
 import Contact from "./components/About/Contact.jsx";
 import Term from "components/About/Term.jsx";
 
@@ -45,11 +45,11 @@ const App = () => {
         <Route path="login" element={<SiteLogin />}></Route>
         <Route path="signup" element={<SiteSignup />}></Route>
         <Route path="reset" element={<SiteReset />}></Route>
+        <Route path="about" element={<About />}></Route>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="term" element={<Term />}></Route>
           <Route path="contact" element={<Contact />}></Route>
-          <Route path="about" element={<About />}></Route>
           <Route path="product" element={<Product />} />
           <Route path="oldphone" element={<Oldphone />} />
           <Route path="Viewdetail/:id" element={<Viewdetails />} />

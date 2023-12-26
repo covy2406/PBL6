@@ -1,0 +1,109 @@
+.about__content {
+  padding-top: 20rem;
+  padding-bottom: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.about--main-title {
+  text-align: center;
+  word-break: break-word;
+  font-size: 3.2rem;
+  margin-bottom: 2.4rem;
+}
+.about--sub-title {
+  font-size: 1.6rem;
+  text-align: center;
+  word-break: break-word;
+}
+.about--main-topic {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+  font-weight: bold;
+}
+.about--main-button {
+  margin-top: 4.8rem;
+  font-size: 2rem;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  border: 1px solid white;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+}
+.about__intro {
+}
+.about__intro--wrapper {
+  display: flex;
+  justify-content: center;
+}
+.about__item {
+  max-width: 58rem;
+  min-width: 32%;
+  margin: 1rem 1.5rem 0;
+  padding: 2.5rem;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+.about__item--big {
+  max-width: 100%;
+  margin: 3rem 1.5rem 0;
+  padding: 2.5rem;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+.about__item-title {
+  color: var(--primary-color);
+  font-size: 2.2rem;
+  font-weight: bold;
+  line-height: 3.2rem;
+  margin-bottom: 1rem;
+}
+.about__item-content {
+  font-size: 1.6rem;
+  line-height: 2.8rem;
+  word-break: break-word;
+}
+.about__journey {
+  margin: 8rem;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  align-items: center;
+}
+.about__journey--title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  line-height: 3.2rem;
+  margin-bottom: 3rem;
+}
+.about__journey--wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+.about__journey--time {
+  padding-left: 25rem;
+  width: fit-content;
+  font-size: 1.6rem;
+  font-weight: bold;
+  line-height: 2.8rem;
+  margin-bottom: 1rem;
+}
+.about__journey--line {
+  height: 20rem;
+  width: 1px;
+  background-color: #000;
+}
+.about__journey--content {
+  font-size: 1.6rem;
+  line-height: 2.8rem;
+  word-break: break-word;
+  margin-bottom: 1rem;
+  width: 35rem;
+}
