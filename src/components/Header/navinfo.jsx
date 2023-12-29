@@ -20,7 +20,7 @@ const Navinfo = () => {
               src="./img/qrcode.png"
               alt="QRcode"
               className="header__qr-img"></img>
-            <div class="header__qr-apps">
+            <div className="header__qr-apps">
               <div className="header__qr-link">
                 <img
                   src="./img/google_play_logo.png"

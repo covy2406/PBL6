@@ -81,6 +81,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "browserify-zlib": "^0.2.0",
     "css-loader": "^6.8.1",
+    "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",

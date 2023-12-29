@@ -1,8 +1,8 @@
+import "./css/nav.css";
 import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BsCart2 } from "react-icons/bs";
-import "./css/nav.css";
 //import hooks
 import useAuth from "hook/useAuth";
 import useCart from "hook/useCart";
@@ -60,7 +60,8 @@ const CartList = () => {
                                                 // src={`${auth.url}/${curElm.image}`}
                                                 src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
                                                 alt={curElm.name}
-                                                className="header__cart-img"></img>
+                                                className="header__cart-img">
+                                            </img>
                                             <div className="header__cart-item-info">
                                                 <div className="header__cart-item-head">
                                                     <h5 className="header__cart-item-name">
@@ -80,7 +81,7 @@ const CartList = () => {
                                                 </div>
                                                 <div className="header__cart-item-body">
                                                     <span className="header__cart-item-description">
-                                                        {curElm.brand}
+                                                        {curElm.shopName}
                                                     </span>
                                                     {/* <span className="header__cart-item-remove"><button onClick={() => removeproduct(curElm)}>Xóa</button></span> */}
                                                 </div>
@@ -95,7 +96,7 @@ const CartList = () => {
 
                         <Link
                             to="/Cart"
-                            className="header__cart-view-cart btn btn--primary">
+                            className="header__cart-view-cart btn btn--primary-main">
                             Xem giỏ hàng
                         </Link>
                     </div>

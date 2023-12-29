@@ -1,3 +1,4 @@
+import "./product.css";
 import { React, useEffect } from "react";
 import { useState } from "react";
 import { AiOutlineDown, AiOutlineShoppingCart } from "react-icons/ai";
@@ -7,38 +8,40 @@ import { AiOutlineStar } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import BannerProducts from "../BannerProduct/BannerProducts.jsx";
 import { Link } from "react-router-dom";
-import "./product.css";
-import "../../assets/css/base.css";
-import "../Home/home.css";
 import apiProductHome from "api/apiProductHome.js";
 import useAuth from "hook/useAuth.js";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 import apiHandleBrand from "api/apiHandleBrand.js";
 import { toast } from "react-toastify";
+import apiHandlePrice from "api/apiHandlePrice";
+// import useFilterHandle from "hook/useFilterHandle";
+// import useFilter from "hook/useFilter";
 
 const Product = () => {
 
     const { auth } = useAuth();
     const { view } = useCart();
     const { addtocart } = useCartHandle();
+    // const { selectedBrandId , selectedBrandProducts ,setSelectedBrandProducts} = useFilter();
+    // const {handleBrandCheckboxChange, handleShowAllProducts} = useFilterHandle();
 
     const [ProductNew, setProductNew] = useState([]);
     const [error, setError] = useState(null);
 
     //Brand:
     const [brands, setBrands] = useState([]); //brands: Lưu trữ danh sách các thương hiệu sản phẩm.
-    //Cập nhật state brands bằng danh sách các thương hiệu lấy từ API.
-
     const [selectedBrands, setSelectedBrands] = useState([]); // cac brand duoc chon(tich vao checkbox)
-    // và Lưu trữ danh sách thương hiệu được chọn từ checkbox.
-
     const [selectedBrandId, setSelectedBrandId] = useState(null); // Lưu trữ ID của thương hiệu đang được chọn.
     const [selectedBrandProducts, setSelectedBrandProducts] = useState([]);// selectedBrandProducts: Lưu trữ danh sách sản phẩm của thương hiệu được 
-    // setSelectedBrandProducts(response.data); Cập nhật state selectedBrandProducts bằng danh sách sản phẩm của thương hiệu được chọn từ API.
-
     const [filteredProducts, setFilteredProducts] = useState([]); //filteredProducts: Lưu trữ danh sách sản phẩm được lọc dựa trên các điều kiện nhất định.
 
+    // Giá
+    const [minPriceInput, setMinPriceInput] = useState('');
+    const [maxPriceInput, setMaxPriceInput] = useState('');
+
+
+    // goi api san pham:
     useEffect(() => {
         const fectchProductNew = async () => {
             try {
@@ -51,6 +54,7 @@ const Product = () => {
         fectchProductNew();
     }, []);
 
+    // goi api brand
     useEffect(() => {
         const fetchBrands = async () => {
             try {
@@ -64,6 +68,7 @@ const Product = () => {
         fetchBrands();
     }, []);
 
+    // Danh sach san pham cua thuong hieu
     useEffect(() => {
         const getProductsByBrand = async () => {
             try {
@@ -82,13 +87,11 @@ const Product = () => {
         getProductsByBrand();
     }, [selectedBrandId, selectedBrands, ProductNew]);
 
-
+    // Lọc sản phẩm tương ứng với thương hiệu
     useEffect(() => {
-        setFilteredProducts(
-
-            (selectedBrandProducts && selectedBrandProducts.length > 0) ? selectedBrandProducts : ProductNew
-        );
-    }, [selectedBrandProducts, ProductNew, selectedBrands, selectedBrandId]);
+        const filtered = (selectedBrandProducts && selectedBrandProducts.length > 0) ? selectedBrandProducts : ProductNew;
+        setFilteredProducts(filtered);
+    }, [selectedBrandProducts, ProductNew]);
 
 
     const handleBrandCheckboxChange = (brandId) => {
@@ -107,7 +110,41 @@ const Product = () => {
         // Đặt selectedBrandId về giá trị null để hiển thị tất cả sản phẩm
         setSelectedBrandId(null);
         setSelectedBrands([]);
-        toast.success('Hiển thị tất cả các sản phẩm')
+        toast.success('Hiển thị tất cả các sản phẩm', { autoClose: 1000 })
+    };
+
+    // Ham call api gia:
+    useEffect(() => {
+        // Sử dụng hàm fetchPrice khi minPriceInput hoặc maxPriceInput thay đổi
+        const fetchPrice = async () => {
+            try {
+                const response = await apiHandlePrice.getPrice(minPriceInput, maxPriceInput);
+                setFilteredProducts(response.data);
+            } catch (error) {
+                console.error('Error fetching products by price:', error);
+            }
+        };
+
+        fetchPrice();
+    }, [minPriceInput, maxPriceInput]);
+
+    // hàm xử lý áp dụng lọc giá
+    const handleApplyFilter = () => {
+        const minPriceValue = parseFloat(minPriceInput);
+        const maxPriceValue = parseFloat(maxPriceInput);
+
+        if (!isNaN(minPriceValue) && !isNaN(maxPriceValue) && minPriceValue <= maxPriceValue) {
+            // Lọc sản phẩm theo khoảng giá nhập vào
+            const filtered = selectedBrandProducts.filter(
+                (product) =>
+                    parseFloat(product.price) >= minPriceValue &&
+                    parseFloat(product.price) <= maxPriceValue
+            );
+            setFilteredProducts(filtered);
+        } else {
+            // Hiển thị thông báo lỗi nếu giá nhập vào không hợp lệ
+            toast.error('Vui lòng nhập giá hợp lệ.', { autoClose: 1000 });
+        }
     };
 
     if (error) {
@@ -122,12 +159,10 @@ const Product = () => {
                 <BannerProducts />
 
                 <div className="products-list">
-
-                    {/* BRAND CATEGORY - LỌC SẢN PHẨM THEO TÊN HÃNG VÀ GIÁ ĐIỆN THOẠI */}
-                    {/* <Category product={ProductNew} setProduct={setProductNew} /> */}
                     <div className='grid__column-2'>
-                        {/* CATEGORY CHO TÊN BRAND */}
 
+                        {/* BRAND CATEGORY - LỌC SẢN PHẨM THEO TÊN HÃNG VÀ GIÁ ĐIỆN THOẠI */}
+                        {/* CATEGORY CHO TÊN BRAND */}
                         <nav className='categories'>
                             <ul className='categories-list'>
                                 <h3 className='categories__heading'>Thương hiệu</h3>
@@ -136,14 +171,10 @@ const Product = () => {
                                         <input
                                             className='categories-item__input'
                                             type='checkbox'
-                                            // checked={selectedBrands.includes(brand.id === selectedBrandId)}
                                             checked={selectedBrandId === brand.id}
                                             onChange={() => handleBrandCheckboxChange(brand.id)}
-
-                                        >
-                                        </input>
+                                        ></input>
                                         <label className='categories-item__label'>{brand.name}</label>
-                                        {/* html='all' */}
                                     </li>
                                 ))}
                             </ul>
@@ -153,10 +184,29 @@ const Product = () => {
                         <nav className='categories'>
                             <ul className='categories-list'>
                                 <h3 className='categories__heading'>Mức giá</h3>
-                                <li className='categories-item' >
-                                    <input className='categories-item__input' type='checkbox' />
-                                    <label className='categories-item__label' htmlFor='all'>Tất cả</label>
-                                </li>
+                                <div className="categories-list__price">
+                                    <div className='categories-range' >
+                                        <input
+                                            type="text"
+                                            placeholder="Min"
+                                            value={minPriceInput}
+                                            className="inputPrice"
+                                            onChange={(e) => setMinPriceInput(e.target.value)}
+                                        />
+                                        <span className="priceRange"></span>
+                                        <input
+                                            type="text"
+                                            placeholder="Max"
+                                            value={maxPriceInput}
+                                            className="inputPrice"
+                                            onChange={(e) => setMaxPriceInput(e.target.value)}
+                                        />
+                                                
+                                    </div>
+                                    <button className="btn btn--primary-main btn-filter" onClick={() => handleApplyFilter()}>
+                                        Áp dụng
+                                    </button>
+                                </div>
                             </ul>
                         </nav>
                     </div>
@@ -214,15 +264,17 @@ const Product = () => {
                         </div>
                         <div className="contant">
                             {
-                                filteredProducts.map((curElm) => (
-                                    <div className="box" key={curElm.shop_product_id}>
+                                filteredProducts.map((curElmNew, index) => (
+                                    <div className="box" key={index}>
                                         <div className="img_box">
                                             <img
-                                                src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
-                                                alt={curElm.name}></img>
+                                                src={`http://0.tcp.ap.ngrok.io:15234/${curElmNew.image}`}
+                                                //src={curElmNew.image}
+                                                
+                                                alt={curElmNew.name}></img>
                                             <div className="icon">
                                                 {auth.isAuth ? (
-                                                    <li onClick={() => addtocart(curElm.shop_product_id, 1)}>
+                                                    <li onClick={() => addtocart(curElmNew.shop_product_id, 1)}>
                                                         <AiOutlineShoppingCart />
                                                     </li>
                                                 ) : (
@@ -232,19 +284,19 @@ const Product = () => {
                                                 )}
                                                 <li
                                                     className="icon__link"
-                                                    onClick={() => view(curElm.shop_product_id)}>
-                                                    <Link to={`Viewdetail/${curElm.shop_product_id}`}>
+                                                    onClick={() => view(curElmNew.shop_product_id)}>
+                                                    <Link to={`Viewdetail/${curElmNew.shop_product_id}`}>
                                                         <BsEye />
                                                     </Link>
                                                 </li>
                                             </div>
                                         </div>
                                         <div className="detail">
-                                            <h4 className="home-product-item__name">{curElm.name}</h4>
+                                            <h4 className="home-product-item__name">{curElmNew.name}</h4>
                                             <div className="home-product-item__price">
                                                 <span className="home-product-item__price-old"> </span>
                                                 <span className="home-product-item__price-current">
-                                                    {parseInt(curElm.price).toLocaleString("vn-VN")} đ
+                                                    {parseInt(curElmNew.price).toLocaleString("vn-VN")} đ
                                                 </span>
                                             </div>
                                             <div className="home-product-item__action">
@@ -268,10 +320,10 @@ const Product = () => {
                                             </div>
                                             <div className="home-product-item__origin">
                                                 <span className="home-product-item__brand">
-                                                    {curElm.shopName}
+                                                    {curElmNew.shopName}
                                                 </span>
                                                 <span className="home-product-item__origin-name">
-                                                    {curElm.origin}
+                                                    {curElmNew.origin}
                                                 </span>
                                             </div>
                                         </div>
@@ -279,8 +331,6 @@ const Product = () => {
                                 ))
                             }
                         </div>
-                        {/* PHÂN TRANG: PAGINATION */}
-                        {/* <Pagination pagination = {pagination} onPageChange={handlePageChange} /> */}
                     </div>
                 </div>
             </div>

@@ -1,15 +1,17 @@
 import { toast } from "react-toastify";
 import useCart from "./useCart";
 import apiHandleCart from "api/apiHandleCart";
+import apiHandlePayment from "api/apiHandlePayment";
+import { useEffect } from "react";
 
 const useCartHandle = () => {
-    const { setCartListProduct } = useCart();
+    const { cartListProduct, selectedProducts, setCartListProduct } = useCart();
     // Add to cart
     const addtocart = async (productId, quantity) => {
         const response = await apiHandleCart.add(productId, quantity);
         if (response) {
             showCartList();
-            toast.success('Thêm vào giỏ hàng thành công')
+            toast.success('Thêm vào giỏ hàng thành công', {autoClose: 1000})
             return true;
         } else {
             console.error("Add to cart err", response);
@@ -84,12 +86,7 @@ const useCartHandle = () => {
         }
     };
 
-    //     const handleCheckout = async() => {
-    //         // Lấy ra các sản phẩm đã được chọn
-    //   const selectedItems = cartListProduct.filter(
-    //     (item) => selectedProducts[item.id]
-    //   );
-    //     }
+    
 
     return {
         addtocart,
@@ -97,6 +94,7 @@ const useCartHandle = () => {
         showCartList,
         increaseQuantity,
         decreaseQuantity,
+        //handlePayment
     };
 };
 
