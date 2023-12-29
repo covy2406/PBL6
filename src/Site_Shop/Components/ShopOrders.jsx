@@ -7,34 +7,16 @@ import ShopOrdersCard from "./ShopOrdersCard/ShopOrdersCard";
 const ShopOrders = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  const { getShopOrdersAll } = useShop();
-  const [orderList, setOrderList] = useState([]);
+  const [orderList, setOrderList] = useState({});
 
   useEffect(() => {
-    const res = getShopOrdersAll();
-    if (res) {
-      setOrderList(JSON.parse(window.sessionStorage.getItem("orderList")));
-    }
+    setOrderList(JSON.parse(window.sessionStorage.getItem("shopOrders")));
   }, []);
-
-  useEffect(() => {
-    console.log(orderList);
-    console.log(typeof orderList);
-  }, [orderList]);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
   }, [location]);
-  //test data
-  const [order, setOrder] = useState({
-    id: 1,
-    deliveredDate: "10-10-2021",
-    discount: 0,
-    orderDate: "10-10-2021",
-    paid: 1000000,
-    status: "pending",
-    total_price: 0,
-  });
+
   return (
     <div className="shop__container-nav">
       <div className="shop__menu_container">
@@ -55,8 +37,18 @@ const ShopOrders = () => {
           </ul>
         </div>
       </div>
-      <div className="shop__orders--list">
-        <ShopOrdersCard data={order} filter={currentPath.split("/")[3]} />
+      <div className="shop__menu_details">
+        <div className="shop__orders--list">
+          {Object.keys(orderList).map((item) => {
+            return (
+              <ShopOrdersCard
+                key={item}
+                data={orderList[item]}
+                filter={currentPath.split("/")[3]}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

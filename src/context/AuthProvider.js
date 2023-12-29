@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     isAuth: isAuth || false,
     role: role || "user",
     id: storage?.customer_id || "",
-    url: "http://0.tcp.ap.ngrok.io:15234/api",
+    url: "http://0.tcp.ap.ngrok.io:15234/",
   });
 
   const [profile, setProfile] = useState({
@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
     phone: "",
     sex: true,
     dayOfBirth: "",
+    avatar: "",
   });
 
   const [shopProfile, setShopProfile] = useState();

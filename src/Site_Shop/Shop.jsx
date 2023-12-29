@@ -11,19 +11,20 @@ import ShopProduct from "./Components/ShopProducts";
 import ShopProductAdd from "./Components/ShopProductsAdd";
 import ShopPromos from "./Components/ShopPromos";
 import ShopPromosAdd from "./Components/ShopPromosAdd";
+import ShopChart from "./Components/ShopChart";
 
 const Shop = ({ extraProps } = "details") => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  const { getShopdetails } = useShop();
+  const { getShopOrdersAll, getShopProductsAll, getShopdetails } = useShop();
 
   useEffect(() => {
-    const res = getShopdetails();
-    console.log(res);
+    getShopdetails();
+    getShopOrdersAll();
+    getShopProductsAll();
   }, []);
 
   useEffect(() => {
-    console.log(extraProps.extraProps);
     setCurrentPath(location.pathname);
   }, [location]);
 
@@ -109,6 +110,16 @@ const Shop = ({ extraProps } = "details") => {
                   Hồ sơ shop
                 </Link>
               </li>
+              <li className="sidbar-menu__item-link">
+                <Link
+                  to="/shop/analytics"
+                  className="shop__home-item-link"
+                  id={
+                    currentPath === "/shop/analytics" ? "active" : "inactive"
+                  }>
+                  Phân tích bán hàng
+                </Link>
+              </li>
             </ul>
           </ul>
         </div>
@@ -124,6 +135,8 @@ const Shop = ({ extraProps } = "details") => {
           <ShopPromos />
         ) : extraProps === "promosadd" ? (
           <ShopPromosAdd />
+        ) : extraProps === "analytics" ? (
+          <ShopChart />
         ) : null}
       </div>
     </div>

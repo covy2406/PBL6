@@ -1,9 +1,8 @@
-import { useState } from "react";
-import useAuth from "hook/useAuth";
-import "./ShopProductsCard.css";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import useAuth from "hook/useAuth";
 
-const ShopProductsCard = ({ data, filter }) => {
+const ShopPromosCard = ({ data, filter }) => {
   const { auth } = useAuth();
   const [product, setProduct] = useState({
     id: data.id,
@@ -111,4 +110,5 @@ const ShopProductsCard = ({ data, filter }) => {
     </>
   );
 };
-export default ShopProductsCard;
+
+export default ShopPromosCard;

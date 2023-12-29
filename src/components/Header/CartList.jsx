@@ -57,7 +57,7 @@ const CartList = () => {
                   return (
                     <li className="header__cart-item" key={curElm.id}>
                       <img
-                        src={`${auth.url}/${curElm.image}`}
+                        src={auth.url + curElm.image}
                         alt={curElm.name}
                         className="header__cart-img"></img>
                       <div className="header__cart-item-info">

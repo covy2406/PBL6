@@ -1,15 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import useShop from "hook/useShop";
+import ShopPromosCard from "./ShopPromosCard/ShopPromosCard";
 
 const ShopPromos = ({ extraProps } = "all") => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  const { getShopdetails } = useShop();
-
-  useEffect(() => {
-    const res = getShopdetails();
-  }, []);
+  const [promosList, setPromosList] = useState({});
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -45,6 +41,18 @@ const ShopPromos = ({ extraProps } = "all") => {
               </Link>
             </li>
           </ul>
+        </div>
+      </div>
+      <div className="shop__menu_details">
+        <div className="shop__orders--list">
+          {Object.keys(promosList).map((key) => {
+            return (
+              <ShopPromosCard
+                data={promosList[key]}
+                filter={currentPath.split("/")[4]}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

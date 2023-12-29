@@ -11,15 +11,15 @@ const useProfile = () => {
         return false;
       }
       window.sessionStorage.setItem("profile", JSON.stringify(response.data));
-      await setProfile({
+      setProfile({
         id: response.data.customer_id,
         name: response.data.name,
         email: response.data.email,
         phone: response.data.phone,
         sex: response.data.sex,
         dayOfBirth: response.data.dayOfBirth,
+        avatar: response.data.avatar,
       });
-
       return true;
     } catch (err) {
       console.log("useProfile err: " + err);

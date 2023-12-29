@@ -11,7 +11,7 @@ const useShop = () => {
         JSON.stringify(response.data.data)
       );
       setShopProfile(JSON.parse(window.sessionStorage.getItem("shopProfile")));
-      return true;
+      return response.data.data;
     } catch (err) {
       console.log("useProfile err: " + err);
       return false;
@@ -39,13 +39,31 @@ const useShop = () => {
         "shopOrders",
         JSON.stringify(response.data.data)
       );
-      return true;
+      return response.data.data;
     } catch (err) {
       console.log("useShop getShopProductsAll err: " + err);
       return false;
     }
   };
-  return { getShopdetails, updateShopdetails, getShopOrdersAll };
+  const getShopProductsAll = async () => {
+    try {
+      const response = await apiShop.getallproducts();
+      window.sessionStorage.setItem(
+        "shopProducts",
+        JSON.stringify(response.data.data)
+      );
+      return response.data.data;
+    } catch (err) {
+      console.log("useShop getShopProductsAll err: " + err);
+      return false;
+    }
+  };
+  return {
+    getShopdetails,
+    updateShopdetails,
+    getShopOrdersAll,
+    getShopProductsAll,
+  };
 };
 
 export default useShop;

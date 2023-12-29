@@ -54,10 +54,9 @@ const Search = ({ view, addtocart, detail }) => {
           return (
             <div className="box" key={item.id}>
               <div className="img_box">
-                {/* {`http://localhost:8000${item.image}`} */}
                 <img
                   className="product-main__item"
-                  src={`${auth.url}/${item.image}`}
+                  src={auth.url + item.image}
                   alt={item.name}></img>
                 <div className="icon">
                   {auth.isAuth ? (

@@ -1,20 +1,83 @@
-.shoporderscard__container {
-  margin: 1rem;
-  padding: 1rem;
-  height: fit-content;
-  width: 92rem;
-  border: 1px solid var(--primary-color);
+.orderscard__container {
+  margin: 2rem 1rem;
+  padding: 2rem;
+  background-color: white;
 }
-.shoporderscard__container--title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
+.orderscard__container--top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--primary-color);
 }
-.shoporderscard__container--content {
-  display: grid;
-  grid-template-columns: 40rem 20rem;
-  gap: 2rem;
+.orderscard__shop {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
-.card-text {
+.orderscard__shop--name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-right: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  max-width: 25rem;
+}
+.orderscard__icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+.orderscard--customer-info {
   font-size: 1.4rem;
+}
+.orderscard__order--id {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-right: 1rem;
+}
+.orderscard__product--image {
+  height: 8rem;
+  width: 8rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 3px;
+}
+.orderscard__product {
+  padding: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid var(--primary-color);
+}
+.orderscard__product--status {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-right: 1rem;
+}
+.orderscard__product--wrapper {
+  display: flex;
+  gap: 1rem;
+  width: 40rem;
+}
+.orderscard__container--bot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+.orderscard__product--name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+.orderscard__button-list--button {
+  font-size: 1.2rem;
+  padding: 0.5rem 0.9rem;
+  background-color: var(--primary-color);
+  border: 1px solid white;
+  color: white;
+}
+.orderscard--total {
+  font-size: 1.5rem;
+  margin-right: 1rem;
 }

@@ -128,8 +128,7 @@ const Cart = () => {
                           </td>
                           <td>
                             <img
-                              // src={`${auth.url}/${item.image}`}
-                              src={`http://0.tcp.ap.ngrok.io:15234/${item.image}`}
+                              src={auth.url + item.image}
                               alt={item.name}></img>
                           </td>
                           <td>{item.name}</td>

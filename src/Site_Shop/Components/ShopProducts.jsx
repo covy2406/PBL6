@@ -1,15 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import useShop from "hook/useShop";
+import ShopProductsCard from "./ShopProductsCard/ShopProductsCard";
 
-const ShopProduct = ({ extraProps } = "all") => {
+const ShopProduct = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  const { getShopdetails } = useShop();
+  const [productList, setProductList] = useState({});
 
   useEffect(() => {
-    const res = getShopdetails();
+    setProductList(JSON.parse(window.sessionStorage.getItem("shopProducts")));
   }, []);
+
+  useEffect(() => {
+    console.log(productList);
+  }, [productList]);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -37,8 +41,7 @@ const ShopProduct = ({ extraProps } = "all") => {
                 to="/shop/products/list/active"
                 className="shop__home-item-link"
                 id={
-                  currentPath === "/shop/products/list/active" ||
-                  extraProps === "active"
+                  currentPath === "/shop/products/list/active"
                     ? "active"
                     : "inactive"
                 }>
@@ -46,6 +49,18 @@ const ShopProduct = ({ extraProps } = "all") => {
               </Link>
             </li>
           </ul>
+        </div>
+      </div>
+      <div className="shop__menu_details">
+        <div className="shop__orders--list">
+          {Object.keys(productList).map((key) => {
+            return (
+              <ShopProductsCard
+                data={productList[key]}
+                filter={currentPath.split("/")[4]}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
