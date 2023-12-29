@@ -1,0 +1,9 @@
+{
+  "html-to-css-autocompletion.triggerCharacters": false,
+  "html-to-css-autocompletion.autocompletionFilesScope": "multi-root",
+  "html-to-css-autocompletion.getSelectorsFromFileTypes": ["html", "php"],
+  "html-to-css-autocompletion.folderNamesToBeIncluded": [""],
+  "html-to-css-autocompletion.folderNamesToBeExcluded": ["node_modules"],
+  "html-to-css-autocompletion.includePattern": "",
+  "html-to-css-autocompletion.excludePattern": ""
+}

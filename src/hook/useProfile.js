@@ -11,15 +11,15 @@ const useProfile = () => {
         return false;
       }
       window.sessionStorage.setItem("profile", JSON.stringify(response.data));
-      await setProfile({
+      setProfile({
         id: response.data.customer_id,
         name: response.data.name,
         email: response.data.email,
         phone: response.data.phone,
         sex: response.data.sex,
         dayOfBirth: response.data.dayOfBirth,
+        avatar: response.data.avatar,
       });
-
       return true;
     } catch (err) {
       console.log("useProfile err: " + err);
@@ -35,7 +35,20 @@ const useProfile = () => {
       return false;
     }
   };
-  return { useprofile, updatepassword };
+  const getprofileorders = async () => {
+    try {
+      const response = await apiCustomerProfile.getProfileOrders();
+      if (response.data?.message) {
+        console.log("profile err", response);
+        return false;
+      }
+      return response;
+    } catch (err) {
+      console.log("getprofileorders err: " + err);
+      return false;
+    }
+  };
+  return { useprofile, updatepassword, getprofileorders };
 };
 
 export default useProfile;

@@ -1,0 +1,70 @@
+.shoporderscard__container {
+  background-color: white;
+}
+.shoporderscard__container--top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--primary-color);
+}
+.shoporderscard__shop {
+  display: flex;
+  align-items: center;
+}
+.shoporderscard__shop--name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-right: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  max-width: 25rem;
+}
+.shoporderscard__shop--button {
+  font-size: 1.2rem;
+  padding: 0.5rem 0.9rem;
+  background-color: var(--primary-color);
+  border: 1px solid white;
+  color: white;
+}
+.shoporderscard__order--status {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-right: 1rem;
+}
+.shoporderscard__product--image {
+  height: 8rem;
+  width: 8rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 3px;
+}
+.shoporderscard__product {
+  padding: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid var(--primary-color);
+}
+.shoporderscard__container--bot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+.shoporderscard__product--name {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-right: 1rem;
+}
+.shoporderscard__button-list--button {
+  font-size: 1.2rem;
+  padding: 0.5rem 0.9rem;
+  background-color: var(--primary-color);
+  border: 1px solid white;
+  color: white;
+}
+.shoporderscard--total {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}

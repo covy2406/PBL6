@@ -1,10 +1,8 @@
 .profileform {
-  height: 45rem;
   border-radius: 1px;
 }
 .profileform__details {
   width: 50vw;
-  height: fit-content;
   overflow-y: auto;
 }
 .profileform__title__item {

@@ -1,4 +1,3 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
@@ -97,7 +96,6 @@ const ShopDetails = () => {
             <div className="shop__content-text">Trạng thái</div>
             <div className="shop__content-text">Tài khoản ngân hàng</div>
           </div>
-
           <div className="shop__content--body">
             {!editform ? (
               <>
@@ -172,6 +170,7 @@ const ShopDetails = () => {
             )}
           </div>
         </div>
+
       </div>
     </>
   );

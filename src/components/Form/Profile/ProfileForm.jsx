@@ -3,7 +3,6 @@ import { days, months, years } from "./DateData.js";
 import "../AccountForm.css";
 import "./DatePicker.css";
 import "./Profile.css";
-import Logo from "../../../assets/Logo/4B1G.png";
 
 import Avatar from "react-avatar-edit";
 
@@ -12,11 +11,12 @@ import useAuth from "hook/useAuth.js";
 import useProfile from "hook/useProfile.js";
 import apiCustomerProfile from "api/apiCustomerProfile.js";
 import { toast } from "react-toastify";
+import { URLUtils } from "utils/urlUtils.js";
 
 const ProfileForm = () => {
   //img states
-  const [avatar, setAvatar] = useState(Logo);
-  const [preview, setPreview] = useState();
+  const [avatar, setAvatar] = useState(null);
+  const [preview, setPreview] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -26,7 +26,7 @@ const ProfileForm = () => {
   const onClose = () => {
     toggleVisibility();
     setAvatar(preview);
-    setPreview(null);
+    setPreview(preview);
   };
   const onCrop = (preview) => {
     setPreview(preview);
@@ -36,7 +36,7 @@ const ProfileForm = () => {
   const currentDate = new Date();
 
   // get data from useProfile hook
-  const { profile } = useAuth();
+  const { profile, auth } = useAuth();
   const { useprofile } = useProfile();
 
   // define states
@@ -62,7 +62,6 @@ const ProfileForm = () => {
 
   useEffect(() => {
     if (profile) {
-      console.log("load profile: ", profile);
       if (profile.dayOfBirth !== null) {
         const new_birthday = profile.dayOfBirth
           .split(" ")[0]
@@ -75,11 +74,11 @@ const ProfileForm = () => {
       setPhone(profile.phone);
       setUser(profile.name);
       setSex(profile.sex === 1 ? "Nam" : "Nữ");
+      setPreview(auth.url + profile.avatar);
     }
   }, [profile]);
 
   useEffect(() => {
-    console.log("get days ", birthday);
     setDays(birthday[0]);
     setMonths(birthday[1]);
     setYears(birthday[2]);
@@ -90,29 +89,35 @@ const ProfileForm = () => {
   }, [dayy, monthh, yearr]);
 
   const handleSubmit = (e) => {
+    console.log(avatar);
+    var avatarFile = URLUtils.base64ToFile(avatar, "avatar.png");
     const data = {
       name: user,
-      avatar: avatar,
       email: email,
+      avatar: avatarFile,
       phone: phone,
-      sex: sex === "Nam" ? true : false,
+      sex: sex === "Nam" ? 1 : 0,
       //reverse birthday array to match api format yyyy-mm-dd
       dayOfBirth: birthday
         .reverse()
         .map((value) => (value < 10 ? `0${value}` : value))
         .join("-"),
     };
-    console.log("data: ", data);
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
     apiCustomerProfile
-      .updateProfile(data, profile.id)
+      .updateProfile(data)
       .then((res) => {
         toast.success("Cập nhật thành công");
         window.sessionStorage.setItem("profile", JSON.stringify(data));
         window.location.reload();
+        console.log(res);
       })
       .catch((err) => {
         toast.error("Cập nhật thất bại");
-        console.log("updae profile err: ", err);
+        console.log("update profile err: ", err);
       });
   };
 
@@ -182,18 +187,6 @@ const ProfileForm = () => {
                 />
                 <div class="circle"></div>
                 <label for="option2">Nữ</label>
-                {/* <input
-                  type="radio"
-                  name="choice"
-                  id="otherRadio"
-                  value="Option 3"
-                  checked={sex === "Khác"}
-                  onChange={(e) => {
-                    setSex("Khác");
-                  }}
-                />
-                <div class="circle"></div>
-                <label for="option3">Khác</label> */}
               </td>
             </tr>
             <tr className="profileform__table__row">
@@ -251,17 +244,14 @@ const ProfileForm = () => {
         </div>
         {/* Change Avatar section */}
         <div className="profileform__avatar">
-          <img
-            src={avatar}
-            alt="avatar avatar"
-            className="profileform__avatar--img"
-          />
+          <img src={preview} alt="" className="profileform__avatar--img" />
           <button
             className="profileform__avatar--button"
-            onClick={toggleVisibility}>
+            onClick={() => {
+              toggleVisibility();
+            }}>
             Chọn ảnh
           </button>
-          {avatar.length}
         </div>
       </div>
       {isVisible ? (
@@ -273,14 +263,14 @@ const ProfileForm = () => {
               onCrop={onCrop}
               onClose={onClose}
               onImageLoad={(e) => {}}
+              exportSize={300}
               label="Chọn ảnh"
               labelStyle={{
                 fontSize: "20px",
                 fontWeight: "bold",
                 cursor: "pointer",
               }}
-              exportAsSquare={true}
-              exportSize={2018}></Avatar>
+              exportAsSquare={true}></Avatar>
             <button className="avatar__btn " onClick={onClose}>
               Lưu
             </button>

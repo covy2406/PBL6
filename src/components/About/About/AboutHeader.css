@@ -1,0 +1,19 @@
+.about__header {
+  width: 100%;
+  background-color: var(--primary-color);
+  position: fixed;
+}
+.about__header--container {
+  height: 14rem;
+  display: flex;
+  align-items: center;
+}
+.about__header--logo {
+  height: 15rem;
+  padding-right: 3rem;
+}
+.about__header--title {
+  font-size: 3rem;
+  color: var(--white-color);
+  font-weight: 400;
+}

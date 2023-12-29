@@ -2,14 +2,15 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useShop from "hook/useShop";
 import ShopOrdersData from "Site_Shop/Data/ShopOrdersData";
+import ShopOrdersCard from "./ShopOrdersCard/ShopOrdersCard";
 
 const ShopOrders = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  const { getShopdetails } = useShop();
+  const [orderList, setOrderList] = useState({});
 
   useEffect(() => {
-    const res = getShopdetails();
+    setOrderList(JSON.parse(window.sessionStorage.getItem("shopOrders")));
   }, []);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const ShopOrders = () => {
       <div className="shop__menu_container">
         <div className="shop__home">
           <ul className="shop__home-list">
-            {ShopOrdersData.map((item, index) => {
+            {ShopOrdersData.map((item) => {
               return (
                 <li className="shop__home-item">
                   <Link
@@ -34,6 +35,19 @@ const ShopOrders = () => {
               );
             })}
           </ul>
+        </div>
+      </div>
+      <div className="shop__menu_details">
+        <div className="shop__orders--list">
+          {Object.keys(orderList).map((item) => {
+            return (
+              <ShopOrdersCard
+                key={item}
+                data={orderList[item]}
+                filter={currentPath.split("/")[3]}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

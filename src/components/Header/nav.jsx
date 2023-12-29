@@ -13,6 +13,7 @@ import Logo from "../../assets/Logo/4B1G.png";
 //import components
 import CartList from "./CartList";
 import Navinfo from "./navinfo";
+import NavNotification from "./navNotification";
 
 //import Hooks
 import useAuth from "hook/useAuth";
@@ -27,7 +28,6 @@ const Nav = ({
   const { auth, setAuth, profile, setProfile } = useAuth();
   const { useprofile } = useProfile();
 
-  const [authUser, setAuthUser] = useState(profile.name || null);
   const isAuth = window.sessionStorage.getItem("isAuth");
 
   const location = useLocation();
@@ -39,15 +39,13 @@ const Nav = ({
 
   //each time page is reload, get profile by using the current access_token
   useEffect(() => {
-    console.log("profile", profile);
     if (window.sessionStorage.getItem("profile") === null) {
       console.log("get profile from api");
       useprofile();
     } else {
       setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
     }
-    setAuthUser(profile.name);
-  }, [profile.name]);
+  }, []);
 
   // clear all when logout
   const handleLogout = (e) => {
@@ -78,24 +76,7 @@ const Nav = ({
                   <header className="header__notify-header">
                     <h3>Thông báo mới nhận</h3>
                   </header>
-                  <ul className="header__notify-list">
-                    <li className="header__notify-item header__notify-item--viewed">
-                      <Link to="/" className="header__notify-link">
-                        <img
-                          src="./img/dienthoai.jpg"
-                          alt=""
-                          className="header__notify-img"></img>
-                        <div className="header__notify-info">
-                          <span className="header__notify-name">
-                            Xác thực chính hãng nguồn gốc sản phẩm Ohui
-                          </span>
-                          <span className="header__notify-description">
-                            Xác thực chính xác nguồn gốc sản phẩm Ohui
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  </ul>
+                  <NavNotification />
                   <div className="header__notify-footer">
                     <Link to="/" className="header__notify-footer-btn">
                       Xem tất cả
@@ -104,21 +85,22 @@ const Nav = ({
                 </div>
               </li>
               <li className="header__navbar-item">
-                <Link to="/" className="header__navbar-item-link">
+                <Link to="/contact" className="header__navbar-item-link">
                   <i className="header__navbar-icon-right fa-regular fa-circle-question"></i>
                   Trợ giúp
                 </Link>
               </li>
-              {/* <!-- <li className="header__navbar-item header__navbar-item--bold header__navbar-item--separate">Đăng ký</li>
-                            <li className="header__navbar-item header__navbar-item--bold">Đăng nhập</li> --> */}
               {isAuth ? (
                 <li className="header__navbar-item header__navbar-user">
                   <img
-                    src={profile.avatar}
+                    src={auth.url + profile.avatar}
                     alt=""
-                    className="header__navbar-user-img"></img>
+                    className="header__navbar-user-img"
+                    onLoad={(e) => {
+                      e.target.src = auth.url + profile.avatar;
+                    }}></img>
                   <span className="header__navbar-user-name header__navbar-item--bold">
-                    {authUser}
+                    {profile.name}
                   </span>
                   <ul className="header__navbar-user-menu">
                     <li className="header__navbar-user-item">
@@ -129,11 +111,8 @@ const Nav = ({
                         <Link to="/admin/product">Trang admin</Link>
                       </li>
                     ) : null}
-                    {/* <li className="header__navbar-user-item">
-                      <Link to="/">Địa chỉ của tôi</Link>
-                    </li> */}
                     <li className="header__navbar-user-item">
-                      <Link to="/user/purchase">Đơn mua</Link>
+                      <Link to="/user/account/order">Đơn mua</Link>
                     </li>
                     <li
                       className="header__navbar-user-item header__navbar-user-item--separate"
