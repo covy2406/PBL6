@@ -18,8 +18,8 @@ const apiShopProduct = {
   },
 
   // chỉnh sửa cập nhật mới
-  update(data) {
-    const url = `/shop_products/${data.id}`;
+  update(data, id) {
+    const url = `/shop_products/${id}`;
     return axiosClient.put(url, data);
   },
 

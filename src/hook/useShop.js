@@ -1,4 +1,5 @@
 import apiShop from "api/apiShop";
+import apiShopProduct from "api/apiShopProduct";
 import useAuth from "./useAuth";
 
 const useShop = () => {
@@ -58,11 +59,46 @@ const useShop = () => {
       return false;
     }
   };
+  const updateShopProduct = async (data, id) => {
+    try {
+      const response = await apiShopProduct.update(data, id);
+      console.log(response);
+      console.log("useShop updateShopProduct data: ", data);
+      if (response?.message === "Resource updated successfully") {
+        window.sessionStorage.setItem("shopProducts", JSON.stringify(data));
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
+  };
+  const deleteShopProduct = async (id) => {
+    try {
+      const response = await apiShopProduct.remove(id);
+      console.log(response);
+      console.log("useShop deleteShopProduct id: ", id);
+    } catch (err) {
+      return false;
+    }
+  };
+  const createShopProduct = async (data) => {
+    try {
+      const response = await apiShopProduct.add(data);
+      return response;
+    } catch (err) {
+      return false;
+    }
+  };
   return {
     getShopdetails,
     updateShopdetails,
     getShopOrdersAll,
     getShopProductsAll,
+    updateShopProduct,
+    deleteShopProduct,
+    createShopProduct,
   };
 };
 

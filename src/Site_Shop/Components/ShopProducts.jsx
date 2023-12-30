@@ -12,7 +12,10 @@ const ShopProduct = () => {
   }, []);
 
   useEffect(() => {
-    console.log(productList);
+    const newList = JSON.parse(window.sessionStorage.getItem("shopProducts"));
+    if (JSON.stringify(newList) !== JSON.stringify(productList)) {
+      setProductList(newList);
+    }
   }, [productList]);
 
   useEffect(() => {
@@ -52,12 +55,15 @@ const ShopProduct = () => {
         </div>
       </div>
       <div className="shop__menu_details">
+        {currentPath.split("/")[4]}
         <div className="shop__orders--list">
           {Object.keys(productList).map((key) => {
             return (
               <ShopProductsCard
+                key={key}
                 data={productList[key]}
                 filter={currentPath.split("/")[4]}
+                func={setProductList}
               />
             );
           })}

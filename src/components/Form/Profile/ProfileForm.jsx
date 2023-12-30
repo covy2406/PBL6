@@ -258,22 +258,17 @@ const ProfileForm = () => {
         <div className="profileform__avatar--overlay">
           <div className="profileform__avatar--preview">
             <Avatar
-              height={500}
-              width={500}
               onCrop={onCrop}
               onClose={onClose}
-              onImageLoad={(e) => {}}
-              exportSize={300}
-              label="Chọn ảnh"
+              exportSize={200}
+              label="Chọn ảnh sản phẩm"
               labelStyle={{
                 fontSize: "20px",
                 fontWeight: "bold",
                 cursor: "pointer",
               }}
-              exportAsSquare={true}></Avatar>
-            <button className="avatar__btn " onClick={onClose}>
-              Lưu
-            </button>
+              exportAsSquare={true}
+            />
           </div>
         </div>
       ) : null}
