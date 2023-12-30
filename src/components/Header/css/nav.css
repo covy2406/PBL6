@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #5d58a1;
+  --primary-color: rgb(196, 67, 53);
   --red-color: #cb1c22;
 }
 
@@ -553,6 +553,8 @@ và có border màu xanh xanh xung quanh */
   align-items: center;
 }
 
+/* GIỎ HÀNG */
+
 .header__cart {
   width: 150px;
   text-align: center;
@@ -600,7 +602,7 @@ và có border màu xanh xanh xung quanh */
   list-style: none;
 
   /* khi có quá nhiều sản phẩm thì sẽ bị kéo thành bảng dài rất xấu */
-  height: 42vh; /*view port height: 56% chiều ngang màn hình*/
+  height: 42vh; /*view port height: 56% chiều cao màn hình*/
   overflow-y: auto;
 }
 
@@ -779,6 +781,8 @@ và có border màu xanh xanh xung quanh */
   align-items: center;
   /* color: var(--black-color); */
 }
+
+/* Ô SEARCH THÔNG TIN */
 
 .header__search-input-wrap {
   flex: 1;

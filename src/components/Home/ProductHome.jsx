@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
+import { AiOutlineStar } from "react-icons/ai";
 import "./home.css";
 import apiProductHome from "api/apiProductHome";
 import useCart from "hook/useCart";
@@ -35,7 +36,6 @@ const ProductHome = () => {
 
   return (
     <div className="container">
-      {/* <p >{productList}</p> */}
       {productList && productList.length > 0 ? (
         // Array.isArray(productList) ? or productList && productList.lenght > 0 ? đều kiểm tra xem có phải dữ liệu từ api là mảng hay ko.
         productList.map((curElm) => {
@@ -44,7 +44,8 @@ const ProductHome = () => {
               <div className="img_box">
                 <img
                   className="product-main__item"
-                  src={auth.url + curElm.image}
+                  // src={`${auth.url}/${curElm.image}`}
+                  src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
                   alt={curElm.name}></img>
                 <div className="icon">
                   {auth.isAuth ? (
@@ -68,13 +69,22 @@ const ProductHome = () => {
               <div className="detail">
                 <h4 className="home-product-item__name">{curElm.name}</h4>
                 <div className="home-product-item__description">
-                  {curElm.detail} Phần mô tả
+                  {curElm.details}
                 </div>
                 <div className="home-product-item__price">
                   <span className="home-product-item__price-old"></span>
                   <span className="home-product-item__price-current">
                     {parseInt(curElm.price).toLocaleString("vn-VN")} đ
                   </span>
+                </div>
+                <div className="home-product-item__action">
+                  <div className="home-product-item__rating">
+                    <i className="home-product-item__star--gold fas fa-star">
+                      <AiOutlineStar />
+                    </i>
+
+                  </div>
+                  {/* <span className="home-product-item__sold">88 đã bán</span> */}
                 </div>
 
                 <div className="home-product-item__origin">

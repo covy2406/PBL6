@@ -26,6 +26,7 @@ const Viewdetails = () => {
 
     const [selectedColor, setSelectedColor] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
+    const [listImageColor, setListImageColor] = useState(null);
 
     useEffect(() => {
         const fetchProuductDetail = async () => {
@@ -37,6 +38,9 @@ const Viewdetails = () => {
                 if (response.data.listshop_product.length > 0) {
                     setSelectedColor(response.data.listshop_product[0].color);
                     setSelectedImage(response.data.listshop_product[0].image); // Mặc định chọn hình ảnh đầu tiên
+                }
+                else {
+                    setListImageColor(listshop_product.image)
                 }
             } catch (error) {
                 setError(error);
@@ -118,11 +122,11 @@ const Viewdetails = () => {
                                                     </thead>
                                                     <tbody className="table__head-body">
                                                         <tr>
-                                                            <td>Name</td>
+                                                            <td>Tên sản phẩm</td>
                                                             <td>{shop_products.name}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Color</td>
+                                                            <td>Màu sắc</td>
                                                             <td>{shop_products.color}</td>
                                                         </tr>
                                                         <tr>
@@ -198,8 +202,10 @@ const Viewdetails = () => {
                                 </div>
                             </div>
                         </div>
+                        <div container__comment>
+
+                        </div>
                     </div>
-                    <div container__comment></div>
                 </div>
             ) : null}
         </div>

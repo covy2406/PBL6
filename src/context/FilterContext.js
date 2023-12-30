@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
 
-const SearchAndBrandContext = createContext();
+const FilterContext = createContext();
 
-export const SearchAndBrandProvider = ({ children }) => {
+export const FilterProvider = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchProduct, setSearchProduct] = useState([]);
 
@@ -16,7 +16,14 @@ export const SearchAndBrandProvider = ({ children }) => {
 
     const [filteredProducts, setFilteredProducts] = useState([]); //filteredProducts: Lưu trữ danh sách sản phẩm được lọc dựa trên các điều kiện nhất định.
 
-    const searchAndBrandContextData = {
+    const [price, setPrice] = useState([]);
+
+    // Giá
+    const [minPriceInput, setMinPriceInput] = useState('');
+    const [maxPriceInput, setMaxPriceInput] = useState('');
+
+    const FilterContextData = {
+        //search
         searchTerm,
         setSearchTerm,
         searchProduct,
@@ -33,12 +40,22 @@ export const SearchAndBrandProvider = ({ children }) => {
         setFilteredProducts,
         selectedBrandProducts,
         setSelectedBrandProducts,
+
+        //price
+        price,
+        setPrice,
+
+        //filter
+        minPriceInput,
+        maxPriceInput,
+        setMaxPriceInput,
+        setMinPriceInput
     }
 
     return (
-        <SearchAndBrandContext.Provider value={searchAndBrandContextData}>
+        <FilterContext.Provider value={FilterContextData}>
             {children}
-        </SearchAndBrandContext.Provider>
+        </FilterContext.Provider>
     );
 }
-export default SearchAndBrandProvider;
+export default FilterProvider;

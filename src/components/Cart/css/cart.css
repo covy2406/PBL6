@@ -1,3 +1,5 @@
+@import url('../css/DiscountListStyle.css');
+
 .cartcontainer {
   padding: 40px 50px;
   width: 100%;
@@ -92,7 +94,10 @@
   border-collapse: collapse;
   border: 1px solid #ddd;
   background-color: var(--white-color);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.24);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.24); */
+  
+
+  /* margin-bottom: 15px; */
 }
 
 .cart-table thead {
@@ -131,17 +136,42 @@ td {
   height: 140px;
 }
 
-/* total price để checkout */
+/* Áp dụng mã giảm giá bởi shop */
+.discount__byShop {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px 40px;
+  width: 100%;
+  /* box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24); */
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  max-width: 100%;
+}
 
+.discount__byShop-icon {
+  font-size: 2rem;
+}
+
+.discount__byShop-ad {
+  margin-left: 5px;
+}
+
+/* total price để checkout */
 .cart__totalprice {
   width: 100%;
   padding: 30px 50px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   background-color: var(--white-color);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.14);
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   align-items: center;
-  margin-bottom: 40px;
+  margin: 30px 0 20px;
+  position: sticky;
+  bottom: 0;
+  max-width: 100%;
 }
 
 .cartcontainer .totalprice {
@@ -162,6 +192,27 @@ td {
   outline: none;
   background: var(--primary-red-rgb);
   cursor: pointer;
+}
+
+.cartcontainer .btn__checkout-discount-shop,.btn__checkout-discount-web {
+  padding: 10px 20px;
+  margin: 0 20px;
+  color: #fff;
+  border: none;
+  outline: none;
+  background: var(--primary-red-rgb);
+  cursor: pointer;
+  font-size: 1.4rem;
+  /* display: inline-block;
+  position: relative; */
+}
+
+/* .btn__checkout-discount-shop:focus ~ .discount__cart-list {
+  display: block;
+} */
+
+.btn__checkout-discount-shop:hover .discount__cart-list {
+  display: block;
 }
 
 .btn__checkout:hover {
