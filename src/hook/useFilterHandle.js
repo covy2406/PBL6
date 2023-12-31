@@ -104,6 +104,8 @@ const useFilterHandle = () => {
         }
     };
 
+    
+
     return {
         fetchBrands,
         fetchPrice,

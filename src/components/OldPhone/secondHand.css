@@ -8,7 +8,9 @@
     transition: 0.5s;
     cursor: pointer;
     border-radius: 15px;
-    /* margin-right: 20px; */
+    justify-content: space-between;
+    box-sizing: border-box;
+    
 }
 
 .home-product-item__price-plus {

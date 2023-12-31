@@ -37,12 +37,6 @@ const Cart = () => {
         }));
     };
 
-    // useEffect(() => {
-    //     cartListProduct.map=(product) =>{
-    //         setShopProductIdList(shop_product_id_list.push(product.id));
-    //     }
-    // },[]);
-
     useEffect(() => {
         cartListProduct.map((product) => {
             setShopProductIdList((prevList) => [...prevList, product.id]);
@@ -107,6 +101,26 @@ const Cart = () => {
             console.log("Decreasing quantity fail " + id);
         }
     };
+
+    // mảng chứa danh sách các sản phẩm theo shop
+    const shopsWithProducts = [];
+    cartListProduct.forEach((productItem) => {
+        const existingShopIndex = shopsWithProducts.findIndex(shop => shop.shopId === productItem.shop_id);
+
+        //  sử dụng findIndex trong JavaScript, nếu phần tử không được tìm thấy, nó sẽ trả về giá trị -1
+        if (existingShopIndex !== -1) {
+            // Shop đã tồn tại trong mảng
+            shopsWithProducts[existingShopIndex].products.push(productItem);
+        } else {
+            // Tạo mới shop và thêm vào mảng
+            shopsWithProducts.push({
+                shopId: productItem.shop_id,
+                shopName: productItem.shopName,
+                products: [productItem],
+            });
+        }
+    })
+
 
     const handlePayment = async (vnp_OrderInfo, vnp_Amount) => {
 
@@ -190,82 +204,105 @@ const Cart = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {cartListProduct.map(
-                                        (item) =>
-                                            item.quantity_order > 0 && (
-                                                
-                                                <tr key={item.id}>
-                                                    <td>
-
-                                                        <input
-                                                            type="checkbox"
-                                                            className="select__Checkbox"
-                                                            checked={selectedProducts[item.id]}
-                                                            onChange={() => handleCheckboxChange(item.id)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <img
-                                                            // src={`${auth.url}/${item.image}`}
-                                                            src={`http://0.tcp.ap.ngrok.io:15234/${item.image}`}
-                                                            alt={item.name}></img>
-                                                    </td>
-                                                    <td>{item.name}</td>
-                                                    <td>
-                                                        {parseInt(item.price).toLocaleString("vn-VN")} đ
-                                                    </td>
-                                                    <td>
-                                                        <div className="qty">
-                                                            <button
-                                                                className="incqty"
-                                                                onClick={() => incQuantity(item.id)}>
-                                                                +
-                                                            </button>
+                                    {shopsWithProducts.map(
+                                        (shop, index) => (
+                                            <React.Fragment key={index}>
+                                                <tr className="shopNameRow">
+                                                    <td colSpan="7">Tên shop: {shop.shopName}</td>
+                                                </tr>
+                                                {shop.products.map((productItem, index) =>
+                                                (
+                                                    <tr key={index}>
+                                                        <td>
                                                             <input
-                                                                type="text"
-                                                                value={item.quantity_order}
+                                                                type="checkbox"
+                                                                className="select__Checkbox"
+                                                                checked={selectedProducts[productItem.id]}
+                                                                onChange={() => handleCheckboxChange(productItem.id)}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <img
+                                                                // src={`${auth.url}/${productItem.image}`}
+                                                                src={`http://0.tcp.ap.ngrok.io:15234/${productItem.image}`}
+                                                                alt={productItem.name}></img>
+                                                        </td>
+                                                        <td>{productItem.name} - {shop.shopName}</td>
+                                                        <td>
+                                                            {parseInt(productItem.price).toLocaleString("vn-VN")} đ
+                                                        </td>
+                                                        <td>
+                                                            <div className="qty">
+                                                                <button
+                                                                    className="incqty"
+                                                                    onClick={() => incQuantity(productItem.id)}>
+                                                                    +
+                                                                </button>
+                                                                <input
+                                                                    type="text"
+                                                                    value={productItem.quantity_order}
 
-                                                            ></input>
-                                                            <button
-                                                                className="incqty"
-                                                                onClick={() => decQuantity(item.id)}>
-                                                                -
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <p className="subtotal">
-                                                            {(
-                                                                item.price * item.quantity_order
-                                                            ).toLocaleString("vn-VN")}{" "}
-                                                            đ
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <div className="close">
-                                                            <button
-                                                                onClick={() =>
-                                                                    delfromcart(item.id)
-                                                                }>
-                                                                <AiOutlineClose />
-                                                            </button>
+                                                                ></input>
+                                                                <button
+                                                                    className="incqty"
+                                                                    onClick={() => decQuantity(productItem.id)}>
+                                                                    -
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <p className="subtotal">
+                                                                {(
+                                                                    productItem.price * productItem.quantity_order
+                                                                ).toLocaleString("vn-VN")}{" "}
+                                                                đ
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <div className="close">
+                                                                <button
+                                                                    onClick={() =>
+                                                                        delfromcart(productItem.id)
+                                                                    }>
+                                                                    <AiOutlineClose />
+                                                                </button>
 
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                )
+                                                )}
+                                                <tr className="shop_promotion">
+                                                    <td colSpan="7">
+                                                        <div className="discount__byShop">
+                                                            <span className="discount__byShop-icon"><CiDiscount1 /></span>
+                                                            <div className="discount__byShop-ad">
+                                                                <div className="btn__checkout-discount-shop" >
+                                                                    Thêm mã giảm giá của Shop
+                                                                    <DiscountListShop />
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            )
+                                            </React.Fragment>
+                                        )
                                     )}
+
                                 </tbody>
+                                {/* <tbody>
+                                </tbody> */}
                             </table>
-                            <div className="discount__byShop">
+                            {/* <div className="discount__byShop">
                                 <span className="discount__byShop-icon"><CiDiscount1 /></span>
                                 <div className="discount__byShop-ad">
                                     <div className="btn__checkout-discount-shop" >
                                         Thêm mã giảm giá của Shop
-                                        <DiscountListShop  shop_product_id={shop_product_id_list}/>
+                                        <DiscountListShop shop_product_id={shop_product_id_list} />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="cart__totalprice">
                                 <h2 className="totalprice">
                                     total: {Totalprice.toLocaleString("vn-VN")} đ
@@ -274,7 +311,11 @@ const Cart = () => {
                                     className="btn__checkout"
                                     onClick={() => handlePayment()}
 
-                                >Mua hàng
+                                >Mua online
+                                </button>
+
+                                <button className="cash__payment">
+                                    Thanh toán bằng tiền mặt
                                 </button>
 
                                 <button className="btn__checkout-discount-web"
@@ -292,7 +333,7 @@ const Cart = () => {
                 </div>
             </div>
         </>
-  );
+    );
 };
 
 export default Cart;
