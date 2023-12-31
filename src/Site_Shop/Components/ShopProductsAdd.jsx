@@ -23,7 +23,7 @@ const ShopProductAdd = () => {
     product_id: "",
     price: "",
     quantity: 1,
-    desciption: "",
+    description: "",
     warranty: 6,
     status: 1,
     isNew: 1,
@@ -90,12 +90,13 @@ const ShopProductAdd = () => {
                 <div>
                   <Select
                     placeholder="Chọn loại sản phẩm"
-                    onChange={(selectedOption) =>
+                    onChange={(selectedOption) => {
+                      console.log(selectedOption.value);
                       setProduct({
                         ...product,
                         product_id: selectedOption.value,
-                      })
-                    }
+                      });
+                    }}
                     styles={{
                       valueContainer: (base) => ({
                         ...base,

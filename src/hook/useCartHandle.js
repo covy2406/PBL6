@@ -5,20 +5,20 @@ import apiHandlePayment from "api/apiHandlePayment";
 import { useEffect } from "react";
 
 const useCartHandle = () => {
-    const { cartListProduct, selectedProducts, setCartListProduct } = useCart();
-    // Add to cart
-    const addtocart = async (productId, quantity) => {
-        const response = await apiHandleCart.add(productId, quantity);
-        if (response) {
-            showCartList();
-            toast.success('Thêm vào giỏ hàng thành công', {autoClose: 1000})
-            return true;
-        } else {
-            console.error("Add to cart err", response);
-            toast.error('Không thể thêm vào giỏ hàng', response);
-            return false;
-        }
-    };
+  const { cartListProduct, selectedProducts, setCartListProduct } = useCart();
+  // Add to cart
+  const addtocart = async (productId, quantity) => {
+    const response = await apiHandleCart.add(productId, quantity);
+    if (response) {
+      showCartList();
+      toast.success("Thêm vào giỏ hàng thành công", { autoClose: 1000 });
+      return true;
+    } else {
+      console.error("Add to cart err", response);
+      toast.error("Không thể thêm vào giỏ hàng", response);
+      return false;
+    }
+  };
 
   // xoa 1 san pham trong gio hang
   const delfromcart = async (productID) => {
@@ -82,16 +82,14 @@ const useCartHandle = () => {
     }
   };
 
-    
-
-    return {
-        addtocart,
-        delfromcart,
-        showCartList,
-        increaseQuantity,
-        decreaseQuantity,
-        //handlePayment
-    };
+  return {
+    addtocart,
+    delfromcart,
+    showCartList,
+    increaseQuantity,
+    decreaseQuantity,
+    //handlePayment
+  };
 };
 
 export default useCartHandle;

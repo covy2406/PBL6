@@ -91,6 +91,27 @@ const useShop = () => {
       return false;
     }
   };
+  const getShopPromosAll = async () => {
+    try {
+      const response = await apiShop.getallpromos();
+      window.sessionStorage.setItem(
+        "shopPromos",
+        JSON.stringify(response.data)
+      );
+      return response.data;
+    } catch (err) {
+      console.log("useShop getShopPromosAll err: " + err);
+      return false;
+    }
+  };
+  const createShopPromo = async (data) => {
+    try {
+      const response = await apiShop.addpromos(data);
+      return response;
+    } catch (err) {
+      return false;
+    }
+  };
   return {
     getShopdetails,
     updateShopdetails,
@@ -99,6 +120,8 @@ const useShop = () => {
     updateShopProduct,
     deleteShopProduct,
     createShopProduct,
+    getShopPromosAll,
+    createShopPromo,
   };
 };
 

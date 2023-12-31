@@ -16,12 +16,18 @@ import ShopChart from "./Components/ShopChart";
 const Shop = ({ extraProps } = "details") => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  const { getShopOrdersAll, getShopProductsAll, getShopdetails } = useShop();
+  const {
+    getShopOrdersAll,
+    getShopProductsAll,
+    getShopdetails,
+    getShopPromosAll,
+  } = useShop();
 
   useEffect(() => {
     getShopdetails();
     getShopOrdersAll();
     getShopProductsAll();
+    getShopPromosAll();
   }, []);
 
   useEffect(() => {

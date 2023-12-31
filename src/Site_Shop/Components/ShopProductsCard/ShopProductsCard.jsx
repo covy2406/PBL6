@@ -80,9 +80,7 @@ const ShopProductsCard = ({ data, filter, func }) => {
   };
   return (
     <>
-      {filter === data.status ? (
-        "active"
-      ) : "inactive" || filter === "all" ? (
+      {filter === (data.status ? "active" : "inactive") || filter === "all" ? (
         <div>
           <div className="productscard__container">
             <div className="productscard__product-name">
@@ -93,14 +91,15 @@ const ShopProductsCard = ({ data, filter, func }) => {
               />
               <div className="productscard__product-name--text">
                 {product.name}
+                <div className="productscard__product-price">
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(product.price)}
+                </div>
               </div>
             </div>
-            <div className="productscard__product-price">
-              {new Intl.NumberFormat("vi-VN", {
-                style: "currency",
-                currency: "VND",
-              }).format(product.price)}
-            </div>
+
             <div className="productscard__product-quantity">
               Kho: {product.quantity}
             </div>
@@ -164,6 +163,11 @@ const ShopProductsCard = ({ data, filter, func }) => {
                   );
                 })}
               </ul>
+            </div>
+            <div
+              className="productscard__product-status"
+              id={product.status ? "" : "inactive"}>
+              {product.status ? "" : "Dừng hoạt động"}
             </div>
           </div>
           {update ? (

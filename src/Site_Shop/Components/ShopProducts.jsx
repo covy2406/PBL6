@@ -55,7 +55,6 @@ const ShopProduct = () => {
         </div>
       </div>
       <div className="shop__menu_details">
-        {currentPath.split("/")[4]}
         <div className="shop__orders--list">
           {Object.keys(productList).map((key) => {
             return (

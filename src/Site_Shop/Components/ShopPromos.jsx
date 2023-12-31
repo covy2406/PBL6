@@ -1,11 +1,23 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ShopPromosCard from "./ShopPromosCard/ShopPromosCard";
+import useShop from "hook/useShop";
 
-const ShopPromos = ({ extraProps } = "all") => {
+const ShopPromos = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
   const [promosList, setPromosList] = useState({});
+
+  //get data from hook
+  const { createShopPromo } = useShop();
+
+  useEffect(() => {
+    setPromosList(JSON.parse(window.sessionStorage.getItem("shopPromos")));
+  }, []);
+
+  useEffect(() => {
+    console.log(promosList);
+  }, [promosList]);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
