@@ -13,14 +13,9 @@ const DiscountListShop = ({ shop_product_id }) => {
    useEffect(() => {
       const fetchDiscountShop = async (discountShopId) => {
          try {
-            if (discountShopId) {
-               const resDiscountShop = await apiHandlePayment.getDiscountShop(discountShopId);
-               const resData = resDiscountShop.data;
-               setDiscountShop(resData);
-            }
-            else {
-               return false;
-            }
+            const resDiscountShop = await apiHandlePayment.getDiscountShop(discountShopId);
+            const resData = resDiscountShop.data;
+            setDiscountShop(resData.shop_productPromotions);
          }
          catch (error) {
             console.error('Lỗi khi lấy mã giảm giá của Shop', error);
@@ -29,21 +24,22 @@ const DiscountListShop = ({ shop_product_id }) => {
          console.log('in ra id cua api:', discountShopId);
       }
 
-      // Object.keys(shop_product_id).map((key)=>{return fetchDiscountShop(shop_product_id[key])});
-      // Sử dụng Promise.all để đợi tất cả các yêu cầu hoàn thành trước khi cập nhật state
-      const fetchData = async () => {
-         try {
-            if (shop_product_id && Object.keys(shop_product_id).length > 0) {
-               // Kiểm tra xem shop_product_id có giá trị và không phải là đối tượng rỗng
-               await Promise.all(Object.keys(shop_product_id).map((key) => fetchDiscountShop(shop_product_id[key])));
-            } else {
-               console.warn('shop_product_id không có giá trị hoặc là một đối tượng rỗng');
-            }
-         } catch (error) {
-            console.error('Lỗi khi fetch dữ liệu:', error);
-         }
-      };
-      fetchData();
+      //Object.keys(shop_product_id).map((key)=>{return fetchDiscountShop(shop_product_id[key])});
+      //Sử dụng Promise.all để đợi tất cả các yêu cầu hoàn thành trước khi cập nhật state
+      // const fetchData = async () => {
+      //    try {
+      //       if (shop_product_id && Object.keys(shop_product_id).length > 0) {
+      //          // Kiểm tra xem shop_product_id có giá trị và không phải là đối tượng rỗng
+      //          await Promise.all(Object.keys(shop_product_id).map((key) => fetchDiscountShop(shop_product_id[key])));
+      //       } else {
+      //          console.warn('shop_product_id không có giá trị hoặc là một đối tượng rỗng');
+      //       }
+      //    } catch (error) {
+      //       console.error('Lỗi khi fetch dữ liệu:', error);
+      //    }
+      // };
+      // fetchData();
+      fetchDiscountShop();
    }, []);
 
    if (error) {

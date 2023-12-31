@@ -11,7 +11,7 @@ import useCartHandle from "hook/useCartHandle";
 const CartList = () => {
     const { auth } = useAuth();
     const { cartListProduct, setCartListProduct } = useCart();
-    const { showCartList } = useCartHandle();
+    const { showCartList, delfromcart } = useCartHandle();
 
     useEffect(() => {
         showCartList();
@@ -53,9 +53,9 @@ const CartList = () => {
                         <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
                         <ul className="header__cart-list-item">
                             {cartListProduct && cartListProduct.length > 0 ? (
-                                cartListProduct.map((curElm) => {
+                                cartListProduct.map((curElm, index) => {
                                     return (
-                                        <li className="header__cart-item" key={curElm.id}>
+                                        <li className="header__cart-item" key={index}>
                                             <img
                                                 // src={`${auth.url}/${curElm.image}`}
                                                 src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
@@ -83,7 +83,10 @@ const CartList = () => {
                                                     <span className="header__cart-item-description">
                                                         {curElm.shopName}
                                                     </span>
-                                                    {/* <span className="header__cart-item-remove"><button onClick={() => removeproduct(curElm)}>Xóa</button></span> */}
+                                                    <div className="header__cart-item-remove" onClick={() => delfromcart(curElm.id)}>
+                                                        {/* <button onClick={() => delfromcart(curElm.id)}>Xóa</button> */}
+                                                        xóa
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>

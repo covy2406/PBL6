@@ -4,7 +4,7 @@ const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [searchProduct, setSearchProduct] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
 
     //Brand:
     const [brands, setBrands] = useState([]); //brands: Lưu trữ danh sách các thương hiệu sản phẩm.
@@ -26,8 +26,8 @@ export const FilterProvider = ({ children }) => {
         //search
         searchTerm,
         setSearchTerm,
-        searchProduct,
-        setSearchProduct,
+        searchResults,
+        setSearchResults,
 
         //brand
         brands,

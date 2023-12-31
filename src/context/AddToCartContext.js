@@ -7,6 +7,7 @@ export const CartProvider = ({ children }) => {
   const [cartListProduct, setCartListProduct] = useState([]);
   const [, setDetail] = useState(false);
   const [close, setClose] = useState(false);
+  const [comment, setComment] = useState([]);
   //const [showAddToCartMessage, setShowAddToCartMessage] = useState(false);
 
   // Xem chi tiet san pham
@@ -25,6 +26,8 @@ export const CartProvider = ({ children }) => {
     close,
     setClose,
     setCartListProduct,
+    comment,
+    setComment,
   };
 
   return (
