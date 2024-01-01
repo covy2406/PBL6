@@ -50,15 +50,36 @@ const ShopProductsCard = ({ data, filter, func }) => {
       confirmButtonText: "Đồng ý",
       cancelButtonText: "Hủy",
     }).then((result) => {
-      if (!result.isConfirmed) return;
+      if (!result.isConfirmed) {
+        //if user click cancel, set product to default data
+        setProduct({
+          id: data.id,
+          shop_id: data.shop_id,
+          product_id: data.product_id,
+          price: data.price,
+          quantity: data.quantity,
+          starRated: data.starRated,
+          status: data.status,
+          isNew: data.isNew,
+          warranty: data.warranty,
+          description: data.description,
+          created_at: data.created_at,
+          updated_at: data.updated_at,
+          image: data.image,
+          name: data.name,
+        });
+        setUpdate(false);
+        return;
+      }
+      setUpdate(false);
+      //nén thành json để gửi dữ liệu lên update
       const packageData = JSON.stringify(product);
       updateShopProduct(packageData, product.id).then(() => {
-        getShopProductsAll().then((res) => {
+        getShopProductsAll().then(() => {
           func(JSON.parse(window.sessionStorage.getItem("shopProducts")));
         });
       });
     });
-    setUpdate(false);
   };
   const handleDelete = (e) => {
     e.preventDefault();
@@ -122,7 +143,7 @@ const ShopProductsCard = ({ data, filter, func }) => {
               <ul className="productscard__product-starrate--star">
                 {[...Array(product.starRated)].map((index) => {
                   return (
-                    <li
+                    <div
                       key={index}
                       className="productscard__product-starrate--star--icon">
                       <svg
@@ -138,7 +159,7 @@ const ShopProductsCard = ({ data, filter, func }) => {
                           d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
                         />
                       </svg>
-                    </li>
+                    </div>
                   );
                 })}
                 {[...Array(5 - product.starRated)].map((item, index) => {
@@ -302,6 +323,12 @@ const ShopProductsCard = ({ data, filter, func }) => {
                           { value: "1", label: "Hoạt động" },
                           { value: "0", label: "Dừng hoạt động" },
                         ]}
+                        defaultValue={{
+                          value: product.status,
+                          label: product.status
+                            ? "Hoạt động"
+                            : "Dừng hoạt động",
+                        }}
                       />
                     </div>
                   </div>

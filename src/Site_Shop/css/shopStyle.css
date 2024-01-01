@@ -185,3 +185,14 @@
   width: 100%;
   height: 85%;
 }
+.shop__promos--type {
+  margin: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.4rem;
+  width: fit-content;
+  display: flex;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--primary-color);
+  background-color: white;
+}

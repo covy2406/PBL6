@@ -6,18 +6,18 @@ import useShop from "hook/useShop";
 const ShopPromos = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  const [promosList, setPromosList] = useState({});
-
-  //get data from hook
-  const { createShopPromo } = useShop();
+  const [productpromosList, setProductPromosList] = useState({});
+  const [shoppromosList, setShopPromosList] = useState({});
 
   useEffect(() => {
-    setPromosList(JSON.parse(window.sessionStorage.getItem("shopPromos")));
+    setProductPromosList(
+      JSON.parse(window.sessionStorage.getItem("shopPromos"))
+        .promotions_shop_product_id
+    );
+    setShopPromosList(
+      JSON.parse(window.sessionStorage.getItem("shopPromos")).promotion_shop_id
+    );
   }, []);
-
-  useEffect(() => {
-    console.log(promosList);
-  }, [promosList]);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -57,10 +57,20 @@ const ShopPromos = () => {
       </div>
       <div className="shop__menu_details">
         <div className="shop__orders--list">
-          {Object.keys(promosList).map((key) => {
+          <div className="shop__promos--type">Mã khuyến mãi của Shop</div>
+          {Object.keys(shoppromosList).map((key) => {
             return (
               <ShopPromosCard
-                data={promosList[key]}
+                data={shoppromosList[key]}
+                filter={currentPath.split("/")[4]}
+              />
+            );
+          })}
+          <div className="shop__promos--type">Mã khuyến mãi Từng sản phẩm</div>
+          {Object.keys(productpromosList).map((key) => {
+            return (
+              <ShopPromosCard
+                data={productpromosList[key]}
                 filter={currentPath.split("/")[4]}
               />
             );

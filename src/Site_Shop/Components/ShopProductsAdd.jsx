@@ -52,6 +52,10 @@ const ShopProductAdd = () => {
     e.preventDefault();
     navigate("/shop/products/list/all");
   };
+
+  //handle sort by name for type input
+  const [filteredProductList, setFilteredProductList] = useState(productList);
+
   return (
     <div className="shop__container-nav">
       <div className="shop__menu_container">
@@ -77,9 +81,22 @@ const ShopProductAdd = () => {
                     className="productscard__container-update--body-item--input"
                     type="text"
                     value={product.name}
-                    onChange={(e) =>
-                      setProduct({ ...product, name: e.target.value })
-                    }
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setProduct({ ...product, name: value });
+                      // Filter the productList based on the input value
+                      const filteredProductList = Object.keys(productList)
+                        .filter((key) =>
+                          productList[key].name
+                            .toLowerCase()
+                            .includes(value.toLowerCase())
+                        )
+                        .reduce((obj, key) => {
+                          obj[key] = productList[key];
+                          return obj;
+                        }, {});
+                      setFilteredProductList(filteredProductList);
+                    }}
                   />
                 </div>
               </div>
@@ -127,10 +144,10 @@ const ShopProductAdd = () => {
                         paddingLeft: "1rem",
                       }),
                     }}
-                    options={Object.keys(productList).map((key) => {
+                    options={Object.keys(filteredProductList).map((key) => {
                       return {
-                        value: productList[key].id,
-                        label: productList[key].name,
+                        value: filteredProductList[key].id,
+                        label: filteredProductList[key].name,
                       };
                     })}
                   />
@@ -144,10 +161,7 @@ const ShopProductAdd = () => {
                   <input
                     className="productscard__container-update--body-item--input"
                     type="text"
-                    value={Number(product.price).toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
+                    value={Number(product.price).toLocaleString("vi-VN")}
                     onChange={(e) =>
                       setProduct({
                         ...product,

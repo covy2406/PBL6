@@ -3,9 +3,27 @@
   gap: 10px; /* adjust this value to set the space between the wrappers */
   border-bottom: var(--primary-color) 1px solid;
   padding: 1rem 2rem;
-  grid-template-columns: 30rem 30rem auto;
+  grid-template-columns: 17rem 19rem 20rem auto;
+}
+/*gap for grid*/
+.promoscard__container > * {
+  position: relative;
 }
 
+.promoscard__container > *::after {
+  content: "";
+  position: absolute;
+  right: -5px; /* half of your gap size */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--primary-color);
+}
+
+.promoscard__container > *:last-child::after {
+  display: none;
+}
+/*gap for grid*/
 .promoscard__wrapper {
   display: flex;
   flex-direction: column;
@@ -13,6 +31,10 @@
 }
 
 .promoscard__wrapper--item {
+}
+.promoscard__wrapper--item-edit {
+  margin-left: 2rem;
+  padding: 0 0.2rem;
 }
 .promoscard__wrapper--item-text {
   font-size: 1.3rem;
@@ -51,4 +73,28 @@
 .react-datepicker__week {
   margin-top: 1rem;
   font-size: 1.2rem;
+}
+/*details form*/
+.promosdetails__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+.promosdetails__wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white-color);
+  height: fit-content;
+  border-radius: 0.5rem;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
