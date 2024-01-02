@@ -830,6 +830,9 @@ và có border màu xanh xanh xung quanh */
   margin-right: 3px;
   outline: none;
 }
+.header__search-btn a {
+  color: white;
+}
 
 .header__search-btn:hover {
   background-color: var(--primary-color);

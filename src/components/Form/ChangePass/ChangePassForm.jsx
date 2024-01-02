@@ -44,7 +44,7 @@ function ChangePassform() {
                   className="passform--passinput"
                   type="password"
                   value={password}
-                  autoComplete="off"
+                  autoComplete="new-password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}></input>

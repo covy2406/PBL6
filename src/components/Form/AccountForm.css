@@ -2,7 +2,6 @@
   border-radius: 1px;
 }
 .profileform__details {
-  width: 50vw;
   overflow-y: auto;
 }
 .profileform__title__item {
