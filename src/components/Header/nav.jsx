@@ -1,5 +1,5 @@
 import { React } from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AiOutlineBell } from "react-icons/ai";
 import { BiSearchAlt2 } from "react-icons/bi";
@@ -21,7 +21,7 @@ import useProfile from "hook/useProfile";
 import apiSearch from "api/apiSearch";
 //import NavSearch from "./NavSearch";
 
-const Nav = ( ) => {
+const Nav = () => {
    const { auth, setAuth, profile, setProfile } = useAuth();
    const { useprofile } = useProfile();
    const isAuth = window.sessionStorage.getItem("isAuth");
@@ -31,7 +31,10 @@ const Nav = ( ) => {
    // SEARCH
    const [searchTerm, setSearchTerm] = useState('');
    const [searchResults, setSearchResults] = useState([]);
-   const history = useHistory();
+   const [error, setError] = useState(null);
+
+
+   //const history = useHistory();
 
    useEffect(() => {
       setCurrentPath(location.pathname);
@@ -57,30 +60,22 @@ const Nav = ( ) => {
       window.sessionStorage.clear();
    };
 
-   const handleSearchChange = (e) => {
-      setSearchTerm(e.target.value);
-   }
-
-
-
    // hàm xử lý kích vào nút search thì search
    const handleSearchSubmitResults = async (searchTerm) => {
-      setSearchResults([]);
       try {
-         const resSearch = await apiSearch.getAllSearch(searchTerm);
-         setSearchResults(resSearch.data);
-         history.push(`/search?search=${searchTerm}`);
-      }
-      catch (error) {
-         console.error(error);
-         
-      }
+         const response = await apiSearch.getAllSearch(searchTerm);
+         setSearchResults(response.data);
+         setError(null);
+         //history.push(`/search?search=${searchTerm}`)
+       } catch (error) {
+         console.error('Lỗi khi lấy dữ liệu:', error);
+         setSearchResults([]);
+         setError('Không thể tìm kiếm sản phẩm. Vui lòng thử lại.');
+       }
    }
-
-   const handleSearchSubmit = () => {
-      setSearchResults([]);
+   useEffect(() => {
       handleSearchSubmitResults(searchTerm);
-   }
+   }, [searchTerm])
 
    return (
       <div>
@@ -187,8 +182,7 @@ const Nav = ( ) => {
                            className="header__search-input"
                            placeholder="Nhập để tìm kiếm sản phẩm"
                            value={searchTerm}
-                           handleSearchSubmit={handleSearchSubmit}
-                           onChange={handleSearchChange}
+                           onChange={(e) => setSearchTerm(e.target.value)}
                            
                            ></input>
                         <div className="header__search-history">
@@ -216,13 +210,16 @@ const Nav = ( ) => {
                            </li>
                         </ul>
                      </div>
-                     <button className="header__search-btn">
-                        <i className="header__search-btn-icon fas fa-search">
-                           <Link to={`../../Search`}>
+                        <Link to={`../../Search`}  className="header__search-btn" onClick={handleSearchSubmitResults}>
+                           <i className="header__search-btn-icon fas fa-search">
+                              {/* <Link to={`../../Search`}>
+                                 <BiSearchAlt2 />
+                              </Link> */}
                               <BiSearchAlt2 />
-                           </Link>
-                        </i>
-                     </button>
+                           </i>
+                        </Link>
+                     {/* <Link className="header__search-link" to={`../../Search`}>
+                     </Link> */}
                   </div>
 
                   {/* <!-- Cart layout --> */}

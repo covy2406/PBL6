@@ -12,8 +12,9 @@ const apiHandlePayment = {
     },
 
     getDiscountShop(discountShopId) {
-        console.log('in ra discountShopId', discountShopId);
-        const url = `/addcodepromotion?shop_product_id=${discountShopId}`;
+        // console.log('in ra discountShopId', discountShopId);
+        // const url = `/addcodepromotion?shop_product_id=${discountShopId}`;
+        const url =  `/getPromotionByIdCutomer?shop_id=${discountShopId}`
         return axiosClient.get(url);
     },
 

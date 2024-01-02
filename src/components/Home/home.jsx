@@ -13,7 +13,7 @@ import './home.css';
 import '../../assets/css/base.css';
 
 
-const Home = ({ view, addtocart }) => {
+const Home = () => {
 
     return (
         <>
@@ -24,7 +24,7 @@ const Home = ({ view, addtocart }) => {
             <div className='grid'>
                 <div className='product_type'>
                     <h2 className='product_item_name'>Hot</h2>
-                    <TopHomeSlider view={view} addtocart={addtocart}/>
+                    <TopHomeSlider />
                 </div>
             </div>
             
@@ -78,17 +78,10 @@ const Home = ({ view, addtocart }) => {
                 <div className='product'>
                     <h2 className='product_item_name'>Sản phẩm nổi bật</h2>
                     {/* CALL API TRẢ VỀ DANH SÁCH SẢN PHẨM TRANG CHỦ: */}
-                    <ProductHome view={view} addtocart={addtocart} />
+                    <ProductHome  />
                 </div>
             </div>
             <BannerProducts/>
-            {/* <div className='grid'>
-                <div className='product'>
-                    <h2 className='product_item_name'>Deal ngon - Giá luôn rẻ</h2>
-                    
-                    <ProductHome view={view} addtocart={addtocart} />
-                </div>
-            </div> */}
         </>
     )
 }

@@ -101,13 +101,14 @@
 .product .container .box {
     padding: 10px 20px;
     overflow: hidden;
-    /* width: 280px; */
-    width: 24%; /*288px*/
-    margin-left: 6px;
-    margin-right: 6px;
+    width: 280px;
+    /* width: 24%;  */
+    /*288px*/
+    /* margin-left: 6px;
+    margin-right: 6px; */
+    margin:0 10px 20px 10px;
     height: 428px;
     border: 2px solid #e2e0e0;
-    margin-bottom: 20px;
     transition: 0.5s;
     cursor: pointer;
     border-radius: 15px;

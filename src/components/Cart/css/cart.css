@@ -171,8 +171,8 @@ td {
   border-bottom: 1px solid #ddd;
   align-items: center;
   margin: 30px 0 20px;
-  /* position: sticky;
-  bottom: 0; */
+  position: sticky;
+  bottom: 0;
   max-width: 100%;
 }
 

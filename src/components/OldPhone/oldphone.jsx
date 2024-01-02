@@ -184,7 +184,7 @@ const Oldphone = () => {
                                     <li className='categories-item' key={brand.id}>
                                         <input
                                             className='categories-item__input'
-                                            type='checkbox'
+                                            type='radio'
                                             checked={selectedBrandId === brand.id}
                                             onChange={() => handleBrandCheckboxChange(brand.id)}
                                         ></input>

@@ -177,12 +177,12 @@
 
 .contant {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: wrap;
     margin-top: 10px;
     background-color: var(--white-color);
     border-radius: 15px;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .contant .box {
@@ -191,7 +191,7 @@
     /* width: 240px;
     height: 400px; */
     height: 400px;
-    width: calc(33.333% - 20px);
+    /* width: calc(33.333% - 20px); */
     border: 2px solid #e2e0e0;
     margin-bottom: 20px;
     transition: 0.5s;

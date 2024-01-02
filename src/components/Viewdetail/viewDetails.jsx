@@ -15,7 +15,7 @@ import useCartHandle from "hook/useCartHandle";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import useCart from "hook/useCart";
 //import useComment from "hook/useComments";
-import apiComment from "api/apiComment";
+
 
 
 const Viewdetails = () => {
@@ -53,15 +53,15 @@ const Viewdetails = () => {
             setError(error);
          }
       };
-      fetchProuductDetail();
-   }, [id]);
+      fetchProuductDetail(id);
+   }, []);
 
 
    // call api comment
    useEffect(() => {
-      const fetchComments = async (numberOfStars, shop_product_id) => {
+      const fetchComments = async (shop_product_id) => {
          try {
-            const resCmt = await apiComment.getComment(numberOfStars, shop_product_id);
+            const resCmt = await apiProductDetail.getComment(shop_product_id);
             setComment(resCmt.data);
          }
          catch (err) {
@@ -77,9 +77,9 @@ const Viewdetails = () => {
             }
          }
       }
-      fetchComments();
+      fetchComments(id);
    }, [])
-   
+
 
    const handleColorClick = (color, image) => {
       console.log(`Color clicked: ${color}, Image: ${image}`);
@@ -98,14 +98,8 @@ const Viewdetails = () => {
       return <p>Product not found</p>;
    }
 
-
-
    const { shop_products, listshop_product } = productDetail;
-   console.log('listshop_product',listshop_product);
-   const shopProductId = listshop_product.map((item) => (item.shop_product_id));
-   console.log(shopProductId);
-   //console.log('in ra shop_product_id của chi tiết sản phẩm', listshop_product.shop_product_id);
-
+   
    return (
       <div>
          {close ? (
@@ -123,7 +117,7 @@ const Viewdetails = () => {
                            </div>
                            <div className="box__image-select">
                               {listshop_product.map(product => (
-                                 
+
                                  <div
                                     key={product.shop_product_id}
                                     className={`color-option ${selectedColor === product.color ? 'selected' : ''}`}
@@ -139,87 +133,86 @@ const Viewdetails = () => {
                         </div>
 
                         <div className="detail">
-                           {
-                              shop_products ? (
-                                 <div>
-                                    <h2>{shop_products.name}</h2>
-                                    <div className="product__price">
-                                       {parseInt(shop_products.price).toLocaleString("vn-VN")} đ
-                                    </div>
-                                    <table className="detail-table" key={shop_products.id}>
-                                       <thead className="table__head-title">
-                                          <tr>
-                                             <th>Bộ Phận</th>
-                                             <th>Thông Số Kỹ Thuật</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody className="table__head-body">
-                                          <tr>
-                                             <td>Tên sản phẩm</td>
-                                             <td>{shop_products.name}</td>
-                                          </tr>
-                                          
-                                          <tr>
-                                             <td>Màu sắc</td>
-                                             <td>{shop_products.color}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Camera trước</td>
-                                             <td>{shop_products.forwardCameras}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Camera sau</td>
-                                             <td>{shop_products.backwardCameras}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Loại sản phẩm</td>
-                                             <td>{shop_products.isNew}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Bộ nhớ</td>
-                                             <td>{shop_products.memoryStorage}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Màn hình</td>
-                                             <td>{shop_products.screen}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>CPU</td>
-                                             <td>{shop_products.CPU}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Ram</td>
-                                             <td>{shop_products.RAM}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Xu hướng</td>
-                                             <td>{shop_products.isTrending}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Thông tin chi tiết</td>
-                                             <td>{shop_products.details}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Trạng thái</td>
-                                             <td>{shop_products.status}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Sim</td>
-                                             <td>{shop_products.sim}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Dung lượng pin</td>
-                                             <td>{shop_products.battery}</td>
-                                          </tr>
-                                          <tr>
-                                             <td>Hệ điều hành</td>
-                                             <td>{shop_products.type}</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
+                           {shop_products ? (
+                              <div>
+                                 <h2>{shop_products.name}</h2>
+                                 <div className="product__price">
+                                    {parseInt(shop_products.price).toLocaleString("vn-VN")} đ
                                  </div>
+                                 <table className="detail-table" key={shop_products.id}>
+                                    <thead className="table__head-title">
+                                       <tr>
+                                          <th>Bộ Phận</th>
+                                          <th>Thông Số Kỹ Thuật</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody className="table__head-body">
+                                       <tr>
+                                          <td>Tên sản phẩm</td>
+                                          <td>{shop_products.name}</td>
+                                       </tr>
 
-                              ) : null
+                                       <tr>
+                                          <td>Màu sắc</td>
+                                          <td>{shop_products.color}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Camera trước</td>
+                                          <td>{shop_products.forwardCameras}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Camera sau</td>
+                                          <td>{shop_products.backwardCameras}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Loại sản phẩm</td>
+                                          <td>{shop_products.isNew}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Bộ nhớ</td>
+                                          <td>{shop_products.memoryStorage}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Màn hình</td>
+                                          <td>{shop_products.screen}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>CPU</td>
+                                          <td>{shop_products.CPU}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Ram</td>
+                                          <td>{shop_products.RAM}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Xu hướng</td>
+                                          <td>{shop_products.isTrending}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Thông tin chi tiết</td>
+                                          <td>{shop_products.details}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Trạng thái</td>
+                                          <td>{shop_products.status}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Sim</td>
+                                          <td>{shop_products.sim}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Dung lượng pin</td>
+                                          <td>{shop_products.battery}</td>
+                                       </tr>
+                                       <tr>
+                                          <td>Hệ điều hành</td>
+                                          <td>{shop_products.type}</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+
+                           ) : null
                            }
                            {auth.isAuth ? (
                               <div>
