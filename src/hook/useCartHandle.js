@@ -1,11 +1,9 @@
 import { toast } from "react-toastify";
 import useCart from "./useCart";
 import apiHandleCart from "api/apiHandleCart";
-import apiHandlePayment from "api/apiHandlePayment";
-import { useEffect } from "react";
 
 const useCartHandle = () => {
-  const { cartListProduct, selectedProducts, setCartListProduct } = useCart();
+  const { setCartListProduct } = useCart();
   // Add to cart
   const addtocart = async (productId, quantity) => {
     const response = await apiHandleCart.add(productId, quantity);
