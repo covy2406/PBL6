@@ -39,7 +39,6 @@ const Viewdetails = () => {
     const fetchProductDetail = async () => {
       try {
         const response = await apiProductDetail.viewDetail(id);
-
         setProductDetail(response.data);
         // Mặc định chọn màu đầu tiên
         if (response.data.listshop_product.length > 0) {
@@ -48,6 +47,7 @@ const Viewdetails = () => {
         } else {
           setListImageColor(listshop_product.image);
         }
+        console.log(productDetail);
       } catch (error) {
         setError(error);
       }
@@ -74,17 +74,17 @@ const Viewdetails = () => {
         }
       }
     };
-    fetchComments();
+    fetchComments(id);
   }, []);
 
   const handleColorClick = (color, image) => {
-    console.log(`Color clicked: ${color}, Image: ${image}`);
+    // console.log(`Color clicked: ${color}, Image: ${image}`);
     setSelectedColor((prevColor) => color);
     setSelectedImage((prevImage) => image);
   };
 
   // console.log('id chi tiet san pham: ', id);
-  console.log("productDetail", productDetail);
+  // console.log("productDetail", productDetail);
   if (error) {
     return <p>Erorr: {error.message}</p>;
   }
@@ -98,9 +98,9 @@ const Viewdetails = () => {
   }
 
   const { shop_products, listshop_product } = productDetail;
-  console.log("listshop_product", listshop_product);
+  // console.log("listshop_product", listshop_product);
   const shopProductId = listshop_product.map((item) => item.shop_product_id);
-  console.log(shopProductId);
+  // console.log(shopProductId);
   //console.log('in ra shop_product_id của chi tiết sản phẩm', listshop_product.shop_product_id);
 
   return (

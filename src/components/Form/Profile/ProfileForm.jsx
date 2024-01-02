@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { days, months, years } from "./DateData.js";
 import "../AccountForm.css";
 import "./DatePicker.css";
 import "./Profile.css";
+import "./update.css";
 
 import Avatar from "react-avatar-edit";
 
@@ -12,6 +12,8 @@ import useProfile from "hook/useProfile.js";
 import apiCustomerProfile from "api/apiCustomerProfile.js";
 import { toast } from "react-toastify";
 import { URLUtils } from "utils/urlUtils.js";
+import Swal from "sweetalert2";
+import { el } from "date-fns/locale";
 
 const ProfileForm = () => {
   //img states
@@ -78,6 +80,7 @@ const ProfileForm = () => {
     }
   }, [profile]);
 
+  //handle birthday change
   useEffect(() => {
     setDays(birthday[0]);
     setMonths(birthday[1]);
@@ -89,8 +92,7 @@ const ProfileForm = () => {
   }, [dayy, monthh, yearr]);
 
   const handleSubmit = (e) => {
-    console.log(avatar);
-    var avatarFile = URLUtils.base64ToFile(avatar, "avatar.png");
+    if (avatar) var avatarFile = URLUtils.base64ToFile(avatar, "avatar.png");
     const data = {
       name: user,
       email: email,
@@ -120,7 +122,34 @@ const ProfileForm = () => {
         console.log("update profile err: ", err);
       });
   };
-
+  //handle email change
+  const [isEmailUpdate, setIsEmailUpdate] = useState(false);
+  const handleEmailChange = (e) => {
+    setIsEmailUpdate(false);
+  };
+  //handle phone change
+  const [isPhoneUpdate, setIsPhoneUpdate] = useState(false);
+  const handlePhoneChange = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Xác nhận đổi số điện thoại",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Xác nhận",
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Đổi số điện thoại thành công",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        handleSubmit(e);
+      } else {
+        setIsPhoneUpdate(false);
+      }
+    });
+  };
   return (
     <>
       <div className="profileform__title">
@@ -146,18 +175,26 @@ const ProfileForm = () => {
               <td className="profileform__table--left">Email</td>
               <td className="profileform__table--right">
                 {email}
-                <Link className="profileform--link" to="/change-email">
+                <span
+                  className="profileform--link"
+                  onClick={() => {
+                    setIsEmailUpdate(true);
+                  }}>
                   Thay đổi
-                </Link>
+                </span>
               </td>
             </tr>
             <tr className="profileform__table__row">
               <td className="profileform__table--left">Số điện thoại</td>
               <td className="profileform__table--right">
                 {phone}
-                <Link className="profileform--link" to="/change-phone">
+                <span
+                  className="profileform--link"
+                  onClick={() => {
+                    setIsPhoneUpdate(true);
+                  }}>
                   Thay đổi
-                </Link>
+                </span>
               </td>
             </tr>
             <tr className="profileform__table__row">
@@ -271,6 +308,37 @@ const ProfileForm = () => {
             />
           </div>
         </div>
+      ) : null}
+      {isEmailUpdate ? (
+        <>
+          <div className="profileform__update">
+            <div>Đổi Email</div>
+
+            <button onClick={handleEmailChange}>Lưu</button>
+          </div>
+        </>
+      ) : null}
+      {isPhoneUpdate ? (
+        <>
+          <div className="profileform__update">
+            <div className="profileform__update__container">
+              <div className="profileform__update--title">
+                Đổi số điện thoại
+              </div>
+              <input
+                type="text"
+                placeholder="Số điện thoại mới"
+                className="profileform__update--input"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}></input>
+              <button
+                onClick={handlePhoneChange}
+                className="profileform__update--button">
+                Lưu
+              </button>
+            </div>
+          </div>
+        </>
       ) : null}
     </>
   );

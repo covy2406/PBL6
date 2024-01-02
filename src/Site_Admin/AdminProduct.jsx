@@ -1,9 +1,11 @@
 function AdminProduct() {
   return (
-    <div>
-      <div>Admin product list</div>
-      <div></div>
-    </div>
+    <>
+      <div className="grid">
+        <div className="admin__top--title">Admin product list</div>
+        <div className="admin__body--list"></div>
+      </div>
+    </>
   );
 }
 export default AdminProduct;
