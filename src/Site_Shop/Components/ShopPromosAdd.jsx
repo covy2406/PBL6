@@ -12,6 +12,7 @@ const ShopProductAdd = () => {
     getShopProductsAll().then((res) => {
       setShopProductList(res);
     });
+    console.log(shopProductList);
   }, []);
   //product data to create
   const [promo, setPromo] = useState({

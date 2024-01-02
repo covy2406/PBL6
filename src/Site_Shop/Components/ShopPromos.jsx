@@ -5,18 +5,18 @@ import ShopPromosCard from "./ShopPromosCard/ShopPromosCard";
 const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  const [currentList, setCurrentList] = useState({});
   const [productpromosList, setProductPromosList] = useState({});
   const [shoppromosList, setShopPromosList] = useState({});
 
   useEffect(() => {
-    setCurrentList(JSON.parse(window.sessionStorage.getItem("shopPromos")));
+    setProductPromosList(
+      JSON.parse(window.sessionStorage.getItem("shopPromos"))
+        .promotions_shop_product_id
+    );
+    setShopPromosList(
+      JSON.parse(window.sessionStorage.getItem("shopPromos")).promotion_shop_id
+    );
   }, []);
-
-  useEffect(() => {
-    setProductPromosList(currentList.promotions_shop_product_id);
-    setShopPromosList(currentList.promotion_shop_id);
-  }, [currentList]);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -56,28 +56,42 @@ const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
       </div>
       <div className="shop__menu_details">
         <div className="shop__orders--list">
-          <div className="shop__promos--type">Mã khuyến mãi của Shop</div>
-          {Object.keys(shoppromosList).map((key) => {
-            return (
-              <ShopPromosCard
-                data={shoppromosList[key]}
-                filter={currentPath.split("/")[4]}
-                updateShopPromo={updateShopPromo}
-                deleteShopPromo={deleteShopPromo}
-              />
-            );
-          })}
-          <div className="shop__promos--type">Mã khuyến mãi Từng sản phẩm</div>
-          {Object.keys(productpromosList).map((key) => {
-            return (
-              <ShopPromosCard
-                data={productpromosList[key]}
-                filter={currentPath.split("/")[4]}
-                updateShopPromo={updateShopPromo}
-                deleteShopPromo={deleteShopPromo}
-              />
-            );
-          })}
+          {shoppromosList > 0 ? (
+            <>
+              <div className="shop__promos--type">Mã khuyến mãi của Shop</div>
+              {Object.keys(shoppromosList).map((key) => {
+                return (
+                  <ShopPromosCard
+                    data={shoppromosList[key]}
+                    filter={currentPath.split("/")[4]}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <div className="shop__promos--type">
+              Không có khuyến mãi của Shop
+            </div>
+          )}
+          {productpromosList > 0 ? (
+            <>
+              <div className="shop__promos--type">
+                Mã khuyến mãi Từng sản phẩm
+              </div>
+              {Object.keys(productpromosList).map((key) => {
+                return (
+                  <ShopPromosCard
+                    data={productpromosList[key]}
+                    filter={currentPath.split("/")[4]}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <div className="shop__promos--type">
+              Không có khuyến mãi của sản phẩm
+            </div>
+          )}
         </div>
       </div>
     </div>

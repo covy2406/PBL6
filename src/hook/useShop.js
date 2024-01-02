@@ -62,10 +62,7 @@ const useShop = () => {
   const updateShopProduct = async (data, id) => {
     try {
       const response = await apiShopProduct.update(data, id);
-      console.log(response);
-      console.log("useShop updateShopProduct data: ", data);
       if (response?.message === "Resource updated successfully") {
-        window.sessionStorage.setItem("shopProducts", JSON.stringify(data));
         return true;
       } else {
         return false;

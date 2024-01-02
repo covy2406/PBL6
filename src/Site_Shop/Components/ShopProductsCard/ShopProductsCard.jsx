@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import useAuth from "hook/useAuth";
 import "./ShopProductsCard.css";
 import "../../css/shopProductUpdate.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Select from "react-select";
 //hooks
@@ -42,6 +42,7 @@ const ShopProductsCard = ({ data, filter }) => {
   };
 
   //change to update form
+  const navigate = useNavigate();
   const [update, setUpdate] = useState(false);
 
   const handleUpdate = (e) => {
@@ -77,10 +78,11 @@ const ShopProductsCard = ({ data, filter }) => {
       //if user click confirm, set product to new data
       setUpdate(false);
       //nén thành json để gửi dữ liệu lên update
+      if (product.status === 0) {
+        setProduct({ ...product, quantity: 0 });
+      }
       const packageData = JSON.stringify(product);
-      updateShopProduct(packageData, product.id).then(() => {
-        getShopProductsAll();
-      });
+      updateShopProduct(packageData, product.id);
     });
   };
 
@@ -100,6 +102,7 @@ const ShopProductsCard = ({ data, filter }) => {
     });
     setUpdate(false);
   };
+
   return (
     <>
       {isDelete === (data.status ? "active" : "inactive") ||
@@ -322,8 +325,8 @@ const ShopProductsCard = ({ data, filter }) => {
                           }),
                         }}
                         options={[
-                          { value: "1", label: "Hoạt động" },
-                          { value: "0", label: "Dừng hoạt động" },
+                          { value: 1, label: "Hoạt động" },
+                          { value: 0, label: "Dừng hoạt động" },
                         ]}
                         defaultValue={{
                           value: product.status,
