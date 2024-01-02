@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import "./viewdt.css";
 import "../../assets/css/base.css";
+import { FaStar, FaRegStar } from 'react-icons/fa';
+import { formatDistanceToNow } from 'date-fns';
 
 import { useParams } from "react-router-dom";
 import apiProductDetail from "api/apiProductDetail";
@@ -18,21 +20,24 @@ import useCart from "hook/useCart";
 //import apiComment from "api/apiComment";
 
 const Viewdetails = () => {
-  const { addtocart } = useCartHandle();
-  //const { fetchComments } = useComment();
-  const { close, setClose } = useCart();
-  const { auth } = useAuth();
-  // CALL API PRODUCT DETAIL
-  const [productDetail, setProductDetail] = useState([]);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
+   const { addtocart } = useCartHandle();
+   //const { fetchComments } = useComment();
+   const { close, setClose } = useCart();
+   const { auth } = useAuth();
+   // CALL API PRODUCT DETAIL
+   const [productDetail, setProductDetail] = useState([]);
+   const [error, setError] = useState(null);
+   const { id } = useParams();
 
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
-  const [listImageColor, setListImageColor] = useState(null);
+   const [selectedColor, setSelectedColor] = useState(null);
+   const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
+   const [listImageColor, setListImageColor] = useState(null);
 
-  // comment
-  const [comment, setComment] = useState([]);
+   // Thêm state mới để lưu trữ shop_product_id được chọn
+   const [selectedShopProductId, setSelectedShopProductId] = useState(null);
+   
+   // comment
+   const [comment, setComment] = useState([]);
 
    useEffect(() => {
       const fetchProuductDetail = async () => {
@@ -56,39 +61,33 @@ const Viewdetails = () => {
    }, []);
 
 
-  // call api comment
-  useEffect(() => {
-    const fetchComments = async (shop_product_id) => {
-      try {
-        const resCmt = await apiProductDetail.getComment(shop_product_id);
-        setComment(resCmt.data);
-      } catch (err) {
-        if (err.response) {
-          // Lỗi HTTP, ví dụ: error.response.status
-          console.log("Lỗi HTTP:", err.response.status);
-        } else if (err.request) {
-          // Yêu cầu đã được gửi nhưng không nhận được phản hồi
-          console.log("Yêu cầu không được phản hồi:", err.request);
-        } else {
-          // Lỗi khác
-          console.log("Lỗi:", err.message);
-        }
-      }
-    };
-    fetchComments(id);
-  }, []);
+   // call api comment
+   useEffect(() => {
+      const fetchComments = async (shop_product_id) => {
+         try {
+            const resCmt = await apiProductDetail.getComment(shop_product_id);
+            setComment(resCmt.data);
+         } catch (err) {
+            if (err.response) {
+               // Lỗi HTTP, ví dụ: error.response.status
+               console.log("Lỗi HTTP:", err.response.status);
+            } else if (err.request) {
+               // Yêu cầu đã được gửi nhưng không nhận được phản hồi
+               console.log("Yêu cầu không được phản hồi:", err.request);
+            } else {
+               // Lỗi khác
+               console.log("Lỗi:", err.message);
+            }
+         }
+      };
+      fetchComments(id);
+   }, []);
 
-  const handleColorClick = (color, image) => {
-    // console.log(`Color clicked: ${color}, Image: ${image}`);
-    setSelectedColor((prevColor) => color);
-    setSelectedImage((prevImage) => image);
-  };
-
-  // console.log('id chi tiet san pham: ', id);
-  // console.log("productDetail", productDetail);
-  if (error) {
-    return <p>Erorr: {error.message}</p>;
-  }
+   // console.log('id chi tiet san pham: ', id);
+   // console.log("productDetail", productDetail);
+   if (error) {
+      return <p>Erorr: {error.message}</p>;
+   }
 
    // Kiểm tra nếu shop_products không tồn tại hoặc là mảng rỗng
    if (!productDetail.shop_products || productDetail.shop_products.length === 0) {
@@ -96,7 +95,41 @@ const Viewdetails = () => {
    }
 
    const { shop_products, listshop_product } = productDetail;
-   
+
+   // xử lý thay đổi màu, ảnh, shop_product_id
+   const handleColorClick = (color, image, shopProductId) => {
+      // console.log(`Color clicked: ${color}, Image: ${image}`);
+      setSelectedColor((prevColor) => color);
+      setSelectedImage((prevImage) => image);
+      setSelectedShopProductId(shopProductId); // Cập nhật shop_product_id khi chọn ảnh mới
+   };
+
+   // tính số sao:
+   // Hàm để render số sao tương ứng
+   const renderStars = (rating) => {
+      const stars = [];
+      for (let i = 1; i <= 5; i++) {
+         stars.push(
+            i <= rating ? (
+               <FaStar key={i} color="#FFD700" />
+            ) : (
+               <FaRegStar key={i} color="#FFD700" />
+            )
+         );
+      }
+      return stars;
+   };
+
+   // tính thời gian comment
+   const calculateTimeAgo = (createdAt) => {
+      const currentDate = new Date();
+      const commentDate = new Date(createdAt);
+      const distance = formatDistanceToNow(commentDate, { addSuffix: true });
+      return distance;
+    };
+
+   console.log('in ra shop_product_id đang chọn: ', selectedShopProductId);
+
    return (
       <div>
          {close ? (
@@ -109,22 +142,22 @@ const Viewdetails = () => {
                      <div className="productbox">
                         <div className="box__image">
                            <div className="img-box">
-                              <img className="img-box__real" src={`http://0.tcp.ap.ngrok.io:15234/${shop_products.image}`} alt={shop_products.name} />
+                              <img className="img-box__real" src={`http://0.tcp.ap.ngrok.io:15234/${selectedImage}`} alt={shop_products.name} />
 
                            </div>
                            <div className="box__image-select">
                               {listshop_product.map(product => (
-
                                  <div
                                     key={product.shop_product_id}
                                     className={`color-option ${selectedColor === product.color ? 'selected' : ''}`}
-                                    style={{ backgroundColor: product.color }}
-                                    onClick={() => handleColorClick(product.color, product.image)}
+                                    style={{ backgroundColor: product.color}}
+                                    onClick={() => handleColorClick(product.color, product.image, product)}
                                  >
                                     {/* Hiển thị ảnh của điện thoại từ listshop_product */}
                                     {/* {product.shop_product_id} */}
-                                    <img src={`http://0.tcp.ap.ngrok.io:15234/${product.image}`} alt={shop_products.name} />
+                                    <img className="box__image-select-choose" src={`http://0.tcp.ap.ngrok.io:15234/${product.image}`} alt={shop_products.name} />
                                  </div>
+                                 
                               ))}
                            </div>
                         </div>
@@ -151,7 +184,7 @@ const Viewdetails = () => {
 
                                        <tr>
                                           <td>Màu sắc</td>
-                                          <td>{shop_products.color}</td>
+                                          <td>{selectedColor}</td>
                                        </tr>
                                        <tr>
                                           <td>Camera trước</td>
@@ -213,7 +246,7 @@ const Viewdetails = () => {
                            }
                            {auth.isAuth ? (
                               <div>
-                                 <button onClick={() => addtocart(shop_products.id, 1)}>
+                                 <button onClick={() => addtocart(selectedShopProductId, 1)}>
                                     Thêm vào giỏ hàng
                                  </button>
                                  <button >Thanh Toán Ngay</button>
@@ -228,8 +261,30 @@ const Viewdetails = () => {
                      <div container__comment>
                         {comment.map((cmtItem, index) => (
                            <div className="container__comment-item" key={index}>
-                              <div className="container__comment-item-img">{cmtItem.avartar}</div>
-                              <div className="container__commnet-item-write">{cmtItem.feedback}</div>
+                              <div className="comment-item__head">
+                                 <div className="container__comment-item-img">
+                                    <img src={`http://0.tcp.ap.ngrok.io:15234/${cmtItem.avatar}`} alt="" className="comment__avatar" />
+                                 </div>
+                                 <div className="comment__content">
+                                    <div className="comment__content-user-info">
+                                       <span className="user-info-username">{cmtItem.name}</span>
+
+                                    </div>
+                                    <div className="comment__content-user-info">
+                                       <span className="user-info-timestamp">{calculateTimeAgo(cmtItem.created_at)}</span>
+                                    </div>
+                                    <div className="comment__content-rating">
+                                       {renderStars(cmtItem.rating)}
+                                    </div>
+                                 </div>
+
+                              </div>
+                              <div className="comment__content-text">
+                                 <p className="comment__content-text-main">
+                                    {cmtItem.feedback}
+
+                                 </p>
+                              </div>
                            </div>
                         ))}
 
