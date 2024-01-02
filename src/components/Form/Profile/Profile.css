@@ -3,6 +3,7 @@
 }
 
 .profileform__details {
+  display: flex;
   height: 45rem;
   width: 100%;
 }
@@ -203,6 +204,5 @@
 /*Order pages*/
 .profileorder--list {
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 }

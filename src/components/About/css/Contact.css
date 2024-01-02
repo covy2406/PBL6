@@ -2,9 +2,8 @@
   background-color: antiquewhite;
   position: relative;
   height: 50rem;
-  width: 60vw;
   padding: 3rem;
-  margin: 5rem 20vw;
+  margin: 3rem auto;
 }
 .aboutform--title {
   padding-top: 2rem;
@@ -13,13 +12,13 @@
   margin-bottom: 2rem;
 }
 .aboutform--decription {
-  width: 30vw;
+  width: 50%;
   font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 2rem;
 }
 .aboutform--form {
-  width: 30vw;
+  width: 50%;
   height: fit-content;
 }
 .aboutform--form__input {
@@ -55,7 +54,7 @@
   background-color: var(--primary-color);
   position: absolute;
   height: fit-content;
-  width: 20vw;
+  width: 40%;
   padding: 3rem 5rem;
   top: 15%;
   right: 5%;

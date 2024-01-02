@@ -88,9 +88,9 @@ const useShop = () => {
       return false;
     }
   };
-  const getShopPromosAll = async () => {
+  const getShopPromosAll = async (id) => {
     try {
-      const response = await apiShop.getallpromos();
+      const response = await apiShop.getallpromos(id);
       window.sessionStorage.setItem(
         "shopPromos",
         JSON.stringify(response.data)

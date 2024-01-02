@@ -1,6 +1,7 @@
 .shoporderscard__container {
-  background-color: white;
-  padding: 1rem;
+  background-color: #f0f0f0;
+  padding: 2rem;
+  border-bottom: 2px solid white;
 }
 .shoporderscard__container--top {
   display: flex;

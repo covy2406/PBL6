@@ -53,7 +53,7 @@ const Footer = () => {
               <ul className="footer__list">
                 <li className="footer-item">
                   <div className="footer-item__link">
-                    <img src="./img/vnpay.png" alt="vnpay" />
+                    <img src="/img/vnpay.png" alt="vnpay" />
                   </div>
                 </li>
               </ul>
@@ -77,21 +77,21 @@ const Footer = () => {
               <h3 className="footer__heading">Vào cửa hàng trên ứng dụng</h3>
               <div className="footer__download">
                 <img
-                  src="./img/qrcode.png"
+                  src="/img/qrcode.png"
                   alt="Download QR"
                   className="footer__download-qr"
                 />
                 <div className="footer__download-apps">
                   <Link to="/" className="footer__download-app-link">
                     <img
-                      src="./img/google_play_logo.png"
+                      src="/img/google_play_logo.png"
                       alt="Google play"
                       className="footer__download-app-img"
                     />
                   </Link>
                   <Link to="/" className="footer__download-app-link">
                     <img
-                      src="./img/apple_logo.png"
+                      src="/img/apple_logo.png"
                       alt="App store"
                       className="footer__download-app-img"
                     />

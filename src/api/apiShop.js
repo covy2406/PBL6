@@ -20,8 +20,8 @@ const apiShop = {
   getallproducts() {
     return axiosClient.get(GET_ALL_PRODUCTS_URL);
   },
-  getallpromos() {
-    return axiosClient.get(GET_ALL_PROMOS_URL);
+  getallpromos(id) {
+    return axiosClient.get(`GET_ALL_PROMOS_URL/${id}`);
   },
   addpromos(data) {
     return axiosClient.post("promotions", data);
