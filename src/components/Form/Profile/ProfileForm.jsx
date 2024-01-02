@@ -36,7 +36,7 @@ const ProfileForm = () => {
   const currentDate = new Date();
 
   // get data from useProfile hook
-  const { profile, auth } = useAuth();
+  const { profile, url } = useAuth();
   const { useprofile } = useProfile();
 
   // define states
@@ -74,7 +74,7 @@ const ProfileForm = () => {
       setPhone(profile.phone);
       setUser(profile.name);
       setSex(profile.sex === 1 ? "Nam" : "Nữ");
-      setPreview(auth.url + profile.avatar);
+      setPreview(url + profile.avatar);
     }
   }, [profile]);
 

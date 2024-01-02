@@ -6,7 +6,7 @@ import useShop from "hook/useShop";
 
 const ShopProductAdd = () => {
   //get product info for selection
-  const { getShopProductsAll, createShopPromo } = useShop();
+  const { getShopProductsAll, createShopPromo, getShopPromosAll } = useShop();
   const [shopProductList, setShopProductList] = useState({});
   useEffect(() => {
     getShopProductsAll().then((res) => {
@@ -38,6 +38,7 @@ const ShopProductAdd = () => {
       startDate: startDate,
       endDate: endDate,
     }).then((res) => {
+      getShopPromosAll();
       console.log(res);
     });
     navigate("/shop/promos/list/all");

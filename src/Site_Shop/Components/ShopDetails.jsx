@@ -170,7 +170,6 @@ const ShopDetails = () => {
             )}
           </div>
         </div>
-
       </div>
     </>
   );

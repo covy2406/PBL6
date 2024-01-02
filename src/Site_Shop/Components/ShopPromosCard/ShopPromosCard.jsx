@@ -3,8 +3,9 @@ import Select from "react-select";
 import "./ShopPromosCard.css";
 import Swal from "sweetalert2";
 
-const ShopPromosCard = ({ data, filter }) => {
+const ShopPromosCard = ({ data, filter, updateShopPromo, deleteShopPromo }) => {
   //create this state to handle update
+  const [promofilter, setPromoFilter] = useState(filter);
   const [promo, setPromo] = useState({
     id: data.id || "",
     code: data.code || "",
@@ -36,6 +37,7 @@ const ShopPromosCard = ({ data, filter }) => {
       cancelButtonText: "Hủy",
     }).then((result) => {
       if (result.isConfirmed) {
+        updateShopPromo(JSON.stringify(promo), promo.id);
         Swal.fire({
           icon: "success",
           title: "Cập nhật thành công",
@@ -43,11 +45,36 @@ const ShopPromosCard = ({ data, filter }) => {
           timer: 1500,
         });
         setSeeDetails(!seeDetails);
+      } else {
+        setSeeDetails(!seeDetails);
       }
     });
   };
 
-  const handleDelete = (e) => {};
+  const handleDelete = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Bạn có chắc muốn xóa khuyến mãi này?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: `Xóa`,
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteShopPromo(promo.id);
+        Swal.fire({
+          icon: "success",
+          title: "Xóa thành công",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setPromoFilter("");
+        setSeeDetails(!seeDetails);
+      } else {
+        setSeeDetails(!seeDetails);
+      }
+    });
+  };
 
   return (
     <>
@@ -98,33 +125,6 @@ const ShopPromosCard = ({ data, filter }) => {
                     name="endDate"
                     value={promo.endDate}
                     onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <div className="productscard__container-update--body-item">
-                <div className="productscard__container-update--body-item--title">
-                  Điều kiện giảm giá:
-                </div>
-                <div>
-                  <input
-                    className="productscard__container-update--body-item--input"
-                    type="text"
-                    name="minPriceCondition"
-                    value={Number(promo.minPriceCondition).toLocaleString(
-                      "vi-VN",
-                      {
-                        style: "currency",
-                        currency: "VND",
-                      }
-                    )}
-                    onChange={(e) =>
-                      setPromo({
-                        ...promo,
-                        minPriceCondition: String(
-                          e.target.value.replace(/\D/g, "")
-                        ),
-                      })
-                    }
                   />
                 </div>
               </div>
@@ -196,8 +196,59 @@ const ShopPromosCard = ({ data, filter }) => {
                   <input
                     className="productscard__container-update--body-item--input"
                     type="text"
-                    name="discount"
+                    name="value"
                     value={promo.value}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Số lượng:
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="text"
+                    name="quantity"
+                    value={promo.quantity}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Điều kiện giảm giá:
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="text"
+                    name="minPriceCondition"
+                    value={Number(promo.minPriceCondition).toLocaleString(
+                      "vi-VN"
+                    )}
+                    onChange={(e) =>
+                      setPromo({
+                        ...promo,
+                        minPriceCondition: String(
+                          e.target.value.replace(/\D/g, "")
+                        ),
+                      })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Mô tả
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="text"
+                    name="detail"
+                    value={promo.detail}
                     onChange={handleChange}
                   />
                 </div>
@@ -209,15 +260,18 @@ const ShopPromosCard = ({ data, filter }) => {
                 <div>
                   <Select
                     name="status"
-                    value={{ label: promo.status, value: promo.status }}
+                    value={{
+                      label: promo.status ? "Hoạt động" : "Dừng",
+                      value: promo.status,
+                    }}
                     onChange={(selectedOption) => {
                       handleChange({
                         target: { name: "status", value: selectedOption.value },
                       });
                     }}
                     options={[
-                      { value: "1", label: "Hoạt động" },
-                      { value: "0", label: "Không hoạt động" },
+                      { value: 1, label: "Hoạt động" },
+                      { value: 0, label: "Dừng" },
                     ]}
                     styles={{
                       valueContainer: (base) => ({
@@ -268,7 +322,7 @@ const ShopPromosCard = ({ data, filter }) => {
           </div>
         </>
       ) : null}
-      {filter === data.status || filter === "all" ? (
+      {promofilter === (data.status ? "active" : "") || filter === "all" ? (
         <>
           <div className="promoscard__container">
             <div className="promoscard__wrapper">

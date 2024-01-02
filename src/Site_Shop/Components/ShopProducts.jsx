@@ -8,15 +8,9 @@ const ShopProduct = () => {
   const [productList, setProductList] = useState({});
 
   useEffect(() => {
-    setProductList(JSON.parse(window.sessionStorage.getItem("shopProducts")));
-  }, []);
-
-  useEffect(() => {
     const newList = JSON.parse(window.sessionStorage.getItem("shopProducts"));
-    if (JSON.stringify(newList) !== JSON.stringify(productList)) {
-      setProductList(newList);
-    }
-  }, [productList]);
+    setProductList(newList);
+  }, []);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -62,7 +56,6 @@ const ShopProduct = () => {
                 key={key}
                 data={productList[key]}
                 filter={currentPath.split("/")[4]}
-                func={setProductList}
               />
             );
           })}

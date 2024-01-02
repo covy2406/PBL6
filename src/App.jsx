@@ -36,6 +36,7 @@ import Shop from "./Site_Shop/Shop.jsx";
 import ShopSignup from "./Site_Shop/ShopSignup.jsx";
 import ShopOrders from "./Site_Shop/Components/ShopOrders.jsx";
 import ShopProduct from "Site_Shop/Components/ShopProducts.jsx";
+import ShopPromos from "Site_Shop/Components/ShopPromos.jsx";
 //auth
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 
@@ -54,8 +55,12 @@ const App = () => {
           <Route path="product" element={<Product />} />
           <Route path="oldphone" element={<Oldphone />} />
           <Route path="Viewdetail/:id" element={<Viewdetails />} />
-          <Route path="product/Viewdetail/:id" element={<Viewdetails/>}></Route>
-          <Route path="oldphone/Viewdetail/:id" element={<Viewdetails/>}></Route>
+          <Route
+            path="product/Viewdetail/:id"
+            element={<Viewdetails />}></Route>
+          <Route
+            path="oldphone/Viewdetail/:id"
+            element={<Viewdetails />}></Route>
           {/* <Route path="search" element={<Search/>}></Route> */}
         </Route>
         <Route path="/" element={<Layout />}>
@@ -88,8 +93,8 @@ const App = () => {
               </Route>
               <Route path="promos">
                 <Route path="list" element={<Shop extraProps="promos" />}>
-                  <Route path="all" />
-                  <Route path="active" />
+                  <Route path="all" element={<ShopPromos />} />
+                  <Route path="active" element={<ShopPromos />} />
                 </Route>
                 <Route
                   path="add"

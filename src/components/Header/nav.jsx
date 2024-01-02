@@ -22,7 +22,7 @@ import apiSearch from "api/apiSearch";
 //import NavSearch from "./NavSearch";
 
 const Nav = () => {
-  const { auth, setAuth, profile, setProfile } = useAuth();
+  const { auth, setAuth, profile, setProfile, url } = useAuth();
   const { useprofile } = useProfile();
   const isAuth = window.sessionStorage.getItem("isAuth");
   const location = useLocation();
@@ -113,11 +113,11 @@ const Nav = () => {
               {isAuth ? (
                 <li className="header__navbar-item header__navbar-user">
                   <img
-                    src={auth.url + profile.avatar}
+                    src={url + profile.avatar}
                     alt=""
                     className="header__navbar-user-img"
                     onLoad={(e) => {
-                      e.target.src = auth.url + profile.avatar;
+                      e.target.src = url + profile.avatar;
                     }}></img>
                   <span className="header__navbar-user-name header__navbar-item--bold">
                     {profile.name}

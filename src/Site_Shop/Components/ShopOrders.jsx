@@ -1,10 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import useShop from "hook/useShop";
 import ShopOrdersData from "Site_Shop/Data/ShopOrdersData";
 import ShopOrdersCard from "./ShopOrdersCard/ShopOrdersCard";
 
-const ShopOrders = () => {
+const ShopOrders = ({ props }) => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
   const [orderList, setOrderList] = useState({});

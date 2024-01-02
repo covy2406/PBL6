@@ -1,23 +1,22 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ShopPromosCard from "./ShopPromosCard/ShopPromosCard";
-import useShop from "hook/useShop";
 
-const ShopPromos = () => {
+const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
+  const [currentList, setCurrentList] = useState({});
   const [productpromosList, setProductPromosList] = useState({});
   const [shoppromosList, setShopPromosList] = useState({});
 
   useEffect(() => {
-    setProductPromosList(
-      JSON.parse(window.sessionStorage.getItem("shopPromos"))
-        .promotions_shop_product_id
-    );
-    setShopPromosList(
-      JSON.parse(window.sessionStorage.getItem("shopPromos")).promotion_shop_id
-    );
+    setCurrentList(JSON.parse(window.sessionStorage.getItem("shopPromos")));
   }, []);
+
+  useEffect(() => {
+    setProductPromosList(currentList.promotions_shop_product_id);
+    setShopPromosList(currentList.promotion_shop_id);
+  }, [currentList]);
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -63,6 +62,8 @@ const ShopPromos = () => {
               <ShopPromosCard
                 data={shoppromosList[key]}
                 filter={currentPath.split("/")[4]}
+                updateShopPromo={updateShopPromo}
+                deleteShopPromo={deleteShopPromo}
               />
             );
           })}
@@ -72,6 +73,8 @@ const ShopPromos = () => {
               <ShopPromosCard
                 data={productpromosList[key]}
                 filter={currentPath.split("/")[4]}
+                updateShopPromo={updateShopPromo}
+                deleteShopPromo={deleteShopPromo}
               />
             );
           })}

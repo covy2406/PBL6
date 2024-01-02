@@ -4,7 +4,7 @@ import useAuth from "hook/useAuth";
 import { getStatusFromEn } from "datas/statusData";
 
 const OrdersCard = ({ data }) => {
-  const { auth } = useAuth();
+  const { url } = useAuth();
   useEffect(() => {
     getStatusFromEn(data.status);
   }, []);
@@ -36,7 +36,7 @@ const OrdersCard = ({ data }) => {
         <div className="shoporderscard__product">
           <img
             className="shoporderscard__product--image"
-            src={auth.url + data.image}
+            src={url + data.image}
             alt=""></img>
           <div className="shoporderscard__product--name">{data.name}</div>
         </div>

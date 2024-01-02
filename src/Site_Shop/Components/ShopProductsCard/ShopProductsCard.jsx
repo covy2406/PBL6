@@ -8,8 +8,9 @@ import Select from "react-select";
 //hooks
 import useShop from "hook/useShop";
 
-const ShopProductsCard = ({ data, filter, func }) => {
-  const { auth } = useAuth();
+const ShopProductsCard = ({ data, filter }) => {
+  const { url } = useAuth();
+  const [isDelete, setIsDelete] = useState(filter);
   const { updateShopProduct, deleteShopProduct, getShopProductsAll } =
     useShop();
   const [product, setProduct] = useState({
@@ -40,7 +41,9 @@ const ShopProductsCard = ({ data, filter, func }) => {
     reader.readAsDataURL(file);
   };
 
+  //change to update form
   const [update, setUpdate] = useState(false);
+
   const handleUpdate = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -50,8 +53,8 @@ const ShopProductsCard = ({ data, filter, func }) => {
       confirmButtonText: "Đồng ý",
       cancelButtonText: "Hủy",
     }).then((result) => {
+      //if user click cancel, set product to default data
       if (!result.isConfirmed) {
-        //if user click cancel, set product to default data
         setProduct({
           id: data.id,
           shop_id: data.shop_id,
@@ -71,16 +74,16 @@ const ShopProductsCard = ({ data, filter, func }) => {
         setUpdate(false);
         return;
       }
+      //if user click confirm, set product to new data
       setUpdate(false);
       //nén thành json để gửi dữ liệu lên update
       const packageData = JSON.stringify(product);
       updateShopProduct(packageData, product.id).then(() => {
-        getShopProductsAll().then(() => {
-          func(JSON.parse(window.sessionStorage.getItem("shopProducts")));
-        });
+        getShopProductsAll();
       });
     });
   };
+
   const handleDelete = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -91,22 +94,21 @@ const ShopProductsCard = ({ data, filter, func }) => {
       cancelButtonText: "Hủy",
     }).then((result) => {
       if (!result.isConfirmed) return;
-      deleteShopProduct(product.id).then(() => {
-        getShopProductsAll().then(() => {
-          func(JSON.parse(window.sessionStorage.getItem("shopProducts")));
-        });
-      });
+      //if delete, hide the product temporarily
+      deleteShopProduct(product.id);
+      setIsDelete("deleted");
     });
     setUpdate(false);
   };
   return (
     <>
-      {filter === (data.status ? "active" : "inactive") || filter === "all" ? (
+      {isDelete === (data.status ? "active" : "inactive") ||
+      isDelete === "all" ? (
         <div>
           <div className="productscard__container">
             <div className="productscard__product-name">
               <img
-                src={auth.url + product.image}
+                src={url + product.image}
                 alt=""
                 className="productscard__product-name--img"
               />

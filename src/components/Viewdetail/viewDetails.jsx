@@ -57,12 +57,9 @@ const Viewdetails = () => {
 
   // call api comment
   useEffect(() => {
-    const fetchComments = async (numberOfStars, shop_product_id) => {
+    const fetchComments = async (shop_product_id) => {
       try {
-        const resCmt = await apiComment.getComment(
-          numberOfStars,
-          shop_product_id
-        );
+        const resCmt = await apiComment.getComment(shop_product_id);
         setComment(resCmt.data);
       } catch (err) {
         if (err.response) {

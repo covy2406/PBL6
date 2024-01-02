@@ -13,7 +13,7 @@ import DiscountListShop from "./DiscountListShop";
 import DiscountListWeb from "./DiscountListWeb";
 
 const Cart = () => {
-  const { auth } = useAuth();
+  const { url } = useAuth();
   const { cartListProduct, setCartListProduct } = useCart();
   const { decreaseQuantity, increaseQuantity, delfromcart } = useCartHandle();
 
@@ -212,7 +212,7 @@ const Cart = () => {
                           </td>
                           <td>
                             <img
-                              src={`${auth.url}${productItem.image}`}
+                              src={`${url}${productItem.image}`}
                               //src={`http://0.tcp.ap.ngrok.io:15234/${productItem.image}`}
                               alt={productItem.name}></img>
                           </td>
@@ -278,18 +278,7 @@ const Cart = () => {
                     </>
                   ))}
                 </tbody>
-                {/* <tbody>
-                                </tbody> */}
               </table>
-              {/* <div className="discount__byShop">
-                                <span className="discount__byShop-icon"><CiDiscount1 /></span>
-                                <div className="discount__byShop-ad">
-                                    <div className="btn__checkout-discount-shop" >
-                                        Thêm mã giảm giá của Shop
-                                        <DiscountListShop shop_product_id={shop_product_id_list} />
-                                    </div>
-                                </div>
-                            </div> */}
               <div className="cart__totalprice">
                 <h2 className="totalprice">
                   total: {Totalprice.toLocaleString("vn-VN")} đ

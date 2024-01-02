@@ -112,6 +112,27 @@ const useShop = () => {
       return false;
     }
   };
+  const updateShopPromo = async (data, id) => {
+    try {
+      const response = await apiShop.updatepromos(data, id);
+      if (response?.message === "Resource updated successfully") {
+        window.sessionStorage.setItem("shopPromos", JSON.stringify(data));
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
+  };
+  const deleteShopPromo = async (id) => {
+    try {
+      const response = await apiShop.delpromos(id);
+      return response;
+    } catch (err) {
+      return false;
+    }
+  };
   return {
     getShopdetails,
     updateShopdetails,
@@ -122,6 +143,8 @@ const useShop = () => {
     createShopProduct,
     getShopPromosAll,
     createShopPromo,
+    updateShopPromo,
+    deleteShopPromo,
   };
 };
 

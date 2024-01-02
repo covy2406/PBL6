@@ -26,6 +26,12 @@ const apiShop = {
   addpromos(data) {
     return axiosClient.post("promotions", data);
   },
+  updatepromos(data, id) {
+    return axiosClient.put(`promotions/${id}`, data);
+  },
+  delpromos(id) {
+    return axiosClient.delete(`promotions/${id}`);
+  },
 };
 
 export default apiShop;

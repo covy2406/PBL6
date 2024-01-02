@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import useProduct from "hook/useProduct";
 import useShop from "hook/useShop";
 
+import { toast } from "react-toastify";
 import { URLUtils } from "utils/urlUtils";
 
 const ShopProductAdd = () => {
@@ -16,6 +17,9 @@ const ShopProductAdd = () => {
       setProductList(res);
     });
   }, []);
+  useEffect(() => {
+    console.log(productList);
+  }, [productList]);
   //product data to create
   const [product, setProduct] = useState({
     name: "",
@@ -42,15 +46,23 @@ const ShopProductAdd = () => {
   };
 
   //handle create
-  const { createShopProduct } = useShop();
+  const { createShopProduct, getShopProductsAll } = useShop();
   const navigate = useNavigate();
   const handleCreate = (e) => {
     setProduct({ ...product, image: image && URLUtils.base64ToFile(image) });
-    createShopProduct(product).then((res) => {
-      console.log(res);
-    });
+    createShopProduct(product)
+      .then((res) => {
+        if (res) {
+          getShopProductsAll();
+          navigate("/shop/products/list/all");
+          return;
+        }
+        toast.error("Tạo sản phẩm thất bại, có thể bạn đã tạo ở trong shop");
+      })
+      .catch(() => {
+        toast.error("Tạo sản phẩm thất bại");
+      });
     e.preventDefault();
-    navigate("/shop/products/list/all");
   };
 
   //handle sort by name for type input
@@ -80,6 +92,7 @@ const ShopProductAdd = () => {
                   <input
                     className="productscard__container-update--body-item--input"
                     type="text"
+                    // defaultValue={productList[0].name}
                     value={product.name}
                     onChange={(e) => {
                       const value = e.target.value;
@@ -108,7 +121,6 @@ const ShopProductAdd = () => {
                   <Select
                     placeholder="Chọn loại sản phẩm"
                     onChange={(selectedOption) => {
-                      console.log(selectedOption.value);
                       setProduct({
                         ...product,
                         product_id: selectedOption.value,

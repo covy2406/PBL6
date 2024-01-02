@@ -5,7 +5,7 @@ import { getStatusFromEn } from "datas/statusData";
 import useAuth from "hook/useAuth";
 
 const ShopOrdersCard = ({ data, filter }) => {
-  const { auth } = useAuth();
+  const { url } = useAuth();
   const [order, setOrder] = useState({
     id: data.id,
     orderDate: data.orderDate,
@@ -59,7 +59,7 @@ const ShopOrdersCard = ({ data, filter }) => {
               <div className="orderscard__product--wrapper">
                 <img
                   className="orderscard__product--image"
-                  src={auth.url + order.image}
+                  src={url + order.image}
                   alt=""></img>
                 <div className="orderscard__product--name">{order.name}</div>
               </div>
