@@ -1,34 +1,34 @@
 import axiosClient from "./axiosClient.js";
 
-const apiProductHome = {
+const apiProduct = {
   // lấy tất cả
   getAll() {
-    const url = "/getall/shop_products";
+    const url = "products";
     return axiosClient.get(url);
   },
 
   // lấy theo id
   get(id) {
-    const url = `/getall/shop_products/${id}`;
+    const url = `products/${id}`;
     return axiosClient.get(url);
   },
 
   // tạo mới
   add(data) {
-    const url = "/getall/shop_productsproducts";
+    const url = "products";
     return axiosClient.post(url, data);
   },
 
   // chỉnh sửa cập nhật mới
   update(data) {
-    const url = `/getall/shop_productsproducts/${data.id}`;
+    const url = `products/${data.id}`;
     return axiosClient.patch(url, data);
   },
 
   remove(id) {
-    const url = `/getall/shop_productsproducts/${id}`;
+    const url = `products/${id}`;
     return axiosClient.delete(url);
   },
 };
 
-export default apiProductHome;
+export default apiProduct;

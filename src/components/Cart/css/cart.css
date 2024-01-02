@@ -1,4 +1,4 @@
-@import url('../css/DiscountListStyle.css');
+@import url("../css/DiscountListStyle.css");
 
 .cartcontainer {
   padding: 40px 50px;
@@ -116,10 +116,12 @@ td {
   font-weight: 550;
 }
 
-.cart-table th:first-child ,td:first-child {
+.cart-table th:first-child {
   text-align: center;
 }
-
+.cart-table td:first-child {
+  text-align: center;
+}
 .cart-table td {
   text-transform: uppercase;
 }
@@ -196,7 +198,9 @@ td {
   cursor: pointer;
 }
 
-.cartcontainer .btn__checkout-discount-shop, .btn__checkout-discount-web, .cash__payment {
+.cartcontainer .btn__checkout-discount-shop,
+.btn__checkout-discount-web,
+.cash__payment {
   padding: 10px 20px;
   margin: 0 20px;
   color: #fff;

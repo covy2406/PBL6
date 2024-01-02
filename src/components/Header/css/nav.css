@@ -322,6 +322,8 @@
 }
 
 .header__notify-list {
+  max-height: 20rem;
+  overflow-y: auto;
   padding-left: 0;
 }
 
@@ -827,6 +829,9 @@ và có border màu xanh xanh xung quanh */
   border-radius: 3px;
   margin-right: 3px;
   outline: none;
+}
+.header__search-btn a {
+  color: white;
 }
 
 .header__search-btn:hover {

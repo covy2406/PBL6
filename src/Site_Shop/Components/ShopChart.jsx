@@ -6,53 +6,31 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  BarChart,
+  Bar,
+  Rectangle,
 } from "recharts";
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import { useState, useEffect } from "react";
+import apiChart from "api/apiChart";
 
 const ShopChart = () => {
+  const [data, setData] = useState([]);
+
+  //data dữ liệu theo khoảng giá
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await apiChart.purchasePriceRangeStatistics();
+      //convert to array
+      setData(res.data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log(data);
+    console.log(typeof data);
+  }, [data]);
+
   return (
     <>
       <div className="shop__container-nav">
@@ -63,7 +41,7 @@ const ShopChart = () => {
             </ul>
           </div>
         </div>
-        <div className="shop__chart">
+        {/* <div className="shop__chart">
           <LineChart
             width={730}
             height={250}
@@ -77,6 +55,48 @@ const ShopChart = () => {
             <Line type="monotone" dataKey="pv" stroke="#8884d8" />
             <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
           </LineChart>
+        </div> */}
+        <div className="shop__chart">
+          <BarChart
+            width={800}
+            height={300}
+            data={data.data}
+            margin={{
+              top: 10,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="range"
+              tickFormatter={(value) => {
+                const [start, end] = value.split("-");
+                const startMillions = start / 1000000;
+                const endMillions = end / 1000000;
+                return `${startMillions}M - ${endMillions}M`;
+              }}
+            />
+            <YAxis dataKey="order_count" />
+            <Tooltip
+              content={({ payload }) => {
+                if (payload && payload.length > 0) {
+                  return (
+                    <div
+                      style={{
+                        backgroundColor: "#fff",
+                        padding: "0.5rem 1rem",
+                        border: "1px solid #ccc",
+                      }}>
+                      <p>Số lượng: {payload[0].value}</p>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+            <Bar dataKey="order_count" fill="#8884d8" barSize={10} width={10} />
+          </BarChart>
         </div>
       </div>
     </>

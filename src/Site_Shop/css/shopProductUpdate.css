@@ -1,0 +1,149 @@
+.productscard__container-update {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(221, 218, 219, 0.8);
+  z-index: 3;
+}
+/*set grid*/
+.productscard__container-updateform {
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "body image"
+    "buttons buttons";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 2rem;
+}
+
+.productscard__container-update--title {
+  grid-area: title;
+  justify-self: center;
+}
+
+.productscard__container-update--body {
+  grid-area: body;
+  justify-self: center;
+  align-self: center;
+}
+
+.productscard__update--image {
+  grid-area: image;
+  justify-self: center;
+  align-self: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productscard__update--button-list {
+  grid-area: buttons;
+  justify-self: center;
+}
+/*set grid*/
+.productscard__container-updateform {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 60rem;
+  width: 105rem;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  padding: 5rem;
+}
+.productscard__container-update--body-item {
+  display: flex;
+  align-items: center;
+}
+
+.productscard__container-update--title {
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+}
+
+.productscard__container-update--body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.productscard__container-update--body-item--title {
+  font-size: 1.6rem;
+  font-weight: 300;
+  width: 15rem;
+}
+
+.productscard__container-update--body-item--input {
+  width: 40rem;
+  height: 4rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding: 0 2rem;
+  max-height: 5rem;
+}
+.promoscard__wrapper--item-text input {
+  padding: 0 0.5rem;
+  width: 12rem;
+}
+
+.productscard__update--button-list {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  gap: 4rem;
+}
+.ShopProduct--update-button {
+  width: 10rem;
+  height: 3rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+}
+.ShopProduct--delete-button {
+  background-color: var(--primary-color);
+  color: #fcfcfc;
+  width: 10rem;
+  height: 3rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.productscard__update--image--img {
+  width: 25rem;
+  height: 25rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+}
+.productscard__update--image--button {
+  position: absolute;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.promoscard__container-updateform {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  padding: 5rem;
+}
+.promoscard-update--body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}

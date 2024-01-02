@@ -35,16 +35,16 @@
   box-sizing: border-box;
 }
 
-html{
-    /* 1rem = 16px, font-size: 100% được hiểu là 16px*/
-    /* font-size: 62.5% thì 1rem = 10px */
-    /* hack */
-    font-size: 62.5%;
-    line-height: 1.6rem;
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
-    /* background-color: #ddd; */
-    background-color: var(--primary-html-color);
+html {
+  /* 1rem = 16px, font-size: 100% được hiểu là 16px*/
+  /* font-size: 62.5% thì 1rem = 10px */
+  /* hack */
+  font-size: 62.5%;
+  line-height: 1.6rem;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  /* background-color: #ddd; */
+  background-color: var(--primary-html-color);
 }
 
 /* ------------------------------------------------------------ */
@@ -66,6 +66,7 @@ trong phạm vi 1200px và căn giữa nhờ margin: 0 auto */
 .grid {
   width: 1200px;
   max-width: 100%;
+  min-width: 1200px;
   margin: 0 auto;
 }
 
@@ -153,14 +154,14 @@ các sản phẩm cách nhau */
   }
 }
 
-@keyframes modalFadeIn{
-  from{
-      opacity: 0;
-      transform: translateY(-140px);
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-140px);
   }
-  to{
-      opacity: 1;
-      transform: translateY(0);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

@@ -10,7 +10,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className="aboutform">
+      <div className="grid aboutform">
         <div className="aboutform--title">Liên hệ với cửa hàng</div>
         <div className="aboutform--decription">
           Nếu có thắc mắc về sản phẩm, hãy liên hệ với chúng tôi qua form dưới

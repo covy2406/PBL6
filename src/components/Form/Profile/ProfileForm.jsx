@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { days, months, years } from "./DateData.js";
 import "../AccountForm.css";
 import "./DatePicker.css";
 import "./Profile.css";
+import "./update.css";
 
 import Avatar from "react-avatar-edit";
 
@@ -12,6 +12,8 @@ import useProfile from "hook/useProfile.js";
 import apiCustomerProfile from "api/apiCustomerProfile.js";
 import { toast } from "react-toastify";
 import { URLUtils } from "utils/urlUtils.js";
+import Swal from "sweetalert2";
+import { el } from "date-fns/locale";
 
 const ProfileForm = () => {
   //img states
@@ -36,7 +38,7 @@ const ProfileForm = () => {
   const currentDate = new Date();
 
   // get data from useProfile hook
-  const { profile, auth } = useAuth();
+  const { profile, url } = useAuth();
   const { useprofile } = useProfile();
 
   // define states
@@ -74,10 +76,11 @@ const ProfileForm = () => {
       setPhone(profile.phone);
       setUser(profile.name);
       setSex(profile.sex === 1 ? "Nam" : "Nữ");
-      setPreview(auth.url + profile.avatar);
+      setPreview(url + profile.avatar);
     }
   }, [profile]);
 
+  //handle birthday change
   useEffect(() => {
     setDays(birthday[0]);
     setMonths(birthday[1]);
@@ -89,8 +92,7 @@ const ProfileForm = () => {
   }, [dayy, monthh, yearr]);
 
   const handleSubmit = (e) => {
-    console.log(avatar);
-    var avatarFile = URLUtils.base64ToFile(avatar, "avatar.png");
+    if (avatar) var avatarFile = URLUtils.base64ToFile(avatar, "avatar.png");
     const data = {
       name: user,
       email: email,
@@ -120,7 +122,34 @@ const ProfileForm = () => {
         console.log("update profile err: ", err);
       });
   };
-
+  //handle email change
+  const [isEmailUpdate, setIsEmailUpdate] = useState(false);
+  const handleEmailChange = (e) => {
+    setIsEmailUpdate(false);
+  };
+  //handle phone change
+  const [isPhoneUpdate, setIsPhoneUpdate] = useState(false);
+  const handlePhoneChange = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Xác nhận đổi số điện thoại",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Xác nhận",
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Đổi số điện thoại thành công",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        handleSubmit(e);
+      } else {
+        setIsPhoneUpdate(false);
+      }
+    });
+  };
   return (
     <>
       <div className="profileform__title">
@@ -146,18 +175,26 @@ const ProfileForm = () => {
               <td className="profileform__table--left">Email</td>
               <td className="profileform__table--right">
                 {email}
-                <Link className="profileform--link" to="/change-email">
+                <span
+                  className="profileform--link"
+                  onClick={() => {
+                    setIsEmailUpdate(true);
+                  }}>
                   Thay đổi
-                </Link>
+                </span>
               </td>
             </tr>
             <tr className="profileform__table__row">
               <td className="profileform__table--left">Số điện thoại</td>
               <td className="profileform__table--right">
                 {phone}
-                <Link className="profileform--link" to="/change-phone">
+                <span
+                  className="profileform--link"
+                  onClick={() => {
+                    setIsPhoneUpdate(true);
+                  }}>
                   Thay đổi
-                </Link>
+                </span>
               </td>
             </tr>
             <tr className="profileform__table__row">
@@ -258,24 +295,50 @@ const ProfileForm = () => {
         <div className="profileform__avatar--overlay">
           <div className="profileform__avatar--preview">
             <Avatar
-              height={500}
-              width={500}
               onCrop={onCrop}
               onClose={onClose}
-              onImageLoad={(e) => {}}
-              exportSize={300}
-              label="Chọn ảnh"
+              exportSize={200}
+              label="Chọn ảnh sản phẩm"
               labelStyle={{
                 fontSize: "20px",
                 fontWeight: "bold",
                 cursor: "pointer",
               }}
-              exportAsSquare={true}></Avatar>
-            <button className="avatar__btn " onClick={onClose}>
-              Lưu
-            </button>
+              exportAsSquare={true}
+            />
           </div>
         </div>
+      ) : null}
+      {isEmailUpdate ? (
+        <>
+          <div className="profileform__update">
+            <div>Đổi Email</div>
+
+            <button onClick={handleEmailChange}>Lưu</button>
+          </div>
+        </>
+      ) : null}
+      {isPhoneUpdate ? (
+        <>
+          <div className="profileform__update">
+            <div className="profileform__update__container">
+              <div className="profileform__update--title">
+                Đổi số điện thoại
+              </div>
+              <input
+                type="text"
+                placeholder="Số điện thoại mới"
+                className="profileform__update--input"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}></input>
+              <button
+                onClick={handlePhoneChange}
+                className="profileform__update--button">
+                Lưu
+              </button>
+            </div>
+          </div>
+        </>
       ) : null}
     </>
   );

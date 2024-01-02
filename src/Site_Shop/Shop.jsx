@@ -2,7 +2,9 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./css/shopStyle.css";
+
 import useShop from "hook/useShop";
+import useAuth from "hook/useAuth";
 
 //page import
 import ShopOrders from "./Components/ShopOrders";
@@ -15,13 +17,20 @@ import ShopChart from "./Components/ShopChart";
 
 const Shop = ({ extraProps } = "details") => {
   const location = useLocation();
+  const { shopProfile } = useAuth();
   const [currentPath, setCurrentPath] = useState("");
-  const { getShopOrdersAll, getShopProductsAll, getShopdetails } = useShop();
+  const {
+    getShopOrdersAll,
+    getShopProductsAll,
+    getShopdetails,
+    getShopPromosAll,
+  } = useShop();
 
   useEffect(() => {
     getShopdetails();
     getShopOrdersAll();
     getShopProductsAll();
+    getShopPromosAll(shopProfile.id);
   }, []);
 
   useEffect(() => {

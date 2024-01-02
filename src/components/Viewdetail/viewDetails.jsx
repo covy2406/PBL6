@@ -15,25 +15,24 @@ import useCartHandle from "hook/useCartHandle";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import useCart from "hook/useCart";
 //import useComment from "hook/useComments";
-
-
+import apiComment from "api/apiComment";
 
 const Viewdetails = () => {
-   const { addtocart } = useCartHandle();
-   //const { fetchComments } = useComment();
-   const { close, setClose } = useCart();
-   const { auth } = useAuth();
-   // CALL API PRODUCT DETAIL
-   const [productDetail, setProductDetail] = useState([]);
-   const [error, setError] = useState(null);
-   const { id } = useParams();
+  const { addtocart } = useCartHandle();
+  //const { fetchComments } = useComment();
+  const { close, setClose } = useCart();
+  const { auth } = useAuth();
+  // CALL API PRODUCT DETAIL
+  const [productDetail, setProductDetail] = useState([]);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
 
-   const [selectedColor, setSelectedColor] = useState(null);
-   const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
-   const [listImageColor, setListImageColor] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
+  const [listImageColor, setListImageColor] = useState(null);
 
-   // comment
-   const [comment, setComment] = useState([])
+  // comment
+  const [comment, setComment] = useState([]);
 
    useEffect(() => {
       const fetchProuductDetail = async () => {
@@ -57,41 +56,39 @@ const Viewdetails = () => {
    }, []);
 
 
-   // call api comment
-   useEffect(() => {
-      const fetchComments = async (shop_product_id) => {
-         try {
-            const resCmt = await apiProductDetail.getComment(shop_product_id);
-            setComment(resCmt.data);
-         }
-         catch (err) {
-            if (err.response) {
-               // Lỗi HTTP, ví dụ: error.response.status
-               console.log('Lỗi HTTP:', err.response.status);
-            } else if (err.request) {
-               // Yêu cầu đã được gửi nhưng không nhận được phản hồi
-               console.log('Yêu cầu không được phản hồi:', err.request);
-            } else {
-               // Lỗi khác
-               console.log('Lỗi:', err.message);
-            }
-         }
+  // call api comment
+  useEffect(() => {
+    const fetchComments = async (shop_product_id) => {
+      try {
+        const resCmt = await apiComment.getComment(shop_product_id);
+        setComment(resCmt.data);
+      } catch (err) {
+        if (err.response) {
+          // Lỗi HTTP, ví dụ: error.response.status
+          console.log("Lỗi HTTP:", err.response.status);
+        } else if (err.request) {
+          // Yêu cầu đã được gửi nhưng không nhận được phản hồi
+          console.log("Yêu cầu không được phản hồi:", err.request);
+        } else {
+          // Lỗi khác
+          console.log("Lỗi:", err.message);
+        }
       }
-      fetchComments(id);
-   }, [])
+    };
+    fetchComments(id);
+  }, []);
 
+  const handleColorClick = (color, image) => {
+    // console.log(`Color clicked: ${color}, Image: ${image}`);
+    setSelectedColor((prevColor) => color);
+    setSelectedImage((prevImage) => image);
+  };
 
-   const handleColorClick = (color, image) => {
-      console.log(`Color clicked: ${color}, Image: ${image}`);
-      setSelectedColor((prevColor) => color);
-      setSelectedImage((prevImage) => image);
-   };
-
-   // console.log('id chi tiet san pham: ', id);
-   console.log('productDetail', productDetail);
-   if (error) {
-      return <p>Erorr: {error.message}</p>;
-   }
+  // console.log('id chi tiet san pham: ', id);
+  // console.log("productDetail", productDetail);
+  if (error) {
+    return <p>Erorr: {error.message}</p>;
+  }
 
    // Kiểm tra nếu shop_products không tồn tại hoặc là mảng rỗng
    if (!productDetail.shop_products || productDetail.shop_products.length === 0) {

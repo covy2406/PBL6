@@ -1,5 +1,6 @@
 import apiCustomerProfile from "api/apiCustomerProfile";
 import useAuth from "hook/useAuth";
+import { toast } from "react-toastify";
 
 const useProfile = () => {
   const { setProfile } = useAuth();
@@ -7,7 +8,7 @@ const useProfile = () => {
     try {
       const response = await apiCustomerProfile.getProfile();
       if (response.data?.message) {
-        console.log("profile err", response);
+        toast.error("Lỗi không thể lấy thông tin tài khoản");
         return false;
       }
       window.sessionStorage.setItem("profile", JSON.stringify(response.data));
@@ -22,7 +23,7 @@ const useProfile = () => {
       });
       return true;
     } catch (err) {
-      console.log("useProfile err: " + err);
+      toast.error("Lỗi không thể lấy thông tin tài khoản");
       return false;
     }
   };
@@ -31,7 +32,7 @@ const useProfile = () => {
       await apiCustomerProfile.updatePassword(data);
       return true;
     } catch (err) {
-      console.log("updatepassword err: " + err);
+      toast.error("Lỗi không thể cập nhật mật khẩu");
       return false;
     }
   };
@@ -39,12 +40,12 @@ const useProfile = () => {
     try {
       const response = await apiCustomerProfile.getProfileOrders();
       if (response.data?.message) {
-        console.log("profile err", response);
+        toast.error("Lỗi không thể lấy thông tin đơn hàng");
         return false;
       }
       return response;
     } catch (err) {
-      console.log("getprofileorders err: " + err);
+      toast.error("Lỗi không thể lấy thông tin đơn hàng");
       return false;
     }
   };

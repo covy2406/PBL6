@@ -1,107 +1,402 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import useAuth from "hook/useAuth";
+import { useState } from "react";
+import Select from "react-select";
+import "./ShopPromosCard.css";
+import Swal from "sweetalert2";
 
-const ShopPromosCard = ({ data, filter }) => {
-  const { auth } = useAuth();
-  const [product, setProduct] = useState({
-    id: data.id,
-    shop_id: data.shop_id,
-    product_id: data.product_id,
-    price: data.price,
-    quantity: data.quantity,
-    starRated: data.starRated,
-    status: data.status ? "Hoạt động" : "Không hoạt động",
-    isNew: data.isNew,
-    warranty: data.warranty,
-    description: data.description,
-    created_at: data.created_at,
-    updated_at: data.updated_at,
-    image: data.image,
-    name: data.name,
+const ShopPromosCard = ({ data, filter, updateShopPromo, deleteShopPromo }) => {
+  //create this state to handle update
+  const [promofilter, setPromoFilter] = useState(filter);
+  const [promo, setPromo] = useState({
+    id: data.id || "",
+    code: data.code || "",
+    shop_product_id: data.shop_product_id || "",
+    shop_id: data.shop_id || "",
+    type: data.type || "",
+    value: data.value || "",
+    minPriceCondition: data.minPriceCondition || "",
+    detail: data.detail || "",
+    status: data.status || "",
+    quantity: data.quantity || "",
+    startDate: data.startDate || "2024-01-01",
+    endDate: data.endDate || "2024-02-01",
   });
+  //see details state
+  const [seeDetails, setSeeDetails] = useState(false);
+
+  const handleChange = (e) => {
+    setPromo({ ...promo, [e.target.name]: e.target.value });
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Bạn có chắc muốn cập nhật khuyến mãi này?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: `Cập nhật`,
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateShopPromo(JSON.stringify(promo), promo.id);
+        Swal.fire({
+          icon: "success",
+          title: "Cập nhật thành công",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setSeeDetails(!seeDetails);
+      } else {
+        setSeeDetails(!seeDetails);
+      }
+    });
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Bạn có chắc muốn xóa khuyến mãi này?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: `Xóa`,
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteShopPromo(promo.id);
+        Swal.fire({
+          icon: "success",
+          title: "Xóa thành công",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setPromoFilter("");
+        setSeeDetails(!seeDetails);
+      } else {
+        setSeeDetails(!seeDetails);
+      }
+    });
+  };
+
   return (
     <>
-      {/* lọc đơn theo tình trạng*/}
-      {filter === data.status ? (
-        "active"
-      ) : "inactive" || filter === "all" ? (
+      {seeDetails ? (
         <>
-          <div className="productscard__container">
-            <div className="productscard__product-name">
-              <img
-                src={auth.url + product.image}
-                alt=""
-                className="productscard__product-name--img"
-              />
-              <div className="productscard__product-name--text">
-                {product.name}
+          <div className="promosdetails__container">
+            <div className="promosdetails__wrapper">
+              <div className="productscard__container-update--title">
+                Chi tiết khuyến mãi
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Mã khuyến mãi:
+                </div>
+                <div>
+                  <input
+                    disabled
+                    className="productscard__container-update--body-item--input"
+                    type="text"
+                    name="code"
+                    value={promo.code}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Ngày bắt đầu:
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="date"
+                    name="startDate"
+                    value={promo.startDate}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Ngày kết thúc:
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="date"
+                    name="endDate"
+                    value={promo.endDate}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Loại giảm giá
+                </div>
+                <div>
+                  <Select
+                    name="discount"
+                    value={{
+                      label: promo.type ? "%" : "VNĐ",
+                      value: promo.type ? "%" : "VNĐ",
+                    }}
+                    styles={{
+                      valueContainer: (base) => ({
+                        ...base,
+                        fontSize: "1.4rem",
+                        fontWeight: "400",
+                        color: "#9e9e9e",
+                      }),
+                      placeholder: (base) => ({
+                        ...base,
+                        color: "#9e9e9e",
+                        fontSize: "1.4rem",
+                        fontWeight: "400",
+                      }),
+                      control: (base) => ({
+                        ...base,
+                        width: "40rem",
+                        border: "1px solid #d9d9d9",
+                        borderRadius: "5px",
+                        paddingLeft: "1rem",
+                        maxHeight: "5rem",
+                      }),
+                      menu: (base) => ({
+                        ...base,
+                        fontSize: "1.4rem",
+                        backgroundColor: "#f0f0f0",
+                        border: "1px solid #d9d9d9",
+                        borderRadius: "5px",
+                        paddingLeft: "1rem",
+                      }),
+                    }}
+                    onChange={(selectedOption) => {
+                      handleChange({
+                        target: {
+                          name: "discount",
+                          value: selectedOption.value,
+                        },
+                      });
+                    }}
+                    options={[
+                      { value: "%", label: "%" },
+                      { value: "VNĐ", label: "VNĐ" },
+                    ]}
+                    defaultValue={{
+                      value: promo.type ? "%" : "VNĐ",
+                      label: promo.type ? "%" : "VNĐ",
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Mức giảm:
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="text"
+                    name="value"
+                    value={promo.value}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Số lượng:
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="text"
+                    name="quantity"
+                    value={promo.quantity}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Điều kiện giảm giá:
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="text"
+                    name="minPriceCondition"
+                    value={Number(promo.minPriceCondition).toLocaleString(
+                      "vi-VN"
+                    )}
+                    onChange={(e) =>
+                      setPromo({
+                        ...promo,
+                        minPriceCondition: String(
+                          e.target.value.replace(/\D/g, "")
+                        ),
+                      })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Mô tả
+                </div>
+                <div>
+                  <input
+                    className="productscard__container-update--body-item--input"
+                    type="text"
+                    name="detail"
+                    value={promo.detail}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="productscard__container-update--body-item">
+                <div className="productscard__container-update--body-item--title">
+                  Trạng thái
+                </div>
+                <div>
+                  <Select
+                    name="status"
+                    value={{
+                      label: promo.status ? "Hoạt động" : "Dừng",
+                      value: promo.status,
+                    }}
+                    onChange={(selectedOption) => {
+                      handleChange({
+                        target: { name: "status", value: selectedOption.value },
+                      });
+                    }}
+                    options={[
+                      { value: 1, label: "Hoạt động" },
+                      { value: 0, label: "Dừng" },
+                    ]}
+                    styles={{
+                      valueContainer: (base) => ({
+                        ...base,
+                        fontSize: "1.4rem",
+                        fontWeight: "400",
+                        color: "#9e9e9e",
+                      }),
+                      placeholder: (base) => ({
+                        ...base,
+                        color: "#9e9e9e",
+                        fontSize: "1.4rem",
+                        fontWeight: "400",
+                      }),
+                      control: (base) => ({
+                        ...base,
+                        width: "40rem",
+                        border: "1px solid #d9d9d9",
+                        borderRadius: "5px",
+                        paddingLeft: "1rem",
+                        maxHeight: "5rem",
+                      }),
+                      menu: (base) => ({
+                        ...base,
+                        fontSize: "1.4rem",
+                        backgroundColor: "#f0f0f0",
+                        border: "1px solid #d9d9d9",
+                        borderRadius: "5px",
+                        paddingLeft: "1rem",
+                      }),
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="productscard__update--button-list">
+                <button
+                  className="ShopProduct--update-button"
+                  onClick={(e) => handleUpdate(e)}>
+                  Lưu
+                </button>
+                <button
+                  className="ShopProduct--delete-button"
+                  onClick={(e) => handleDelete(e)}>
+                  Xóa
+                </button>
               </div>
             </div>
-            <div className="productscard__product-price">
-              {new Intl.NumberFormat("vi-VN", {
-                style: "currency",
-                currency: "VND",
-              }).format(product.price)}
-            </div>
-            <div className="productscard__product-quantity">
-              Kho: {product.quantity}
-            </div>
-            <div className="productscard__product-button-list">
-              <button className="productscard__product--button">Sửa</button>
-              <Link
-                to={`/Viewdetail/${product.id}`}
-                className="productscard__product-button">
-                Xem thêm
-              </Link>
-            </div>
-            <div className="productscard__product-starrate">
-              <div className="productscard__product-starrate--text">
-                Đánh giá:
+          </div>
+        </>
+      ) : null}
+      {promofilter === (data.status ? "active" : "") || filter === "all" ? (
+        <>
+          <div className="promoscard__container">
+            <div className="promoscard__wrapper">
+              <div className="promoscard__wrapper--item">
+                <div className="promoscard__wrapper--item-text">
+                  <span>Mã khuyến mãi: </span>
+                  <span className="promoscard--promo-code">{promo.code}</span>
+                </div>
               </div>
-              <div className="productscard__product-starrate--star">
-                {[...Array(product.starRated)].map((item, index) => {
-                  return (
-                    <>
-                      <div className="productscard__product-starrate--star--icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="red"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                          />
-                        </svg>
-                      </div>
-                    </>
-                  );
-                })}
-                {[...Array(5 - product.starRated)].map((item, index) => {
-                  return (
-                    <>
-                      <div className="productscard__product-starrate--star--icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                          />
-                        </svg>
-                      </div>
-                    </>
-                  );
-                })}
+            </div>
+            <div className="promoscard__wrapper">
+              <div className="promoscard__wrapper--item">
+                <div className="promoscard__wrapper--item-text">
+                  <span>Loại khuyến mãi: </span>
+                  <span className="promoscard--promo-code">
+                    {promo.type ? "Phần trăm" : "VNĐ"}
+                  </span>
+                </div>
+              </div>
+              <div className="promoscard__wrapper--item">
+                <div className="promoscard__wrapper--item-text">
+                  <span>Giá trị khuyến mãi: </span>
+                  <span className="promoscard--promo-code">
+                    {!promo.type
+                      ? Number(promo.value).toLocaleString("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        })
+                      : promo.value + "%"}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="promoscard__wrapper">
+              <div className="promoscard__wrapper--item">
+                <div className="promoscard__wrapper--item-text">
+                  <span>Điều kiện áp dụng: </span>
+                  <span className="promoscard--promo-code">
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(promo.minPriceCondition)}
+                  </span>
+                </div>
+              </div>
+              <div className="promoscard__wrapper--item">
+                <div className="promoscard__wrapper--item-text">
+                  <span>Số lượng: </span>
+                  <span className="promoscard--promo-code">
+                    {promo.quantity}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="promoscard__wrapper">
+              <div className="promoscard__wrapper--item">
+                <div className="promoscard__wrapper--item-text">
+                  <span>Ngày bắt đầu </span>
+                  <input disabled type="date" value={promo.startDate} />
+                  <button
+                    className="promoscard__wrapper--item-edit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSeeDetails(!seeDetails);
+                    }}>
+                    ...
+                  </button>
+                </div>
+              </div>
+              <div className="promoscard__wrapper--item">
+                <div className="promoscard__wrapper--item-text">
+                  <span>Ngày kết thúc</span>
+                  <input disabled type="date" value={promo.endDate} />
+                </div>
               </div>
             </div>
           </div>

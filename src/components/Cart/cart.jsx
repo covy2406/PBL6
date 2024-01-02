@@ -12,29 +12,29 @@ import DiscountListShop from "./DiscountListShop";
 import DiscountListWeb from "./DiscountListWeb";
 
 const Cart = () => {
-   const { auth } = useAuth();
-   const { cartListProduct, setCartListProduct } = useCart();
-   const { decreaseQuantity, increaseQuantity, delfromcart } = useCartHandle();
+  const { url } = useAuth();
+  const { cartListProduct, setCartListProduct } = useCart();
+  const { decreaseQuantity, increaseQuantity, delfromcart } = useCartHandle();
 
-   const [selectedProducts, setSelectedProducts] = useState({});
-   const [productQuantities, setProductQuantities] = useState({});
-   const [shop_product_id_list, setShopProductIdList] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState({});
+  const [productQuantities, setProductQuantities] = useState({});
+  const [shop_product_id_list, setShopProductIdList] = useState([]);
 
-   const [Totalprice, setTotalprice] = useState(0);
+  const [Totalprice, setTotalprice] = useState(0);
 
-   const [showDiscounts, setShowDiscounts] = useState(false);
+  const [showDiscounts, setShowDiscounts] = useState(false);
 
-   const toggleDiscounts = () => {
-      setShowDiscounts(!showDiscounts);
-   };
+  const toggleDiscounts = () => {
+    setShowDiscounts(!showDiscounts);
+  };
 
-   // Hàm xử lý sự kiện khi chọn checkbox để chọn sản phẩm trong giỏ hàng
-   const handleCheckboxChange = (id) => {
-      setSelectedProducts((prevSelectedProducts) => ({
-         ...prevSelectedProducts,
-         [id]: !prevSelectedProducts[id],
-      }));
-   };
+  // Hàm xử lý sự kiện khi chọn checkbox để chọn sản phẩm trong giỏ hàng
+  const handleCheckboxChange = (id) => {
+    setSelectedProducts((prevSelectedProducts) => ({
+      ...prevSelectedProducts,
+      [id]: !prevSelectedProducts[id],
+    }));
+  };
 
    useEffect(() => {
       cartListProduct.map((product) => {
@@ -44,18 +44,18 @@ const Cart = () => {
    console.log('shop_product_id_list', shop_product_id_list);
    //console.log(shop_product_id_list.shop_product_id);
 
-   // Tính tổng giá trị của các sản phẩm được chọn
-   useEffect(() => {
-      const selectedTotal = cartListProduct.reduce((price, item) => {
-         if (selectedProducts[item.id]) {
-            return price + parseInt(item.price) * item.quantity_order;
-         }
-         return price;
-      }, 0);
-      console.log("Selected Total: ", selectedTotal);
-      setTotalprice(selectedTotal);
-      console.log('sản phẩm được chọn', selectedProducts);
-   }, [selectedProducts, cartListProduct]);
+  // Tính tổng giá trị của các sản phẩm được chọn
+  useEffect(() => {
+    const selectedTotal = cartListProduct.reduce((price, item) => {
+      if (selectedProducts[item.id]) {
+        return price + parseInt(item.price) * item.quantity_order;
+      }
+      return price;
+    }, 0);
+    console.log("Selected Total: ", selectedTotal);
+    setTotalprice(selectedTotal);
+    console.log("sản phẩm được chọn", selectedProducts);
+  }, [selectedProducts, cartListProduct]);
 
    const updateQuantity = (productId, state) => {
       setCartListProduct((prevCart) => {
@@ -86,27 +86,27 @@ const Cart = () => {
       });
    };
 
-   const incQuantity = async (id) => {
-      const res = await increaseQuantity(id);
-      console.log(res ? "true" : "false");
-      if (res) {
-         updateQuantity(id, "incqty");
-         console.log("Increasing quantity success " + id);
-      } else {
-         toast.error("Số lượng sản phẩm đã hết");
-         console.log("Increasing quantity fail " + id);
-      }
-   };
+  const incQuantity = async (id) => {
+    const res = await increaseQuantity(id);
+    console.log(res ? "true" : "false");
+    if (res) {
+      updateQuantity(id, "incqty");
+      console.log("Increasing quantity success " + id);
+    } else {
+      toast.error("Số lượng sản phẩm đã hết");
+      console.log("Increasing quantity fail " + id);
+    }
+  };
 
-   const decQuantity = async (id) => {
-      const res = await decreaseQuantity(id);
-      if (res) {
-         updateQuantity(id, "decqty");
-         console.log("Decreasing quantity success " + id);
-      } else {
-         console.log("Decreasing quantity fail " + id);
-      }
-   };
+  const decQuantity = async (id) => {
+    const res = await decreaseQuantity(id);
+    if (res) {
+      updateQuantity(id, "decqty");
+      console.log("Decreasing quantity success " + id);
+    } else {
+      console.log("Decreasing quantity fail " + id);
+    }
+  };
 
    // Tạo một mảng để tổ chức danh sách sản phẩm theo shop
    const shopsWithProducts = [];
@@ -156,13 +156,13 @@ const Cart = () => {
          }, 0) : 0
       console.log('totalAmount: ', totalAmount)
 
-      // Lưu thông tin thanh toán vào sessionStorage
-      const paymentInfo = {
-         vnp_OrderInfo: 'Thông tin đơn hàng',
-         vnp_Amount: totalAmount
-      };
+    // Lưu thông tin thanh toán vào sessionStorage
+    const paymentInfo = {
+      vnp_OrderInfo: "Thông tin đơn hàng",
+      vnp_Amount: totalAmount,
+    };
 
-      window.sessionStorage.setItem('paymentInfo', JSON.stringify(paymentInfo));
+    window.sessionStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
 
       try {
          const res = await apiHandlePayment.getPayment(

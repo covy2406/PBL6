@@ -1,18 +1,17 @@
 import axiosClient from "./axiosClient.js";
 
-//link api to login and signup
-const LOGIN_URL = "product";
-const SIGNUP_URL = "customers/register";
-
 const apiAdmin = {
-  showProducts(id) {
-    return axiosClient.post(SIGNUP_URL + "/" + id);
+  login(data) {
+    return axiosClient.post("login", data);
   },
-  deleteProducts(id) {
-    return axiosClient.delete(LOGIN_URL + "/" + id);
+  getAllShopProduct() {
+    return axiosClient.get("getall/shop_products");
   },
-  addProducts(data) {
-    return axiosClient.post(LOGIN_URL, data);
+  getAllShop() {
+    return axiosClient.get("shops");
+  },
+  getAllAccount(data) {
+    return axiosClient.get("", data);
   },
 };
 
