@@ -39,6 +39,7 @@ import ShopProduct from "Site_Shop/Components/ShopProducts.jsx";
 import ShopPromos from "Site_Shop/Components/ShopPromos.jsx";
 //auth
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
+import AdminLogin from "Site_Admin/AdminLogin.jsx";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -120,11 +121,15 @@ const App = () => {
             </Route>
           </Route>
         </Route>
-        <Route path="/admin" element={<AdminNav />}>
-          <Route path="product" element={<AdminProduct />} />
-          <Route path="account" element={<AdminUser />} />
-          <Route path="shop" element={<AdminShop />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route element={<RequiredAuth />}>
+          <Route path="/admin" element={<AdminNav />}>
+            <Route path="product" element={<AdminProduct />} />
+            <Route path="account" element={<AdminUser />} />
+            <Route path="shop" element={<AdminShop />} />
+          </Route>
         </Route>
+
         {/* 404 page */}
         <Route path="*" element={<ErrorPage />} />
       </>

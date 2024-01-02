@@ -13,7 +13,6 @@ import apiCustomerProfile from "api/apiCustomerProfile.js";
 import { toast } from "react-toastify";
 import { URLUtils } from "utils/urlUtils.js";
 import Swal from "sweetalert2";
-//import { el } from "date-fns/locale";
 
 const ProfileForm = () => {
   //img states

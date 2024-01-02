@@ -1,7 +1,25 @@
 import apiAuth from "api/apiAuth";
+import apiAdmin from "api/apiAdmin";
 import { setHeaderConfigAxios } from "api/axiosClient";
 
+import useAuth from "./useAuth";
+
 const useLogin = () => {
+  const { setAuth } = useAuth();
+  const adminlogin = async (data) => {
+    try {
+      const response = await apiAdmin.login(data);
+      setAuth({
+        isAuth: true,
+      });
+      window.sessionStorage.setItem("auth", JSON.stringify(response.data));
+      setHeaderConfigAxios(response.data.access_token);
+      return response;
+    } catch (err) {
+      console.log("useAdmin err: " + err);
+      return false;
+    }
+  };
   const login = async (authUser, remember) => {
     try {
       const response = await apiAuth.login(authUser);
@@ -27,7 +45,7 @@ const useLogin = () => {
       console.log("login api: " + err);
     }
   };
-  return login;
+  return { login, adminlogin };
 };
 
 export default useLogin;

@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient.js";
 
 const apiAdmin = {
   login(data) {
-    return axiosClient.post("login", data);
+    return axiosClient.post("admins/login", data);
   },
   getAllShopProduct() {
     return axiosClient.get("getall/shop_products");
@@ -10,8 +10,8 @@ const apiAdmin = {
   getAllShop() {
     return axiosClient.get("shops");
   },
-  getAllAccount(data) {
-    return axiosClient.get("", data);
+  getAllAccount() {
+    return axiosClient.get("customers");
   },
 };
 

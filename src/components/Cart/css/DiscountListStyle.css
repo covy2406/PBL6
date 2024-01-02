@@ -9,10 +9,9 @@
 }
 
 .discount__cart-list {
-  z-index: 3;
+  z-index: 2;
   background-color: var(--white-color);
   width: 360px;
-  /* top: calc(225% + 28px); */
   left: 170px;
   position: absolute;
   border-radius: 2px;
@@ -169,5 +168,4 @@
   font-size: 1.2rem;
   color: #757575;
   font-weight: 400;
-  
 }

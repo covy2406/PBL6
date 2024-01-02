@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     setProfile,
     shopProfile,
     setShopProfile,
-    url
+    url,
   };
 
   return (
