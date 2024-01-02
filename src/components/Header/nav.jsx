@@ -31,6 +31,7 @@ const Nav = () => {
   // SEARCH
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [error, setError] = useState(null)
   const navigate = useNavigate();
 
   useEffect(() => {

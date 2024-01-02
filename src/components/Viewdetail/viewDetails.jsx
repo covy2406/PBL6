@@ -15,7 +15,7 @@ import useCartHandle from "hook/useCartHandle";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import useCart from "hook/useCart";
 //import useComment from "hook/useComments";
-import apiComment from "api/apiComment";
+//import apiComment from "api/apiComment";
 
 const Viewdetails = () => {
   const { addtocart } = useCartHandle();
@@ -60,7 +60,7 @@ const Viewdetails = () => {
   useEffect(() => {
     const fetchComments = async (shop_product_id) => {
       try {
-        const resCmt = await apiComment.getComment(shop_product_id);
+        const resCmt = await apiProductDetail.getComment(shop_product_id);
         setComment(resCmt.data);
       } catch (err) {
         if (err.response) {
