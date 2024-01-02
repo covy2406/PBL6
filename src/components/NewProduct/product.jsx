@@ -31,8 +31,8 @@ const Product = () => {
 
     //Brand:
     const [brands, setBrands] = useState([]); //brands: Lưu trữ danh sách các thương hiệu sản phẩm.
-    //const [selectedBrands, setSelectedBrands] = useState([]); // cac brand duoc chon(tich vao checkbox)
-    // const [selectedBrandId, setSelectedBrandId] = useState(null); // Lưu trữ ID của thương hiệu đang được chọn.
+    const [selectedBrands, setSelectedBrands] = useState([]); // cac brand duoc chon(tich vao checkbox)
+    //const [selectedBrandId, setSelectedBrandId] = useState(null); // Lưu trữ ID của thương hiệu đang được chọn.
     const [selectedBrandId, setSelectedBrandId] = useState([]);
     const [selectedBrandProducts, setSelectedBrandProducts] = useState([]);// selectedBrandProducts: Lưu trữ danh sách sản phẩm của thương hiệu được 
     const [filteredProducts, setFilteredProducts] = useState([]); //filteredProducts: Lưu trữ danh sách sản phẩm được lọc dựa trên các điều kiện nhất định.
@@ -68,16 +68,16 @@ const Product = () => {
 
         fetchBrands();
     }, []);
-
-    // Danh sach san pham cua thuong hieu
+    
     useEffect(() => {
         const getProductsByBrand = async () => {
             try {
-                if (selectedBrandId.length > 0) {
+                if (selectedBrandId) {
                     console.log("selected:", selectedBrandId);
                     const response = await apiHandleBrand.getShopProductbyBrand(selectedBrandId);
                     setSelectedBrandProducts(response.data);
-                } else {
+                }
+                else {
                     setSelectedBrandProducts(ProductNew);
                 }
             } catch (error) {
@@ -85,25 +85,7 @@ const Product = () => {
             }
         };
         getProductsByBrand();
-    }, [selectedBrandId])
-    
-    // useEffect(() => {
-    //     const getProductsByBrand = async () => {
-    //         try {
-    //             if (selectedBrandId) {
-    //                 console.log("selected:", selectedBrandId);
-    //                 const response = await apiHandleBrand.getShopProductbyBrand(selectedBrandId);
-    //                 setSelectedBrandProducts(response.data);
-    //             }
-    //             else {
-    //                 setSelectedBrandProducts(ProductNew);
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching products by brand:', error);
-    //         }
-    //     };
-    //     getProductsByBrand();
-    // }, [selectedBrandId, selectedBrands, ProductNew]);
+    }, [selectedBrandId, selectedBrands, ProductNew]);
 
     // Lọc sản phẩm tương ứng với thương hiệu
     useEffect(() => {
@@ -112,41 +94,24 @@ const Product = () => {
     }, [selectedBrandProducts, ProductNew]);
 
 
-    // const handleBrandCheckboxChange = (brandId) => {
-    //     console.log(brandId);
-    //     setSelectedBrandId(brandId);
-    //     setSelectedBrands((prevBrands) => {
-    //         if (prevBrands.includes(brandId)) {
-    //             return prevBrands.filter((id) => id !== brandId);
-    //         } else {
-    //             return [...prevBrands, brandId];
-    //         }
-    //     });
-    // };
-
     const handleBrandCheckboxChange = (brandId) => {
-        setSelectedBrandId((prevBrandIds) => {
-            if (prevBrandIds.includes(brandId)) {
-                return prevBrandIds.filter((id) => id !== brandId);
+        console.log(brandId);
+        setSelectedBrandId(brandId);
+        setSelectedBrands((prevBrands) => {
+            if (prevBrands.includes(brandId)) {
+                return prevBrands.filter((id) => id !== brandId);
             } else {
-                return [...prevBrandIds, brandId];
+                return [...prevBrands, brandId];
             }
         });
     };
     
-
     // ham xu ly show tat ca san pham
     const handleShowAllProducts = () => {
         setSelectedBrandId([]);
+        //setSelectedBrandId(null)
         toast.success('Hiển thị tất cả các sản phẩm', { autoClose: 1000 });
     };
-    
-    // const handleShowAllProducts = () => {
-    //     // Đặt selectedBrandId về giá trị null để hiển thị tất cả sản phẩm
-    //     setSelectedBrandId(null);
-    //     setSelectedBrands([]);
-    //     toast.success('Hiển thị tất cả các sản phẩm', { autoClose: 1000 })
-    // };
 
     // Ham call api gia:
     useEffect(() => {
@@ -185,25 +150,6 @@ const Product = () => {
         }
     };
 
-
-    // const handleApplyFilter = () => {
-    //     const minPriceValue = parseFloat(minPriceInput);
-    //     const maxPriceValue = parseFloat(maxPriceInput);
-
-    //     if (!isNaN(minPriceValue) && !isNaN(maxPriceValue) && minPriceValue <= maxPriceValue) {
-    //         // Lọc sản phẩm theo khoảng giá nhập vào
-    //         const filtered = selectedBrandProducts.filter(
-    //             (product) =>
-    //                 parseFloat(product.price) >= minPriceValue &&
-    //                 parseFloat(product.price) <= maxPriceValue
-    //         );
-    //         setFilteredProducts(filtered);
-    //     } else {
-    //         // Hiển thị thông báo lỗi nếu giá nhập vào không hợp lệ
-    //         toast.error('Vui lòng nhập giá hợp lệ.', { autoClose: 1000 });
-    //     }
-    // };
-
     if (error) {
         return <p>error: {error.message}</p>;
     }
@@ -227,9 +173,9 @@ const Product = () => {
                                     <li className='categories-item' key={brand.id}>
                                         <input
                                             className='categories-item__input'
-                                            type='checkbox'
-                                            // checked={selectedBrandId === brand.id}
-                                            checked={selectedBrandId.includes(brand.id)}
+                                            type='radio'
+                                            checked={selectedBrandId === brand.id}
+                                            //checked={selectedBrandId.includes(brand.id)}
                                             onChange={() => handleBrandCheckboxChange(brand.id)}
                                         ></input>
                                         <label className='categories-item__label'>{brand.name}</label>
@@ -261,8 +207,11 @@ const Product = () => {
                                         />
                                                 
                                     </div>
-                                    <button className="btn btn--primary-main btn-filter" onClick={() => handleApplyFilter()}>
-                                        Áp dụng
+                                    <button 
+                                        className="btn btn--primary-main btn-filter" 
+                                        onClick={() => handleApplyFilter()}
+                                    >
+                                    Áp dụng
                                     </button>
                                 </div>
                             </ul>

@@ -16,8 +16,20 @@ const ProductHome = () => {
   const { view } = useCart();
   const { addtocart } = useCartHandle();
 
-  const [productList, setProductList] = useState([]);
-  const [error, setError] = useState(null);
+   const [productList, setProductList] = useState([]);
+   const [error, setError] = useState(null);
+
+   const [searchTerm, setSearchTerm] = useState('');
+   const [searchResults, setSearchResults] = useState([]);
+
+   const handlSearch = () => {
+      const results = productList.filter(
+         (product) => 
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.shopName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(results);
+   }
 
   useEffect(() => {
     const fetchProductHome = async () => {

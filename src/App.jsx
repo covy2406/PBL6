@@ -67,7 +67,6 @@ const App = () => {
           <Route element={<RequiredAuth />}>
             <Route path="Cart" element={<Cart />} />
             <Route path="CheckoutPage"></Route>
-            <Route path="search" element={<Search />}></Route>
             <Route path="shop">
               <Route path="details" element={<Shop extraProps="details" />} />
               <Route

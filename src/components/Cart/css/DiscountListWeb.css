@@ -1,31 +1,119 @@
 @import url('./DiscountListStyle.css');
 
-.discount-wrap {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    width: 300px;
-    height: 400px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.discount__list {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  text-transform: none;
+  width: 340px;
+  height: 46vh;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.discount__heading {
+  text-align: left;
+  margin: 8px 0 8px 12px;
+  font-size: 1.4rem;
+  color: #999;
+  font-weight: 400;
 }
 
 .discount__list-item {
-    padding-left: 0;
-    list-style: none;
-    /* khi cos qua nhieu ma giam gia se bi keo thanh
+  padding-left: 0;
+  list-style: none;
+  /* khi cos qua nhieu ma giam gia se bi keo thanh
   hang dai nhin rat la xau */
-    height: 46vh;
-    overflow-y: hidden;
+  height: 46vh;
+  overflow-y: hidden;
 }
 
 .discount__item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .discount__item:hover {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
+}
+
+.discount__img {
+  width: 42px;
+  height: 42px;
+  margin: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.discount__item-info {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-right: 12px;
+}
+
+.discount__item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.discount__item-name {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  max-height: 4rem;
+  font-weight: 400;
+  color: var(--text-color);
+  margin: 0;
+  /*do thẻ h tự động có margin trên dưới nên bỏ đi*/
+
+  /* ẩn đi khi chữ quá dài */
+  overflow: hidden;
+  flex: 1;
+  padding-right: 16px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-align: left;
+}
+
+.discount__item-percent-wrap {
+  display: flex;
+}
+
+.discount__item-percent {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+.discount__item-multiply {
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin: 0 4px;
+  color: #757575;
+}
+
+.discount__item-quantity {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #757575;
+}
+
+.discount__item-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.discount__item-description {
+  font-size: 1.2rem;
+  color: #757575;
+  font-weight: 400;
+}
+
+.discount__item-date {
+  font-size: 1.2rem;
+  color: #757575;
+  font-weight: 400;
 }

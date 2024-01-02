@@ -56,26 +56,22 @@ const Nav = () => {
     window.sessionStorage.clear();
   };
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
   // hàm xử lý kích vào nút search thì search
   const handleSearchSubmitResults = async (searchTerm) => {
-    setSearchResults([]);
     try {
-      const resSearch = await apiSearch.getAllSearch(searchTerm);
-      setSearchResults(resSearch.data);
-      navigate.push(`/search?search=${searchTerm}`);
+      const response = await apiSearch.getAllSearch(searchTerm);
+      setSearchResults(response.data);
+      setError(null);
+      //history.push(`/search?search=${searchTerm}`)
     } catch (error) {
-      console.error(error);
+      console.error("Lỗi khi lấy dữ liệu:", error);
+      setSearchResults([]);
+      setError("Không thể tìm kiếm sản phẩm. Vui lòng thử lại.");
     }
   };
-
-  const handleSearchSubmit = () => {
-    setSearchResults([]);
+  useEffect(() => {
     handleSearchSubmitResults(searchTerm);
-  };
+  }, [searchTerm]);
 
   return (
     <div>
@@ -182,8 +178,7 @@ const Nav = () => {
                   className="header__search-input"
                   placeholder="Nhập để tìm kiếm sản phẩm"
                   value={searchTerm}
-                  handleSearchSubmit={handleSearchSubmit}
-                  onChange={handleSearchChange}></input>
+                  onChange={(e) => setSearchTerm(e.target.value)}></input>
                 <div className="header__search-history">
                   <h3 className="header__search-history-heading">
                     Lịch sử tìm kiếm
@@ -209,13 +204,19 @@ const Nav = () => {
                   </li>
                 </ul>
               </div>
-              <button className="header__search-btn">
+              <Link
+                to={`../../Search`}
+                className="header__search-btn"
+                onClick={handleSearchSubmitResults}>
                 <i className="header__search-btn-icon fas fa-search">
-                  <Link to={`../../Search`}>
-                    <BiSearchAlt2 />
-                  </Link>
+                  {/* <Link to={`../../Search`}>
+                                 <BiSearchAlt2 />
+                              </Link> */}
+                  <BiSearchAlt2 />
                 </i>
-              </button>
+              </Link>
+              {/* <Link className="header__search-link" to={`../../Search`}>
+                     </Link> */}
             </div>
 
             {/* <!-- Cart layout --> */}

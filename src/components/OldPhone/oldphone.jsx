@@ -181,28 +181,25 @@ const Oldphone = () => {
 
         <BannerProducts />
 
-        <div className="products-list">
-          {/* <CategoryOld oldData={oldData} setOldproduct={setOldproduct} /> */}
-          <div className="grid__column-2">
-            <nav className="categories">
-              <ul className="categories-list">
-                <h3 className="categories__heading">Thương hiệu</h3>
-                {brands.map((brand) => (
-                  <li className="categories-item" key={brand.id}>
-                    <input
-                      className="categories-item__input"
-                      type="checkbox"
-                      checked={selectedBrandId === brand.id}
-                      onChange={() =>
-                        handleBrandCheckboxChange(brand.id)
-                      }></input>
-                    <label className="categories-item__label">
-                      {brand.name}
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+                <div className="products-list">
+                    {/* <CategoryOld oldData={oldData} setOldproduct={setOldproduct} /> */}
+                    <div className='grid__column-2'>
+                        <nav className='categories'>
+                            <ul className='categories-list'>
+                                <h3 className='categories__heading'>Thương hiệu</h3>
+                                {brands.map((brand) => (
+                                    <li className='categories-item' key={brand.id}>
+                                        <input
+                                            className='categories-item__input'
+                                            type='radio'
+                                            checked={selectedBrandId === brand.id}
+                                            onChange={() => handleBrandCheckboxChange(brand.id)}
+                                        ></input>
+                                        <label className='categories-item__label'>{brand.name}</label>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
 
             <nav className="categories">
               <ul className="categories-list">

@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import useFilter from "./useFilter";
 import apiHandlePrice from "api/apiHandlePrice";
 import apiHandleBrand from "api/apiHandleBrand";
+import ProductHome from "components/Home/ProductHome";
 //import { useEffect } from "react";
 
 const useFilterHandle = () => {
@@ -12,6 +13,9 @@ const useFilterHandle = () => {
             setSelectedBrands,
             setFilteredProducts,
             selectedBrandProducts,
+            searchResults,
+            searchTerm,
+            setSearchResults
         } = useFilter();
 
 
@@ -104,6 +108,16 @@ const useFilterHandle = () => {
         }
     };
 
+    // search sản phẩm:
+    
+    const handleSearch = (searchTerm) => {
+        const results = ProductHome.filter(
+          (product) =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.shopName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSearchResults(results);
+      };
     
 
     return {
@@ -112,6 +126,7 @@ const useFilterHandle = () => {
         handleBrandCheckboxChange,
         handleShowAllProducts,
         handleApplyFilter,
+        handleSearch
     }
 }
 export default useFilterHandle;
