@@ -14,7 +14,7 @@ function AdminProduct() {
   return (
     <>
       <div className="grid">
-        <div className="admin__top--title">Admin product list</div>
+        <div className="admin__top--title">Danh sách sản phẩm của các shop</div>
         <div className="admin__body--list">
           {Object.keys(shopProductList).map((key) => {
             return (
