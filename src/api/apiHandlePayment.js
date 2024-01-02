@@ -10,13 +10,10 @@ const apiHandlePayment = {
       vnp_Amount: vnp_Amount,
     });
   },
-
-    getDiscountShop(discountShopId) {
-        // console.log('in ra discountShopId', discountShopId);
-        // const url = `/addcodepromotion?shop_product_id=${discountShopId}`;
-        const url =  `/getPromotionByIdCutomer?shop_id=${discountShopId}`
-        return axiosClient.get(url);
-    },
+  getDiscountShop(discountShopId) {
+    const url = `/getPromotionByIdCutomer?shop_id=${discountShopId}`;
+    return axiosClient.get(url);
+  },
 
   getDiscountWeb() {
     return axiosClient.get(URL_DISCOUNT_WEB);
