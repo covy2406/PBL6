@@ -19,18 +19,6 @@ const ProductHome = () => {
    //const [productList, setProductList] = useState([]);
    const [error] = useState(null);
 
-   const [searchTerm, setSearchTerm] = useState('');
-   const [searchResults, setSearchResults] = useState([]);
-
-   const handlSearch = () => {
-      const results = productList.filter(
-         (product) => 
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.shopName.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setSearchResults(results);
-   }
-
   //console.log(productList);
 
   useEffect(() => {

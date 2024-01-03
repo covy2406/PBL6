@@ -2,10 +2,7 @@
 // import '../Home/home.css';
 // import '../Header/css/nav.css';
 import { React } from "react";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import apiSearch from "api/apiSearch";
 import useAuth from "hook/useAuth";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
@@ -14,15 +11,14 @@ import "../Header/css/nav.css";
 import "../../assets/css/base.css";
 import useCartHandle from "hook/useCartHandle";
 import useCart from "hook/useCart";
-import { AiOutlineStar } from "react-icons/ai";
 
 const Search = () => {
   const { auth, url } = useAuth();
   const { addtocart } = useCartHandle();
   const { view } = useCart();
-  const { searchResults, searchTerm } = useCart();
+  const { searchResults } = useCart();
   // State để lưu kết quả search
-  const { search } = useParams();
+  // const { search } = useParams();
 
   console.log('kết quả tìm kiếm ở trang search', searchResults);
   return (

@@ -47,7 +47,7 @@ const ViewdetailShop = () => {
          }
       }
       fetchShopProduct(id);
-   }, []);
+   }, [id]);
 
    // FILTER
    // goi api brand

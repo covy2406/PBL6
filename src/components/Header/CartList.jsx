@@ -4,12 +4,12 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BsCart2 } from "react-icons/bs";
 //import hooks
-import useAuth from "hook/useAuth";
+//import useAuth from "hook/useAuth";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 
 const CartList = () => {
-  const { url } = useAuth();
+  //const { url } = useAuth();
   const { cartListProduct, setCartListProduct } = useCart();
   const { showCartList, delfromcart } = useCartHandle();
 

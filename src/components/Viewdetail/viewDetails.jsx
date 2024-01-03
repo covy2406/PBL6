@@ -30,7 +30,7 @@ const Viewdetails = () => {
 
    const [selectedColor, setSelectedColor] = useState(null);
    const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
-   const [listImageColor, setListImageColor] = useState(null);
+   const [, setListImageColor] = useState(null);
 
    // Thêm state mới để lưu trữ shop_product_id được chọn
    const [selectedShopProductId, setSelectedShopProductId] = useState(null);
@@ -57,7 +57,7 @@ const Viewdetails = () => {
          }
       };
       fetchProuductDetail(id);
-   }, []);
+   }, [id]);
 
 
    // call api comment
@@ -80,7 +80,7 @@ const Viewdetails = () => {
          }
       };
       fetchComments(id);
-   }, []);
+   }, [id]);
 
    // console.log('id chi tiet san pham: ', id);
    // console.log("productDetail", productDetail);
@@ -121,7 +121,7 @@ const Viewdetails = () => {
 
    // tính thời gian comment
    const calculateTimeAgo = (createdAt, updatedAt) => {
-      const currentDate = new Date(updatedAt);
+      //const currentDate = new Date(updatedAt);
       const commentDate = new Date(createdAt);
       const distance = formatDistanceToNow(commentDate, { addSuffix: true });
       return distance;

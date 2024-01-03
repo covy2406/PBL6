@@ -1,7 +1,5 @@
 import { React } from "react";
-import { BsInstagram } from "react-icons/bs";
 import { BsFacebook } from "react-icons/bs";
-import { BsLinkedin } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import "../../assets/css/base.css";
 import "./footer.css";

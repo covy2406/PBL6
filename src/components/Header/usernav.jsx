@@ -10,7 +10,7 @@ function UserNav() {
   useEffect(() => {
     setCurrentPath(location.pathname);
     console.log(currentPath);
-  }, [location]);
+  }, [location, currentPath]);
 
   return (
     <ul className="user__nav-sidebar">

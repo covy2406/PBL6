@@ -6,9 +6,9 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
 import Logo from "../../assets/Logo/4B1G.png";
-import { React } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+// Chỉ cần import useEffect và useState một lần
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 //import components
 import CartList from "./CartList";
@@ -18,7 +18,6 @@ import NavNotification from "./navNotification";
 //import Hooks
 import useAuth from "hook/useAuth";
 import useProfile from "hook/useProfile";
-import apiSearch from "api/apiSearch";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 
@@ -27,7 +26,7 @@ import useCartHandle from "hook/useCartHandle";
 const Nav = () => {
    const { auth, setAuth, profile, setProfile, url } = useAuth();
    const { useprofile } = useProfile();
-   const { searchResults, searchTerm } = useCart();
+   const { searchTerm } = useCart();
    const isAuth = window.sessionStorage.getItem("isAuth");
    const location = useLocation();
    const [currentPath, setCurrentPath] = useState("");
@@ -63,8 +62,6 @@ const Nav = () => {
       });
       window.sessionStorage.clear();
    };
-
-   console.log('kết quả tìm kiếm', searchResults);
 
    return (
       <>
