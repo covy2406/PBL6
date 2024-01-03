@@ -61,12 +61,12 @@ const Nav = () => {
     try {
       const response = await apiSearch.getAllSearch(searchTerm);
       setSearchResults(response.data);
-      setError(null);
+      // setError(null);
       //history.push(`/search?search=${searchTerm}`)
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu:", error);
       setSearchResults([]);
-      setError("Không thể tìm kiếm sản phẩm. Vui lòng thử lại.");
+      // setError("Không thể tìm kiếm sản phẩm. Vui lòng thử lại.");
     }
   };
   useEffect(() => {

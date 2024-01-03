@@ -25,13 +25,15 @@ const Shop = ({ extraProps } = "details") => {
     getShopdetails,
     getShopPromosAll,
   } = useShop();
-
   useEffect(() => {
     getShopdetails();
     getShopOrdersAll();
     getShopProductsAll();
-    getShopPromosAll(shopProfile.id);
   }, []);
+  //Phải render riêng vì shopProfile chậm :))))
+  useEffect(() => {
+    shopProfile?.id && getShopPromosAll(shopProfile?.id);
+  }, [shopProfile]);
 
   useEffect(() => {
     setCurrentPath(location.pathname);

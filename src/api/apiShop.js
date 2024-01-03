@@ -4,7 +4,6 @@ const GET_INFO_URL = "getshopdetail/shops";
 const UPDATE_INFO_URL = "shops";
 const GET_ALL_ORDERS_URL = "getallorders/shops?status=all";
 const GET_ALL_PRODUCTS_URL = "getallshopproducts/shops";
-const GET_ALL_PROMOS_URL = "getPromotionByIdCutomer";
 
 const apiShop = {
   getinfo() {
@@ -21,7 +20,7 @@ const apiShop = {
     return axiosClient.get(GET_ALL_PRODUCTS_URL);
   },
   getallpromos(id) {
-    return axiosClient.get(`GET_ALL_PROMOS_URL/${id}`);
+    return axiosClient.get(`getPromotionByIdCutomer?shop_id=${id}&isShop`);
   },
   addpromos(data) {
     return axiosClient.post("promotions", data);

@@ -108,14 +108,15 @@
 }
 
 .cart-table th,
-td {
+.cart-table td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
   font-size: 1.4rem;
   font-weight: 550;
 }
-
+.cart-table tr {
+  border-bottom: 1px solid #ddd;
+}
 .cart-table th:first-child {
   text-align: center;
 }
@@ -143,22 +144,15 @@ td {
 /* Áp dụng mã giảm giá bởi shop */
 .discount__byShop {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  padding: 15px 40px;
-  width: 100%;
-  /* box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24); */
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px;
-  max-width: 100%;
 }
 
 .discount__byShop-icon {
   font-size: 2rem;
+  margin-right: 1rem;
 }
 
 .discount__byShop-ad {
-  margin-left: 5px;
 }
 
 /* total price để checkout */
@@ -198,7 +192,15 @@ td {
   cursor: pointer;
 }
 
-.cartcontainer .btn__checkout-discount-shop,
+.cartcontainer .btn__checkout-discount-shop {
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  outline: none;
+  background: var(--primary-red-rgb);
+  cursor: pointer;
+  font-size: 1.4rem;
+}
 .btn__checkout-discount-web,
 .cash__payment {
   padding: 10px 20px;
@@ -209,18 +211,25 @@ td {
   background: var(--primary-red-rgb);
   cursor: pointer;
   font-size: 1.4rem;
-  /* display: inline-block;
-  position: relative; */
 }
 
-/* .btn__checkout-discount-shop:focus ~ .discount__cart-list {
-  display: block;
-} */
-
+.btn__checkout-discount-shop {
+  position: relative;
+}
 .btn__checkout-discount-shop:hover .discount__cart-list {
   display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
 }
 
 .btn__checkout:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.product-name-with-select {
+  height: 16rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
 }

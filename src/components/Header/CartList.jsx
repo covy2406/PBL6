@@ -57,8 +57,7 @@ const CartList = () => {
                   return (
                     <li className="header__cart-item" key={index}>
                       <img
-                        // src={`${url}/${curElm.image}`}
-                        src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
+                        src={`${url}${curElm.image}`}
                         alt={curElm.name}
                         className="header__cart-img"></img>
                       <div className="header__cart-item-info">
