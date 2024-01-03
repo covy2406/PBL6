@@ -19,7 +19,6 @@ import DiscountListWeb from "./DiscountListWeb";
 const Cart = () => {
   //handle when get cart
   const { cartListProduct, setCartListProduct } = useCart();
-
   // Tạo một state để lưu trữ các sản phẩm được chọn trong giỏ hàng
   const [selectedProducts, setSelectedProducts] = useState([]);
 
@@ -30,8 +29,9 @@ const Cart = () => {
   };
   // Tính tổng giá trị của các sản phẩm được chọn
   useEffect(() => {
+    console.log("totol run");
     const selectedTotal = selectedProducts?.reduce((price, item) => {
-      return price + item.total_price;
+      return price + item.total_price - item.discount_amount;
     }, 0);
     setTotalprice(selectedTotal ? selectedTotal : 0);
   }, [selectedProducts, cartListProduct]);
@@ -60,7 +60,7 @@ const Cart = () => {
       return acc;
     }, []);
     setShopFilter(newFilter);
-  }, [cartListProduct]);
+  }, [cartListProduct, selectedProducts]);
 
   // Hàm xử lý thanh toán online
   const handlePayment = async (vnp_OrderInfo, vnp_Amount) => {
@@ -169,15 +169,16 @@ const Cart = () => {
                                 />
                               </div>
                             </div>
+                            <div>
+                              {" "}
+                              {parseInt(shop.shop_total_price).toLocaleString(
+                                "vn-VN"
+                              )}{" "}
+                              đ
+                            </div>
                           </div>
                         </td>
                       </tr>
-                      <div>
-                        {parseInt(shop.shop_total_price).toLocaleString(
-                          "vn-VN"
-                        )}{" "}
-                        đ
-                      </div>
                     </>
                   ))}
                 </tbody>

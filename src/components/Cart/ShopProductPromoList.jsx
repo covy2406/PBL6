@@ -9,6 +9,7 @@ const ShopProductPromoList = (props) => {
   const shop_id = props.props.shop_id;
   const product_id = props.props.product_id;
   const setSelectedProducts = props.func.setSelectedProducts;
+  const setCartListProduct = props.func.setCartListProduct;
 
   //show promo
   const [shopProductPromo, setShopProductPromo] = useState([]);
@@ -60,16 +61,14 @@ const ShopProductPromoList = (props) => {
     }
   };
 
-  const handlePromoCalc = (product) => {
-    let discount = 0;
-    if (product.promos) {
-      if (product.promos.type === 0) {
-        discount = parseInt(product.promos.value);
+  const handlePromoCalc = (product, promoItem) => {
+    if (promoItem) {
+      if (promoItem.type === 0) {
+        return parseInt(promoItem.value);
       } else {
-        discount = (product.promos.value * product.total_price) / 100;
+        return (promoItem.value * product.total_price) / 100;
       }
     }
-    return discount;
   };
 
   const handleChoosePromo = (e, promoItem) => {
@@ -87,9 +86,23 @@ const ShopProductPromoList = (props) => {
           }
           // if product is checked, check if product is matching promoItem
           handlePromoChecked(e, promoItem);
-          const discount = handlePromoCalc(product);
+
           if (e.target.checked) {
-            console.log("Chọn mã giảm giá thành công", promoItem);
+            const discount = handlePromoCalc(product, promoItem);
+            setCartListProduct((prevCartListProduct) => {
+              return prevCartListProduct.map((item) => {
+                if (item.id === product.id) {
+                  return {
+                    ...item,
+                    promos: promoItem,
+                    discount_amount: discount,
+                    total_price: product.total_price,
+                    code_discount: promoItem.code,
+                  };
+                }
+                return item;
+              });
+            });
             return {
               ...product,
               promos: promoItem,
@@ -99,6 +112,20 @@ const ShopProductPromoList = (props) => {
             };
           } else {
             console.log("Bỏ chọn mã giảm giá thành công", promoItem);
+            setCartListProduct((prevCartListProduct) => {
+              return prevCartListProduct.map((item) => {
+                if (item.id === product.id) {
+                  return {
+                    ...item,
+                    promos: null,
+                    discount_amount: 0,
+                    total_price: product.total_price,
+                    code_discount: "",
+                  };
+                }
+                return item;
+              });
+            });
             return {
               ...product,
               promos: null,
@@ -155,7 +182,6 @@ const ShopProductPromoList = (props) => {
                       </span>
                     </div>
                   </div>
-                  {console.log(productDiscountItem.checked, "test")}
                   <input
                     type="checkbox"
                     className="discount__cart-item-select"

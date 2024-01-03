@@ -5,16 +5,17 @@ import apiHandlePayment from "api/apiHandlePayment";
 import { toast } from "react-toastify";
 
 const ShopPromoList = (props) => {
-  const [shopPromo, setShopPromo] = useState([]);
-
+  // { shop_id }
   const shop_id = props.props.shop_id;
-  const setTotalprice = props.func.setTotalprice;
   const setSelectedProducts = props.func.setSelectedProducts;
+  const setCartListProduct = props.func.setCartListProduct;
+
+  //show promo
+  const [shopPromo, setShopPromo] = useState([]);
 
   //get shop discount
   useEffect(() => {
     const fetchDiscountShop = async (discountShopId) => {
-      console.log("fetchDiscountShop");
       try {
         const resDiscountShop = await apiHandlePayment.getDiscountShop(
           discountShopId
@@ -25,8 +26,9 @@ const ShopPromoList = (props) => {
         console.error("Lỗi khi lấy mã giảm giá của Shop", error);
       }
     };
-    fetchDiscountShop(shop_id); // shop_id
-  }, [shop_id]);
+    fetchDiscountShop(shop_id);
+  }, []);
+  console.log(shopPromo);
 
   const handlePromoChecked = (e, promoItem) => {
     if (e.target.checked) {
@@ -50,16 +52,14 @@ const ShopPromoList = (props) => {
     }
   };
 
-  const handlePromoCalc = (product) => {
-    let discount = 0;
-    if (product.promos) {
-      if (product.promos.type === 0) {
-        discount = parseInt(product.promos.value);
+  const handlePromoCalc = (product, promoItem) => {
+    if (promoItem) {
+      if (promoItem.type === 0) {
+        return parseInt(promoItem.value);
       } else {
-        discount = (product.promos.value * product.total_price) / 100;
+        return (promoItem.value * product.total_price) / 100;
       }
     }
-    return discount;
   };
 
   const handleChoosePromo = (e, promoItem) => {
@@ -69,6 +69,63 @@ const ShopPromoList = (props) => {
         toast.error("Vui lòng chọn sản phẩm trước khi chọn mã giảm giá");
         return [];
       } else {
+        return prevSelectedProducts.map((product) => {
+          // Check if product is checked
+          if (product.checked === false) {
+            toast.error("Vui lòng chọn sản phẩm trước khi chọn mã giảm giá");
+            return product;
+          }
+          // if product is checked, check if product is matching promoItem
+          handlePromoChecked(e, promoItem);
+
+          if (e.target.checked) {
+            const discount = handlePromoCalc(product, promoItem);
+            setCartListProduct((prevCartListProduct) => {
+              return prevCartListProduct.map((item) => {
+                if (item.id === product.id) {
+                  return {
+                    ...item,
+                    promos: promoItem,
+                    discount_amount: discount,
+                    total_price: product.total_price,
+                    code_discount: promoItem.code,
+                  };
+                }
+                return item;
+              });
+            });
+            return {
+              ...product,
+              promos: promoItem,
+              discount_amount: discount,
+              total_price: product.total_price,
+              code_discount: promoItem.code,
+            };
+          } else {
+            console.log("Bỏ chọn mã giảm giá thành công", promoItem);
+            setCartListProduct((prevCartListProduct) => {
+              return prevCartListProduct.map((item) => {
+                if (item.id === product.id) {
+                  return {
+                    ...item,
+                    promos: null,
+                    discount_amount: 0,
+                    total_price: product.total_price,
+                    code_discount: "",
+                  };
+                }
+                return item;
+              });
+            });
+            return {
+              ...product,
+              promos: null,
+              discount_amount: 0,
+              total_price: product.total_price,
+              code_discount: "",
+            };
+          }
+        });
       }
     });
   };
@@ -76,13 +133,10 @@ const ShopPromoList = (props) => {
   return (
     <>
       <div className="discount__cart-list">
-        <h4 className="discount__cart-heading">Danh sach ma giam gia</h4>
+        <h4 className="discount__cart-heading">Danh sách mã giảm giá</h4>
         <ul className="discount__cart-list-item">
-          {shopPromo ? (
+          {shopPromo?.length > 0 ? (
             <>
-              <div className="discount__cart-item-title">
-                khuyến mãi của shop
-              </div>
               {shopPromo.map((productDiscountItem, index) => (
                 <li className="discount__cart-item" key={index}>
                   <div className="discount__cart-item-info">
@@ -119,7 +173,6 @@ const ShopPromoList = (props) => {
                       </span>
                     </div>
                   </div>
-                  {console.log(productDiscountItem.checked, "test")}
                   <input
                     type="checkbox"
                     className="discount__cart-item-select"
@@ -131,7 +184,7 @@ const ShopPromoList = (props) => {
             </>
           ) : (
             <p className="discount__cart-no-discount">
-              Không có mã giảm giá nào
+              Không có mã giảm giá nào cho sản phẩm này
             </p>
           )}
         </ul>

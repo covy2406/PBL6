@@ -4,6 +4,7 @@ const GET_INFO_URL = "getshopdetail/shops";
 const UPDATE_INFO_URL = "shops";
 const GET_ALL_ORDERS_URL = "getallorders/shops?status=all";
 const GET_ALL_PRODUCTS_URL = "getallshopproducts/shops";
+const GET_ALL_SHOP_PRODUCTS_URL = `getallshopproducts/shops`;
 
 const apiShop = {
   getinfo() {
@@ -31,10 +32,9 @@ const apiShop = {
   delpromos(id) {
     return axiosClient.delete(`promotions/${id}`);
   },
-
   getAllShopProduct() {
-    return axiosClient.get(GET_ALL_SHOP_PRODUCTS_URL)
-  }
+    return axiosClient.get(GET_ALL_SHOP_PRODUCTS_URL);
+  },
 };
 
 export default apiShop;

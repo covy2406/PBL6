@@ -44,6 +44,24 @@ function ProductOrderCard(props) {
       toast.success("Cập nhật giỏ hàng thành công", { autoClose: 1000 });
       return updatedCart;
     });
+    setSelectedProducts((prevSelectedProducts) => {
+      return prevSelectedProducts.map((item) => {
+        if (item.id === productId) {
+          let newQuantity = item.quantity_order;
+          if (state === "incqty") {
+            newQuantity += 1;
+          } else if (state === "decqty" && newQuantity > 0) {
+            newQuantity -= 1;
+          }
+          return {
+            ...item,
+            quantity_order: newQuantity,
+            total_price: item.price * newQuantity,
+          };
+        }
+        return item;
+      });
+    });
   };
 
   const incQuantity = async (id) => {
@@ -67,17 +85,33 @@ function ProductOrderCard(props) {
       console.log("Decreasing quantity fail " + id);
     }
   };
-  // Hàm xử lý sự kiện khi chọn checkbox để chọn sản phẩm trong giỏ hàng
+
   const handleCheckboxChange = (e, productItem) => {
     if (e.target.checked) {
       setSelectedProducts((prevSelectedProducts) => [
         ...prevSelectedProducts,
         { ...productItem, checked: true },
       ]);
+      setCartListProduct((prevCart) => {
+        return prevCart.map((item) => {
+          if (item.id === productItem.id) {
+            return { ...item, checked: true };
+          }
+          return item;
+        });
+      });
     } else {
       setSelectedProducts((prevSelectedProducts) =>
         prevSelectedProducts.filter((product) => product.id !== productItem.id)
       );
+      setCartListProduct((prevCart) => {
+        return prevCart.map((item) => {
+          if (item.id === productItem.id) {
+            return { ...item, checked: false };
+          }
+          return item;
+        });
+      });
     }
   };
 
@@ -87,7 +121,6 @@ function ProductOrderCard(props) {
         <input
           type="checkbox"
           className="select__Checkbox"
-          checked={productItem.checked}
           onClick={(e) => handleCheckboxChange(e, productItem)}
         />
       </td>
@@ -107,6 +140,7 @@ function ProductOrderCard(props) {
                 }}
                 func={{
                   setSelectedProducts: setSelectedProducts,
+                  setCartListProduct: setCartListProduct,
                 }}
               />
             </div>
@@ -133,21 +167,24 @@ function ProductOrderCard(props) {
         <p className="subtotal">
           <div
             style={
-              productItem.promo
+              productItem.discount_amount
                 ? { textDecoration: "line-through" }
                 : { textDecoration: "none" }
             }>
-            {parseInt(productItem.total_price).toLocaleString("vn-VN")}
+            {(
+              parseInt(productItem.price) * productItem.quantity_order
+            ).toLocaleString("vn-VN")}{" "}
+            đ
           </div>
-          {productItem.promo && (
+          {productItem.discount_amount ? (
             <div>
               {(
-                parseInt(productItem.total_price) -
-                parseInt(productItem.discount)
+                parseInt(productItem.price) * productItem.quantity_order -
+                parseInt(productItem.discount_amount)
               ).toLocaleString("vn-VN")}{" "}
               đ
             </div>
-          )}
+          ) : null}
         </p>
       </td>
       <td>
