@@ -38,26 +38,33 @@ const Viewdetails = () => {
    // comment
    const [comment, setComment] = useState([]);
 
+   const { shop_products, listshop_product } = productDetail;
+
    useEffect(() => {
       const fetchProuductDetail = async () => {
          try {
             const response = await apiProductDetail.viewDetail(id);
-
+   
             setProductDetail(response.data);
             // Mặc định chọn màu đầu tiên
             if (response.data.listshop_product.length > 0) {
                setSelectedColor(response.data.listshop_product[0].color);
-               setSelectedImage(response.data.listshop_product[0].image); // Mặc định chọn hình ảnh đầu tiên
-            }
-            else {
-               setListImageColor(listshop_product.image)
+               // Nếu selectedImage chưa được thiết lập, set nó thành hình ảnh đầu tiên
+               if (!selectedImage) {
+                  setSelectedImage(response.data.listshop_product[0].image);
+               }
+            } else {
+               // Kiểm tra nếu listshop_product đã khởi tạo trước đó
+               if (listshop_product) {
+                  setListImageColor(listshop_product.image);
+               }
             }
          } catch (error) {
             setError(error);
          }
       };
       fetchProuductDetail(id);
-   }, [id]);
+   }, []);
 
 
    // call api comment
@@ -93,7 +100,7 @@ const Viewdetails = () => {
       return <p>Product not found</p>;
    }
 
-   const { shop_products, listshop_product } = productDetail;
+
 
    // xử lý thay đổi màu, ảnh, shop_product_id
    const handleColorClick = (color, image, shopProductId) => {
