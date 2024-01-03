@@ -31,7 +31,7 @@ const ProductHome = () => {
       setSearchResults(results);
    }
 
-  console.log(productList);
+  //console.log(productList);
 
   useEffect(() => {
     fetchProductHome();

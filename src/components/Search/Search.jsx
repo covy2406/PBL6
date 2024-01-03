@@ -20,24 +20,11 @@ const Search = () => {
   const { auth, url } = useAuth();
   const { addtocart } = useCartHandle();
   const { view } = useCart();
+  const { searchResults, searchTerm } = useCart();
   // State để lưu kết quả search
-  const [searchResults, setSearchResults] = useState([]);
   const { search } = useParams();
 
-  useEffect(() => {
-    // Gọi API search khi component mount và search parameter thay đổi
-    const fetchData = async () => {
-      try {
-        const response = await apiSearch.getAllSearch(search);
-        setSearchResults(response.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu search:", error);
-        setSearchResults([]);
-      }
-    };
-
-    fetchData(search);
-  }, [search]);
+  console.log('kết quả tìm kiếm ở trang search', searchResults);
   return (
     <div className="grid">
       <div className="product">

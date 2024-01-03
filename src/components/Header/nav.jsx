@@ -27,15 +27,15 @@ import useCartHandle from "hook/useCartHandle";
 const Nav = () => {
    const { auth, setAuth, profile, setProfile, url } = useAuth();
    const { useprofile } = useProfile();
-   const { productList } = useCart();
+   const { searchResults, searchTerm } = useCart();
    const isAuth = window.sessionStorage.getItem("isAuth");
    const location = useLocation();
    const [currentPath, setCurrentPath] = useState("");
-   const { fetchProductHome } = useCartHandle();
+   const { fetchProductHome, handleSearchSubmitResults, handleInputChange } = useCartHandle();
 
    // SEARCH
-   const [searchTerm, setSearchTerm] = useState("");
-   const [searchResults, setSearchResults] = useState([]);
+   // const [searchTerm, setSearchTerm] = useState("");
+   // const [searchResults, setSearchResults] = useState([]);
 
    useEffect(() => {
       setCurrentPath(location.pathname);
@@ -62,25 +62,6 @@ const Nav = () => {
          role: "user",
       });
       window.sessionStorage.clear();
-   };
-
-   // xử lý ô input nhập dữ liệu
-   const handleInputChange = (e) => {
-      setSearchTerm(e.target.value);
-   }
-
-   // Hàm xử lý khi người dùng ấn nút search
-   const handleSearchSubmitResults = () => {
-      // Chuyển đổi từ khóa tìm kiếm thành chữ thường
-      const searchTermLowerCase = searchTerm.toLowerCase();
-
-      // Lọc sản phẩm theo từ khóa tìm kiếm trong tên hoặc brand
-      const results = productList.filter(product =>
-         product.name.toLowerCase().includes(searchTermLowerCase) ||
-         product.shopName.toLowerCase().includes(searchTermLowerCase)
-      );
-
-      setSearchResults(results);
    };
 
    console.log('kết quả tìm kiếm', searchResults);
@@ -217,17 +198,16 @@ const Nav = () => {
                         </ul>
                      </div>
                      <button
-
                         className="header__search-btn"
                         onClick={handleSearchSubmitResults}>
                         <i className="header__search-btn-icon fas fa-search">
-                           {/* <Link to={`../../Search`}
+                           <Link to={`../../Search`}
                               className="header__search-btn"
                               onClick={handleSearchSubmitResults}>
 
                               <BiSearchAlt2 />
-                           </Link> */}
-                           <BiSearchAlt2 />
+                           </Link>
+                           {/* <BiSearchAlt2 /> */}
                         </i>
                      </button>
                      {/* <Link className="header__search-link" to={`../../Search`}>

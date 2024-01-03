@@ -58,7 +58,7 @@ const App = () => {
           <Route path="oldphone" element={<Oldphone />} />
           <Route path="ViewdetailShop/:id" element={<ViewdetailShop/>}></Route>
           <Route path="Viewdetail/:id" element={<Viewdetails />} ></Route>
-          <Route path="search/:searchTerm" element={<Search/>}></Route>
+          <Route path="search" element={<Search/>}></Route>
           <Route
             path="product/Viewdetail/:id"
             element={<Viewdetails />}>
