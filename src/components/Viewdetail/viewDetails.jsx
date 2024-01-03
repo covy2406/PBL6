@@ -133,10 +133,7 @@ const Viewdetails = () => {
       const distance = formatDistanceToNow(commentDate, { addSuffix: true });
       return distance;
    };
-
-
-
-   console.log('in ra shop_product_id đang chọn: ', selectedShopProductId);
+   //console.log('in ra shop_product_id đang chọn: ', selectedShopProductId);
 
    return (
       <div>
