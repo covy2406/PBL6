@@ -164,12 +164,17 @@ const Viewdetails = () => {
                         <div className="detail">
                            {shop_products ? (
                               <>
-                                 <Link to={`../../ViewdetailShop/${shop_products.shop_id}`}>
-                                    <div className="detail__shopName">
-                                       <FcShop/>
-                                       {shop_products.Shopname}
-                                    </div>
-                                 </Link>
+                                 <div className="detail__shopName-link">
+                                    <Link to={`../../ViewdetailShop/${shop_products.shop_id}`} className="detail__shopName-icon">
+                                       <FcShop />
+                                    </Link>
+                                    <Link className="detail__shopName" to={`../../ViewdetailShop/${shop_products.shop_id}`}>
+                                       Shop Name: {shop_products.Shopname}
+                                       {/* <div className="detail__shopName">
+                                    </div> */}
+                                    </Link>
+
+                                 </div>
                                  <h2>{shop_products.name}</h2>
                                  <div className="product__price">
                                     {parseInt(shop_products.price).toLocaleString("vn-VN")} đ
