@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
-import useAuth from "hook/useAuth";
+//import useAuth from "hook/useAuth";
 import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
 import { CiDiscount1 } from "react-icons/ci";
@@ -12,7 +12,7 @@ import DiscountListShop from "./DiscountListShop";
 import DiscountListWeb from "./DiscountListWeb";
 
 const Cart = () => {
-  const { url } = useAuth();
+  //const { url } = useAuth();
   const { cartListProduct, setCartListProduct } = useCart();
   const { decreaseQuantity, increaseQuantity, delfromcart } = useCartHandle();
 
@@ -99,6 +99,8 @@ const Cart = () => {
       console.log("Increasing quantity fail " + id);
     }
   };
+
+  console.log('số lượng sản phẩm:', productQuantities)
 
   const decQuantity = async (id) => {
     const res = await decreaseQuantity(id);

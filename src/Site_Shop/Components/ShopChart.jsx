@@ -1,14 +1,14 @@
 import {
-  LineChart,
-  Line,
+  // LineChart,
+  // Line,
+  // Rectangle,
+  // Legend,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   BarChart,
   Bar,
-  Rectangle,
 } from "recharts";
 import { useState, useEffect } from "react";
 import apiChart from "api/apiChart";

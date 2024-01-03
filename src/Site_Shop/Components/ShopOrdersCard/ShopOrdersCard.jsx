@@ -6,7 +6,8 @@ import useAuth from "hook/useAuth";
 
 const ShopOrdersCard = ({ data, filter }) => {
   const { url } = useAuth();
-  const [order, setOrder] = useState({
+  //, setOrder
+  const [order,] = useState({
     id: data.id,
     orderDate: data.orderDate,
     status: getStatusFromEn(data.status),
