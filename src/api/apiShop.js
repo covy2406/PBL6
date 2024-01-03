@@ -31,6 +31,10 @@ const apiShop = {
   delpromos(id) {
     return axiosClient.delete(`promotions/${id}`);
   },
+
+  getAllShopProduct() {
+    return axiosClient.get(GET_ALL_SHOP_PRODUCTS_URL)
+  }
 };
 
 export default apiShop;

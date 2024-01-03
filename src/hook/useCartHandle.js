@@ -1,9 +1,10 @@
 import { toast } from "react-toastify";
 import useCart from "./useCart";
 import apiHandleCart from "api/apiHandleCart";
+import apiProductHome from "api/apiProductHome";
 
 const useCartHandle = () => {
-  const { setCartListProduct } = useCart();
+  const { setCartListProduct, setProductList, productList, searchTerm, setSearchTerm, setSearchResults } = useCart();
   // Add to cart
   const addtocart = async (productId, quantity) => {
     const response = await apiHandleCart.add(productId, quantity);
@@ -89,12 +90,49 @@ const useCartHandle = () => {
     }
   };
 
+  const fetchProductHome = async () => {
+    try {
+      const response = await apiProductHome.getAll();
+      window.sessionStorage.setItem('productList', JSON.stringify(response.data));
+      return setProductList(response.data, JSON.parse(window.sessionStorage.getItem("productList")));
+
+    } catch (error) {
+      console.log('lỗi không thể call api', error);
+    }
+
+  };
+
+  // xử lý ô input nhập dữ liệu
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  }
+
+  // Hàm xử lý khi người dùng ấn nút search
+  const handleSearchSubmitResults = () => {
+    // Chuyển đổi từ khóa tìm kiếm thành chữ thường
+    const searchTermLowerCase = searchTerm.toLowerCase();
+
+    // Lọc sản phẩm theo từ khóa tìm kiếm trong tên hoặc brand
+    const results = productList.filter(product =>
+      product.name.toLowerCase().includes(searchTermLowerCase) ||
+      product.shopName.toLowerCase().includes(searchTermLowerCase)
+    );
+
+    setSearchResults(results);
+  };
+
+  //console.log('kết quả tìm kiếm', searchResults);
+
   return {
     addtocart,
     delfromcart,
     showCartList,
     increaseQuantity,
     decreaseQuantity,
+    fetchProductHome,
+    handleInputChange,
+    handleSearchSubmitResults
+
     //handlePayment
   };
 };

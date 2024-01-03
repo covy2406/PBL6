@@ -36,7 +36,7 @@
 } */
 
 
-
+/* PHẦN THÔNG TIN MÔ TẢ CHI TIẾT CỦA SẢN PHẨM */
 .product_detail {
     width: 1;
 }
@@ -71,11 +71,13 @@
 .box__image .box__image-select {
     display: flex;
     margin-top: 10px;
+    height: 88px;
+    align-items: center;
 }
 
 .color-option {
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
     margin-right: 5px;
     cursor: pointer;
     border: 1px solid #000;
@@ -83,9 +85,11 @@
 
 .img-box .color-option.selected {
     border: 2px solid #f00;
+    width: 50px;
+    height: 50px;
 }
 
-.color-option img {
+.color-option .box__image-select-choose {
     width: 50px;
     height: 50px;
     border: 1px solid var(--primary-color);
@@ -103,10 +107,31 @@
     display: block;
 } */
 
+
+/* BẢNG THÔNG TIN MÔ TẢ CHI TIẾT CỦA SẢN PHẨM */
 .productbox .detail {
     margin-left: 30px;
     margin-top: 10px;
     width: 700px;
+}
+
+
+
+.detail .detail__shopName-link {
+    display: flex;
+    align-items: center;
+    height: 2.8rem;
+    line-height: 2.8rem;
+}
+
+.detail .detail__shopName, .detail__shopName-icon {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 5px;
+    height: 2.8rem;
+    line-height: 2.8rem;
 }
 
 .product_detail .container .productbox .detail h4 {
@@ -142,6 +167,7 @@
     width: 250px;
     text-align: center;
     border-radius: 20px;
+    
     
 }
 
@@ -200,4 +226,71 @@
     background-color: #f2f2f2;
     text-transform: uppercase;
     
+}
+
+/* comment */
+.container__comment {
+    display: flex;
+    margin-top: 20px;
+}
+
+
+
+.container__comment-item {
+    
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #f8f9fa;
+}
+
+.comment-item__head {
+    display: flex;
+    align-items: center; 
+ }
+
+.container__comment-item-img {
+    align-items: center;
+}
+
+.container__comment-item-img .comment__avatar {
+    width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment__content {
+    flex: 1;
+}
+
+.comment__content-user-info {
+display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.user-info-username {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.user-info-timestamp {
+    color: var(--text-color);
+    font-size: 1.4rem;
+}
+
+.comment__content-rating {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.comment__content-text {
+    margin: 0;
+    font-size: 1.4rem;
+    color: black;
+    flex: 1;
+    margin-top: 10px;
 }

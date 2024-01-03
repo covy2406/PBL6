@@ -82,6 +82,7 @@
     background-color: var(--white-color);
     border-radius: 15px;
     /* padding: 0 15px; */
+    padding: 20px 0 0;
 }
 
 .product .product_item_name {
@@ -148,7 +149,7 @@
     transition: 0.5s;
 }
 
-.product .container .box .img_box:hover .icon {
+.product .container .box:hover .icon {
     transform: translateX(-130px);
 }
 

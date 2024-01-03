@@ -8,6 +8,11 @@ export const CartProvider = ({ children }) => {
   const [, setDetail] = useState(false);
   const [close, setClose] = useState(false);
   const [comment, setComment] = useState([]);
+  // sản phẩm trang home
+  const [productList, setProductList] = useState([]);
+  // SEARCH
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   //const [showAddToCartMessage, setShowAddToCartMessage] = useState(false);
 
   // Xem chi tiet san pham
@@ -28,6 +33,12 @@ export const CartProvider = ({ children }) => {
     setCartListProduct,
     comment,
     setComment,
+    productList,
+    setProductList,
+    searchTerm,
+    setSearchTerm,
+    searchResults,
+    setSearchResults
   };
 
   return (

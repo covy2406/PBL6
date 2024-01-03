@@ -1,0 +1,25 @@
+@import url('../../../assets/css/base.css');
+
+.container__shop-menu {
+    background-color: var(--white-color);
+    top: 180px;
+    margin-top: 20px;
+}
+
+.shop-menu__list {
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    align-items: center;
+    line-height: 60px;
+}
+
+.shop-menu__list-item {
+    list-style: none;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    margin: 0 40px;
+    cursor: pointer;
+}

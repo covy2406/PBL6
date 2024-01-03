@@ -10,7 +10,7 @@
 /* .products {} */
 
 /* MỤC DANH MỤC SẢN PHẨM CATEGORIES */
-.products .products-list {
+.products-list {
     /* margin-top: 20px; */
     padding-top: 44px;
     max-width: 100%;
@@ -204,7 +204,7 @@
 
 /* thiết lập chiều rộng cho sản phẩm khi chỉ có 2 sản phẩm */
 .box:nth-child(3n - 1) {
-    width: calc((100% - 33,333%) - 20px);
+    width: calc(66.667% - 20px);
 }
 
 /* Ẩn sản phẩm thứ 3 trên hàng cuối cùng nếu chỉ có 2 sản phẩm */
