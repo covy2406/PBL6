@@ -40,6 +40,7 @@ import ShopPromos from "Site_Shop/Components/ShopPromos.jsx";
 //auth
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 import AdminLogin from "Site_Admin/AdminLogin.jsx";
+import ViewdetailShop from "components/ViewdetailShop/ViewdetailShop.jsx";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -55,14 +56,18 @@ const App = () => {
           <Route path="contact" element={<Contact />}></Route>
           <Route path="product" element={<Product />} />
           <Route path="oldphone" element={<Oldphone />} />
-          <Route path="Viewdetail/:id" element={<Viewdetails />} />
-          <Route path="search" element={<Search/>}></Route>
+          <Route path="ViewdetailShop/:id" element={<ViewdetailShop/>}></Route>
+          <Route path="Viewdetail/:id" element={<Viewdetails />} ></Route>
+          <Route path="search/:searchTerm" element={<Search/>}></Route>
           <Route
             path="product/Viewdetail/:id"
-            element={<Viewdetails />}></Route>
+            element={<Viewdetails />}>
+          </Route>
           <Route
             path="oldphone/Viewdetail/:id"
-            element={<Viewdetails />}></Route>
+            element={<Viewdetails />}>
+          </Route>
+          
           {/* <Route path="search" element={<Search/>}></Route> */}
         </Route>
         <Route path="/" element={<Layout />}>

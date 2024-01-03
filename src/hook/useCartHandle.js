@@ -1,9 +1,10 @@
 import { toast } from "react-toastify";
 import useCart from "./useCart";
 import apiHandleCart from "api/apiHandleCart";
+import apiProductHome from "api/apiProductHome";
 
 const useCartHandle = () => {
-  const { setCartListProduct } = useCart();
+  const { setCartListProduct, setProductList } = useCart();
   // Add to cart
   const addtocart = async (productId, quantity) => {
     const response = await apiHandleCart.add(productId, quantity);
@@ -80,12 +81,25 @@ const useCartHandle = () => {
     }
   };
 
+  const fetchProductHome = async () => {
+    try {
+      const response = await apiProductHome.getAll();
+      window.sessionStorage.setItem('productList', JSON.stringify(response.data));
+      return setProductList( response.data, JSON.parse(window.sessionStorage.getItem("productList")) );
+      
+    } catch (error) {
+      console.log('lỗi không thể call api', error);
+    }
+    
+  };
+
   return {
     addtocart,
     delfromcart,
     showCartList,
     increaseQuantity,
     decreaseQuantity,
+    fetchProductHome
     //handlePayment
   };
 };

@@ -1,21 +1,20 @@
-import React from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-//import ImageSlider from "./ImageSlider/ImageSlider";
-import { useState } from "react";
-import { useEffect } from "react";
 import "./viewdt.css";
 import "../../assets/css/base.css";
+import React from "react";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { FcShop } from "react-icons/fc";
+import { useState, useEffect } from "react";
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { formatDistanceToNow } from 'date-fns';
 
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import apiProductDetail from "api/apiProductDetail";
 
 import useAuth from "hook/useAuth";
 import useCartHandle from "hook/useCartHandle";
+import useCart from "hook/useCart";
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import useCart from "hook/useCart";
 //import useComment from "hook/useComments";
 //import apiComment from "api/apiComment";
 
@@ -35,7 +34,7 @@ const Viewdetails = () => {
 
    // Thêm state mới để lưu trữ shop_product_id được chọn
    const [selectedShopProductId, setSelectedShopProductId] = useState(null);
-   
+
    // comment
    const [comment, setComment] = useState([]);
 
@@ -121,12 +120,14 @@ const Viewdetails = () => {
    };
 
    // tính thời gian comment
-   const calculateTimeAgo = (createdAt) => {
-      const currentDate = new Date();
+   const calculateTimeAgo = (createdAt, updatedAt) => {
+      const currentDate = new Date(updatedAt);
       const commentDate = new Date(createdAt);
       const distance = formatDistanceToNow(commentDate, { addSuffix: true });
       return distance;
-    };
+   };
+
+
 
    console.log('in ra shop_product_id đang chọn: ', selectedShopProductId);
 
@@ -150,21 +151,25 @@ const Viewdetails = () => {
                                  <div
                                     key={product.shop_product_id}
                                     className={`color-option ${selectedColor === product.color ? 'selected' : ''}`}
-                                    style={{ backgroundColor: product.color}}
+                                    style={{ backgroundColor: product.color }}
                                     onClick={() => handleColorClick(product.color, product.image, product)}
                                  >
                                     {/* Hiển thị ảnh của điện thoại từ listshop_product */}
                                     {/* {product.shop_product_id} */}
                                     <img className="box__image-select-choose" src={`http://0.tcp.ap.ngrok.io:15234/${product.image}`} alt={shop_products.name} />
                                  </div>
-                                 
                               ))}
                            </div>
                         </div>
-
                         <div className="detail">
                            {shop_products ? (
-                              <div>
+                              <>
+                                 <Link to={`../../ViewdetailShop/${shop_products.shop_id}`}>
+                                    <div className="detail__shopName">
+                                       <FcShop/>
+                                       {shop_products.Shopname}
+                                    </div>
+                                 </Link>
                                  <h2>{shop_products.name}</h2>
                                  <div className="product__price">
                                     {parseInt(shop_products.price).toLocaleString("vn-VN")} đ
@@ -240,8 +245,7 @@ const Viewdetails = () => {
                                        </tr>
                                     </tbody>
                                  </table>
-                              </div>
-
+                              </>
                            ) : null
                            }
                            {auth.isAuth ? (
@@ -268,21 +272,23 @@ const Viewdetails = () => {
                                  <div className="comment__content">
                                     <div className="comment__content-user-info">
                                        <span className="user-info-username">{cmtItem.name}</span>
-
                                     </div>
                                     <div className="comment__content-user-info">
-                                       <span className="user-info-timestamp">{calculateTimeAgo(cmtItem.created_at)}</span>
+                                       {((cmtItem.created_at) === (cmtItem.upadate_at)) ? (
+                                          <span className="user-info-timestamp">{calculateTimeAgo(cmtItem.created_at)}</span>
+
+                                       ) : (
+                                          <span className="user-info-timestamp">đã chỉnh sửa: {calculateTimeAgo(cmtItem.updated_at)}</span>
+                                       )}
                                     </div>
                                     <div className="comment__content-rating">
                                        {renderStars(cmtItem.rating)}
                                     </div>
                                  </div>
-
                               </div>
                               <div className="comment__content-text">
                                  <p className="comment__content-text-main">
                                     {cmtItem.feedback}
-
                                  </p>
                               </div>
                            </div>

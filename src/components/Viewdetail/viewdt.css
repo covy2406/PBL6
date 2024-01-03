@@ -36,7 +36,7 @@
 } */
 
 
-
+/* PHẦN THÔNG TIN MÔ TẢ CHI TIẾT CỦA SẢN PHẨM */
 .product_detail {
     width: 1;
 }
@@ -107,10 +107,19 @@
     display: block;
 } */
 
+
+/* BẢNG THÔNG TIN MÔ TẢ CHI TIẾT CỦA SẢN PHẨM */
 .productbox .detail {
     margin-left: 30px;
     margin-top: 10px;
     width: 700px;
+}
+
+.detail .detail__shopName {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    align-items: center;
 }
 
 .product_detail .container .productbox .detail h4 {

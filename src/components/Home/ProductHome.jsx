@@ -5,19 +5,19 @@ import { BsEye } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
 import "./home.css";
 import "../../assets/css/base.css";
-import apiProductHome from "api/apiProductHome";
 import useCart from "hook/useCart";
 import useAuth from "hook/useAuth";
 import useCartHandle from "hook/useCartHandle";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 
 const ProductHome = () => {
   const { auth } = useAuth();
   const { view } = useCart();
-  const { addtocart } = useCartHandle();
+  const { productList } = useCart();
+  const { addtocart, fetchProductHome } = useCartHandle();
 
-   const [productList, setProductList] = useState([]);
-   const [error, setError] = useState(null);
+   //const [productList, setProductList] = useState([]);
+   const [error] = useState(null);
 
    const [searchTerm, setSearchTerm] = useState('');
    const [searchResults, setSearchResults] = useState([]);
@@ -31,16 +31,9 @@ const ProductHome = () => {
       setSearchResults(results);
    }
 
+  console.log(productList);
+
   useEffect(() => {
-    const fetchProductHome = async () => {
-      try {
-        const response = await apiProductHome.getAll();
-        setProductList(response.data);
-      } catch (error) {
-        setError(error);
-        toast.error(error?.message);
-      }
-    };
     fetchProductHome();
   }, []);
   if (error) {
