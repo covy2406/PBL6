@@ -86,7 +86,7 @@ const Nav = () => {
    console.log('kết quả tìm kiếm', searchResults);
 
    return (
-      <div>
+      <>
          <div className="header">
             <div className="grid">
                <nav className="header__navbar">
@@ -216,17 +216,20 @@ const Nav = () => {
                            </li>
                         </ul>
                      </div>
-                     <Link
-                        to={`../../Search`}
+                     <button
+
                         className="header__search-btn"
                         onClick={handleSearchSubmitResults}>
                         <i className="header__search-btn-icon fas fa-search">
-                           {/* <Link to={`../../Search`}>
-                                 <BiSearchAlt2 />
-                              </Link> */}
+                           {/* <Link to={`../../Search`}
+                              className="header__search-btn"
+                              onClick={handleSearchSubmitResults}>
+
+                              <BiSearchAlt2 />
+                           </Link> */}
                            <BiSearchAlt2 />
                         </i>
-                     </Link>
+                     </button>
                      {/* <Link className="header__search-link" to={`../../Search`}>
                      </Link> */}
                   </div>
@@ -280,7 +283,7 @@ const Nav = () => {
                </div>
             </div>
          </div>
-      </div>
+      </>
    );
 };
 
