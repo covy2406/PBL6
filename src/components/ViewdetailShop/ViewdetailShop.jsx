@@ -145,6 +145,8 @@ const ViewdetailShop = () => {
       }
   };
 
+  
+
 
    return (
       <>
@@ -152,15 +154,15 @@ const ViewdetailShop = () => {
             <div className="grid">
                <div className="container__shop-menu">
                   <ul className="shop-menu__list">
+                     {/* <li className="shop-menu__list-item">
+
+                     </li> */}
                      <li className="shop-menu__list-item">
                         Dạo
                      </li>
                      <li className="shop-menu__list-item">
                         Tất cả sản phẩm
                      </li>
-                     {/* <li className="shop-menu__list-item">
-
-                     </li> */}
                   </ul>
                </div>
                <div className="product">
