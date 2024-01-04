@@ -32,77 +32,83 @@ const PurchasePriceRangeStatistics = () => {
 
   return (
     <>
-      <BarChart
-        width={800}
-        height={300}
-        data={data.data}
-        margin={{
-          top: 10,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="range"
-          tickFormatter={(value) => {
-            const [start, end] = value.split("-");
-            const startMillions = start / 1000000;
-            const endMillions = end / 1000000;
-            return `${startMillions}M - ${endMillions}M`;
-          }}
-        />
-        <YAxis dataKey="order_count" />
-        <Tooltip
-          content={({ payload }) => {
-            if (payload && payload.length > 0) {
-              return (
-                <div
-                  style={{
-                    backgroundColor: "#fff",
-                    padding: "0.5rem 1rem",
-                    border: "1px solid #ccc",
-                  }}>
-                  <p>Số lượng: {payload[0].value}</p>
-                </div>
-              );
+      <div className="shop__chart--title">Biểu đồ doanh thu</div>
+      <div className="shop__chart--form">
+        <BarChart
+          width={600}
+          height={300}
+          data={data.data}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="range"
+            tickFormatter={(value) => {
+              const [start, end] = value.split("-");
+              const startMillions = start / 1000000;
+              const endMillions = end / 1000000;
+              return `${startMillions}M - ${endMillions}M`;
+            }}
+          />
+          <YAxis dataKey="order_count" />
+          <Tooltip
+            content={({ payload }) => {
+              if (payload && payload.length > 0) {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      padding: "0.5rem 1rem",
+                      border: "1px solid #ccc",
+                    }}>
+                    <p>Số lượng: {payload[0].value}</p>
+                  </div>
+                );
+              }
+              return null;
+            }}
+          />
+          <Bar dataKey="order_count" fill="#000000" barSize={10} width={10} />
+        </BarChart>
+        <div className="shop__chart--data">
+          <div>Bắt đầu</div>
+
+          <input
+            className=""
+            type="date"
+            name="startDate"
+            value={data.startDate}
+            onChange={(e) =>
+              setData({
+                ...data,
+                startDate: e.target.value,
+              })
             }
-            return null;
-          }}
-        />
-        <Bar dataKey="order_count" fill="#000000" barSize={10} width={10} />
-      </BarChart>
-      <div>Bắt đầu</div>
-      <input
-        className="productscard__container-update--body-item--input"
-        type="date"
-        name="startDate"
-        value={data.startDate}
-        onChange={(e) =>
-          setData({
-            ...data,
-            startDate: e.target.value,
-          })
-        }
-      />
-      <div>Kết thúc</div>
-      <input
-        className="productscard__container-update--body-item--input"
-        type="date"
-        name="startDate"
-        value={data.endDate}
-        onChange={(e) =>
-          setData({
-            ...data,
-            endDate: e.target.value,
-          })
-        }
-      />
-      <button
-        className="productscard__container-update--body-item--btn"
-        onClick={(e) => handleSubmit(e)}>
-        Xem
-      </button>
+          />
+          <div>Kết thúc</div>
+          <input
+            className=""
+            type="date"
+            name="startDate"
+            value={data.endDate}
+            onChange={(e) =>
+              setData({
+                ...data,
+                endDate: e.target.value,
+              })
+            }
+          />
+          <button
+            className="productscard__container-update--body-item--btn"
+            onClick={(e) => handleSubmit(e)}>
+            Xem
+          </button>
+        </div>
+      </div>
     </>
   );
 };
