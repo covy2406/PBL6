@@ -111,7 +111,17 @@ const Cart = () => {
     Swal.fire({
       title: 'Xác nhận thanh toán',
       html: `
-      <p>Bạn quyết định thanh toán bằng tiền mặt ?</p>
+      <p>Chọn phương thức thanh toán:</p>
+      <br />
+      <div >
+        <input type="radio" id="cash" name="paymentMethod" value="cash" checked>
+        <label for="cash">Thanh toán tiền mặt</label>
+      </div>
+      <br/>
+      <div>
+        <input type="radio" id="online" name="paymentMethod" value="online">
+        <label for="online">Thanh toán trực tuyến</label>
+      </div>
       `,
       showCancelButton: true,
       confirmButtonText: 'Xác nhận',
