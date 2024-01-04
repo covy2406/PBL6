@@ -1,4 +1,4 @@
-import './css/AdminProductStyle.css'
+import "./css/AdminProductStyle.css";
 import useAdmin from "hook/useAdmin";
 import { useEffect, useState } from "react";
 // import { AiOutlineDown, AiOutlineShoppingCart, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
@@ -29,16 +29,9 @@ function AdminProduct() {
         <div className="admin__top--title">Danh sách sản phẩm của các shop</div>
         <div className="admin__product-wrap">
           <div className="admin__body-list">
-            
             {Object.keys(shopProductList).map((itemProduct, index) => {
               return (
-                // <div className='admin__body-list-item'>
-                //   <div>{shopProductList[key].image}</div>
-                //   <div>{shopProductList[key].name}</div>
-                //   <div>{shopProductList[key].price}</div>
-                //   <div src={`${url}${shopProductList[key].image}`}></div>
-                // </div>
-                <li className="header__cart-item" >
+                <li className="header__cart-item">
                   <img
                     src={`${url}${shopProductList[itemProduct].image}`}
                     alt={shopProductList[itemProduct].name}
@@ -50,11 +43,12 @@ function AdminProduct() {
                       </h5>
                       <div className="header__cart-item-price-wrap">
                         <span className="header__cart-item-price">
-                          {parseInt(shopProductList[itemProduct].price).toLocaleString("vn-VN")} đ
+                          {parseInt(
+                            shopProductList[itemProduct].price
+                          ).toLocaleString("vn-VN")}{" "}
+                          đ
                         </span>
-                        <span className="header__cart-item-multiply">
-                          
-                        </span>
+                        <span className="header__cart-item-multiply"></span>
                         <span className="header__cart-item-quantity">
                           {/* {shopProductList[itemProduct].quantity_order} */}
                         </span>
@@ -64,10 +58,7 @@ function AdminProduct() {
                       <span className="header__cart-item-description">
                         {shopProductList[itemProduct].description}
                       </span>
-                      <div
-                        className="header__cart-item-remove"
-                      >
-                      </div>
+                      <div className="header__cart-item-remove"></div>
                     </div>
                   </div>
                 </li>
@@ -75,8 +66,6 @@ function AdminProduct() {
             })}
           </div>
         </div>
-       
-        
       </div>
     </>
   );
