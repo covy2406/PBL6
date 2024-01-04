@@ -1,8 +1,8 @@
 import {
-  // LineChart,
-  // Line,
-  // Rectangle,
-  // Legend,
+  LineChart,
+  Line,
+  Rectangle,
+  Legend,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -14,22 +14,19 @@ import { useState, useEffect } from "react";
 import apiChart from "api/apiChart";
 
 const ShopChart = () => {
-  const [data, setData] = useState([]);
+  const [purchasePriceRangeStatistics, setPurchasePriceRangeStatistics] =
+    useState([]);
+  const [revenueStatistics, setRevenueStatistics] = useState([]);
 
   //data dữ liệu theo khoảng giá
   useEffect(() => {
     const fetchData = async () => {
       const res = await apiChart.purchasePriceRangeStatistics();
       //convert to array
-      setData(res.data);
+      setPurchasePriceRangeStatistics({ ...res.data, order_count: 2 });
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log(data);
-    console.log(typeof data);
-  }, [data]);
 
   return (
     <>
@@ -41,11 +38,11 @@ const ShopChart = () => {
             </ul>
           </div>
         </div>
-        {/* <div className="shop__chart">
+        <div className="shop__chart">
           <LineChart
             width={730}
             height={250}
-            data={data}
+            data={purchasePriceRangeStatistics}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
@@ -55,12 +52,12 @@ const ShopChart = () => {
             <Line type="monotone" dataKey="pv" stroke="#8884d8" />
             <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
           </LineChart>
-        </div> */}
+        </div>
         <div className="shop__chart">
           <BarChart
             width={800}
             height={300}
-            data={data.data}
+            data={purchasePriceRangeStatistics.data}
             margin={{
               top: 10,
               right: 30,

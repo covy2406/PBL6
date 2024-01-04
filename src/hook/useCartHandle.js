@@ -4,7 +4,14 @@ import apiHandleCart from "api/apiHandleCart";
 import apiProductHome from "api/apiProductHome";
 
 const useCartHandle = () => {
-  const { setCartListProduct, setProductList, productList, searchTerm, setSearchTerm, setSearchResults } = useCart();
+  const {
+    setCartListProduct,
+    setProductList,
+    productList,
+    searchTerm,
+    setSearchTerm,
+    setSearchResults,
+  } = useCart();
   // Add to cart
   const addtocart = async (productId, quantity) => {
     const response = await apiHandleCart.add(productId, quantity);
@@ -51,7 +58,7 @@ const useCartHandle = () => {
             total_price: parseInt(item.price) * parseInt(item.quantity_order),
             promos: null,
             discount_amount: 0,
-            code_discount: "",
+            code_discount: [],
           };
         })
       );
@@ -93,19 +100,23 @@ const useCartHandle = () => {
   const fetchProductHome = async () => {
     try {
       const response = await apiProductHome.getAll();
-      window.sessionStorage.setItem('productList', JSON.stringify(response.data));
-      return setProductList(response.data, JSON.parse(window.sessionStorage.getItem("productList")));
-
+      window.sessionStorage.setItem(
+        "productList",
+        JSON.stringify(response.data)
+      );
+      return setProductList(
+        response.data,
+        JSON.parse(window.sessionStorage.getItem("productList"))
+      );
     } catch (error) {
-      console.log('lỗi không thể call api', error);
+      console.log("lỗi không thể call api", error);
     }
-
   };
 
   // xử lý ô input nhập dữ liệu
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
-  }
+  };
 
   // // Hàm xử lý khi người dùng ấn nút search
   // const handleSearchSubmitResults = () => {
@@ -161,7 +172,7 @@ const useCartHandle = () => {
     decreaseQuantity,
     fetchProductHome,
     handleInputChange,
-    handleSearchSubmitResults
+    handleSearchSubmitResults,
 
     //handlePayment
   };
