@@ -67,8 +67,6 @@ function AdminProduct() {
                       <div
                         className="header__cart-item-remove"
                       >
-
-
                       </div>
                     </div>
                   </div>

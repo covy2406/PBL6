@@ -1,12 +1,11 @@
 import "./css/nav.css";
 import "../../assets/css/base.css";
 import "../BannerHome/bannerSlider.css";
+import Logo from "../../assets/Logo/4B1G.png";
 import { AiOutlineBell } from "react-icons/ai";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
-import Logo from "../../assets/Logo/4B1G.png";
-// Chỉ cần import useEffect và useState một lần
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -153,14 +152,6 @@ const Nav = () => {
                         </Link>
                      </div>
                   </div>
-
-                  {/* NAV SEARCH SẢN PHẨM Ô INPUT VS NÚT SEARCH Ó */}
-                  {/* <NavSearch
-                     handleSearchChange={handleSearchChange}
-                     searchTerm={searchTerm}
-                     handleSearchSubmit={handleSearchSubmit}
-                  /> */}
-
                   <div className="header__search">
                      <div className="header__search-input-wrap">
                         <input
@@ -180,7 +171,6 @@ const Nav = () => {
                         <i className="header__search-select-icon fa-solid fa-angle-down">
                            <AiOutlineDown />
                         </i>
-
                         <ul className="header__search-option">
                            <li className="header__search-option-item header__search-option-item--active">
                               <span>Trong Shop</span>
@@ -210,7 +200,6 @@ const Nav = () => {
                      {/* <Link className="header__search-link" to={`../../Search`}>
                      </Link> */}
                   </div>
-
                   {/* <!-- Cart layout --> */}
                   <CartList />
                </div>
@@ -263,5 +252,4 @@ const Nav = () => {
       </>
    );
 };
-
 export default Nav;

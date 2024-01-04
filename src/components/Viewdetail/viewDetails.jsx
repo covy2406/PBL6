@@ -107,7 +107,7 @@ const Viewdetails = () => {
       // console.log(`Color clicked: ${color}, Image: ${image}`);
       setSelectedColor((prevColor) => color);
       setSelectedImage((prevImage) => image);
-      setSelectedShopProductId(shopProductId); // Cập nhật shop_product_id khi chọn ảnh mới
+      setSelectedShopProductId(shopProductId.shop_product_id); // Cập nhật shop_product_id khi chọn ảnh mới
    };
 
    // tính số sao:
@@ -133,6 +133,7 @@ const Viewdetails = () => {
       const distance = formatDistanceToNow(commentDate, { addSuffix: true });
       return distance;
    };
+
    //console.log('in ra shop_product_id đang chọn: ', selectedShopProductId);
 
    return (
@@ -259,10 +260,11 @@ const Viewdetails = () => {
                            }
                            {auth.isAuth ? (
                               <div>
+                                 {console.log(selectedShopProductId)}
                                  <button onClick={() => addtocart(selectedShopProductId, 1)}>
                                     Thêm vào giỏ hàng
                                  </button>
-                                 <button >Thanh Toán Ngay</button>
+                                 
                               </div>
                            ) : (
                               <li>
