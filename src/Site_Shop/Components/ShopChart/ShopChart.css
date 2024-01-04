@@ -1,0 +1,23 @@
+.shop__chart {
+  height: 40rem;
+  padding: 3rem;
+}
+
+.shop__chart--title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-self: self;
+  align-self: center;
+}
+
+.shop__chart--form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.shop__chart--data {
+}
