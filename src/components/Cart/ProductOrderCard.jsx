@@ -8,6 +8,7 @@ import { AiOutlineClose } from "react-icons/ai";
 
 //import pages
 import ShopProductPromoList from "./ShopProductPromoList";
+import { useEffect, useState } from "react";
 
 function ProductOrderCard(props) {
   const { url } = useAuth(); //url để lấy ảnh
@@ -15,52 +16,62 @@ function ProductOrderCard(props) {
   const productItem = props.props.productItem;
   const shop = props.props.shop;
 
-  const setCartListProduct = props.func.setCartListProduct;
-  const setSelectedProducts = props.func.setSelectedProducts;
+  const setShopFilter = props.func.setShopFilter;
+
+  //show promo
+  const [shopProductPromo, setShopProductPromo] = useState([]);
+
+  useEffect(() => {
+    const subTotal = shop.products.reduce((price, product) => {
+      if (product.checked === true) {
+        return price + product.total_price - product.discount_amount;
+      }
+      return price;
+    }, 0);
+    setShopFilter((prevShopFilter) => {
+      return prevShopFilter.map((shop) => {
+        if (shop.shopId === productItem.shop_id) {
+          return { ...shop, shop_total_price: subTotal };
+        }
+        return shop;
+      });
+    });
+  }, [productItem]);
 
   //handle quantity change
   const { decreaseQuantity, increaseQuantity, delfromcart } = useCartHandle(); //các hàm xử lý giỏ hàng
   const updateQuantity = (productId, state) => {
-    setCartListProduct((prevCart) => {
-      const updatedCart = prevCart
-        .map((item) => {
-          if (item.id === productId) {
-            let newQuantity = item.quantity_order;
-            if (state === "incqty") {
-              newQuantity += 1;
-            } else if (state === "decqty" && newQuantity > 0) {
-              newQuantity -= 1;
-            }
-            if (state === "decqty" && newQuantity < 1) {
-              // Xóa sản phẩm khỏi giỏ hàng nếu số lượng giảm xuống dưới 1
-              delfromcart(productId);
-              return null; // Bỏ qua việc cập nhật mục trong giỏ hàng
-            }
-            return { ...item, quantity_order: newQuantity };
-          }
-          return item;
-        })
-        .filter((item) => item !== null); // Lọc ra các giá trị null (sản phẩm đã bị xóa);
-      toast.success("Cập nhật giỏ hàng thành công", { autoClose: 1000 });
-      return updatedCart;
-    });
-    setSelectedProducts((prevSelectedProducts) => {
-      return prevSelectedProducts.map((item) => {
-        if (item.id === productId) {
-          let newQuantity = item.quantity_order;
-          if (state === "incqty") {
-            newQuantity += 1;
-          } else if (state === "decqty" && newQuantity > 0) {
-            newQuantity -= 1;
-          }
+    setShopFilter((prevShopFilter) => {
+      const updatedShopFilter = prevShopFilter.map((shop) => {
+        if (shop.shopId === productItem.shop_id) {
           return {
-            ...item,
-            quantity_order: newQuantity,
-            total_price: item.price * newQuantity,
+            ...shop,
+            products: shop.products.map((product) => {
+              if (product.id === productItem.id) {
+                let newQuantity = product.quantity_order;
+                if (state === "incqty") {
+                  newQuantity += 1;
+                } else if (state === "decqty" && newQuantity > 0) {
+                  newQuantity -= 1;
+                }
+                if (state === "decqty" && newQuantity < 1) {
+                  // Xóa sản phẩm khỏi giỏ hàng nếu số lượng giảm xuống dưới 1
+                  delfromcart(productId);
+                  return null; // Bỏ qua việc cập nhật mục trong giỏ hàng
+                }
+                return {
+                  ...product,
+                  quantity_order: newQuantity,
+                  total_price: newQuantity * product.price,
+                };
+              }
+              return product;
+            }),
           };
         }
-        return item;
+        return shop;
       });
+      return updatedShopFilter;
     });
   };
 
@@ -86,30 +97,70 @@ function ProductOrderCard(props) {
     }
   };
 
-  const handleCheckboxChange = (e, productItem) => {
+  const handlePromoChecked = (e, promoItem) => {
     if (e.target.checked) {
-      setSelectedProducts((prevSelectedProducts) => [
-        ...prevSelectedProducts,
-        { ...productItem, checked: true },
-      ]);
-      setCartListProduct((prevCart) => {
-        return prevCart.map((item) => {
-          if (item.id === productItem.id) {
-            return { ...item, checked: true };
+      setShopProductPromo((prevShopProductPromo) => {
+        return prevShopProductPromo.map((prevPromoItem) => {
+          if (prevPromoItem.id === promoItem.id) {
+            return { ...prevPromoItem, checked: true };
           }
-          return item;
+          return prevPromoItem;
         });
       });
     } else {
-      setSelectedProducts((prevSelectedProducts) =>
-        prevSelectedProducts.filter((product) => product.id !== productItem.id)
-      );
-      setCartListProduct((prevCart) => {
-        return prevCart.map((item) => {
-          if (item.id === productItem.id) {
-            return { ...item, checked: false };
+      setShopProductPromo((prevShopProductPromo) => {
+        return prevShopProductPromo.map((prevPromoItem) => {
+          if (prevPromoItem.id === promoItem.id) {
+            return { ...prevPromoItem, checked: false };
           }
-          return item;
+          return prevPromoItem;
+        });
+      });
+    }
+  };
+
+  const handleCheckboxChange = (e, productItem) => {
+    if (e.target.checked) {
+      setShopFilter((prevShopFilter) => {
+        return prevShopFilter.map((shop) => {
+          if (shop.shopId === productItem.shop_id) {
+            return {
+              ...shop,
+              products: shop.products.map((product) => {
+                if (product.id === productItem.id) {
+                  return { ...product, checked: true };
+                }
+                return product;
+              }),
+            };
+          }
+          return shop;
+        });
+      });
+    } else {
+      setShopFilter((prevShopFilter) => {
+        return prevShopFilter.map((shop) => {
+          if (shop.shopId === productItem.shop_id) {
+            return {
+              ...shop,
+              products: shop.products.map((product) => {
+                if (product.promos) {
+                  handlePromoChecked(e, product.promos);
+                }
+                if (product.id === productItem.id) {
+                  return {
+                    ...product,
+                    checked: false,
+                    promos: null,
+                    discount_amount: 0,
+                    code_discount: [],
+                  };
+                }
+                return product;
+              }),
+            };
+          }
+          return shop;
         });
       });
     }
@@ -137,10 +188,13 @@ function ProductOrderCard(props) {
                 props={{
                   shop_id: shop.shopId,
                   product_id: productItem.shop_product_id,
+                  shopProductPromo: shopProductPromo,
+                  checked: productItem.checked,
                 }}
                 func={{
-                  setSelectedProducts: setSelectedProducts,
-                  setCartListProduct: setCartListProduct,
+                  setShopFilter,
+                  setShopProductPromo,
+                  handlePromoChecked,
                 }}
               />
             </div>

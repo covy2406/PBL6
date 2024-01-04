@@ -1,6 +1,6 @@
 import "./css/DiscountListStyle.css";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import apiHandlePayment from "api/apiHandlePayment";
 import { toast } from "react-toastify";
 
@@ -8,11 +8,12 @@ const ShopProductPromoList = (props) => {
   // { shop_id }
   const shop_id = props.props.shop_id;
   const product_id = props.props.product_id;
-  const setSelectedProducts = props.func.setSelectedProducts;
-  const setCartListProduct = props.func.setCartListProduct;
+  const shopProductPromo = props.props.shopProductPromo;
+  const checked = props.props.checked;
 
-  //show promo
-  const [shopProductPromo, setShopProductPromo] = useState([]);
+  const setShopFilter = props.func.setShopFilter;
+  const setShopProductPromo = props.func.setShopProductPromo;
+  const handlePromoChecked = props.func.handlePromoChecked;
 
   //get shop discount
   useEffect(() => {
@@ -39,28 +40,6 @@ const ShopProductPromoList = (props) => {
     fetchDiscountShop(shop_id);
   }, []);
 
-  const handlePromoChecked = (e, promoItem) => {
-    if (e.target.checked) {
-      setShopProductPromo((prevShopProductPromo) => {
-        return prevShopProductPromo.map((prevPromoItem) => {
-          if (prevPromoItem.id === promoItem.id) {
-            return { ...prevPromoItem, checked: true };
-          }
-          return prevPromoItem;
-        });
-      });
-    } else {
-      setShopProductPromo((prevShopProductPromo) => {
-        return prevShopProductPromo.map((prevPromoItem) => {
-          if (prevPromoItem.id === promoItem.id) {
-            return { ...prevPromoItem, checked: false };
-          }
-          return prevPromoItem;
-        });
-      });
-    }
-  };
-
   const handlePromoCalc = (product, promoItem) => {
     if (promoItem) {
       if (promoItem.type === 0) {
@@ -72,70 +51,44 @@ const ShopProductPromoList = (props) => {
   };
 
   const handleChoosePromo = (e, promoItem) => {
-    setSelectedProducts((prevSelectedProducts) => {
-      if (prevSelectedProducts.length === 0) {
-        console.log(prevSelectedProducts);
-        toast.error("Vui lòng chọn sản phẩm trước khi chọn mã giảm giá");
-        return [];
-      } else {
-        return prevSelectedProducts.map((product) => {
-          // Check if product is checked
-          if (product.checked === false) {
-            toast.error("Vui lòng chọn sản phẩm trước khi chọn mã giảm giá");
-            return product;
-          }
-          // if product is checked, check if product is matching promoItem
-          handlePromoChecked(e, promoItem);
-
-          if (e.target.checked) {
+    setShopFilter((prevShopFilter) => {
+      return prevShopFilter.map((shop) => {
+        if (shop.shopId !== shop_id) return shop;
+        return {
+          ...shop,
+          products: shop.products.map((product) => {
+            if (product.shop_product_id !== promoItem.shop_product_id)
+              return product;
+            if (!product.checked) {
+              toast.error("Vui lòng chọn sản phẩm trước khi chọn mã giảm giá");
+              return product;
+            }
+            handlePromoChecked(e, promoItem);
             const discount = handlePromoCalc(product, promoItem);
-            setCartListProduct((prevCartListProduct) => {
-              return prevCartListProduct.map((item) => {
-                if (item.id === product.id) {
-                  return {
-                    ...item,
-                    promos: promoItem,
-                    discount_amount: discount,
-                    total_price: product.total_price,
-                    code_discount: promoItem.code,
-                  };
-                }
-                return item;
-              });
-            });
-            return {
-              ...product,
-              promos: promoItem,
-              discount_amount: discount,
-              total_price: product.total_price,
-              code_discount: promoItem.code,
-            };
-          } else {
-            console.log("Bỏ chọn mã giảm giá thành công", promoItem);
-            setCartListProduct((prevCartListProduct) => {
-              return prevCartListProduct.map((item) => {
-                if (item.id === product.id) {
-                  return {
-                    ...item,
-                    promos: null,
-                    discount_amount: 0,
-                    total_price: product.total_price,
-                    code_discount: "",
-                  };
-                }
-                return item;
-              });
-            });
-            return {
-              ...product,
-              promos: null,
-              discount_amount: 0,
-              total_price: product.total_price,
-              code_discount: "",
-            };
-          }
-        });
-      }
+            if (e.target.checked) {
+              const newDiscount = product.discount_amount + discount;
+              product.code_discount.push(promoItem.code);
+              return {
+                ...product,
+                promos: promoItem,
+                discount_amount: newDiscount,
+              };
+            } else {
+              console.log("Bỏ chọn mã giảm giá thành công", promoItem);
+              const newDiscount = product.discount_amount - discount;
+              product.code_discount.splice(
+                product.code_discount.indexOf(promoItem.code),
+                1
+              );
+              return {
+                ...product,
+                promos: null,
+                discount_amount: newDiscount,
+              };
+            }
+          }),
+        };
+      });
     });
   };
 
@@ -144,7 +97,13 @@ const ShopProductPromoList = (props) => {
       <div className="discount__cart-list">
         <h4 className="discount__cart-heading">Danh sách mã giảm giá</h4>
         <ul className="discount__cart-list-item">
-          {shopProductPromo.length > 0 ? (
+          {!checked ? (
+            <>
+              <p className="discount__cart-no-discount">
+                Vui lòng chọn sản phẩm trước khi chọn mã giảm giá
+              </p>
+            </>
+          ) : shopProductPromo.length > 0 ? (
             <>
               {shopProductPromo.map((productDiscountItem, index) => (
                 <li className="discount__cart-item" key={index}>

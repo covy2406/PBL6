@@ -602,7 +602,7 @@ và có border màu xanh xanh xung quanh */
   list-style: none;
 
   /* khi có quá nhiều sản phẩm thì sẽ bị kéo thành bảng dài rất xấu */
-  height: 42vh; /*view port height: 56% chiều cao màn hình*/
+  max-height: 42rem;
   overflow-y: auto;
 }
 

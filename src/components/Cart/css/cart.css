@@ -233,3 +233,7 @@
   flex-direction: column;
   gap: 2rem;
 }
+.shop--total-price {
+  margin-left: 55%;
+  padding-left: 15%;
+}
