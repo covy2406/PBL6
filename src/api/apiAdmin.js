@@ -7,11 +7,17 @@ const apiAdmin = {
   getAllShopProduct() {
     return axiosClient.get("getall/shop_products");
   },
+  deleteShopProduct(id) {
+    return axiosClient.delete(`shop_products/${id}`);
+  },
   getAllShop() {
     return axiosClient.get("shops");
   },
   getAllAccount() {
     return axiosClient.get("customers");
+  },
+  deleteAccount(id) {
+    return axiosClient.delete(`customers/${id}`);
   },
 };
 
