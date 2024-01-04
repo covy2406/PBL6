@@ -108,7 +108,15 @@ const Cart = () => {
   };
 
   const handlePayment = async (type) => {
-    Swal.fire({}).then((result) => {
+    Swal.fire({
+      title: 'Xác nhận thanh toán',
+      html: `
+      <p>Bạn quyết định thanh toán bằng tiền mặt ?</p>
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy bỏ',
+    }).then((result) => {
       if (result.isConfirmed) {
         let data = [];
         shopsFilter.map((shop) => {

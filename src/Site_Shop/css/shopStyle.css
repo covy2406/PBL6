@@ -176,10 +176,11 @@
 }
 .shop__orders--list {
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+    flex-direction: column;
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 10px;
 }
 .shop__menu_details {
   width: 100%;
