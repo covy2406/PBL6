@@ -72,7 +72,7 @@ const ShopProductAdd = () => {
                       console.log(selectedOption.value);
                       setPromo({
                         ...promo,
-                        product_id: selectedOption.value,
+                        shop_product_id: selectedOption.value,
                       });
                     }}
                     styles={{
@@ -254,7 +254,7 @@ const ShopProductAdd = () => {
                     onChange={(e) =>
                       setPromo({
                         ...promo,
-                        quantity: e.target.value,
+                        quantity: parseInt(e.target.value),
                       })
                     }
                   />

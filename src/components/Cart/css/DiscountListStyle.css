@@ -11,14 +11,12 @@
 .discount__cart-list {
   z-index: 2;
   background-color: var(--white-color);
-  width: 360px;
-  left: 170px;
-  position: absolute;
+  width: 40rem;
   border-radius: 2px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   display: none;
   cursor: default;
-  animation: fadeIn ease-in 0.4s;
+  animation: fadeIn ease-in 0.2s;
   text-transform: none;
 }
 
@@ -37,7 +35,6 @@
 .discount__cart-list::after {
   content: "";
   position: absolute;
-  left: 0;
   top: -12px;
   height: 24px;
   width: 200px;
@@ -45,32 +42,28 @@
   /* background-color: #757575; */
 }
 
-/* .discount-wrap:hover .discount__cart-list {
-  display: block;
-} */
-
 .discount__cart-heading {
   text-align: left;
-  margin: 8px 0 8px 12px;
+  margin: 0.8rem 0 0 1rem;
   font-size: 1.4rem;
-  color: #999;
-  font-weight: 400;
+  color: black;
+  font-weight: bold;
 }
 
 .discount__cart-list-item {
   padding-left: 0;
   list-style: none;
-  /* khi cos qua nhieu ma giam gia se bi keo thanh
-  hang dai nhin rat la xau */
-  height: 46vh;
+  min-height: 5rem;
+  max-height: 35rem;
   overflow-y: auto;
   cursor: pointer;
 }
 
 .discount__cart-item {
   display: flex;
+  gap: 0.3rem;
   align-items: center;
-  color: var(--primary-color);
+  padding: 0 1rem;
 }
 
 .discount__cart-item:hover {
@@ -85,12 +78,12 @@
 .discount__cart-img {
   width: 42px !important;
   height: 42px !important;
-  margin: 12px;
   border: 1px solid var(--border-color);
   align-items: center;
 }
 
 .discount__cart-item-title {
+  padding-left: 1rem;
   color: var(--text-color);
   font-weight: 400;
 }
@@ -100,7 +93,7 @@
   margin-top: 12px;
   margin-bottom: 12px;
   margin-right: 12px;
-  color: var(--primary-color);
+  color: black;
 }
 
 .discount__cart-item-head {
@@ -112,13 +105,8 @@
 
 .discount__cart-item-name {
   font-size: 1.4rem;
-  line-height: 2rem;
-  max-height: 4rem;
   font-weight: 400;
-  color: var(--text-color);
   margin: 0; /*do thẻ h tự động có margin trên dưới nên bỏ đi*/
-  color: var(--primary-color);
-
   /* ẩn đi khi chữ quá dài */
   overflow: hidden;
   flex: 1;
@@ -153,9 +141,7 @@
 }
 
 .discount__cart-item-body {
-  display: flex;
-  justify-content: space-between;
-  /* margin-right: 12px; */
+  margin-top: 1rem;
 }
 
 .discount__cart-item-description {
@@ -165,7 +151,7 @@
 }
 
 .discount__cart-item-date {
-  font-size: 1.2rem;
-  color: #757575;
-  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  font-weight: bold;
 }

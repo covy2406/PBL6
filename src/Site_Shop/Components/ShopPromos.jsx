@@ -56,7 +56,7 @@ const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
       </div>
       <div className="shop__menu_details">
         <div className="shop__orders--list">
-          {shoppromosList > 0 ? (
+          {shoppromosList ? (
             <>
               <div className="shop__promos--type">Mã khuyến mãi của Shop</div>
               {Object.keys(shoppromosList).map((key) => {
@@ -73,7 +73,7 @@ const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
               Không có khuyến mãi của Shop
             </div>
           )}
-          {productpromosList > 0 ? (
+          {productpromosList ? (
             <>
               <div className="shop__promos--type">
                 Mã khuyến mãi Từng sản phẩm

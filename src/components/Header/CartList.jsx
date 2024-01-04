@@ -4,12 +4,12 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BsCart2 } from "react-icons/bs";
 //import hooks
-//import useAuth from "hook/useAuth";
+import useAuth from "hook/useAuth";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 
 const CartList = () => {
-  //const { url } = useAuth();
+  const { url } = useAuth();
   const { cartListProduct, setCartListProduct } = useCart();
   const { showCartList, delfromcart } = useCartHandle();
 
@@ -57,8 +57,7 @@ const CartList = () => {
                   return (
                     <li className="header__cart-item" key={index}>
                       <img
-                        // src={`${url}/${curElm.image}`}
-                        src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
+                        src={`${url}${curElm.image}`}
                         alt={curElm.name}
                         className="header__cart-img"></img>
                       <div className="header__cart-item-info">

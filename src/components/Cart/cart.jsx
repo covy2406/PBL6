@@ -1,144 +1,66 @@
 import "./css/cart.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useCart from "hook/useCart";
-import useCartHandle from "hook/useCartHandle";
-//import useAuth from "hook/useAuth";
+
+//import lib
 import { toast } from "react-toastify";
-import { AiOutlineClose } from "react-icons/ai";
+//import icon
+
 import { CiDiscount1 } from "react-icons/ci";
+//import api
 import apiHandlePayment from "api/apiHandlePayment";
-import DiscountListShop from "./DiscountListShop";
+//import pages
+import ProductOrderCard from "./ProductOrderCard";
+
+import ShopPromoList from "./ShopPromoList";
 import DiscountListWeb from "./DiscountListWeb";
 
 const Cart = () => {
-  //const { url } = useAuth();
+  //handle when get cart
   const { cartListProduct, setCartListProduct } = useCart();
-  const { decreaseQuantity, increaseQuantity, delfromcart } = useCartHandle();
-
-  const [selectedProducts, setSelectedProducts] = useState({});
-  const [productQuantities, setProductQuantities] = useState({});
-  const [shop_product_id_list, setShopProductIdList] = useState([]);
+  // Tạo một state để lưu trữ các sản phẩm được chọn trong giỏ hàng
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
   const [Totalprice, setTotalprice] = useState(0);
-
   const [showDiscounts, setShowDiscounts] = useState(false);
-
   const toggleDiscounts = () => {
     setShowDiscounts(!showDiscounts);
   };
-
-  // Hàm xử lý sự kiện khi chọn checkbox để chọn sản phẩm trong giỏ hàng
-  const handleCheckboxChange = (id) => {
-    setSelectedProducts((prevSelectedProducts) => ({
-      ...prevSelectedProducts,
-      [id]: !prevSelectedProducts[id],
-    }));
-  };
-
-  useEffect(() => {
-    cartListProduct.map((product) => {
-      return setShopProductIdList((prevList) => [...prevList, product.id]);
-    });
-  }, [cartListProduct]);
-  console.log("shop_product_id_list", shop_product_id_list);
-  //console.log(shop_product_id_list.shop_product_id);
-
   // Tính tổng giá trị của các sản phẩm được chọn
   useEffect(() => {
-    const selectedTotal = cartListProduct.reduce((price, item) => {
-      if (selectedProducts[item.id]) {
-        return price + parseInt(item.price) * item.quantity_order;
-      }
-      return price;
+    console.log("totol run");
+    const selectedTotal = selectedProducts?.reduce((price, item) => {
+      return price + item.total_price - item.discount_amount;
     }, 0);
-    console.log("Selected Total: ", selectedTotal);
-    setTotalprice(selectedTotal);
-    console.log("sản phẩm được chọn", selectedProducts);
+    setTotalprice(selectedTotal ? selectedTotal : 0);
   }, [selectedProducts, cartListProduct]);
-
-  const updateQuantity = (productId, state) => {
-    setCartListProduct((prevCart) => {
-      const updatedCart = prevCart
-        .map((item) => {
-          if (item.id === productId) {
-            let newQuantity = item.quantity_order;
-            if (state === "incqty") {
-              newQuantity += 1;
-            } else if (state === "decqty" && newQuantity > 0) {
-              newQuantity -= 1;
-            }
-            if (state === "decqty" && newQuantity < 1) {
-              // Xóa sản phẩm khỏi giỏ hàng nếu số lượng giảm xuống dưới 1
-              delfromcart(productId);
-              return null; // Bỏ qua việc cập nhật mục trong giỏ hàng
-            }
-            setProductQuantities((prevQuantities) => ({
-              ...prevQuantities,
-              [productId]: newQuantity,
-            }));
-
-            return { ...item, quantity_order: newQuantity };
-          }
-          return item;
-        })
-        .filter((item) => item !== null); // Lọc ra các giá trị null (sản phẩm đã bị xóa);
-      toast.success("Cập nhật giỏ hàng thành công", { autoClose: 1000 });
-      return updatedCart;
-    });
-  };
-
-  const incQuantity = async (id) => {
-    const res = await increaseQuantity(id);
-    console.log(res ? "true" : "false");
-    if (res) {
-      updateQuantity(id, "incqty");
-      console.log("Increasing quantity success " + id);
-    } else {
-      toast.error("Số lượng sản phẩm đã hết");
-      console.log("Increasing quantity fail " + id);
-    }
-  };
-
-  console.log('số lượng sản phẩm:', productQuantities)
-
-  const decQuantity = async (id) => {
-    const res = await decreaseQuantity(id);
-    if (res) {
-      updateQuantity(id, "decqty");
-      console.log("Decreasing quantity success " + id);
-    } else {
-      console.log("Decreasing quantity fail " + id);
-    }
-  };
+  console.log("selectedProducts", selectedProducts);
 
   // Tạo một mảng để tổ chức danh sách sản phẩm theo shop
-  const shopsWithProducts = [];
+  const [shopsFilter, setShopFilter] = useState([]);
   // Tổ chức danh sách sản phẩm theo shop
-  cartListProduct.forEach((productItem) => {
-    // Sử dụng findIndex để kiểm tra xem cửa hàng (shop) có shopId bằng productItem.shop_id đã tồn tại trong shopsWithProducts hay không.
-    // Nếu đã tồn tại,existingShopIndex sẽ là chỉ số của cửa hàng trong mảng, nếu không, existingShopIndex sẽ là -1.
-    const existingShopIndex = shopsWithProducts.findIndex(
-      (shop) => shop.shopId === productItem.shop_id
-    );
+  useEffect(() => {
+    const newFilter = cartListProduct.reduce((acc, productItem) => {
+      const existingShopIndex = acc.findIndex(
+        (shop) => shop.shopId === productItem.shop_id
+      );
 
-    //  sử dụng findIndex trong JavaScript, nếu phần tử không được tìm thấy, nó sẽ trả về giá trị -1
-    //Kiểm tra xem cửa hàng đã tồn tại trong mảng shopsWithProducts hay chưa.
-    if (existingShopIndex !== -1) {
-      //shopsWithProducts[existingShopIndex].products.push(product):
-      // Nếu cửa hàng đã tồn tại, thêm sản phẩm mới (productItem) vào mảng products của cửa hàng tương ứng trong shopsWithProducts.
-      shopsWithProducts[existingShopIndex].products.push(productItem);
-    } else {
-      // Tạo một đối tượng mới cho cửa hàng và thêm vào mảng shopsWithProducts
-      shopsWithProducts.push({
-        shopId: productItem.shop_id,
-        shopName: productItem.shopName,
-        products: [productItem],
-        shop_product_id: productItem.shop_product_id,
-      });
-    }
-  });
-  console.log(shopsWithProducts);
+      if (existingShopIndex !== -1) {
+        acc[existingShopIndex].products.push(productItem);
+      } else {
+        acc.push({
+          shopId: productItem.shop_id,
+          shopName: productItem.shopName,
+          products: [productItem],
+          shop_product_id: productItem.shop_product_id,
+          shop_total_price: 0,
+        });
+      }
+      return acc;
+    }, []);
+    setShopFilter(newFilter);
+  }, [cartListProduct, selectedProducts]);
 
   // Hàm xử lý thanh toán online
   const handlePayment = async (vnp_OrderInfo, vnp_Amount) => {
@@ -211,73 +133,20 @@ const Cart = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {shopsWithProducts.map((shop, index) => (
-                    <React.Fragment key={index}>
-                      <tr className="shopNameRow">
-                        <td colSpan="7">
-                          shop: {shop.shopName} - {shop.shopId}
-                        </td>
+                  {shopsFilter.map((shop, index) => (
+                    <>
+                      <tr className="shopNameRow" key={index}>
+                        <td colSpan="7">shop: {shop.shopName}</td>
                       </tr>
                       {shop.products.map((productItem, index) => (
                         <tr key={index}>
-                          <td>
-                            <input
-                              type="checkbox"
-                              className="select__Checkbox"
-                              checked={selectedProducts[productItem.id]}
-                              onChange={() =>
-                                handleCheckboxChange(productItem.id)
-                              }
-                            />
-                          </td>
-                          <td>
-                            <img
-                              // src={`${auth.url}/${productItem.image}`}
-                              src={`http://0.tcp.ap.ngrok.io:15234/${productItem.image}`}
-                              alt={productItem.name}></img>
-                          </td>
-                          <td>
-                            {productItem.name} - {productItem.shop_product_id}
-                          </td>
-                          <td>
-                            {parseInt(productItem.price).toLocaleString(
-                              "vn-VN"
-                            )}{" "}
-                            đ
-                          </td>
-                          <td>
-                            <div className="qty">
-                              <button
-                                className="incqty"
-                                onClick={() => incQuantity(productItem.id)}>
-                                +
-                              </button>
-                              <input
-                                type="text"
-                                value={productItem.quantity_order}></input>
-                              <button
-                                className="incqty"
-                                onClick={() => decQuantity(productItem.id)}>
-                                -
-                              </button>
-                            </div>
-                          </td>
-                          <td>
-                            <p className="subtotal">
-                              {(
-                                productItem.price * productItem.quantity_order
-                              ).toLocaleString("vn-VN")}{" "}
-                              đ
-                            </p>
-                          </td>
-                          <td>
-                            <div className="close">
-                              <button
-                                onClick={() => delfromcart(productItem.id)}>
-                                <AiOutlineClose />
-                              </button>
-                            </div>
-                          </td>
+                          <ProductOrderCard
+                            props={{ productItem: productItem, shop: shop }}
+                            func={{
+                              setCartListProduct: setCartListProduct,
+                              setSelectedProducts: setSelectedProducts,
+                            }}
+                          />
                         </tr>
                       ))}
                       <tr className="shop_promotion">
@@ -288,14 +157,29 @@ const Cart = () => {
                             </span>
                             <div className="discount__byShop-ad">
                               <div className="btn__checkout-discount-shop">
-                                Mã giảm giá của Shop và sản phẩm
-                                <DiscountListShop shop_id={shop.shopId} />
+                                Mã giảm giá của Shop
+                                <ShopPromoList
+                                  props={{
+                                    shop_id: shop.shopId,
+                                  }}
+                                  func={{
+                                    setTotalprice: setTotalprice,
+                                    setSelectedProducts: setSelectedProducts,
+                                  }}
+                                />
                               </div>
+                            </div>
+                            <div>
+                              {" "}
+                              {parseInt(shop.shop_total_price).toLocaleString(
+                                "vn-VN"
+                              )}{" "}
+                              đ
                             </div>
                           </div>
                         </td>
                       </tr>
-                    </React.Fragment>
+                    </>
                   ))}
                 </tbody>
               </table>
@@ -308,7 +192,6 @@ const Cart = () => {
                   onClick={() => handlePayment()}>
                   Mua online
                 </button>
-
                 <button className="cash__payment">
                   Thanh toán bằng tiền mặt
                 </button>

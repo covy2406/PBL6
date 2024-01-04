@@ -841,6 +841,7 @@ và có border màu xanh xanh xung quanh */
 
 .header__search-btn-icon {
   color: var(--white-color);
+  margin-top: 1rem;
   padding: 0 16px;
   font-size: 1.4rem;
 }

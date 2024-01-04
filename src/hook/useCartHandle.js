@@ -44,7 +44,16 @@ const useCartHandle = () => {
         JSON.stringify(response.data.data)
       );
       setCartListProduct(
-        JSON.parse(window.sessionStorage.getItem("cartListProduct"))
+        response.data.data.map((item) => {
+          return {
+            ...item,
+            checked: false,
+            total_price: parseInt(item.price) * parseInt(item.quantity_order),
+            promos: null,
+            discount_amount: 0,
+            code_discount: "",
+          };
+        })
       );
       return true;
     } else {

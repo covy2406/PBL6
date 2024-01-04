@@ -103,6 +103,7 @@ const useShop = () => {
   };
   const createShopPromo = async (data) => {
     try {
+      console.log(data);
       const response = await apiShop.addpromos(data);
       return response;
     } catch (err) {
