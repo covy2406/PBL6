@@ -254,7 +254,10 @@ const ShopProductAdd = () => {
                     onChange={(e) =>
                       setPromo({
                         ...promo,
-                        quantity: parseInt(e.target.value),
+                        quantity:
+                          e.target.value && !isNaN(e.target.value)
+                            ? parseInt(e.target.value)
+                            : 0,
                       })
                     }
                   />

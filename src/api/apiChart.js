@@ -1,8 +1,10 @@
 import axiosClient from "./axiosClient";
 
 const apiChart = {
-  purchasePriceRangeStatistics() {
-    return axiosClient.get("purchasePriceRangeStatistics/shops");
+  purchasePriceRangeStatistics(startDate, endDate) {
+    return axiosClient.get(
+      `purchasePriceRangeStatistics/shops?startDate=${startDate}&endDate=${endDate}`
+    );
   },
   revenueStatistics() {
     return axiosClient.get("revenueStatistics/shops");
