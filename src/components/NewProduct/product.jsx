@@ -20,7 +20,7 @@ import apiHandlePrice from "api/apiHandlePrice";
 
 const Product = () => {
 
-    const { auth } = useAuth();
+    const { auth, url } = useAuth();
     const { view } = useCart();
     const { addtocart } = useCartHandle();
     // const { selectedBrandId , selectedBrandProducts ,setSelectedBrandProducts} = useFilter();
@@ -275,7 +275,8 @@ const Product = () => {
                                     <div className="box" key={index}>
                                         <div className="img_box">
                                             <img
-                                                src={`http://0.tcp.ap.ngrok.io:15234/${curElmNew.image}`}
+                                                // src={`http://0.tcp.ap.ngrok.io:15234/${curElmNew.image}`}
+                                                src={`${url}${curElmNew.image}`}
                                                 //src={curElmNew.image}
                                                 
                                                 alt={curElmNew.name}></img>

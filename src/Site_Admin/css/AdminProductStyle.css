@@ -1,0 +1,27 @@
+.admin__top--title {
+    margin-top: 20px;
+}
+
+.admin__product-wrap {
+    padding: 60px;
+    background-color: var(--white-color);
+}
+
+.admin__body-list {
+    background-color: var(--white-color);
+    overflow-y: auto;
+    height: 68vh;
+    border: 1px solid #ddd;
+}
+
+.admin__body-list-item{ 
+    display: flex;
+    list-style: none;
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.header__cart-item {
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+}

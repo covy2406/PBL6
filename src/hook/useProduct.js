@@ -1,5 +1,5 @@
 import apiProduct from "api/apiProduct";
-import apiProductHome from "api/apiProductHome";
+//import apiProductHome from "api/apiProductHome";
 
 const useProduct = () => {
   const getAllProducts = async () => {

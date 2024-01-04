@@ -1,29 +1,24 @@
-// import '../../assets/css/base.css';
-// import '../Home/home.css';
-// import '../Header/css/nav.css';
-import { React } from "react";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import apiSearch from "api/apiSearch";
-import useAuth from "hook/useAuth";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { BsEye } from "react-icons/bs";
 import "../../components/Home/home.css";
 import "../Header/css/nav.css";
 import "../../assets/css/base.css";
+import { React } from "react";
+import { Link } from "react-router-dom";
+import useAuth from "hook/useAuth";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { BsEye } from "react-icons/bs";
 import useCartHandle from "hook/useCartHandle";
 import useCart from "hook/useCart";
-import { AiOutlineStar } from "react-icons/ai";
+import { useParams } from "react-router-dom";
 
 const Search = () => {
   const { auth, url } = useAuth();
   const { addtocart } = useCartHandle();
   const { view } = useCart();
-  const { searchResults, searchTerm } = useCart();
+  const { searchResults } = useCart();
   // State để lưu kết quả search
-  const { search } = useParams();
+  const { id } = useParams();
 
+  console.log('id', id);
   console.log('kết quả tìm kiếm ở trang search', searchResults);
   return (
     <div className="grid">
@@ -40,7 +35,7 @@ const Search = () => {
                       alt={itemProduct.name}></img>
                     <div className="icon">
                       {auth.isAuth ? (
-                        <li onClick={() => addtocart(itemProduct)}>
+                        <li onClick={() => addtocart(itemProduct.id, 1)}>
                           <AiOutlineShoppingCart />
                         </li>
                       ) : (

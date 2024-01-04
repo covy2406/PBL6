@@ -28,9 +28,9 @@ const Viewdetails = () => {
   const [error, setError] = useState(null);
   const { id } = useParams();
 
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
-  const [listImageColor, setListImageColor] = useState(null);
+   const [selectedColor, setSelectedColor] = useState(null);
+   const [selectedImage, setSelectedImage] = useState(null); // Thêm state mới
+   const [, setListImageColor] = useState(null);
 
   // Thêm state mới để lưu trữ shop_product_id được chọn
   const [selectedShopProductId, setSelectedShopProductId] = useState(null);

@@ -118,20 +118,49 @@ const useCartHandle = () => {
     setSearchTerm(e.target.value);
   };
 
-  // Hàm xử lý khi người dùng ấn nút search
+  // // Hàm xử lý khi người dùng ấn nút search
+  // const handleSearchSubmitResults = () => {
+  //   // Chuyển đổi từ khóa tìm kiếm thành chữ thường
+  //   const searchTermLowerCase = searchTerm.toLowerCase();
+
+  //   // Lọc sản phẩm theo từ khóa tìm kiếm trong tên hoặc brand
+  //   const results = productList.filter(product =>
+  //     product.name.toLowerCase().includes(searchTermLowerCase) ||
+  //     product.shopName.toLowerCase().includes(searchTermLowerCase)
+  //   );
+
+  //   setSearchResults(results);
+  // };
+
+  
+  
   const handleSearchSubmitResults = () => {
-    // Chuyển đổi từ khóa tìm kiếm thành chữ thường
     const searchTermLowerCase = searchTerm.toLowerCase();
-
-    // Lọc sản phẩm theo từ khóa tìm kiếm trong tên hoặc brand
-    const results = productList.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTermLowerCase) ||
-        product.shopName.toLowerCase().includes(searchTermLowerCase)
-    );
-
+    const productsWithSameName = {};
+  
+    productList.forEach((product) => {
+      const productNameLower = product.name.toLowerCase();
+      const shopNameLower = product.shopName.toLowerCase();
+  
+      // Kiểm tra xem tên sản phẩm hoặc tên cửa hàng có chứa từ khóa tìm kiếm không
+      const includesKeyword = productNameLower.includes(searchTermLowerCase) || shopNameLower.includes(searchTermLowerCase);
+  
+      if (includesKeyword) {
+        // Nếu tên sản phẩm chưa được thêm vào kết quả, khởi tạo nó
+        if (!productsWithSameName[productNameLower]) {
+          productsWithSameName[productNameLower] = [];
+        }
+  
+        // Thêm sản phẩm vào kết quả
+        productsWithSameName[productNameLower].push(product);
+      }
+    });
+  
+    // Giữ nguyên kết quả để bao gồm tất cả các sản phẩm cùng tên
+    const results = Object.values(productsWithSameName).flat();
     setSearchResults(results);
   };
+  
 
   //console.log('kết quả tìm kiếm', searchResults);
 

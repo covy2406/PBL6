@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./OrdersCard.css";
 import useAuth from "hook/useAuth";
 import { getStatusFromEn } from "datas/statusData";

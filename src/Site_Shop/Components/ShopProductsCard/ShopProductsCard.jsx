@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import useAuth from "hook/useAuth";
 import "./ShopProductsCard.css";
 import "../../css/shopProductUpdate.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Select from "react-select";
 //hooks
@@ -11,7 +11,8 @@ import useShop from "hook/useShop";
 const ShopProductsCard = ({ data, filter }) => {
   const { url } = useAuth();
   const [isDelete, setIsDelete] = useState(filter);
-  const { updateShopProduct, deleteShopProduct, getShopProductsAll } =
+  //getShopProductsAll
+  const { updateShopProduct, deleteShopProduct,  } =
     useShop();
   const [product, setProduct] = useState({
     id: data.id,
@@ -42,7 +43,7 @@ const ShopProductsCard = ({ data, filter }) => {
   };
 
   //change to update form
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [update, setUpdate] = useState(false);
 
   const handleUpdate = (e) => {

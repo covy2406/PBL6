@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import Logo from "../../assets/Logo/4B1G.png";
 import "./css/nav.css";
 import "./css/adminnav.css";
-import useAuth from "hook/useAuth";
+//import useAuth from "hook/useAuth";
 
 function AdminNav() {
-  const { auth } = useAuth();
+  //const { auth } = useAuth();
   const [currentPath, setCurrentPath] = useState("");
   const location = useLocation();
   useEffect(() => {

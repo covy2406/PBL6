@@ -35,7 +35,7 @@ const Oldphone = () => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedBrandId, setSelectedBrandId] = useState(null);
   const [selectedBrandProducts, setSelectedBrandProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [, setFilteredProducts] = useState([]);
 
   // Giá
   const [minPriceInput, setMinPriceInput] = useState("");

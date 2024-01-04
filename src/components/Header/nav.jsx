@@ -1,14 +1,13 @@
 import "./css/nav.css";
 import "../../assets/css/base.css";
 import "../BannerHome/bannerSlider.css";
+import Logo from "../../assets/Logo/4B1G.png";
 import { AiOutlineBell } from "react-icons/ai";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
-import Logo from "../../assets/Logo/4B1G.png";
-import { React } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 //import components
 import CartList from "./CartList";
@@ -18,7 +17,6 @@ import NavNotification from "./navNotification";
 //import Hooks
 import useAuth from "hook/useAuth";
 import useProfile from "hook/useProfile";
-import apiSearch from "api/apiSearch";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
 
@@ -27,7 +25,7 @@ import useCartHandle from "hook/useCartHandle";
 const Nav = () => {
    const { auth, setAuth, profile, setProfile, url } = useAuth();
    const { useprofile } = useProfile();
-   const { searchResults, searchTerm } = useCart();
+   const { searchTerm } = useCart();
    const isAuth = window.sessionStorage.getItem("isAuth");
    const location = useLocation();
    const [currentPath, setCurrentPath] = useState("");
@@ -63,8 +61,6 @@ const Nav = () => {
       });
       window.sessionStorage.clear();
    };
-
-   console.log('kết quả tìm kiếm', searchResults);
 
    return (
       <>
@@ -156,14 +152,6 @@ const Nav = () => {
                         </Link>
                      </div>
                   </div>
-
-                  {/* NAV SEARCH SẢN PHẨM Ô INPUT VS NÚT SEARCH Ó */}
-                  {/* <NavSearch
-                     handleSearchChange={handleSearchChange}
-                     searchTerm={searchTerm}
-                     handleSearchSubmit={handleSearchSubmit}
-                  /> */}
-
                   <div className="header__search">
                      <div className="header__search-input-wrap">
                         <input
@@ -183,7 +171,6 @@ const Nav = () => {
                         <i className="header__search-select-icon fa-solid fa-angle-down">
                            <AiOutlineDown />
                         </i>
-
                         <ul className="header__search-option">
                            <li className="header__search-option-item header__search-option-item--active">
                               <span>Trong Shop</span>
@@ -213,7 +200,6 @@ const Nav = () => {
                      {/* <Link className="header__search-link" to={`../../Search`}>
                      </Link> */}
                   </div>
-
                   {/* <!-- Cart layout --> */}
                   <CartList />
                </div>
@@ -266,5 +252,4 @@ const Nav = () => {
       </>
    );
 };
-
 export default Nav;

@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./css/ShopSignup.css";
 
 import useAuth from "hook/useAuth";
 
 const ShopSignup = () => {
-  const { profile, setProfile } = useAuth();
+  const { profile } = useAuth(); //setProfile
   //define states
   const [shopName, setShopName] = useState(profile.name);
-  const [shopAddress, setShopAddress] = useState();
-  const [shopPhone, setShopPhone] = useState();
-  const [shopEmail, setShopEmail] = useState();
+  // const [shopAddress, setShopAddress] = useState();
+  // const [shopPhone, setShopPhone] = useState();
+  // const [shopEmail, setShopEmail] = useState();
 
   const handleSubmit = (e) => {};
   return (
