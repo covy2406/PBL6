@@ -202,12 +202,10 @@
 
 }
 
-/* thiết lập chiều rộng cho sản phẩm khi chỉ có 2 sản phẩm */
-.box:nth-child(3n - 1) {
+/* .box:nth-child(3n - 1) {
     width: calc(66.667% - 20px);
 }
 
-/* Ẩn sản phẩm thứ 3 trên hàng cuối cùng nếu chỉ có 2 sản phẩm */
 .box:nth-last-child(2):nth-child(3n) {
     display: none;
   }
@@ -217,10 +215,9 @@
     display: none;
   }
   
-  /* Ẩn sản phẩm thứ 3 trên hàng cuối cùng nếu chỉ có 1 sản phẩm */
   .box:nth-last-child(3):nth-child(3n) {
     display: none;
-  }
+  } */
 
 /* .contant .box:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 

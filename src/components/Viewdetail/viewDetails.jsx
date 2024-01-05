@@ -1,18 +1,18 @@
 import "./viewdt.css";
 import "../../assets/css/base.css";
 import React from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { FcShop } from "react-icons/fc";
+// import { AiOutlineCloseCircle } from "react-icons/ai";
+// import { FcShop } from "react-icons/fc";
 import { useState, useEffect } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
 
-import { useParams, Link } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import apiProductDetail from "api/apiProductDetail";
 
 import useAuth from "hook/useAuth";
 import useCartHandle from "hook/useCartHandle";
-import useCart from "hook/useCart";
+//import useCart from "hook/useCart";
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
 //import useComment from "hook/useComments";
@@ -113,7 +113,7 @@ const Viewdetails = () => {
 
   // tính thời gian comment
   const calculateTimeAgo = (createdAt, updatedAt) => {
-    const currentDate = new Date(updatedAt);
+    //const currentDate = new Date(updatedAt);
     const commentDate = new Date(createdAt);
     const distance = formatDistanceToNow(commentDate, { addSuffix: true });
     return distance;
@@ -267,7 +267,7 @@ const Viewdetails = () => {
                   <div className="comment-item__head">
                     <div className="container__comment-item-img">
                       <img
-                        src={`http://0.tcp.ap.ngrok.io:15234/${cmtItem.avatar}`}
+                        src={`http://0.tcp.ap.ngrok.io:14673/${cmtItem.avatar}`}
                         alt=""
                         className="comment__avatar"
                       />

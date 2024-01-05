@@ -2,7 +2,7 @@ import "./css/cart.css";
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
-import useCartHandle from "hook/useCartHandle";
+//import useCartHandle from "hook/useCartHandle";
 import useCart from "hook/useCart";
 //import lib
 import { toast } from "react-toastify";
