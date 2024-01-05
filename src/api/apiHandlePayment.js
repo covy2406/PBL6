@@ -8,7 +8,7 @@ const apiHandlePayment = {
     return axiosClient.post(URL_PAYMENT, {
       vnp_OrderInfo: vnp_OrderInfo,
       vnp_Amount: vnp_Amount,
-      returnUrl: "http://localhost:3000/cart",
+      returnUrl: "http://localhost:3000",
     });
   },
   CashPay(data, paid, code_discount_app) {

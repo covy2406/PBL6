@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ShopPromosCard from "./ShopPromosCard/ShopPromosCard";
 
-const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
+const ShopPromos = (props) => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
   const [productpromosList, setProductPromosList] = useState({});
@@ -62,8 +62,11 @@ const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
               {Object.keys(shoppromosList).map((key) => {
                 return (
                   <ShopPromosCard
-                    data={shoppromosList[key]}
-                    filter={currentPath.split("/")[4]}
+                    props={{
+                      productpromosList: productpromosList[key],
+                      filter: currentPath.split("/")[4],
+                    }}
+                    key={key}
                   />
                 );
               })}
@@ -81,8 +84,11 @@ const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
               {Object.keys(productpromosList).map((key) => {
                 return (
                   <ShopPromosCard
-                    data={productpromosList[key]}
-                    filter={currentPath.split("/")[4]}
+                    props={{
+                      productpromosList: productpromosList[key],
+                      filter: currentPath.split("/")[4],
+                    }}
+                    key={key}
                   />
                 );
               })}

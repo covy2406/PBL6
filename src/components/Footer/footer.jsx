@@ -50,7 +50,7 @@ const Footer = () => {
               <h3 className="footer__heading">Thanh Toán</h3>
               <ul className="footer__list">
                 <li className="footer-item">
-                  <div className="footer-item__link">
+                  <div className="footer-item__link--vnpay">
                     <img src="/img/vnpay.png" alt="vnpay" />
                   </div>
                 </li>

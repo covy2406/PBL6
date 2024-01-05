@@ -11,26 +11,14 @@ import useCartHandle from "hook/useCartHandle";
 //import { toast } from "react-toastify";
 
 const ProductHome = () => {
-  const { auth } = useAuth();
+  const { url, auth } = useAuth();
   const { view } = useCart();
   const { productList } = useCart();
   const { addtocart, fetchProductHome } = useCartHandle();
 
-  //const [productList, setProductList] = useState([]);
-  const [error] = useState(null);
-
-  //console.log(productList);
-
   useEffect(() => {
     fetchProductHome();
   }, []);
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
-
-  // const shopProductId = productList.map((item) => (item.shop_product_id));
-  // const uniqueShopProductIds = [...new Set(shopProductId)];
-  // console.log(uniqueShopProductIds);
 
   return (
     <div className="container">
@@ -41,19 +29,14 @@ const ProductHome = () => {
               <div className="img_box">
                 <img
                   className="product-main__item"
-                  // src={`${url}/${curElm.image}`}
-                  src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
+                  src={`${url}${curElm.image}`}
                   alt={curElm.name}></img>
                 <div className="icon">
                   {auth.isAuth ? (
                     <li onClick={() => addtocart(curElm.shop_product_id, 1)}>
                       <AiOutlineShoppingCart />
                     </li>
-                  ) : (
-                    <li>
-                      <AiOutlineShoppingCart />
-                    </li>
-                  )}
+                  ) : null}
                   <li
                     className="icon__link"
                     onClick={() => view(curElm.shop_product_id)}>
@@ -79,7 +62,6 @@ const ProductHome = () => {
                       <AiOutlineStar />
                     </i>
                   </div>
-                  {/* <span className="home-product-item__sold">88 đã bán</span> */}
                 </div>
 
                 <div className="home-product-item__origin">

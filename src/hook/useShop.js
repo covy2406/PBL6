@@ -42,7 +42,6 @@ const useShop = () => {
       );
       return response.data.data;
     } catch (err) {
-      console.log("useShop getShopProductsAll err: " + err);
       return false;
     }
   };

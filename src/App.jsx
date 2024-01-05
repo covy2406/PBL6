@@ -129,6 +129,7 @@ const App = () => {
         <Route element={<RequiredAuth />}>
           <Route path="/admin" element={<AdminNav />}>
             <Route path="product" element={<AdminProduct />} />
+            <Route path="promos" element={<AdminProduct />} />
             <Route path="account" element={<AdminUser />} />
             <Route path="shop" element={<AdminShop />} />
           </Route>

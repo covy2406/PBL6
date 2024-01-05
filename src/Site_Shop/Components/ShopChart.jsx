@@ -1,16 +1,7 @@
-import { useState, useEffect } from "react";
-import apiChart from "api/apiChart";
 import PurchasePriceRangeStatistics from "./ShopChart/PurchasePriceRangeStatistics";
 import RevenueStatistics from "./ShopChart/RevenueStatistics";
 
 const ShopChart = () => {
-  const [purchasePriceRangeStatistics, setPurchasePriceRangeStatistics] =
-    useState([]);
-  const [revenueStatistics, setRevenueStatistics] = useState([]);
-
-  //data dữ liệu theo khoảng giá
-
-  console.log(purchasePriceRangeStatistics);
   return (
     <>
       <div className="shop__container-nav">

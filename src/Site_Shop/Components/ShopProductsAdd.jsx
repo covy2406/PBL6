@@ -17,9 +17,7 @@ const ShopProductAdd = () => {
       setProductList(res);
     });
   }, []);
-  useEffect(() => {
-    console.log(productList);
-  }, [productList]);
+
   //product data to create
   const [product, setProduct] = useState({
     name: "",
