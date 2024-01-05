@@ -37,10 +37,11 @@
 
 .qty {
   display: flex;
+  align-items: center;
+  gap: 1.2rem;
 }
 
-.qty .incqty,
-.decqty {
+.qty .incqty {
   /* padding: 10px 10px; */
   background: none;
   outline: none;
@@ -49,15 +50,19 @@
   font-size: 3.2rem;
   cursor: pointer;
 }
-
-.qty input {
-  border: none;
-  outline: none;
+.decqty {
   background: none;
+  outline: none;
+  border: none;
+  color: #db0045;
+  font-size: 3.2rem;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.qty-order {
   font-size: 22px;
   color: #010f1c;
-  width: 50px;
-  margin-left: 20px;
 }
 
 .cartcontainer .contant .cart_item .detail .info .subtotal {
@@ -191,7 +196,19 @@
   background: var(--primary-red-rgb);
   cursor: pointer;
 }
-
+.btn__checkout--promo {
+  position: absolute;
+  bottom: 2rem;
+  right: 1rem;
+  padding: 10px 20px;
+  margin: 0 20px;
+  color: #fff;
+  border: none;
+  outline: none;
+  background: var(--primary-red-rgb);
+  cursor: pointer;
+  font-size: 1.4rem;
+}
 .cartcontainer .btn__checkout-discount-shop {
   padding: 10px 20px;
   color: #fff;
@@ -236,13 +253,4 @@
 .shop--total-price {
   margin-left: 55%;
   padding-left: 15%;
-}
-.waitingPayment {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  translate: translate(-50%, -50%);
-  z-index: 3;
 }

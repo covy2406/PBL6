@@ -70,7 +70,7 @@ const DiscountListWeb = (props) => {
               </li>
             ))}
             <button
-              className="btn__checkout"
+              className="btn__checkout--promo"
               onClick={() => setShowDiscounts()}>
               Quay lại
             </button>

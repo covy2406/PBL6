@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import OrdersCard from "./OrdersCard";
 import useProfile from "hook/useProfile";
 import Select from "react-select";
+import { getStatusFromEn } from "datas/statusData";
 
 const Orders = () => {
   const { getprofileorders } = useProfile();
@@ -24,7 +25,8 @@ const Orders = () => {
         <div className="profileform__title">
           <p className="profileform__title__item">Đơn mua</p>
           <Select
-            placeholder="Chọn loại sản phẩm"
+            className="profileform__title__select"
+            placeholder="Lọc tình trạng đơn hàng"
             onChange={(selectedOption) => {
               setSelectedType(selectedOption.value);
             }}
@@ -43,9 +45,9 @@ const Orders = () => {
               }),
               control: (base) => ({
                 ...base,
-                width: "40rem",
+                width: "23rem",
                 border: "1px solid #d9d9d9",
-                borderRadius: "5px",
+                borderRadius: "1px",
                 paddingLeft: "1rem",
                 maxHeight: "5rem",
               }),
@@ -58,7 +60,10 @@ const Orders = () => {
                 paddingLeft: "1rem",
               }),
             }}
-            options={type.map((status) => ({ value: status, label: status }))}
+            options={type.map((status) => ({
+              value: status,
+              label: getStatusFromEn(status),
+            }))}
           />
         </div>
         <div className="profileform__details">

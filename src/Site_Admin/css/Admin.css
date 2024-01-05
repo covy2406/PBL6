@@ -24,7 +24,6 @@
   width: 100%;
   background-color: #fff;
   border-radius: 0.5rem;
-  cursor: pointer;
   transition: all 0.3s ease-in-out;
   display: grid;
   grid-template-columns: 2fr 2fr;
@@ -34,6 +33,10 @@
   font-size: 1.2rem;
 }
 .admin__body--chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .tooltips--item {
   font-size: 1.2rem;

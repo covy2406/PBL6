@@ -8,17 +8,6 @@ import useAuth from "hook/useAuth";
 
 function AdminProduct() {
   const { url } = useAuth();
-
-  // color: "blue";
-  // details: "details";
-  // image: "storage/images/vivo-y17-xanh-thumb-600x600.jpg";
-  // name: "vivo Y17s 6GB";
-  // price: "12100000.00";
-  // product_id: 46;
-  // shopName: "Linh Apple";
-  // shop_id: 23;
-  // shop_product_id: 42;
-  // starRated: 0;
   const { view } = useCart();
   const { getAllShopProduct } = useAdmin();
   const [shopProductList, setShopProductList] = useState([]);

@@ -57,7 +57,7 @@ const App = () => {
           <Route path="contact" element={<Contact />}></Route>
           <Route path="product" element={<Product />} />
           <Route path="oldphone" element={<Oldphone />} />
-          <Route path="ViewdetailShop/:id" element={<ViewdetailShop />}></Route>
+          {/* <Route path="ViewdetailShop/:id" element={<ViewdetailShop />}></Route> */}
           <Route path="Viewdetail/:id" element={<Viewdetails />}></Route>
           <Route path="search" element={<Search />}></Route>
           <Route
@@ -77,7 +77,6 @@ const App = () => {
                 path="analytics"
                 element={<Shop extraProps="analytics" />}
               />
-              <Route path="onboarding" element={<ShopSignup />} />
               <Route path="orders" element={<Shop extraProps="orders" />}>
                 <Route path="all" element={<ShopOrders />} />
                 <Route path="pending" element={<ShopOrders />} />

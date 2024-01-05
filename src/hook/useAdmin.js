@@ -28,10 +28,20 @@ const useAdmin = () => {
       return false;
     }
   };
+  const getAllPromos = async () => {
+    try {
+      const response = await apiAdmin.getAllPromos();
+      return response;
+    } catch (err) {
+      console.log("useAdmin err: " + err);
+      return false;
+    }
+  };
   return {
     getAllShopProduct,
     getAllAccount,
     getAllShop,
+    getAllPromos,
   };
 };
 

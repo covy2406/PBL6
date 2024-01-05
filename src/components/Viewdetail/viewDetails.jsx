@@ -21,10 +21,9 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 const Viewdetails = () => {
   const { addtocart } = useCartHandle();
   //const { fetchComments } = useComment();
-  const { auth } = useAuth();
+  const { auth, url } = useAuth();
   // CALL API PRODUCT DETAIL
   const [productDetail, setProductDetail] = useState([]);
-  const [error, setError] = useState(null);
   const { id } = useParams();
 
   const [selectedColor, setSelectedColor] = useState(null);
@@ -51,9 +50,7 @@ const Viewdetails = () => {
         } else {
           setListImageColor(listshop_product.image);
         }
-      } catch (error) {
-        setError(error);
-      }
+      } catch (error) {}
     };
     fetchProuductDetail(id);
   }, []);
@@ -79,12 +76,6 @@ const Viewdetails = () => {
     };
     fetchComments(id);
   }, []);
-
-  // console.log('id chi tiet san pham: ', id);
-  // console.log("productDetail", productDetail);
-  if (error) {
-    return <p>Erorr: {error.message}</p>;
-  }
 
   // Kiểm tra nếu shop_products không tồn tại hoặc là mảng rỗng
   if (
@@ -140,7 +131,7 @@ const Viewdetails = () => {
                 <div className="img-box">
                   <img
                     className="img-box__real"
-                    src={`http://0.tcp.ap.ngrok.io:15234/${selectedImage}`}
+                    src={`${url}${selectedImage}`}
                     alt={shop_products.name}
                   />
                 </div>
@@ -155,11 +146,9 @@ const Viewdetails = () => {
                       onClick={() =>
                         handleColorClick(product.color, product.image, product)
                       }>
-                      {/* Hiển thị ảnh của điện thoại từ listshop_product */}
-                      {/* {product.shop_product_id} */}
                       <img
                         className="box__image-select-choose"
-                        src={`http://0.tcp.ap.ngrok.io:15234/${product.image}`}
+                        src={`${url}${product.image}`}
                         alt={shop_products.name}
                       />
                     </div>
@@ -170,18 +159,12 @@ const Viewdetails = () => {
                 {shop_products ? (
                   <>
                     <div className="detail__shopName-link">
-                      <Link
-                        to={`../../ViewdetailShop/${shop_products.shop_id}`}
-                        className="detail__shopName-icon">
-                        <FcShop />
-                      </Link>
-                      <Link
+                      <div
                         className="detail__shopName"
-                        to={`../../ViewdetailShop/${shop_products.shop_id}`}>
-                        Shop Name: {shop_products.Shopname}
-                        {/* <div className="detail__shopName">
-                                    </div> */}
-                      </Link>
+                        to={`../../ViewdetailShop/${shop_products.shop_id}`}
+                        shopName={shop_products.Shopname}>
+                        Cửa hàng: {shop_products.Shopname}
+                      </div>
                     </div>
                     <h2>{shop_products.name}</h2>
                     <div className="product__price">

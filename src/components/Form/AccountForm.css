@@ -11,6 +11,10 @@
   padding-left: 3rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 6rem;
   border-bottom: solid 0.5px rgba(21, 23, 23, 0.2);
+}
+.profileform__title__select {
+  margin-right: 2rem;
 }

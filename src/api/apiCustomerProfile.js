@@ -20,6 +20,9 @@ const apiCustomerProfile = {
   getProfileOrders() {
     return axiosClient.get(GET_PROFILE_ORDERS_URL);
   },
+  reviewOrder(data) {
+    return axiosClient.post("review_shopproduct", data);
+  },
 };
 
 export default apiCustomerProfile;
