@@ -108,7 +108,25 @@ const Cart = () => {
   };
 
   const handlePayment = async (type) => {
-    Swal.fire({}).then((result) => {
+    Swal.fire({
+      title: 'Xác nhận thanh toán',
+      html: `
+      <p>Chọn phương thức thanh toán:</p>
+      <br />
+      <div >
+        <input type="radio" id="cash" name="paymentMethod" value="cash" checked>
+        <label for="cash">Thanh toán tiền mặt</label>
+      </div>
+      <br/>
+      <div>
+        <input type="radio" id="online" name="paymentMethod" value="online">
+        <label for="online">Thanh toán trực tuyến</label>
+      </div>
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy bỏ',
+    }).then((result) => {
       if (result.isConfirmed) {
         let data = [];
         shopsFilter.map((shop) => {

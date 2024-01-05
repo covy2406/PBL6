@@ -20,4 +20,9 @@
 }
 
 .shop__chart--data {
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-size: 1.4rem;
+  
 }

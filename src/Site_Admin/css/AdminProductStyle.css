@@ -25,3 +25,7 @@
   border-top: 1px solid var(--primary-color);
   border-bottom: 1px solid var(--primary-color);
 }
+
+.Admin__link-detail {
+  text-decoration: none;
+}
