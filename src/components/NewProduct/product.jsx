@@ -275,7 +275,7 @@ const Product = () => {
                                     <div className="box" key={index}>
                                         <div className="img_box">
                                             <img
-                                                // src={`http://0.tcp.ap.ngrok.io:15234/${curElmNew.image}`}
+                                                // src={`http://0.tcp.ap.ngrok.io:14673/${curElmNew.image}`}
                                                 src={`${url}${curElmNew.image}`}
                                                 //src={curElmNew.image}
                                                 

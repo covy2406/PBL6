@@ -140,7 +140,7 @@ const Viewdetails = () => {
                 <div className="img-box">
                   <img
                     className="img-box__real"
-                    src={`http://0.tcp.ap.ngrok.io:15234/${selectedImage}`}
+                    src={`http://0.tcp.ap.ngrok.io:14673/${selectedImage}`}
                     alt={shop_products.name}
                   />
                 </div>
@@ -159,7 +159,7 @@ const Viewdetails = () => {
                       {/* {product.shop_product_id} */}
                       <img
                         className="box__image-select-choose"
-                        src={`http://0.tcp.ap.ngrok.io:15234/${product.image}`}
+                        src={`http://0.tcp.ap.ngrok.io:14673/${product.image}`}
                         alt={shop_products.name}
                       />
                     </div>
@@ -284,7 +284,7 @@ const Viewdetails = () => {
                   <div className="comment-item__head">
                     <div className="container__comment-item-img">
                       <img
-                        src={`http://0.tcp.ap.ngrok.io:15234/${cmtItem.avatar}`}
+                        src={`http://0.tcp.ap.ngrok.io:14673/${cmtItem.avatar}`}
                         alt=""
                         className="comment__avatar"
                       />

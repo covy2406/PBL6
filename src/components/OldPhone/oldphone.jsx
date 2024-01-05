@@ -289,7 +289,7 @@ const Oldphone = () => {
                   <div className="box" key={index}>
                     <div className="img_box">
                       <img
-                        src={`http://0.tcp.ap.ngrok.io:15234/${curElm.image}`}
+                        src={`http://0.tcp.ap.ngrok.io:14673/${curElm.image}`}
                         alt={curElm.name}></img>
                       <div className="icon">
                         {auth.isAuth ? (
