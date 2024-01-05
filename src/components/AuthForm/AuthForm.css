@@ -79,13 +79,16 @@
   border: none;
   color: white;
   border-radius: 10px;
+  font-weight: bold;
   height: 50px;
   width: 80%;
   cursor: pointer;
 }
 
 .button-submit:hover {
-  background-color: #252727;
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 .authform--details__footer {

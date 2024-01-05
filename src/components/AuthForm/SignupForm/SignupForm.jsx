@@ -77,9 +77,7 @@ function SignupForm() {
       return;
     }
     if (!validPass) {
-      setErrMsg(
-        "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 kí tự đặc biệt"
-      );
+      setErrMsg("Mật khẩu phải có ít nhất 8 kí tự");
       return;
     }
     // create new account

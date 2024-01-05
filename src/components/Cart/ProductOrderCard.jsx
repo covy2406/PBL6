@@ -181,7 +181,7 @@ function ProductOrderCard(props) {
         <input
           type="checkbox"
           className="select__Checkbox"
-          onClick={(e) => handleCheckboxChange(e, productItem)}
+          onChange={(e) => handleCheckboxChange(e, productItem)}
         />
       </td>
       <td>
@@ -227,7 +227,7 @@ function ProductOrderCard(props) {
         </div>
       </td>
       <td>
-        <p className="subtotal">
+        <div className="subtotal">
           <div
             style={
               productItem.discount_amount
@@ -248,7 +248,7 @@ function ProductOrderCard(props) {
               đ
             </div>
           ) : null}
-        </p>
+        </div>
       </td>
       <td>
         <div className="close">

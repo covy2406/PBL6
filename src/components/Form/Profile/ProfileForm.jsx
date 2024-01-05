@@ -297,7 +297,7 @@ const ProfileForm = () => {
               onCrop={onCrop}
               onClose={onClose}
               exportSize={200}
-              label="Chọn ảnh sản phẩm"
+              label="Chọn ảnh"
               labelStyle={{
                 fontSize: "20px",
                 fontWeight: "bold",

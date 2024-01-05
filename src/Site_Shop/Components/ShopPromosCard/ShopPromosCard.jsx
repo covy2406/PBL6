@@ -2,24 +2,17 @@ import { useState } from "react";
 import Select from "react-select";
 import "./ShopPromosCard.css";
 import Swal from "sweetalert2";
+import useShop from "hook/useShop";
 
-const ShopPromosCard = ({ data, filter, updateShopPromo, deleteShopPromo }) => {
-  //create this state to handle update
-  const [promofilter, setPromoFilter] = useState(filter);
-  const [promo, setPromo] = useState({
-    id: data.id || "",
-    code: data.code || "",
-    shop_product_id: data.shop_product_id || "",
-    shop_id: data.shop_id || "",
-    type: data.type || "",
-    value: data.value || "",
-    minPriceCondition: data.minPriceCondition || "",
-    detail: data.detail || "",
-    status: data.status || "",
-    quantity: data.quantity || "",
-    startDate: data.startDate || "2024-01-01",
-    endDate: data.endDate || "2024-02-01",
-  });
+const ShopPromosCard = (props) => {
+  const { updateShopPromo, deleteShopPromo } = useShop();
+  const data = props.props.productpromosList;
+  const [filter, setFilter] = useState(
+    props.props.filter === "active" ? 1 : "all"
+  );
+
+  const [promo, setPromo] = useState(data);
+
   //see details state
   const [seeDetails, setSeeDetails] = useState(false);
 
@@ -68,7 +61,7 @@ const ShopPromosCard = ({ data, filter, updateShopPromo, deleteShopPromo }) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        setPromoFilter("");
+        setFilter("");
         setSeeDetails(!seeDetails);
       } else {
         setSeeDetails(!seeDetails);
@@ -78,7 +71,7 @@ const ShopPromosCard = ({ data, filter, updateShopPromo, deleteShopPromo }) => {
 
   return (
     <>
-      {seeDetails ? (
+      {seeDetails && promo ? (
         <>
           <div className="promosdetails__container">
             <div className="promosdetails__wrapper">
@@ -322,7 +315,7 @@ const ShopPromosCard = ({ data, filter, updateShopPromo, deleteShopPromo }) => {
           </div>
         </>
       ) : null}
-      {promofilter === (data.status ? "active" : "") || filter === "all" ? (
+      {promo && (filter === promo.status || filter === "all") ? (
         <>
           <div className="promoscard__container">
             <div className="promoscard__wrapper">

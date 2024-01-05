@@ -25,13 +25,11 @@ const Shop = ({ extraProps } = "details") => {
     getShopdetails,
     getShopPromosAll,
   } = useShop();
-
   useEffect(() => {
     getShopdetails();
     getShopOrdersAll();
     getShopProductsAll();
   }, []);
-
   //Phải render riêng vì shopProfile chậm :))))
   useEffect(() => {
     shopProfile?.id && getShopPromosAll(shopProfile?.id);
@@ -58,17 +56,17 @@ const Shop = ({ extraProps } = "details") => {
               </li>
               <li className="sidbar-menu__item-link">
                 <Link
-                  to="/shop/orders/pending"
+                  to="/shop/orders/shipping"
                   className="shop__home-item-link"
-                  id={currentPath === "/shop/orders/pending" ? "active" : ""}>
-                  Chờ xác nhận
+                  id={currentPath === "/shop/orders/shipping" ? "active" : ""}>
+                  Đang giao hàng
                 </Link>
               </li>
               <li className="sidbar-menu__item-link">
                 <Link
-                  to="/shop/orders/completed"
+                  to="/shop/orders/delivered"
                   className="shop__home-item-link"
-                  id={currentPath === "/shop/orders/completed" ? "active" : ""}>
+                  id={currentPath === "/shop/orders/delivered" ? "active" : ""}>
                   Đã giao hàng
                 </Link>
               </li>

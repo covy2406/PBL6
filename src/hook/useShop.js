@@ -42,7 +42,6 @@ const useShop = () => {
       );
       return response.data.data;
     } catch (err) {
-      console.log("useShop getShopProductsAll err: " + err);
       return false;
     }
   };
@@ -118,6 +117,7 @@ const useShop = () => {
     try {
       console.log(data);
       const response = await apiShop.addpromos(data);
+      getShopPromosAll();
       return response;
     } catch (err) {
       return false;

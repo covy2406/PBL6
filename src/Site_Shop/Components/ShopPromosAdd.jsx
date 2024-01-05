@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 //hooks
 import useShop from "hook/useShop";
 
-const ShopProductAdd = () => {
+const ShopProductAdd = (props) => {
   //get product info for selection
   const { getShopProductsAll, createShopPromo, getShopPromosAll } = useShop();
   const [shopProductList, setShopProductList] = useState({});
@@ -14,6 +14,7 @@ const ShopProductAdd = () => {
     });
     console.log(shopProductList);
   }, []);
+
   //product data to create
   const [promo, setPromo] = useState({
     shop_product_id: null,
@@ -39,10 +40,11 @@ const ShopProductAdd = () => {
       startDate: startDate,
       endDate: endDate,
     }).then((res) => {
-      getShopPromosAll();
+      getShopPromosAll().then(() => {
+        navigate("/shop/promos/list/all");
+      });
       console.log(res);
     });
-    navigate("/shop/promos/list/all");
   };
 
   return (

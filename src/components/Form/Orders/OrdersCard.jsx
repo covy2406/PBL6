@@ -5,9 +5,6 @@ import { getStatusFromEn } from "datas/statusData";
 
 const OrdersCard = ({ data }) => {
   const { url } = useAuth();
-  useEffect(() => {
-    getStatusFromEn(data.status);
-  }, []);
   const handleShopRedirect = () => {
     window.location.href = `/shop/${data.shop_id}`;
   };
@@ -30,7 +27,7 @@ const OrdersCard = ({ data }) => {
             </button>
           </div>
           <div className="shoporderscard__order--status">
-            Tình trạng: {data.status}
+            Tình trạng: {getStatusFromEn(data.status)}
           </div>
         </div>
         <div className="shoporderscard__product">

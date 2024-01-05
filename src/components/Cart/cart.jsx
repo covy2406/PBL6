@@ -1,25 +1,26 @@
 import "./css/cart.css";
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import useCart from "hook/useCart";
 
+import useCartHandle from "hook/useCartHandle";
+import useCart from "hook/useCart";
 //import lib
 import { toast } from "react-toastify";
 //import icon
-
 import { CiDiscount1 } from "react-icons/ci";
 //import api
 import apiHandlePayment from "api/apiHandlePayment";
 //import pages
 import ProductOrderCard from "./ProductOrderCard";
-
 import ShopPromoList from "./ShopPromoList";
 import DiscountListWeb from "./DiscountListWeb";
 import Swal from "sweetalert2";
+import ReactLoading from "react-loading";
 
 const Cart = () => {
   //handle when get cart
   const { cartListProduct } = useCart();
+  const { showCartList } = useCartHandle();
 
   const [Totalprice, setTotalprice] = useState(0);
   const [showDiscounts, setShowDiscounts] = useState(false);
@@ -62,6 +63,7 @@ const Cart = () => {
     setShopFilter(newFilter);
   }, []);
 
+  // toggle web discounts
   const toggleDiscounts = () => {
     const isAnyProductChecked = shopsFilter.some((shop) =>
       shop.products.some((product) => product.checked === true)
@@ -95,28 +97,57 @@ const Cart = () => {
       }
       return total;
     }, 0);
-    console.log(discountTotal.current, selectedTotal);
     setTotalprice(selectedTotal - discountTotal.current);
   }, [shopsFilter, discountWeb]);
 
-  const handleVNpay = async () => {
+  const [waitingPayment, setWaitingPayment] = useState(false);
+  // handle online payment
+  const handleVNpay = async (data, type, code) => {
+    setWaitingPayment(true);
     const vnp_OrderInfo = "";
     const vnp_Amount = Totalprice;
     const response = await apiHandlePayment.VNPay(vnp_OrderInfo, vnp_Amount);
-    console.log(response);
     if (response && response.data.data) {
-      window.open(response.data.data, "_blank");
+      const paymentWindow = window.open(response.data.data, "_self");
+      const checkPaymentStatus = async () => {
+        // Call your API endpoint that checks the payment status
+        const paymentStatus = await apiHandlePayment.CashPay(data, type, code);
+        const params = new URLSearchParams(window.location.search);
+        const vnp_Amount = params.get("vnp_Amount");
+        const vnp_BankCode = params.get("vnp_BankCode");
+        const vnp_BankTranNo = params.get("vnp_BankTranNo");
+        // Remove the selected products from the cart
+        const newShopsFilter = shopsFilter.map((shop) => {
+          return {
+            ...shop,
+            products: shop.products.filter((product) => !product.checked),
+          };
+        });
+        setShopFilter(newShopsFilter);
+        if (paymentStatus.data === "ordered successful!") {
+          alert("Payment successful!");
+        }
+        setWaitingPayment(false);
+      };
+      paymentWindow.addEventListener("unload", checkPaymentStatus);
     }
   };
 
+  // handle all payment
   const handlePayment = async (type) => {
+    if (Totalprice === 0) {
+      toast.error("Vui lòng chọn sản phẩm");
+      return;
+    }
     Swal.fire({
       title: "Xác nhận thanh toán",
+      icon: "question",
       showCancelButton: true,
       confirmButtonText: "Xác nhận",
       cancelButtonText: "Hủy bỏ",
     }).then((result) => {
       if (result.isConfirmed) {
+        // get data to handle payment
         let data = [];
         shopsFilter.map((shop) => {
           shop.products.map((product) => {
@@ -130,18 +161,30 @@ const Cart = () => {
             }
           });
         });
+        // get discount code
         const checkedDiscounts = discountWeb.filter(
           (discount) => discount.checked
         );
-        apiHandlePayment.CashPay(data, 0, checkedDiscounts[0]?.code);
-        if (type === "onl") handleVNpay();
-        Swal.fire({
-          icon: "success",
-          title: "Đặt hàng thành công",
-          text: "Cảm ơn bạn đã mua hàng tại 4B1G",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        // vnpay if online payment
+        if (type === "onl") handleVNpay(data, 1, checkedDiscounts[0]?.code);
+        else {
+          apiHandlePayment.CashPay(data, 0, checkedDiscounts[0]?.code);
+          Swal.fire({
+            icon: "success",
+            title: "Đặt hàng thành công",
+            text: "Cảm ơn bạn đã mua hàng tại 4B1G",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // Remove the selected products from the cart
+          const newShopsFilter = shopsFilter.map((shop) => {
+            return {
+              ...shop,
+              products: shop.products.filter((product) => !product.checked),
+            };
+          });
+          setShopFilter(newShopsFilter);
+        }
       }
     });
   };
@@ -171,56 +214,54 @@ const Cart = () => {
                     <th>Xóa</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {shopsFilter.map((shop, index) => (
-                    <>
-                      <tr className="shopNameRow" key={index}>
-                        <td colSpan="7">shop: {shop.shopName}</td>
+                {shopsFilter.map((shop, index) => (
+                  <tbody key={index}>
+                    <tr className="shopNameRow" key={index}>
+                      <td colSpan="7">shop: {shop.shopName}</td>
+                    </tr>
+                    {shop.products.map((productItem, index) => (
+                      <tr key={index}>
+                        <ProductOrderCard
+                          props={{ productItem: productItem, shop: shop }}
+                          func={{
+                            setShopFilter: setShopFilter,
+                            setDiscountWeb: setDiscountWeb,
+                          }}
+                        />
                       </tr>
-                      {shop.products.map((productItem, index) => (
-                        <tr key={index}>
-                          <ProductOrderCard
-                            props={{ productItem: productItem, shop: shop }}
-                            func={{
-                              setShopFilter: setShopFilter,
-                              setDiscountWeb: setDiscountWeb,
-                            }}
-                          />
-                        </tr>
-                      ))}
-                      <tr className="shop_promotion">
-                        <td colSpan="7">
-                          <div className="discount__byShop">
-                            <span className="discount__byShop-icon">
-                              <CiDiscount1 />
-                            </span>
-                            <div className="discount__byShop-ad">
-                              <div className="btn__checkout-discount-shop-cover"></div>
-                              <div className="btn__checkout-discount-shop">
-                                Mã giảm giá của Shop
-                                <ShopPromoList
-                                  props={{
-                                    shop_id: shop.shopId,
-                                    shop_total_price: shop.shop_total_price,
-                                  }}
-                                  func={{
-                                    setShopFilter: setShopFilter,
-                                  }}
-                                />
-                              </div>
-                            </div>
-                            <div className="shop--total-price">
-                              {parseInt(shop.shop_total_price).toLocaleString(
-                                "vn-VN"
-                              )}{" "}
-                              đ
+                    ))}
+                    <tr className="shop_promotion">
+                      <td colSpan="7">
+                        <div className="discount__byShop">
+                          <span className="discount__byShop-icon">
+                            <CiDiscount1 />
+                          </span>
+                          <div className="discount__byShop-ad">
+                            <div className="btn__checkout-discount-shop-cover"></div>
+                            <div className="btn__checkout-discount-shop">
+                              Mã giảm giá của Shop
+                              <ShopPromoList
+                                props={{
+                                  shop_id: shop.shopId,
+                                  shop_total_price: shop.shop_total_price,
+                                }}
+                                func={{
+                                  setShopFilter: setShopFilter,
+                                }}
+                              />
                             </div>
                           </div>
-                        </td>
-                      </tr>
-                    </>
-                  ))}
-                </tbody>
+                          <div className="shop--total-price">
+                            {parseInt(shop.shop_total_price).toLocaleString(
+                              "vn-VN"
+                            )}{" "}
+                            đ
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                ))}
               </table>
               <div className="cart__totalprice">
                 <h2 className="totalprice">
@@ -252,6 +293,11 @@ const Cart = () => {
           )}
         </div>
       </div>
+      {waitingPayment ? (
+        <div className="waitingPayment">
+          <ReactLoading type="spin" color="#c44335" height={667} width={375} />
+        </div>
+      ) : null}
     </>
   );
 };

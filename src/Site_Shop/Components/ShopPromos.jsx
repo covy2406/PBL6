@@ -2,25 +2,22 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ShopPromosCard from "./ShopPromosCard/ShopPromosCard";
 
-const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
+const ShopPromos = (props) => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
   const [productpromosList, setProductPromosList] = useState({});
   const [shoppromosList, setShopPromosList] = useState({});
 
   useEffect(() => {
-    setProductPromosList(
-      JSON.parse(window.sessionStorage.getItem("shopPromos"))
-        .promotions_shop_product_id
-    );
-    setShopPromosList(
-      JSON.parse(window.sessionStorage.getItem("shopPromos")).promotion_shop_id
-    );
-  }, []);
-
-  useEffect(() => {
+    const shopPromos = JSON.parse(window.sessionStorage.getItem("shopPromos"));
+    if (shopPromos) {
+      setProductPromosList(shopPromos.promotions_shop_product_id);
+      setShopPromosList(shopPromos.promotion_shop_id);
+    }
     setCurrentPath(location.pathname);
   }, [location]);
+  console.log("shop", shoppromosList);
+  console.log("product", productpromosList);
 
   return (
     <div className="shop__container-nav">
@@ -60,10 +57,14 @@ const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
             <>
               <div className="shop__promos--type">Mã khuyến mãi của Shop</div>
               {Object.keys(shoppromosList).map((key) => {
+                console.log(shoppromosList[key]);
                 return (
                   <ShopPromosCard
-                    data={shoppromosList[key]}
-                    filter={currentPath.split("/")[4]}
+                    props={{
+                      productpromosList: shoppromosList[key],
+                      filter: currentPath.split("/")[4],
+                    }}
+                    key={key}
                   />
                 );
               })}
@@ -81,8 +82,11 @@ const ShopPromos = ({ updateShopPromo, deleteShopPromo }) => {
               {Object.keys(productpromosList).map((key) => {
                 return (
                   <ShopPromosCard
-                    data={productpromosList[key]}
-                    filter={currentPath.split("/")[4]}
+                    props={{
+                      productpromosList: productpromosList[key],
+                      filter: currentPath.split("/")[4],
+                    }}
+                    key={key}
                   />
                 );
               })}

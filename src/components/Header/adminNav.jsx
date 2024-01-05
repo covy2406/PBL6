@@ -50,6 +50,15 @@ function AdminNav() {
                     Cửa hàng
                   </Link>
                 </li>
+                <li className="nav__home-item">
+                  <Link
+                    to="/admin/promos"
+                    className={`nav__home-item-link ${
+                      currentPath === "/admin/promos" ? "active" : ""
+                    }`}>
+                    Cửa hàng
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

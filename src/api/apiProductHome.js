@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient.js";
 const apiProductHome = {
   // lấy tất cả
   getAll() {
-    const url = "/getall/shop_products";
+    const url = "getall/shop_products";
     return axiosClient.get(url);
   },
 
