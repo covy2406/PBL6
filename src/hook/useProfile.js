@@ -8,7 +8,6 @@ const useProfile = () => {
     try {
       const response = await apiCustomerProfile.getProfile();
       if (response.data?.message) {
-        toast.error("Lỗi không thể lấy thông tin tài khoản");
         return false;
       }
       window.sessionStorage.setItem("profile", JSON.stringify(response.data));
@@ -23,7 +22,6 @@ const useProfile = () => {
       });
       return true;
     } catch (err) {
-      toast.error("Lỗi không thể lấy thông tin tài khoản");
       return false;
     }
   };
@@ -40,12 +38,10 @@ const useProfile = () => {
     try {
       const response = await apiCustomerProfile.getProfileOrders();
       if (response.data?.message) {
-        toast.error("Lỗi không thể lấy thông tin đơn hàng");
         return false;
       }
       return response;
     } catch (err) {
-      toast.error("Lỗi không thể lấy thông tin đơn hàng");
       return false;
     }
   };

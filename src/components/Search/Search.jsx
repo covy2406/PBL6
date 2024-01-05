@@ -18,8 +18,9 @@ const Search = () => {
   // State để lưu kết quả search
   const { id } = useParams();
 
-  console.log('id', id);
-  console.log('kết quả tìm kiếm ở trang search', searchResults);
+  console.log("id", id);
+  console.log("kết quả tìm kiếm ở trang search", searchResults);
+
   return (
     <div className="grid">
       <div className="product">
@@ -47,8 +48,9 @@ const Search = () => {
                       {/* <Link to={`../Viewdetail/${item.id}`}><BsEye /></Link> */}
                       <li
                         className="icon__link"
-                        onClick={() => view(itemProduct.id)}>
-                        <Link to={`../Viewdetail/${itemProduct.id}`}>
+                        onClick={() => view(itemProduct.shop_product_id)}>
+                        <Link
+                          to={`../Viewdetail/${itemProduct.shop_product_id}`}>
                           <BsEye />
                         </Link>
                       </li>

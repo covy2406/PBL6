@@ -22,7 +22,6 @@
 }
 
 .header__cart-item {
-  border-top: 1px solid var(--primary-color);
   border-bottom: 1px solid var(--primary-color);
 }
 

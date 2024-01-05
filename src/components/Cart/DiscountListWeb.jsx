@@ -8,14 +8,14 @@ const DiscountListWeb = (props) => {
   const discountWeb = props.props.discountWeb;
 
   const handleChoosePromo = (promoItem) => {
-    setDiscountWeb((prevDiscountWeb) => {
-      return prevDiscountWeb.map((prevPromoItem) => {
-        if (prevPromoItem.id === promoItem.id) {
-          return { ...prevPromoItem, checked: true };
-        }
-        return { ...prevPromoItem, checked: false };
-      });
+    const newDiscountWeb = discountWeb.map((item) => {
+      if (item.id === promoItem.id) {
+        return { ...item, checked: true };
+      } else {
+        return { ...item, checked: false };
+      }
     });
+    setDiscountWeb(newDiscountWeb);
   };
 
   return (
@@ -23,7 +23,7 @@ const DiscountListWeb = (props) => {
       {discountWeb ? (
         <>
           <div className="discount__list">
-            <button onClick={() => setShowDiscounts()}>hehe</button>
+            <div className="discount__list--title">Khuyến mãi đến từ 4B1G</div>
             {discountWeb.map((productDiscountItem, index) => (
               <li className="discount__cart-item" key={index}>
                 <div className="discount__cart-item-info">
@@ -61,7 +61,7 @@ const DiscountListWeb = (props) => {
                   </div>
                 </div>
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="discount"
                   className="discount__cart-item-select"
                   checked={productDiscountItem.checked}
@@ -69,10 +69,15 @@ const DiscountListWeb = (props) => {
                 />
               </li>
             ))}
+            <button
+              className="btn__checkout"
+              onClick={() => setShowDiscounts()}>
+              Quay lại
+            </button>
           </div>
         </>
       ) : (
-        <div>hehe</div>
+        <></>
       )}
     </>
   );

@@ -30,12 +30,12 @@
 .productscard__product-quantity {
   font-size: 1.2rem;
   font-weight: 300;
-  width: 10rem;
+  width: 9rem;
 }
 .productscard__product-button-list {
   display: flex;
   align-items: center;
-  width: 20rem;
+  width: 18rem;
   height: 2rem;
   gap: 1rem;
   padding-right: 1rem;

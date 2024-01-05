@@ -25,10 +25,7 @@ const Cart = () => {
   const [showDiscounts, setShowDiscounts] = useState(false);
   const [discountWeb, setDiscountWeb] = useState([]);
 
-  const toggleDiscounts = () => {
-    setShowDiscounts(!showDiscounts);
-  };
-
+  // Lấy mã giảm giá của Web
   useEffect(() => {
     const fetchDiscountWeb = async () => {
       try {
@@ -42,11 +39,8 @@ const Cart = () => {
     };
     fetchDiscountWeb();
   }, []);
-
   // Tạo một mảng để tổ chức danh sách sản phẩm theo shop
   const [shopsFilter, setShopFilter] = useState([]);
-
-  // Tổ chức danh sách sản phẩm theo shop
   useEffect(() => {
     const newFilter = cartListProduct.reduce((acc, productItem) => {
       const existingShopIndex = acc.findIndex(
@@ -67,11 +61,19 @@ const Cart = () => {
     }, []);
     setShopFilter(newFilter);
   }, []);
-  console.log(discountWeb);
+
+  const toggleDiscounts = () => {
+    const isAnyProductChecked = shopsFilter.some((shop) =>
+      shop.products.some((product) => product.checked === true)
+    );
+    if (!isAnyProductChecked) {
+      toast.error("Vui lòng chọn sản phẩm");
+    }
+    setShowDiscounts(isAnyProductChecked);
+  };
+
   // Tính tổng giá trị của các sản phẩm được chọn
-
   const discountTotal = useRef(0);
-
   useEffect(() => {
     const selectedTotal = shopsFilter.reduce((total, shop) => {
       return (
@@ -109,23 +111,10 @@ const Cart = () => {
 
   const handlePayment = async (type) => {
     Swal.fire({
-      title: 'Xác nhận thanh toán',
-      html: `
-      <p>Chọn phương thức thanh toán:</p>
-      <br />
-      <div >
-        <input type="radio" id="cash" name="paymentMethod" value="cash" checked>
-        <label for="cash">Thanh toán tiền mặt</label>
-      </div>
-      <br/>
-      <div>
-        <input type="radio" id="online" name="paymentMethod" value="online">
-        <label for="online">Thanh toán trực tuyến</label>
-      </div>
-      `,
+      title: "Xác nhận thanh toán",
       showCancelButton: true,
-      confirmButtonText: 'Xác nhận',
-      cancelButtonText: 'Hủy bỏ',
+      confirmButtonText: "Xác nhận",
+      cancelButtonText: "Hủy bỏ",
     }).then((result) => {
       if (result.isConfirmed) {
         let data = [];
@@ -194,6 +183,7 @@ const Cart = () => {
                             props={{ productItem: productItem, shop: shop }}
                             func={{
                               setShopFilter: setShopFilter,
+                              setDiscountWeb: setDiscountWeb,
                             }}
                           />
                         </tr>
@@ -242,12 +232,12 @@ const Cart = () => {
                   Mua online
                 </button>
                 <button
-                  className="cash__payment"
+                  className="btn__checkout"
                   onClick={() => handlePayment("off")}>
                   Thanh toán bằng tiền mặt
                 </button>
                 <button
-                  className="btn__checkout-discount-web"
+                  className="btn__checkout"
                   onClick={() => toggleDiscounts()}>
                   Chọn mã giảm giá của 4B1G
                 </button>

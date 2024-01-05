@@ -3,14 +3,18 @@ import "./ShopOrdersCard.css";
 import { getStatusFromEn } from "datas/statusData";
 
 import useAuth from "hook/useAuth";
+import useShop from "hook/useShop";
+
+import { toast } from "react-toastify";
 
 const ShopOrdersCard = ({ data, filter }) => {
+  const { processShopOrder } = useShop();
   const { url } = useAuth();
   //, setOrder
-  const [order,] = useState({
+  const [order, setOrder] = useState({
     id: data.id,
     orderDate: data.orderDate,
-    status: getStatusFromEn(data.status),
+    status: data.status,
     paid: data.paid,
     deliveredDate: data.deliveredDate,
     discount: data.discount,
@@ -24,11 +28,25 @@ const ShopOrdersCard = ({ data, filter }) => {
     name: data.name,
     image: data.image,
   });
+  const handleConfirmed = async (e, id) => {
+    const data = {
+      order_id: id,
+      status: "confirmed",
+    };
+    const res = processShopOrder(data);
+    if (res) {
+      setOrder({ ...order, status: "confirmed" });
+      toast.success("Xác nhận đơn hàng thành công");
+    } else {
+      toast.error("Xác nhận đơn hàng thất bại");
+    }
+    e.preventDefault();
+  };
 
   return (
     <>
       {/* lọc đơn theo tình trạng*/}
-      {filter === data.status || filter === "all" ? (
+      {filter === order.status || filter === "all" ? (
         <>
           <div className="orderscard__container">
             <div className="orderscard__container--top">
@@ -69,10 +87,17 @@ const ShopOrdersCard = ({ data, filter }) => {
                   {parseInt(order.total_price).toLocaleString("vn-VN")} đ
                 </div>
               </div>
-              <div className="orderscard__product--wrapper">
+              <div className="orderscard__product--status-wrapper">
                 <div className="orderscard__product--status">
-                  Tình trạng: {order.status}
+                  Tình trạng: {getStatusFromEn(order.status)}
                 </div>
+                {order.status === "pending" ? (
+                  <button
+                    className="orderscard__product--button"
+                    onClick={(e) => handleConfirmed(e, order.id)}>
+                    Xác nhận đơn hàng
+                  </button>
+                ) : null}
               </div>
             </div>
           </div>

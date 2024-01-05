@@ -46,6 +46,19 @@ const useShop = () => {
       return false;
     }
   };
+  const processShopOrder = async (data) => {
+    try {
+      const response = await apiShop.processorder(data);
+      console.log("api", response);
+      if (response?.status === 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
+  };
   const getShopProductsAll = async () => {
     try {
       const response = await apiShop.getallproducts();
@@ -143,6 +156,7 @@ const useShop = () => {
     createShopPromo,
     updateShopPromo,
     deleteShopPromo,
+    processShopOrder,
   };
 };
 

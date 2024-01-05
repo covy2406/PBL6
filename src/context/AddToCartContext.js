@@ -38,7 +38,7 @@ export const CartProvider = ({ children }) => {
     searchTerm,
     setSearchTerm,
     searchResults,
-    setSearchResults
+    setSearchResults,
   };
 
   return (

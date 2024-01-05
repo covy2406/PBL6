@@ -21,7 +21,7 @@ const ShopChart = () => {
             </ul>
           </div>
         </div>
-        <div className="shop__orders--list">
+        <div className="shop__chart--list">
           <div className="shop__chart">
             <RevenueStatistics />
           </div>

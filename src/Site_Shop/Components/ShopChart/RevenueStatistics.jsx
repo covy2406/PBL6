@@ -25,7 +25,7 @@ const RevenueStatistics = () => {
 
   return (
     <>
-      <div className="shop__chart--title">Biểu đồ doanh thu</div>
+      <div className="shop__chart--title">Biểu đồ doanh thu theo ngày</div>
       <div className="shop__chart--form">
         <LineChart
           width={600}
@@ -60,13 +60,16 @@ const RevenueStatistics = () => {
           <Line type="monotone" dataKey="total_revenue" stroke="#8884d8" />
         </LineChart>
         <div className="shop__chart--data">
-          Tổng doanh thu:
-          {data.data
-            ? data.data.reduce(
-                (total, item) => total + Number(item.total_revenue),
-                0
-              )
-            : 0}
+          Tổng doanh thu:{" "}
+          {parseInt(
+            data.data
+              ? data.data.reduce(
+                  (total, item) => total + Number(item.total_revenue),
+                  0
+                )
+              : 0
+          ).toLocaleString("vi-VN")}{" "}
+          Đ
         </div>
       </div>
     </>

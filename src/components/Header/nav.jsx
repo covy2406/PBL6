@@ -160,24 +160,6 @@ const Nav = () => {
                   </h3>
                 </div>
               </div>
-              <div className="header__search-select">
-                <span className="header__search-select-label">Trong shop</span>
-                <i className="header__search-select-icon fa-solid fa-angle-down">
-                  <AiOutlineDown />
-                </i>
-                <ul className="header__search-option">
-                  <li className="header__search-option-item header__search-option-item--active">
-                    <span>Trong Shop</span>
-                    <i className="fas fa-check">
-                      <AiOutlineCheck />
-                    </i>
-                  </li>
-                  <li className="header__search-option-item">
-                    <span>Ngoài Shop</span>
-                    <i className="fas fa-check"></i>
-                  </li>
-                </ul>
-              </div>
               <button
                 className="header__search-btn"
                 onClick={handleSearchSubmitResults}>
@@ -188,13 +170,9 @@ const Nav = () => {
                     onClick={handleSearchSubmitResults}>
                     <BiSearchAlt2 />
                   </Link>
-                  {/* <BiSearchAlt2 /> */}
                 </i>
               </button>
-              {/* <Link className="header__search-link" to={`../../Search`}>
-                     </Link> */}
             </div>
-            {/* <!-- Cart layout --> */}
             <CartList />
           </div>
         </div>

@@ -13,8 +13,14 @@ const AdminLogin = () => {
   const { setAuth } = useAuth();
 
   useEffect(() => {
-    setAuth({ isAuth: false });
-  }, []);
+    sessionStorage.clear();
+    setAuth({
+      access_token: null,
+      isAuth: false,
+      role: "user",
+      id: null,
+    });
+  }, [setAuth]);
 
   const [user, setUser] = useState({ email: "", password: "" });
 

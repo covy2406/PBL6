@@ -17,6 +17,7 @@ function ProductOrderCard(props) {
   const shop = props.props.shop;
 
   const setShopFilter = props.func.setShopFilter;
+  const setDiscountWeb = props.func.setDiscountWeb;
 
   //show promo
   const [shopProductPromo, setShopProductPromo] = useState([]);
@@ -161,6 +162,14 @@ function ProductOrderCard(props) {
             };
           }
           return shop;
+        });
+      });
+      setDiscountWeb((prevDiscountWeb) => {
+        return prevDiscountWeb.map((discountItem) => {
+          if (discountItem.shop_product_id === productItem.shop_product_id) {
+            return { ...discountItem, checked: false };
+          }
+          return discountItem;
         });
       });
     }

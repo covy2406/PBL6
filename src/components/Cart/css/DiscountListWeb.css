@@ -26,8 +26,9 @@
   list-style: none;
   /* khi cos qua nhieu ma giam gia se bi keo thanh
   hang dai nhin rat la xau */
-  height: 46vh;
-  overflow-y: hidden;
+  max-height: 40rem;
+  overflow-y: auto;
+  z-index: 3;
 }
 
 .discount__item {
@@ -116,4 +117,10 @@
   font-size: 1.2rem;
   color: #757575;
   font-weight: 400;
+}
+.discount__list--title {
+  font-size: 1.4rem;
+  color: #999;
+  font-weight: 400;
+  margin: 8px 0 8px 12px;
 }

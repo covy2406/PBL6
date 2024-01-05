@@ -16,8 +16,8 @@ const ProductHome = () => {
   const { productList } = useCart();
   const { addtocart, fetchProductHome } = useCartHandle();
 
-   //const [productList, setProductList] = useState([]);
-   const [error] = useState(null);
+  //const [productList, setProductList] = useState([]);
+  const [error] = useState(null);
 
   //console.log(productList);
 
@@ -69,7 +69,6 @@ const ProductHome = () => {
                   {curElm.details}
                 </div>
                 <div className="home-product-item__price">
-                  <span className="home-product-item__price-old"></span>
                   <span className="home-product-item__price-current">
                     {parseInt(curElm.price).toLocaleString("vn-VN")} đ
                   </span>
@@ -85,17 +84,9 @@ const ProductHome = () => {
 
                 <div className="home-product-item__origin">
                   <span className="home-product-item__brand">
-                    {curElm.shopName}
+                    Cửa hàng: {curElm.shopName}
                   </span>
-                  <span className="home-product-item__origin-name"></span>
                 </div>
-                {/* {
-                      shop &&
-                      <div className="home-product-item__origin">
-                          <span className="home-product-item__brand">{shop.shopName}</span>
-                          <span className="home-product-item__origin-name">{shop.shopAddress}</span>
-                      </div>
-                } */}
               </div>
             </div>
           );

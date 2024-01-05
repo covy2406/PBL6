@@ -4,7 +4,7 @@ import useAuth from "hook/useAuth";
 const RequiredAuth = () => {
   const { auth } = useAuth();
   const location = useLocation();
-  const path = location.pathname.startsWith("/admin/")
+  const path = location.pathname.startsWith("/admin")
     ? "/admin/login"
     : "login";
 

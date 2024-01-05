@@ -32,7 +32,9 @@ const PurchasePriceRangeStatistics = () => {
 
   return (
     <>
-      <div className="shop__chart--title">Biểu đồ doanh thu</div>
+      <div className="shop__chart--title">
+        Biểu đồ lượng mua theo khoảng giá
+      </div>
       <div className="shop__chart--form">
         <BarChart
           width={600}
@@ -76,7 +78,6 @@ const PurchasePriceRangeStatistics = () => {
         </BarChart>
         <div className="shop__chart--data">
           <div>Bắt đầu</div>
-
           <input
             className=""
             type="date"

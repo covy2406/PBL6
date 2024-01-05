@@ -14,15 +14,15 @@ const ShopOrdersData = [
     title: "Đã xác nhận",
     props: "confirmed",
   },
+  // {
+  //   link: "/shop/orders/shipping",
+  //   title: "Đang giao hàng",
+  //   props: "shipping",
+  // },
   {
-    link: "/shop/orders/shipping",
-    title: "Đang giao hàng",
-    props: "shipping",
-  },
-  {
-    link: "/shop/orders/delivered",
+    link: "/shop/orders/completed",
     title: "Đã giao hàng",
-    props: "delivered",
+    props: "completed",
   },
   {
     link: "/shop/orders/cancelled",

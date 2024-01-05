@@ -56,18 +56,16 @@ const App = () => {
           <Route path="contact" element={<Contact />}></Route>
           <Route path="product" element={<Product />} />
           <Route path="oldphone" element={<Oldphone />} />
-          <Route path="ViewdetailShop/:id" element={<ViewdetailShop/>}></Route>
-          <Route path="Viewdetail/:id" element={<Viewdetails />} ></Route>
-          <Route path="search" element={<Search/>}></Route>
+          <Route path="ViewdetailShop/:id" element={<ViewdetailShop />}></Route>
+          <Route path="Viewdetail/:id" element={<Viewdetails />}></Route>
+          <Route path="search" element={<Search />}></Route>
           <Route
             path="product/Viewdetail/:id"
-            element={<Viewdetails />}>
-          </Route>
+            element={<Viewdetails />}></Route>
           <Route
             path="oldphone/Viewdetail/:id"
-            element={<Viewdetails />}>
-          </Route>
-          
+            element={<Viewdetails />}></Route>
+
           {/* <Route path="search" element={<Search/>}></Route> */}
         </Route>
         <Route path="/" element={<Layout />}>
@@ -86,7 +84,7 @@ const App = () => {
                 <Route path="pending" element={<ShopOrders />} />
                 <Route path="confirmed" element={<ShopOrders />} />
                 <Route path="shipping" element={<ShopOrders />} />
-                <Route path="delivered" element={<ShopOrders />} />
+                <Route path="completed" element={<ShopOrders />} />
                 <Route path="cancelled" element={<ShopOrders />} />
               </Route>
               <Route path="products">

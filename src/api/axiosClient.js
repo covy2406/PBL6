@@ -3,7 +3,8 @@ import axios from "axios";
 const axiosClient = axios.create({
   baseURL: "http://0.tcp.ap.ngrok.io:15234/api",
   headers: {
-    "content-type": "application/json, multipart/form-data",
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "multipart/form-data",
   },
 });
 

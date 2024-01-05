@@ -2,6 +2,14 @@
   height: 40rem;
   padding: 3rem;
 }
+.shop__chart--list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 77%;
+  overflow-y: scroll;
+  padding-right: 1rem;
+}
 
 .shop__chart--title {
   font-size: 2rem;
@@ -20,9 +28,24 @@
 }
 
 .shop__chart--data {
-  padding: 10px;
-  background-color: var(--primary-color);
-  color: var(--white-color);
+  color: var(--primary-color);
   font-size: 1.4rem;
-  
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.productscard__container-update--body-item--btn {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  color: white;
+  border: none;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+.productscard__container-update--body-item--btn:hover {
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
