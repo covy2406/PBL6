@@ -42,6 +42,7 @@ import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 import AdminLogin from "Site_Admin/AdminLogin.jsx";
 import ViewdetailShop from "components/ViewdetailShop/ViewdetailShop.jsx";
 import AdminPromo from "Site_Admin/AdminPromo.jsx";
+import PaymentSuccess from "components/Cart/PaymentSuccess.jsx";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -69,6 +70,7 @@ const App = () => {
         </Route>
         <Route path="/" element={<Layout />}>
           <Route element={<RequiredAuth />}>
+            <Route path="paymentSuccess" element={<PaymentSuccess />} />
             <Route path="Cart" element={<Cart />} />
             <Route path="CheckoutPage"></Route>
             <Route path="shop">

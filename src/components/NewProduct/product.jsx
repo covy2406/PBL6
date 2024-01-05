@@ -15,6 +15,7 @@ import useCartHandle from "hook/useCartHandle";
 import apiHandleBrand from "api/apiHandleBrand.js";
 import { toast } from "react-toastify";
 import apiHandlePrice from "api/apiHandlePrice";
+import { fi } from "date-fns/locale";
 // import useFilterHandle from "hook/useFilterHandle";
 // import useFilter from "hook/useFilter";
 
@@ -26,7 +27,6 @@ const Product = () => {
   // const {handleBrandCheckboxChange, handleShowAllProducts} = useFilterHandle();
 
   const [ProductNew, setProductNew] = useState([]);
-  const [error, setError] = useState(null);
 
   //Brand:
   const [brands, setBrands] = useState([]); //brands: Lưu trữ danh sách các thương hiệu sản phẩm.
@@ -58,6 +58,7 @@ const Product = () => {
     fetchBrands();
   }, []);
 
+  //get product by brand
   useEffect(() => {
     const getProductsByBrand = async () => {
       try {
@@ -129,10 +130,8 @@ const Product = () => {
       const floatValue = parseFloat(value);
       return isNaN(floatValue) ? 0 : floatValue;
     };
-
     const minPriceValue = convertToFloat(minPriceInput);
     const maxPriceValue = convertToFloat(maxPriceInput);
-
     if (
       !isNaN(minPriceValue) &&
       !isNaN(maxPriceValue) &&
@@ -150,16 +149,12 @@ const Product = () => {
     }
   };
 
-  if (error) {
-    return <p>error: {error.message}</p>;
-  }
-
+  console.log(filteredProducts);
   return (
     <div className="products">
       <div className="grid">
         {/* BANNER QUẢNG CÁO CHO TRANG PRODUCT - ĐIỆN THOẠI MỚI */}
         <BannerProducts />
-
         <div className="products-list">
           <div className="grid__column-2">
             {/* BRAND CATEGORY - LỌC SẢN PHẨM THEO TÊN HÃNG VÀ GIÁ ĐIỆN THOẠI */}
@@ -176,7 +171,6 @@ const Product = () => {
                       className="categories-item__input"
                       type="radio"
                       checked={selectedBrandId === brand.id}
-                      //checked={selectedBrandId.includes(brand.id)}
                       onChange={() =>
                         handleBrandCheckboxChange(brand.id)
                       }></input>
@@ -219,7 +213,6 @@ const Product = () => {
               </ul>
             </nav>
           </div>
-
           <div className="grid__column-10">
             <div className="home-filter">
               <span className="home-filter__label">Sắp xếp theo</span>
@@ -277,10 +270,7 @@ const Product = () => {
                 <div className="box" key={index}>
                   <div className="img_box">
                     <img
-                      // src={`http://0.tcp.ap.ngrok.io:15234/${curElmNew.image}`}
                       src={`${url}${curElmNew.image}`}
-                      //src={curElmNew.image}
-
                       alt={curElmNew.name}></img>
                     <div className="icon">
                       {auth.isAuth ? (

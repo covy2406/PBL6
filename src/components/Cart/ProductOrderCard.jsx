@@ -58,6 +58,17 @@ function ProductOrderCard(props) {
                 if (state === "decqty" && newQuantity < 1) {
                   // Xóa sản phẩm khỏi giỏ hàng nếu số lượng giảm xuống dưới 1
                   delfromcart(productId);
+                  // Remove from shopsFilter
+                  setShopFilter((currentShopsFilter) =>
+                    currentShopsFilter.map((shop) => {
+                      return {
+                        ...shop,
+                        products: shop.products.filter(
+                          (product) => product.id !== productId
+                        ),
+                      };
+                    })
+                  );
                   return null; // Bỏ qua việc cập nhật mục trong giỏ hàng
                 }
                 return {
@@ -81,7 +92,7 @@ function ProductOrderCard(props) {
     console.log(res ? "true" : "false");
     if (res) {
       updateQuantity(id, "incqty");
-      console.log("Increasing quantity success " + id);
+      toast.success("Thêm sản phẩm thành công");
     } else {
       toast.error("Số lượng sản phẩm đã hết");
       console.log("Increasing quantity fail " + id);

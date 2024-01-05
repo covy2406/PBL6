@@ -18,8 +18,10 @@ import Swal from "sweetalert2";
 
 const Cart = () => {
   //handle when get cart
-  const { cartListProduct } = useCart();
-  const { showCartList } = useCartHandle();
+
+  const [cartListProduct, setCartListProduct] = useState(
+    JSON.parse(localStorage.getItem("cartListProduct"))
+  );
 
   const [Totalprice, setTotalprice] = useState(0);
   const [showDiscounts, setShowDiscounts] = useState(false);
@@ -39,8 +41,36 @@ const Cart = () => {
     };
     fetchDiscountWeb();
   }, []);
-  // Tạo một mảng để tổ chức danh sách sản phẩm theo shop
+
   const [shopsFilter, setShopFilter] = useState([]);
+  // Save to local storage whenever shopsFilter changes
+
+  useEffect(() => {
+    // Flatten the products from all shops into a single array
+    const allProducts = shopsFilter.flatMap((shop) => shop.products);
+    // Update cartListProduct state
+    setCartListProduct(allProducts);
+    // Save to local storage
+    window.sessionStorage.setItem(
+      "cartListProduct",
+      JSON.stringify(allProducts)
+    );
+  }, [shopsFilter]);
+
+  // Save to local storage whenever shopsFilter changes
+  useEffect(() => {
+    localStorage.setItem("shopsFilter", JSON.stringify(shopsFilter));
+  }, [shopsFilter]);
+
+  // Load from local storage when component mounts
+  useEffect(() => {
+    const savedShopsFilter = localStorage.getItem("shopsFilter");
+    if (savedShopsFilter) {
+      setShopFilter(JSON.parse(savedShopsFilter));
+    }
+  }, []);
+  // Tạo một mảng để tổ chức danh sách sản phẩm theo shop
+
   useEffect(() => {
     const newFilter = cartListProduct.reduce((acc, productItem) => {
       const existingShopIndex = acc.findIndex(
@@ -61,15 +91,6 @@ const Cart = () => {
     }, []);
     setShopFilter(newFilter);
   }, []);
-
-  useEffect(() => {
-    let NewCart = [];
-    shopsFilter.forEach((shop) => {
-      shop.products.forEach((product) => {
-        NewCart.push(product);
-      });
-    });
-  }, [shopsFilter]);
 
   // toggle web discounts
   const toggleDiscounts = () => {
@@ -107,36 +128,32 @@ const Cart = () => {
     }, 0);
     setTotalprice(selectedTotal - discountTotal.current);
   }, [shopsFilter, discountWeb]);
-
   // handle online payment
   const handleVNpay = async (data, type, code) => {
     const vnp_OrderInfo = "";
     const vnp_Amount = Totalprice;
-    const response = await apiHandlePayment.VNPay(vnp_OrderInfo, vnp_Amount);
-    if (response && response.data.data) {
-      const paymentWindow = window.open(response.data.data, "_self");
-      const checkPaymentStatus = async () => {
-        toast.info("Đang kiểm tra trạng thái thanh toán...", {
+
+    const response = await apiHandlePayment.VNPay(vnp_OrderInfo, vnp_Amount); // gọi api vnpay trước
+    window.open(response.data.data, "_self"); //điền link trả về từ api vào đây
+    window.onfocus = async function () {
+      toast.info("Đang kiểm tra trạng thái thanh toán...", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+      });
+      await apiHandlePayment.CashPay(data, type, code); // gọi api thanh toán
+      const params = new URLSearchParams(window.location.search); // lấy params trên url
+      const vnp_ResponseCode = params.get("vnp_ResponseCode");
+      if (vnp_ResponseCode === "00") {
+        toast.success("Thanh toán thành công!", {
           position: "top-center",
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
         });
-        // Call your API endpoint that checks the payment status
-        const paymentStatus = await apiHandlePayment.CashPay(data, type, code);
-        const params = new URLSearchParams(window.location.search);
-        const vnp_Amount = params.get("vnp_Amount");
-        if (paymentStatus && vnp_Amount) {
-          toast.success("Thanh toán thành công!", {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-          });
-        }
-        // Remove the selected products from the cart
         const newShopsFilter = shopsFilter.map((shop) => {
           return {
             ...shop,
@@ -144,12 +161,8 @@ const Cart = () => {
           };
         });
         setShopFilter(newShopsFilter);
-        if (paymentStatus.data === "ordered successful!") {
-          alert("Payment successful!");
-        }
-      };
-      paymentWindow.addEventListener("unload", checkPaymentStatus);
-    }
+      }
+    };
   };
 
   // handle all payment
