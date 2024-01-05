@@ -19,6 +19,9 @@ const apiAdmin = {
   deleteAccount(id) {
     return axiosClient.delete(`customers/${id}`);
   },
+  getAllPromos() {
+    return axiosClient.get("promotions");
+  },
 };
 
 export default apiAdmin;

@@ -53,18 +53,18 @@ const AdminLogin = () => {
   };
   return (
     <>
-      <div class="grid admin-container">
-        <div class="admin-login-form">
-          <div class="auth-form__container">
-            <div class="auth-form__header">
-              <h3 class="auth-form__heading">Đăng nhập</h3>
+      <div className="grid admin-container">
+        <div className="admin-login-form">
+          <div className="auth-form__container">
+            <div className="auth-form__header">
+              <h3 className="auth-form__heading">Đăng nhập</h3>
             </div>
-            <div class="auth-form__form">
+            <div className="auth-form__form">
               <form onClick={(e) => handleSubmit(e)}>
-                <div class="auth-form__group">
+                <div className="auth-form__group">
                   <input
                     type="text"
-                    class="auth-form__input"
+                    className="auth-form__input"
                     placeholder="Email của bạn"
                     value={user.email}
                     onChange={(e) =>
@@ -72,10 +72,10 @@ const AdminLogin = () => {
                     }
                   />
                 </div>
-                <div class="auth-form__group">
+                <div className="auth-form__group">
                   <input
                     type="password"
-                    class="auth-form__input"
+                    className="auth-form__input"
                     placeholder="Mật khẩu của bạn"
                     value={user.password}
                     onChange={(e) =>
@@ -83,8 +83,8 @@ const AdminLogin = () => {
                     }
                   />
                 </div>
-                <div class="auth-form__group">
-                  <button class="btn auth-form__btn">Đăng nhập</button>
+                <div className="auth-form__group">
+                  <button className="btn auth-form__btn">Đăng nhập</button>
                 </div>
               </form>
             </div>

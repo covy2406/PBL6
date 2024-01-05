@@ -9,18 +9,15 @@ const ShopPromos = (props) => {
   const [shoppromosList, setShopPromosList] = useState({});
 
   useEffect(() => {
-    setProductPromosList(
-      JSON.parse(window.sessionStorage.getItem("shopPromos"))
-        .promotions_shop_product_id
-    );
-    setShopPromosList(
-      JSON.parse(window.sessionStorage.getItem("shopPromos")).promotion_shop_id
-    );
-  }, []);
-
-  useEffect(() => {
+    const shopPromos = JSON.parse(window.sessionStorage.getItem("shopPromos"));
+    if (shopPromos) {
+      setProductPromosList(shopPromos.promotions_shop_product_id);
+      setShopPromosList(shopPromos.promotion_shop_id);
+    }
     setCurrentPath(location.pathname);
   }, [location]);
+  console.log("shop", shoppromosList);
+  console.log("product", productpromosList);
 
   return (
     <div className="shop__container-nav">
@@ -60,10 +57,11 @@ const ShopPromos = (props) => {
             <>
               <div className="shop__promos--type">Mã khuyến mãi của Shop</div>
               {Object.keys(shoppromosList).map((key) => {
+                console.log(shoppromosList[key]);
                 return (
                   <ShopPromosCard
                     props={{
-                      productpromosList: productpromosList[key],
+                      productpromosList: shoppromosList[key],
                       filter: currentPath.split("/")[4],
                     }}
                     key={key}

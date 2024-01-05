@@ -117,6 +117,7 @@ const useShop = () => {
     try {
       console.log(data);
       const response = await apiShop.addpromos(data);
+      getShopPromosAll();
       return response;
     } catch (err) {
       return false;
