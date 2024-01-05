@@ -24,7 +24,7 @@ import apiHandlePrice from "api/apiHandlePrice";
 
 const Oldphone = () => {
   // oldData, setOldproduct,
-  const { auth } = useAuth();
+  const { auth, url } = useAuth();
   const { view } = useCart();
   const { addtocart } = useCartHandle();
   const [oldProduct, setOldproduct] = useState([]);
@@ -181,25 +181,28 @@ const Oldphone = () => {
 
         <BannerProducts />
 
-                <div className="products-list">
-                    {/* <CategoryOld oldData={oldData} setOldproduct={setOldproduct} /> */}
-                    <div className='grid__column-2'>
-                        <nav className='categories'>
-                            <ul className='categories-list'>
-                                <h3 className='categories__heading'>Thương hiệu</h3>
-                                {brands.map((brand) => (
-                                    <li className='categories-item' key={brand.id}>
-                                        <input
-                                            className='categories-item__input'
-                                            type='radio'
-                                            checked={selectedBrandId === brand.id}
-                                            onChange={() => handleBrandCheckboxChange(brand.id)}
-                                        ></input>
-                                        <label className='categories-item__label'>{brand.name}</label>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
+        <div className="products-list">
+          {/* <CategoryOld oldData={oldData} setOldproduct={setOldproduct} /> */}
+          <div className="grid__column-2">
+            <nav className="categories">
+              <ul className="categories-list">
+                <h3 className="categories__heading">Thương hiệu</h3>
+                {brands.map((brand) => (
+                  <li className="categories-item" key={brand.id}>
+                    <input
+                      className="categories-item__input"
+                      type="radio"
+                      checked={selectedBrandId === brand.id}
+                      onChange={() =>
+                        handleBrandCheckboxChange(brand.id)
+                      }></input>
+                    <label className="categories-item__label">
+                      {brand.name}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
             <nav className="categories">
               <ul className="categories-list">
@@ -289,7 +292,7 @@ const Oldphone = () => {
                   <div className="box" key={index}>
                     <div className="img_box">
                       <img
-                        src={`http://0.tcp.ap.ngrok.io:14673/${curElm.image}`}
+                        src={`${url}${curElm.image}`}
                         alt={curElm.name}></img>
                       <div className="icon">
                         {auth.isAuth ? (

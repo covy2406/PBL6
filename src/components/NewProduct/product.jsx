@@ -8,148 +8,95 @@ import { AiOutlineStar } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import BannerProducts from "../BannerProduct/BannerProducts.jsx";
 import { Link } from "react-router-dom";
-import apiProductHome from "api/apiProductHome.js";
 import useAuth from "hook/useAuth.js";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
-import apiHandleBrand from "api/apiHandleBrand.js";
+import useBrand from "hook/useBrand";
 import { toast } from "react-toastify";
 import apiHandlePrice from "api/apiHandlePrice";
-import { fi } from "date-fns/locale";
-// import useFilterHandle from "hook/useFilterHandle";
-// import useFilter from "hook/useFilter";
+import { set } from "date-fns";
 
 const Product = () => {
+  const { getAllBrands } = useBrand();
   const { auth, url } = useAuth();
   const { view } = useCart();
   const { addtocart, fetchProductHome } = useCartHandle();
-  // const { selectedBrandId , selectedBrandProducts ,setSelectedBrandProducts} = useFilter();
-  // const {handleBrandCheckboxChange, handleShowAllProducts} = useFilterHandle();
-
-  const [ProductNew, setProductNew] = useState([]);
 
   //Brand:
   const [brands, setBrands] = useState([]); //brands: Lưu trữ danh sách các thương hiệu sản phẩm.
-  const [selectedBrands, setSelectedBrands] = useState([]); // cac brand duoc chon(tich vao checkbox)
-  //const [selectedBrandId, setSelectedBrandId] = useState(null); // Lưu trữ ID của thương hiệu đang được chọn.
-  const [selectedBrandId, setSelectedBrandId] = useState(null);
-  const [selectedBrandProducts, setSelectedBrandProducts] = useState([]); // selectedBrandProducts: Lưu trữ danh sách sản phẩm của thương hiệu được
+
+  const [allProducts, setAllProducts] = useState([]); //allProducts: Lưu trữ danh sách tất cả sản phẩm [không lọc
   const [filteredProducts, setFilteredProducts] = useState([]); //filteredProducts: Lưu trữ danh sách sản phẩm được lọc dựa trên các điều kiện nhất định.
 
   // Giá
   const [minPriceInput, setMinPriceInput] = useState("");
   const [maxPriceInput, setMaxPriceInput] = useState("");
 
-  // goi api san pham:
+  // Lây danh sách sản phẩm và thương hiệu
   useEffect(() => {
-    fetchProductHome();
-  }, []);
-
-  // goi api brand
-  useEffect(() => {
-    const fetchBrands = async () => {
-      try {
-        const response = await apiHandleBrand.getAllBrand();
-        setBrands(response.data);
-      } catch (error) {
-        console.error("Error fetching brands:", error);
-      }
-    };
-    fetchBrands();
-  }, []);
-
-  //get product by brand
-  useEffect(() => {
-    const getProductsByBrand = async () => {
-      try {
-        if (selectedBrandId) {
-          console.log("selected:", selectedBrandId);
-          const response = await apiHandleBrand.getShopProductbyBrand(
-            selectedBrandId
-          );
-          setSelectedBrandProducts(response.data);
-        } else {
-          setSelectedBrandProducts(null);
-        }
-      } catch (error) {
-        console.error("Error fetching products by brand:", error);
-      }
-    };
-    getProductsByBrand();
-  }, [selectedBrandId, selectedBrands, ProductNew]);
-
-  // Lọc sản phẩm tương ứng với thương hiệu
-  useEffect(() => {
-    const filtered =
-      selectedBrandProducts && selectedBrandProducts.length > 0
-        ? selectedBrandProducts
-        : ProductNew;
-    setFilteredProducts(filtered);
-  }, [selectedBrandProducts, ProductNew]);
-
-  const handleBrandCheckboxChange = (brandId) => {
-    console.log(brandId);
-    setSelectedBrandId(brandId);
-    setSelectedBrands((prevBrands) => {
-      if (prevBrands.includes(brandId)) {
-        return prevBrands.filter((id) => id !== brandId);
-      } else {
-        return [...prevBrands, brandId];
-      }
+    fetchProductHome().then((res) => {
+      setFilteredProducts(res);
+      setAllProducts(res);
     });
-  };
-
-  // ham xu ly show tat ca san pham
-  const handleShowAllProducts = () => {
-    setSelectedBrandId([]);
-    //setSelectedBrandId(null)
-    toast.success("Hiển thị tất cả các sản phẩm", { autoClose: 1000 });
-  };
-
-  // Ham call api gia:
-  useEffect(() => {
-    // Sử dụng hàm fetchPrice khi minPriceInput hoặc maxPriceInput thay đổi
-    const fetchPrice = async () => {
-      try {
-        const response = await apiHandlePrice.getPrice(
-          minPriceInput,
-          maxPriceInput
-        );
-        setFilteredProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products by price:", error);
-      }
-    };
-
-    fetchPrice();
-  }, [minPriceInput, maxPriceInput]);
-
-  // hàm xử lý áp dụng lọc giá
-  const handleApplyFilter = () => {
-    const convertToFloat = (value) => {
-      const floatValue = parseFloat(value);
-      return isNaN(floatValue) ? 0 : floatValue;
-    };
-    const minPriceValue = convertToFloat(minPriceInput);
-    const maxPriceValue = convertToFloat(maxPriceInput);
-    if (
-      !isNaN(minPriceValue) &&
-      !isNaN(maxPriceValue) &&
-      minPriceValue <= maxPriceValue
-    ) {
-      // Lọc sản phẩm theo giá nhập vào
-      const filtered = selectedBrandProducts.filter(
-        (product) =>
-          parseFloat(product.price) >= minPriceValue &&
-          parseFloat(product.price) <= maxPriceValue
+    getAllBrands().then((res) => {
+      setBrands(res);
+    });
+  }, []);
+  // Lọc theo brand
+  const handleBrandCheck = (checked, brandID) => {
+    // Update the checked status of the brand
+    setBrands((prevBrands) =>
+      prevBrands.map((brand) =>
+        brand.id === brandID ? { ...brand, checked } : brand
+      )
+    );
+    if (checked) {
+      // If the box is checked, replace the filteredProducts with the brand's products
+      const brandProducts = allProducts.filter(
+        (product) => product.brand_id === brandID
       );
-      setFilteredProducts(filtered);
+      if (filteredProducts.length < allProducts.length) {
+        setFilteredProducts((prevProducts) => [
+          ...prevProducts,
+          ...brandProducts,
+        ]);
+      } else setFilteredProducts(brandProducts);
+    } else {
+      // If the box is unchecked, reset the filteredProducts to the original product list
+      setFilteredProducts((prevProducts) =>
+        prevProducts.filter((product) => product.brand_id !== brandID)
+      );
+    }
+  };
+
+  // Lọc theo khoảng giá
+  const handleMoneyRangeFilter = () => {
+    if (minPriceInput && maxPriceInput) {
+      const fetchPrice = async () => {
+        try {
+          const response = await apiHandlePrice.getPrice(
+            parseInt(minPriceInput),
+            parseInt(maxPriceInput)
+          );
+          setFilteredProducts(response.data);
+        } catch (error) {
+          console.error("Error fetching products by price:", error);
+        }
+      };
+      fetchPrice();
     } else {
       toast.error("Vui lòng nhập giá hợp lệ.", { autoClose: 1000 });
     }
   };
 
-  console.log(filteredProducts);
+  // Lọc theo bán chạy
+  const handlePopularFilter = () => {
+    const sortedProducts = [...filteredProducts].sort(
+      (a, b) => b.soldQuantity - a.soldQuantity
+    );
+    setFilteredProducts(sortedProducts);
+  };
+
   return (
     <div className="products">
       <div className="grid">
@@ -163,16 +110,13 @@ const Product = () => {
               <ul className="categories-list">
                 <h3 className="categories__heading">Thương hiệu</h3>
                 {brands.map((brand) => (
-                  <li
-                    className="categories-item"
-                    key={brand.id}
-                    onChange={() => handleBrandCheckboxChange(brand.id)}>
+                  <li className="categories-item" key={brand.id}>
                     <input
                       className="categories-item__input"
-                      type="radio"
-                      checked={selectedBrandId === brand.id}
-                      onChange={() =>
-                        handleBrandCheckboxChange(brand.id)
+                      type="checkbox"
+                      checked={brand.checked}
+                      onChange={(e) =>
+                        handleBrandCheck(e.target.checked, brand.id)
                       }></input>
                     <label className="categories-item__label">
                       {brand.name}
@@ -190,7 +134,6 @@ const Product = () => {
                   <div className="categories-range">
                     <input
                       type="text"
-                      placeholder="Min"
                       value={minPriceInput}
                       className="inputPrice"
                       onChange={(e) => setMinPriceInput(e.target.value)}
@@ -198,7 +141,6 @@ const Product = () => {
                     <span className="priceRange"></span>
                     <input
                       type="text"
-                      placeholder="Max"
                       value={maxPriceInput}
                       className="inputPrice"
                       onChange={(e) => setMaxPriceInput(e.target.value)}
@@ -206,7 +148,7 @@ const Product = () => {
                   </div>
                   <button
                     className="btn btn--primary-main btn-filter"
-                    onClick={() => handleApplyFilter()}>
+                    onClick={() => handleMoneyRangeFilter()}>
                     Áp dụng
                   </button>
                 </div>
@@ -218,13 +160,22 @@ const Product = () => {
               <span className="home-filter__label">Sắp xếp theo</span>
               <button
                 className="btn home-filter__btn"
-                onClick={() => handleShowAllProducts()}>
+                onClick={(e) => {
+                  e.preventDefault();
+                  fetchProductHome().then((res) => {
+                    setFilteredProducts(res);
+                  });
+                }}>
                 Tất cả
               </button>
-              <button className="btn home-filter__btn btn--primary ">
-                Mới nhất
+              <button
+                className="btn home-filter__btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePopularFilter();
+                }}>
+                Bán chạy
               </button>
-              <button className="btn home-filter__btn">Bán chạy</button>
 
               <div className="select-input">
                 <span className="select-input__label">Giá</span>
