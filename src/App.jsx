@@ -41,6 +41,7 @@ import ShopPromos from "Site_Shop/Components/ShopPromos.jsx";
 import RequiredAuth from "./components/AuthForm/RequiredAuth.js";
 import AdminLogin from "Site_Admin/AdminLogin.jsx";
 import ViewdetailShop from "components/ViewdetailShop/ViewdetailShop.jsx";
+import AdminPromo from "Site_Admin/AdminPromo.jsx";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -65,8 +66,6 @@ const App = () => {
           <Route
             path="oldphone/Viewdetail/:id"
             element={<Viewdetails />}></Route>
-
-          {/* <Route path="search" element={<Search/>}></Route> */}
         </Route>
         <Route path="/" element={<Layout />}>
           <Route element={<RequiredAuth />}>
@@ -129,7 +128,7 @@ const App = () => {
         <Route element={<RequiredAuth />}>
           <Route path="/admin" element={<AdminNav />}>
             <Route path="product" element={<AdminProduct />} />
-            <Route path="promos" element={<AdminProduct />} />
+            <Route path="promos" element={<AdminPromo />} />
             <Route path="account" element={<AdminUser />} />
             <Route path="shop" element={<AdminShop />} />
           </Route>
