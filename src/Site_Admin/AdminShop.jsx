@@ -138,23 +138,26 @@ function AdminShop() {
                 }}
               />
             </PieChart>
-            <input
-              className="admin__body--chart--input"
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-            <input
-              className="admin__body--chart--input"
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-            <button
-              className="admin__body--chart--button"
-              onClick={handleSubmit}>
-              Xem
-            </button>
+            <div>
+              {" "}
+              <input
+                className="admin__body--chart--input"
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <input
+                className="admin__body--chart--input"
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+              <button
+                className="admin__body--chart--button"
+                onClick={handleSubmit}>
+                Xem
+              </button>
+            </div>
           </div>
         </div>
       </div>

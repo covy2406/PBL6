@@ -218,9 +218,9 @@ function ProductOrderCard(props) {
             onClick={() => incQuantity(productItem.id)}>
             +
           </button>
-          <input type="text" value={productItem.quantity_order}></input>
+          <div className="qty-order">{productItem.quantity_order}</div>
           <button
-            className="incqty"
+            className="decqty"
             onClick={() => decQuantity(productItem.id)}>
             -
           </button>

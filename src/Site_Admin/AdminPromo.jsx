@@ -30,7 +30,7 @@ function AdminPromo() {
   return (
     <>
       <div className="grid">
-        <div className="admin__top--title">Danh sách cửa hàng</div>
+        <div className="admin__top--title">Danh sách khuyến mãi</div>
         <div className="admin__body">
           <div className="admin__body--list">
             {Object.keys(promoList).map((key) => {

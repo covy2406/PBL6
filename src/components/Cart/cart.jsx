@@ -2,7 +2,7 @@ import "./css/cart.css";
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
-import useCartHandle from "hook/useCartHandle";
+//import useCartHandle from "hook/useCartHandle";
 import useCart from "hook/useCart";
 //import lib
 import { toast } from "react-toastify";
@@ -15,12 +15,11 @@ import ProductOrderCard from "./ProductOrderCard";
 import ShopPromoList from "./ShopPromoList";
 import DiscountListWeb from "./DiscountListWeb";
 import Swal from "sweetalert2";
-import ReactLoading from "react-loading";
 
 const Cart = () => {
   //handle when get cart
   const { cartListProduct } = useCart();
-  const { showCartList } = useCartHandle();
+  //const { showCartList } = useCartHandle();
 
   const [Totalprice, setTotalprice] = useState(0);
   const [showDiscounts, setShowDiscounts] = useState(false);
@@ -63,6 +62,15 @@ const Cart = () => {
     setShopFilter(newFilter);
   }, []);
 
+  useEffect(() => {
+    let NewCart = [];
+    shopsFilter.forEach((shop) => {
+      shop.products.forEach((product) => {
+        NewCart.push(product);
+      });
+    });
+  }, [shopsFilter]);
+
   // toggle web discounts
   const toggleDiscounts = () => {
     const isAnyProductChecked = shopsFilter.some((shop) =>
@@ -100,22 +108,34 @@ const Cart = () => {
     setTotalprice(selectedTotal - discountTotal.current);
   }, [shopsFilter, discountWeb]);
 
-  const [waitingPayment, setWaitingPayment] = useState(false);
   // handle online payment
   const handleVNpay = async (data, type, code) => {
-    setWaitingPayment(true);
     const vnp_OrderInfo = "";
     const vnp_Amount = Totalprice;
     const response = await apiHandlePayment.VNPay(vnp_OrderInfo, vnp_Amount);
     if (response && response.data.data) {
       const paymentWindow = window.open(response.data.data, "_self");
       const checkPaymentStatus = async () => {
+        toast.info("Đang kiểm tra trạng thái thanh toán...", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+        });
         // Call your API endpoint that checks the payment status
         const paymentStatus = await apiHandlePayment.CashPay(data, type, code);
         const params = new URLSearchParams(window.location.search);
         const vnp_Amount = params.get("vnp_Amount");
-        const vnp_BankCode = params.get("vnp_BankCode");
-        const vnp_BankTranNo = params.get("vnp_BankTranNo");
+        if (paymentStatus && vnp_Amount) {
+          toast.success("Thanh toán thành công!", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+          });
+        }
         // Remove the selected products from the cart
         const newShopsFilter = shopsFilter.map((shop) => {
           return {
@@ -127,7 +147,6 @@ const Cart = () => {
         if (paymentStatus.data === "ordered successful!") {
           alert("Payment successful!");
         }
-        setWaitingPayment(false);
       };
       paymentWindow.addEventListener("unload", checkPaymentStatus);
     }
@@ -293,11 +312,6 @@ const Cart = () => {
           )}
         </div>
       </div>
-      {waitingPayment ? (
-        <div className="waitingPayment">
-          <ReactLoading type="spin" color="#c44335" height={667} width={375} />
-        </div>
-      ) : null}
     </>
   );
 };

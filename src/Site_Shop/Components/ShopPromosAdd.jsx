@@ -41,7 +41,7 @@ const ShopProductAdd = (props) => {
       endDate: endDate,
     }).then((res) => {
       getShopPromosAll().then(() => {
-        navigate("/shop/promos/list/all");
+        navigate("/shop/details");
       });
       console.log(res);
     });
