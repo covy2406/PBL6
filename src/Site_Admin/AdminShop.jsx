@@ -1,24 +1,66 @@
 import useAdmin from "hook/useAdmin";
 import "./css/Admin.css";
 import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
+
+import apiChart from "api/apiChart";
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 function AdminShop() {
   const { getAllShop } = useAdmin();
   const [shopList, setShopList] = useState([]);
+  const [data, setData] = useState([]);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  // Add state for the start and end dates
+  const [startDate, setStartDate] = useState("2023-01-01");
+  const [endDate, setEndDate] = useState("2024-12-31");
+
+  // Update the useEffect hook to use the state variables
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await apiChart.AdminallShopRevenueStatistics(
+        startDate,
+        endDate
+      );
+      const resData = res.data.map((item) => ({
+        shopName: item.shopName,
+        total_revenue: parseInt(item.total_revenue),
+      }));
+      setTotalRevenue(
+        res.data.reduce((a, b) => a + parseInt(b.total_revenue), 0)
+      );
+      const sortedData = [
+        ...resData,
+        {
+          shopName: "Hoa hồng",
+          total_revenue: totalRevenue * 0.05,
+        },
+      ].sort((a, b) => {
+        if (a.shopName === "Hoa hồng") return -1;
+        if (b.shopName === "Hoa hồng") return 1;
+        return a.total_revenue - b.total_revenue;
+      });
+      setData(sortedData);
+    };
+    fetchData();
+  }, []);
+
+  const handleSubmit = () => {
+    apiChart.AdminallShopRevenueStatistics(startDate, endDate).then((res) => {
+      console.log(res.data);
+      setData(...res.data, {
+        shopName: "Hoa hồng",
+        total_revenue: totalRevenue * 0.05,
+      });
+    });
+  };
   useEffect(() => {
     getAllShop().then((res) => {
       console.log(res.data);
       setShopList(res.data);
     });
   }, []);
-
-  const data = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-  ];
 
   return (
     <>
@@ -50,20 +92,69 @@ function AdminShop() {
             })}
           </div>
           <div className="admin__body--chart">
-            <PieChart width={300} height={400}>
+            <PieChart width={500} height={400}>
               <Pie
                 data={data}
                 cx="50%"
                 cy="50%"
+                startAngle={90}
+                endAngle={-270}
                 labelLine={false}
                 outerRadius={120}
                 fill="#8884d8"
-                dataKey="value">
+                dataKey="total_revenue"
+                label={({ total_revenue }) =>
+                  `${(total_revenue / 1000000).toFixed(1)}M`
+                }>
                 {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
+              <Tooltip
+                content={({ payload }) => {
+                  if (payload && payload.length > 0) {
+                    return (
+                      <div
+                        style={{
+                          backgroundColor: "#fff",
+                          padding: "0.5rem 1rem",
+                          border: "1px solid #ccc",
+                        }}>
+                        <p className="tooltips--item">
+                          Cửa hàng: {payload[0].payload.shopName}
+                        </p>
+                        <p className="tooltips--item">
+                          Doanh thu:{" "}
+                          {(parseInt(payload[0].value) / 1000000).toFixed(1)}M
+                          VNĐ
+                        </p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
             </PieChart>
+            <input
+              className="admin__body--chart--input"
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+            <input
+              className="admin__body--chart--input"
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+            <button
+              className="admin__body--chart--button"
+              onClick={handleSubmit}>
+              Xem
+            </button>
           </div>
         </div>
       </div>
