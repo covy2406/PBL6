@@ -1,9 +1,8 @@
 import "./product.css";
 import { React, useEffect } from "react";
 import { useState } from "react";
-import { AiOutlineDown, AiOutlineShoppingCart } from "react-icons/ai";
-import { AiOutlineLeft } from "react-icons/ai";
-import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
 import { AiOutlineStar } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import BannerProducts from "../BannerProduct/BannerProducts.jsx";
@@ -25,6 +24,7 @@ const Product = () => {
   //Brand:
   const [brands, setBrands] = useState([]); //brands: Lưu trữ danh sách các thương hiệu sản phẩm.
 
+  const [filter, setFilter] = useState("all"); //filter: Lưu trữ điều kiện lọc sản phẩm.
   const [allProducts, setAllProducts] = useState([]); //allProducts: Lưu trữ danh sách tất cả sản phẩm [không lọc
   const [filteredProducts, setFilteredProducts] = useState([]); //filteredProducts: Lưu trữ danh sách sản phẩm được lọc dựa trên các điều kiện nhất định.
 
@@ -42,6 +42,7 @@ const Product = () => {
       setBrands(res);
     });
   }, []);
+
   // Lọc theo brand
   const handleBrandCheck = (checked, brandID) => {
     // Update the checked status of the brand
@@ -50,22 +51,9 @@ const Product = () => {
         brand.id === brandID ? { ...brand, checked } : brand
       )
     );
-    if (checked) {
-      // If the box is checked, replace the filteredProducts with the brand's products
-      const brandProducts = allProducts.filter(
-        (product) => product.brand_id === brandID
-      );
-      if (filteredProducts.length < allProducts.length) {
-        setFilteredProducts((prevProducts) => [
-          ...prevProducts,
-          ...brandProducts,
-        ]);
-      } else setFilteredProducts(brandProducts);
-    } else {
-      // If the box is unchecked, reset the filteredProducts to the original product list
-      setFilteredProducts((prevProducts) =>
-        prevProducts.filter((product) => product.brand_id !== brandID)
-      );
+    setFilter("brand");
+    if (!checked) {
+      !brands.some((brand) => brand.checked) && setFilter("all");
     }
   };
 
@@ -162,9 +150,14 @@ const Product = () => {
                 className="btn home-filter__btn"
                 onClick={(e) => {
                   e.preventDefault();
+                  setFilter("all");
                   fetchProductHome().then((res) => {
                     setFilteredProducts(res);
                   });
+                  // Set all brands to unchecked
+                  setBrands((prevBrands) =>
+                    prevBrands.map((brand) => ({ ...brand, checked: false }))
+                  );
                 }}>
                 Tất cả
               </button>
@@ -176,115 +169,79 @@ const Product = () => {
                 }}>
                 Bán chạy
               </button>
-
-              <div className="select-input">
-                <span className="select-input__label">Giá</span>
-                <i className="select-input__icon ">
-                  <AiOutlineDown />
-                </i>
-                <ul className="select-input__list">
-                  <li className="select-input__item">
-                    <a href="/" className="select-input__link">
-                      Giá: Cao đến thấp
-                    </a>
-                  </li>
-                  <li className="select-input__item">
-                    <a href="/" className="select-input__link">
-                      Giá: Thấp đến cao
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="home-filter__page">
-                <span className="home-filter__page-num">
-                  <span className="home-filter__page-current">1</span>/14
-                </span>
-                <div className="home-filter__page-control">
-                  <a
-                    href="/"
-                    className="home-filter__page-btn home-filter__page-btn--disabled">
-                    <i className="home-filter__page-icon ">
-                      <AiOutlineLeft />
-                    </i>
-                  </a>
-                  <a href="/" className="home-filter__page-btn">
-                    <i className="home-filter__page-icon">
-                      <AiOutlineRight />
-                    </i>
-                  </a>
-                </div>
-              </div>
             </div>
             <div className="contant">
-              {filteredProducts.map((curElmNew, index) => (
-                <div className="box" key={index}>
-                  <div className="img_box">
-                    <img
-                      src={`${url}${curElmNew.image}`}
-                      alt={curElmNew.name}></img>
-                    <div className="icon">
-                      {auth.isAuth ? (
+              {filteredProducts.map((curElmNew, index) => {
+                const brand = brands.find((b) => b.id === curElmNew.brand_id);
+                return brand && (brand.checked || filter === "all") ? (
+                  <div className="box" key={index}>
+                    <div className="img_box">
+                      <img
+                        src={`${url}${curElmNew.image}`}
+                        alt={curElmNew.name}></img>
+                      <div className="icon">
+                        {auth.isAuth ? (
+                          <li
+                            onClick={() =>
+                              addtocart(curElmNew.shop_product_id, 1)
+                            }>
+                            <AiOutlineShoppingCart />
+                          </li>
+                        ) : (
+                          <li>
+                            <AiOutlineShoppingCart />
+                          </li>
+                        )}
                         <li
-                          onClick={() =>
-                            addtocart(curElmNew.shop_product_id, 1)
-                          }>
-                          <AiOutlineShoppingCart />
+                          className="icon__link"
+                          onClick={() => view(curElmNew.shop_product_id)}>
+                          <Link to={`Viewdetail/${curElmNew.shop_product_id}`}>
+                            <BsEye />
+                          </Link>
                         </li>
-                      ) : (
-                        <li>
-                          <AiOutlineShoppingCart />
-                        </li>
-                      )}
-                      <li
-                        className="icon__link"
-                        onClick={() => view(curElmNew.shop_product_id)}>
-                        <Link to={`Viewdetail/${curElmNew.shop_product_id}`}>
-                          <BsEye />
-                        </Link>
-                      </li>
-                    </div>
-                  </div>
-                  <div className="detail">
-                    <h4 className="home-product-item__name">
-                      {curElmNew.name}
-                    </h4>
-                    <div className="home-product-item__price">
-                      <span className="home-product-item__price-old"> </span>
-                      <span className="home-product-item__price-current">
-                        {parseInt(curElmNew.price).toLocaleString("vn-VN")} đ
-                      </span>
-                    </div>
-                    <div className="home-product-item__action">
-                      <div className="home-product-item__rating">
-                        <i className="home-product-item__star--gold fas fa-star">
-                          <AiOutlineStar />
-                        </i>
-                        <i className="home-product-item__star--gold fas fa-star">
-                          <AiOutlineStar />
-                        </i>
-                        <i className="home-product-item__star--gold fas fa-star">
-                          <AiOutlineStar />
-                        </i>
-                        <i className="home-product-item__star--gold fas fa-star">
-                          <AiOutlineStar />
-                        </i>
-                        <i className="home-product-item__star--gold fas fa-star">
-                          <AiOutlineStar />
-                        </i>
                       </div>
                     </div>
-                    <div className="home-product-item__origin">
-                      <span className="home-product-item__brand">
-                        {curElmNew.shopName}
-                      </span>
-                      <span className="home-product-item__origin-name">
-                        {curElmNew.origin}
-                      </span>
+                    <div className="detail">
+                      <h4 className="home-product-item__name">
+                        {curElmNew.name}
+                      </h4>
+                      <div className="home-product-item__price">
+                        <span className="home-product-item__price-old"> </span>
+                        <span className="home-product-item__price-current">
+                          {parseInt(curElmNew.price).toLocaleString("vn-VN")} đ
+                        </span>
+                      </div>
+                      <div className="home-product-item__action">
+                        <div className="home-product-item__rating">
+                          <i className="home-product-item__star--gold fas fa-star">
+                            <AiOutlineStar />
+                          </i>
+                          <i className="home-product-item__star--gold fas fa-star">
+                            <AiOutlineStar />
+                          </i>
+                          <i className="home-product-item__star--gold fas fa-star">
+                            <AiOutlineStar />
+                          </i>
+                          <i className="home-product-item__star--gold fas fa-star">
+                            <AiOutlineStar />
+                          </i>
+                          <i className="home-product-item__star--gold fas fa-star">
+                            <AiOutlineStar />
+                          </i>
+                        </div>
+                      </div>
+                      <div className="home-product-item__origin">
+                        <span className="home-product-item__brand">
+                          {curElmNew.shopName}
+                        </span>
+                        <span className="home-product-item__origin-name">
+                          {curElmNew.origin}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ) : null;
+              })}
             </div>
           </div>
         </div>

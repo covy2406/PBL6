@@ -1,10 +1,14 @@
 import useAdmin from "hook/useAdmin";
 import "./css/AdminPromo.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import useShop from "hook/useShop";
 
 function AdminPromo() {
+  const navigate = useNavigate();
   const { getAllPromos } = useAdmin();
+  const { createShopPromo } = useShop();
   const [promoList, setPromoList] = useState({});
 
   const [toggle, setToggle] = useState(false);
@@ -26,8 +30,20 @@ function AdminPromo() {
     });
   }, []);
   console.log(promoList);
-  const handleCreate = async (e) => {
+  const handleCreate = (e) => {
     e.preventDefault();
+    // Convert the dates to the format "yyyy-mm-dd"
+    const startDate = new Date(promo.startDate).toISOString().split("T")[0];
+    const endDate = new Date(promo.endDate).toISOString().split("T")[0];
+    createShopPromo({
+      ...promo,
+      startDate: startDate,
+      endDate: endDate,
+    }).then((res) => {
+      getAllPromos().then(() => {
+        navigate("/admin/product");
+      });
+    });
   };
 
   return (
@@ -73,7 +89,10 @@ function AdminPromo() {
                       : "Ngừng hoạt động"}
                   </div>
                   <div className="admin--item--title">
-                    Từ: {promoList[key].startDate} đến: {promoList[key].endDate}
+                    Từ:{" "}
+                    {promoList[key].startDate?.split("-").reverse().join("-")}{" "}
+                    đến:{" "}
+                    {promoList[key].endDate?.split("-").reverse().join("-")}
                   </div>
                 </div>
               );

@@ -104,6 +104,7 @@ const useCartHandle = () => {
         "productList",
         JSON.stringify(response.data)
       );
+      setProductList(response.data);
       return response.data;
     } catch (error) {
       return false;

@@ -114,7 +114,6 @@ const ShopDetails = () => {
                     onClick={(e) => changeForm(e)}>
                     Chỉnh sửa
                   </button>
-                  <button className="shop__button">Xem Shop của tôi</button>
                 </div>
               </>
             ) : (

@@ -242,49 +242,7 @@ const Oldphone = () => {
                 onClick={() => handleShowAllProducts()}>
                 Tất cả
               </button>
-              <button className="btn home-filter__btn btn--primary ">
-                Mới nhất
-              </button>
               <button className="btn home-filter__btn">Bán chạy</button>
-
-              <div className="select-input">
-                <span className="select-input__label">Giá</span>
-                <i className="select-input__icon ">
-                  <AiOutlineDown />
-                </i>
-                <ul className="select-input__list">
-                  <li className="select-input__item">
-                    <a href="/" className="select-input__link">
-                      Giá: Cao đến thấp
-                    </a>
-                  </li>
-                  <li className="select-input__item">
-                    <a href="/" className="select-input__link">
-                      Giá: Thấp đến cao
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="home-filter__page">
-                <span className="home-filter__page-num">
-                  <span className="home-filter__page-current">1</span>/14
-                </span>
-                <div className="home-filter__page-control">
-                  <a
-                    href="/"
-                    className="home-filter__page-btn home-filter__page-btn--disabled">
-                    <i className="home-filter__page-icon ">
-                      <AiOutlineLeft />
-                    </i>
-                  </a>
-                  <a href="/" className="home-filter__page-btn">
-                    <i className="home-filter__page-icon">
-                      <AiOutlineRight />
-                    </i>
-                  </a>
-                </div>
-              </div>
             </div>
             <div className="contant">
               {oldProduct.map((curElm, index) => {

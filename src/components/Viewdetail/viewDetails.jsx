@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
 
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import apiProductDetail from "api/apiProductDetail";
 
 import useAuth from "hook/useAuth";
@@ -252,7 +252,6 @@ const Viewdetails = () => {
                       }}>
                       Thêm vào giỏ hàng
                     </button>
-                    <button>Thanh Toán Ngay</button>
                   </div>
                 ) : (
                   <li>
