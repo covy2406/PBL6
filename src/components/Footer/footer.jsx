@@ -15,18 +15,8 @@ const Footer = () => {
               <h3 className="footer__heading">Chăm sóc khách hàng</h3>
               <ul className="footer__list">
                 <li className="footer-item">
-                  <Link to="/help" className="footer-item__link">
-                    Trung tâm trợ giúp
-                  </Link>
-                </li>
-                <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
+                  <Link to="/about" className="footer-item__link">
                     4B1G Shop
-                  </Link>
-                </li>
-                <li className="footer-item">
-                  <Link to="/help/buy" className="footer-item__link">
-                    Hướng dẫn mua hàng
                   </Link>
                 </li>
               </ul>
@@ -35,7 +25,7 @@ const Footer = () => {
               <h3 className="footer__heading">Giới thiệu</h3>
               <ul className="footer__list">
                 <li className="footer-item">
-                  <Link to="/" className="footer-item__link">
+                  <Link to="/about" className="footer-item__link">
                     Giới thiệu
                   </Link>
                 </li>
@@ -104,8 +94,6 @@ const Footer = () => {
             <p className="footer__text">Đồ án PBL6 - 4B1G Shop - 2023-2024</p>
           </div>
         </div>
-        {/* <div className="grid">
-                </div> */}
       </footer>
     </>
   );

@@ -135,34 +135,28 @@ const Cart = () => {
 
     const response = await apiHandlePayment.VNPay(vnp_OrderInfo, vnp_Amount); // gọi api vnpay trước
     window.open(response.data.data, "_self"); //điền link trả về từ api vào đây
-    window.onfocus = async function () {
-      toast.info("Đang kiểm tra trạng thái thanh toán...", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-      });
-      await apiHandlePayment.CashPay(data, type, code); // gọi api thanh toán
-      const params = new URLSearchParams(window.location.search); // lấy params trên url
-      const vnp_ResponseCode = params.get("vnp_ResponseCode");
-      if (vnp_ResponseCode === "00") {
-        toast.success("Thanh toán thành công!", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-        });
-        const newShopsFilter = shopsFilter.map((shop) => {
-          return {
-            ...shop,
-            products: shop.products.filter((product) => !product.checked),
-          };
-        });
-        setShopFilter(newShopsFilter);
-      }
-    };
+    toast.info("Đang kiểm tra trạng thái thanh toán...", {
+      position: "top-center",
+      autoClose: 10000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+    });
+    await apiHandlePayment.CashPay(data, type, code); // gọi api thanh toán
+    toast.success("Thanh toán thành công!", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+    });
+    const newShopsFilter = shopsFilter.map((shop) => {
+      return {
+        ...shop,
+        products: shop.products.filter((product) => !product.checked),
+      };
+    });
+    setShopFilter(newShopsFilter);
   };
 
   // handle all payment

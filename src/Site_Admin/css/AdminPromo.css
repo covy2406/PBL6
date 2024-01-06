@@ -1,0 +1,24 @@
+.admin__body--promo-button {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: var(--primary-color);
+  border: none;
+  cursor: pointer;
+}
+.admin__body--promo-button:hover {
+  background-color: white;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+.admin__body-promo {
+  display: flex;
+  flex-direction: column;
+}
+.admin__body-promo--list-item {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 5pxs;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
