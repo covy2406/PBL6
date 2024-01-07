@@ -41,6 +41,7 @@ const ShopDetails = () => {
       cancelButtonText: "Hủy",
     }).then((result) => {
       if (!result.isConfirmed) return;
+      console.log(shopProfile.id);
       updateShopdetails({ ...shop, state: shop.state ? 1 : 0 }, shopProfile.id);
       setEditform(!editform);
     });
@@ -114,7 +115,6 @@ const ShopDetails = () => {
                     onClick={(e) => changeForm(e)}>
                     Chỉnh sửa
                   </button>
-                  <button className="shop__button">Xem Shop của tôi</button>
                 </div>
               </>
             ) : (

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 //hooks
 import useShop from "hook/useShop";
 
-const ShopProductAdd = (props) => {
+const ShopPromosAdd = (props) => {
   //get product info for selection
   const { getShopProductsAll, createShopPromo, getShopPromosAll } = useShop();
   const [shopProductList, setShopProductList] = useState({});
@@ -325,4 +325,4 @@ const ShopProductAdd = (props) => {
     </div>
   );
 };
-export default ShopProductAdd;
+export default ShopPromosAdd;

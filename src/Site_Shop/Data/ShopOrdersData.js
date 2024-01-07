@@ -24,11 +24,11 @@ const ShopOrdersData = [
     title: "Đã giao hàng",
     props: "completed",
   },
-  {
-    link: "/shop/orders/cancelled",
-    title: "Đã hủy",
-    props: "cancelled",
-  },
+  // {
+  //   link: "/shop/orders/cancelled",
+  //   title: "Đã hủy",
+  //   props: "cancelled",
+  // },
 ];
 
 export default ShopOrdersData;

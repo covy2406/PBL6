@@ -1,204 +1,126 @@
-import "../NewProduct/product.css";
-import "../../assets/css/base.css";
-import "../Home/home.css";
-import "./secondHand.css";
-import { React, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { React, useEffect } from "react";
+import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { BsEye } from "react-icons/bs";
-import { AiOutlineDown } from "react-icons/ai";
-import { AiOutlineLeft } from "react-icons/ai";
-import { AiOutlineRight } from "react-icons/ai";
+
 import { AiOutlineStar } from "react-icons/ai";
-import BannerProducts from "components/BannerProduct/BannerProducts";
-import { toast } from "react-toastify";
-import Pagination from "../Pagination/Pagination.jsx";
+import { BsEye } from "react-icons/bs";
+import BannerProducts from "../BannerProduct/BannerProducts.jsx";
+import { Link } from "react-router-dom";
 import useAuth from "hook/useAuth.js";
 import useCart from "hook/useCart";
 import useCartHandle from "hook/useCartHandle";
-import apiOldProduct from "api/apiOldProduct";
-import apiHandleBrand from "api/apiHandleBrand";
-import apiHandlePrice from "api/apiHandlePrice";
+import useBrand from "hook/useBrand";
+import { toast } from "react-toastify";
+//import apiHandlePrice from "api/apiHandlePrice";
+import apiOldProduct from "api/apiOldProduct.js";
 
 const Oldphone = () => {
-  // oldData, setOldproduct,
+  const { getAllBrands } = useBrand();
   const { auth, url } = useAuth();
   const { view } = useCart();
   const { addtocart } = useCartHandle();
-  const [oldProduct, setOldproduct] = useState([]);
-  const [error, setError] = useState(null);
 
-  //brand:
-  const [brands, setBrands] = useState([]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedBrandId, setSelectedBrandId] = useState(null);
-  const [selectedBrandProducts, setSelectedBrandProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  //Brand:
+  const [brands, setBrands] = useState([]); //brands: Lưu trữ danh sách các thương hiệu sản phẩm.
+
+  const [filter, setFilter] = useState("all"); //filter: Lưu trữ điều kiện lọc sản phẩm.
+  const [allProducts, setAllProducts] = useState([]); //allProducts: Lưu trữ danh sách tất cả sản phẩm [không lọc
+  const [filteredProducts, setFilteredProducts] = useState([]); //filteredProducts: Lưu trữ danh sách sản phẩm được lọc dựa trên các điều kiện nhất định.
 
   // Giá
   const [minPriceInput, setMinPriceInput] = useState("");
   const [maxPriceInput, setMaxPriceInput] = useState("");
 
-  //call api san pham cu:
-  useEffect(() => {
-    const fetchOldProduct = async (isOld) => {
-      try {
-        const res = await apiOldProduct.getOldProduct(isOld);
-        setOldproduct(res.data);
-      } catch (err) {
-        setError(err);
-      }
-    };
-    fetchOldProduct();
-  }, []);
-
-  // goi api brand
-  useEffect(() => {
-    const fetchBrands = async () => {
-      try {
-        const response = await apiHandleBrand.getAllBrand();
-        setBrands(response.data);
-      } catch (error) {
-        console.error("Error fetching brands:", error);
-      }
-    };
-
-    fetchBrands();
-  }, []);
-
-  // Danh sach san pham cua thuong hieu
-  useEffect(() => {
-    const getProductsByBrand = async () => {
-      try {
-        if (selectedBrandId) {
-          console.log("selected:", selectedBrandId);
-          const response = await apiHandleBrand.getShopProductbyBrand(
-            selectedBrandId
-          );
-          setSelectedBrandProducts(response.data);
-        } else {
-          setSelectedBrandProducts(oldProduct);
-        }
-      } catch (error) {
-        console.error("Error fetching products by brand:", error);
-      }
-    };
-    getProductsByBrand();
-  }, [selectedBrandId, selectedBrands, oldProduct]);
-
-  // Lọc sản phẩm tương ứng với thương hiệu
-  useEffect(() => {
-    const filtered =
-      selectedBrandProducts && selectedBrandProducts.length > 0
-        ? selectedBrandProducts
-        : oldProduct;
-    setFilteredProducts(filtered);
-  }, [selectedBrandProducts, oldProduct]);
-
-  const handleBrandCheckboxChange = (brandId) => {
-    console.log(brandId);
-    setSelectedBrandId(brandId);
-    setSelectedBrands((prevBrands) => {
-      if (prevBrands.includes(brandId)) {
-        return prevBrands.filter((id) => id !== brandId);
-      } else {
-        return [...prevBrands, brandId];
-      }
-    });
-  };
-
-  const handleShowAllProducts = () => {
-    // Đặt selectedBrandId về giá trị null để hiển thị tất cả sản phẩm
-    setSelectedBrandId(null);
-    setSelectedBrands([]);
-    toast.success("Hiển thị tất cả các sản phẩm", { autoClose: 1000 });
-  };
-
-  // Ham call api gia:
-  useEffect(() => {
-    // Sử dụng hàm fetchPrice khi minPriceInput hoặc maxPriceInput thay đổi
-    const fetchPrice = async () => {
-      try {
-        const response = await apiHandlePrice.getPrice(
-          minPriceInput,
-          maxPriceInput
-        );
-        setFilteredProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products by price:", error);
-      }
-    };
-
-    fetchPrice();
-  }, [minPriceInput, maxPriceInput]);
-
-  // hàm xử lý áp dụng lọc giá
-  const handleApplyFilter = () => {
-    const minPriceValue = parseFloat(minPriceInput);
-    const maxPriceValue = parseFloat(maxPriceInput);
-
-    if (
-      !isNaN(minPriceValue) &&
-      !isNaN(maxPriceValue) &&
-      minPriceValue <= maxPriceValue
-    ) {
-      // Lọc sản phẩm theo khoảng giá nhập vào
-      const filtered = selectedBrandProducts.filter(
-        (product) =>
-          parseFloat(product.price) >= minPriceValue &&
-          parseFloat(product.price) <= maxPriceValue
-      );
-      setFilteredProducts(filtered);
-    } else {
-      // Hiển thị thông báo lỗi nếu giá nhập vào không hợp lệ
-      toast.error("Vui lòng nhập giá hợp lệ.", { autoClose: 1000 });
+  const fetch = async () => {
+    try {
+      const response = await apiOldProduct.getOldProduct();
+      setFilteredProducts(response.data);
+      setAllProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching products by price:", error);
     }
   };
 
-  const [pagination] = useState({
-    _page: 1,
-    _limit: 9,
-    _totalRows: 11,
-  });
+  useEffect(() => {
+    fetch();
+  }, []);
 
-  const handlePageChange = (newPage) => {
-    console.log("New page: " + newPage);
-    // setCurrentPage(pageNumber);
-    // Thực hiện truy vấn API hoặc cập nhật danh sách sản phẩm theo trang pageNumber
+  // Lây danh sách sản phẩm và thương hiệu
+  useEffect(() => {
+    getAllBrands().then((res) => {
+      setBrands(res);
+    });
+  }, []);
+
+  // Lọc theo brand
+  const handleBrandCheck = (checked, brandID) => {
+    // Update the checked status of the brand
+    setBrands((prevBrands) =>
+      prevBrands.map((brand) =>
+        brand.id === brandID ? { ...brand, checked } : brand
+      )
+    );
+    setFilter("brand");
+    if (!checked) {
+      !brands.some((brand) => brand.checked) && setFilter("all");
+    }
   };
 
-  if (error) {
-    return <p>error: {error.message}</p>;
-  }
+  // Lọc theo khoảng giá
+  const handleMoneyRangeFilter = () => {
+    const minPrice = parseInt(minPriceInput);
+    const maxPrice = parseInt(maxPriceInput);
+    if (isNaN(minPrice) || isNaN(maxPrice)) {
+      return toast.error("Vui lòng nhập giá hợp lệ");
+    }
+    if (minPrice > maxPrice) {
+      return toast.error("Giá tối thiểu phải nhỏ hơn giá tối đa");
+    }
+    setFilter("all");
+    const filteredProducts = allProducts.filter(
+      (product) => product.price >= minPrice && product.price <= maxPrice
+    );
+    setFilteredProducts(filteredProducts);
+  };
+
+  // Lọc theo bán chạy
+  const handlePopularFilter = () => {
+    const sortedProducts = [...filteredProducts].sort(
+      (a, b) => b.soldQuantity - a.soldQuantity
+    );
+    setFilteredProducts(sortedProducts);
+  };
 
   return (
     <div className="products">
       <div className="grid">
-        {/* <h2># Products</h2>
-                    <p>Home . products</p> */}
-
+        {/* BANNER QUẢNG CÁO CHO TRANG PRODUCT - ĐIỆN THOẠI MỚI */}
         <BannerProducts />
-
         <div className="products-list">
-          {/* <CategoryOld oldData={oldData} setOldproduct={setOldproduct} /> */}
-          <div className='grid__column-2'>
-            <nav className='categories'>
-              <ul className='categories-list'>
-                <h3 className='categories__heading'>Thương hiệu</h3>
+          <div className="grid__column-2">
+            {/* BRAND CATEGORY - LỌC SẢN PHẨM THEO TÊN HÃNG VÀ GIÁ ĐIỆN THOẠI */}
+            {/* CATEGORY CHO TÊN BRAND */}
+            <nav className="categories">
+              <ul className="categories-list">
+                <h3 className="categories__heading">Thương hiệu</h3>
                 {brands.map((brand) => (
-                  <li className='categories-item' key={brand.id}>
+                  <li className="categories-item" key={brand.id}>
                     <input
-                      className='categories-item__input'
-                      type='radio'
-                      checked={selectedBrandId === brand.id}
-                      onChange={() => handleBrandCheckboxChange(brand.id)}
-                    ></input>
-                    <label className='categories-item__label'>{brand.name}</label>
+                      className="categories-item__input"
+                      type="checkbox"
+                      checked={brand.checked}
+                      onChange={(e) =>
+                        handleBrandCheck(e.target.checked, brand.id)
+                      }></input>
+                    <label className="categories-item__label">
+                      {brand.name}
+                    </label>
                   </li>
                 ))}
               </ul>
             </nav>
 
+            {/* CATEGORIES GIÁ */}
             <nav className="categories">
               <ul className="categories-list">
                 <h3 className="categories__heading">Mức giá</h3>
@@ -206,23 +128,33 @@ const Oldphone = () => {
                   <div className="categories-range">
                     <input
                       type="text"
-                      placeholder="Min"
-                      value={minPriceInput}
+                      value={new Intl.NumberFormat("vi-VN").format(
+                        minPriceInput
+                      )}
                       className="inputPrice"
-                      onChange={(e) => setMinPriceInput(e.target.value)}
+                      onChange={(e) =>
+                        setMinPriceInput(
+                          parseInt(e.target.value.replace(/\D/g, ""))
+                        )
+                      }
                     />
                     <span className="priceRange"></span>
                     <input
                       type="text"
-                      placeholder="Max"
-                      value={maxPriceInput}
+                      value={new Intl.NumberFormat("vi-VN").format(
+                        maxPriceInput
+                      )}
                       className="inputPrice"
-                      onChange={(e) => setMaxPriceInput(e.target.value)}
+                      onChange={(e) =>
+                        setMaxPriceInput(
+                          parseInt(e.target.value.replace(/\D/g, ""))
+                        )
+                      }
                     />
                   </div>
                   <button
                     className="btn btn--primary-main btn-filter"
-                    onClick={handleApplyFilter}>
+                    onClick={() => handleMoneyRangeFilter()}>
                     Áp dụng
                   </button>
                 </div>
@@ -234,64 +166,42 @@ const Oldphone = () => {
               <span className="home-filter__label">Sắp xếp theo</span>
               <button
                 className="btn home-filter__btn"
-                onClick={() => handleShowAllProducts()}>
+                onClick={(e) => {
+                  e.preventDefault();
+                  setFilter("all");
+                  fetch();
+                  setMaxPriceInput("");
+                  setMinPriceInput("");
+                  setBrands((prevBrands) =>
+                    prevBrands.map((brand) => ({ ...brand, checked: false }))
+                  );
+                }}>
                 Tất cả
               </button>
-              <button className="btn home-filter__btn btn--primary ">
-                Mới nhất
+              <button
+                className="btn home-filter__btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePopularFilter();
+                }}>
+                Bán chạy
               </button>
-              <button className="btn home-filter__btn">Bán chạy</button>
-
-              <div className="select-input">
-                <span className="select-input__label">Giá</span>
-                <i className="select-input__icon ">
-                  <AiOutlineDown />
-                </i>
-                <ul className="select-input__list">
-                  <li className="select-input__item">
-                    <a href="/" className="select-input__link">
-                      Giá: Cao đến thấp
-                    </a>
-                  </li>
-                  <li className="select-input__item">
-                    <a href="/" className="select-input__link">
-                      Giá: Thấp đến cao
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="home-filter__page">
-                <span className="home-filter__page-num">
-                  <span className="home-filter__page-current">1</span>/14
-                </span>
-                <div className="home-filter__page-control">
-                  <a
-                    href="/"
-                    className="home-filter__page-btn home-filter__page-btn--disabled">
-                    <i className="home-filter__page-icon ">
-                      <AiOutlineLeft />
-                    </i>
-                  </a>
-                  <a href="/" className="home-filter__page-btn">
-                    <i className="home-filter__page-icon">
-                      <AiOutlineRight />
-                    </i>
-                  </a>
-                </div>
-              </div>
             </div>
             <div className="contant">
-              {filteredProducts.map((curElm, index) => {
-                return (
+              {filteredProducts.map((curElmNew, index) => {
+                const brand = brands.find((b) => b.id === curElmNew.brand_id);
+                return brand && (brand.checked || filter === "all") ? (
                   <div className="box" key={index}>
                     <div className="img_box">
                       <img
-                        src={`${url}${curElm.image}`}
-                        alt={curElm.name}></img>
+                        src={`${url}${curElmNew.image}`}
+                        alt={curElmNew.name}></img>
                       <div className="icon">
                         {auth.isAuth ? (
-                          <li onClick={() => addtocart(curElm)}>
+                          <li
+                            onClick={() =>
+                              addtocart(curElmNew.shop_product_id, 1)
+                            }>
                             <AiOutlineShoppingCart />
                           </li>
                         ) : (
@@ -299,22 +209,23 @@ const Oldphone = () => {
                             <AiOutlineShoppingCart />
                           </li>
                         )}
-                        <li className="icon__link" onClick={() => view(curElm)}>
-                          <Link to={`Viewdetail/${curElm.shop_product_id}`}>
+                        <li
+                          className="icon__link"
+                          onClick={() => view(curElmNew.shop_product_id)}>
+                          <Link to={`Viewdetail/${curElmNew.shop_product_id}`}>
                             <BsEye />
                           </Link>
                         </li>
-                        {/* <li><AiOutlineHeart /></li> */}
                       </div>
                     </div>
                     <div className="detail">
-                      <h4 className="home-product-item__name">{curElm.name}</h4>
-                      <div className="home-product-item__description">
-                        {curElm.details}
-                      </div>
+                      <h4 className="home-product-item__name">
+                        {curElmNew.name}
+                      </h4>
                       <div className="home-product-item__price">
+                        <span className="home-product-item__price-old"> </span>
                         <span className="home-product-item__price-current">
-                          {parseInt(curElm.price).toLocaleString("vn-VN")} đ
+                          {parseInt(curElmNew.price).toLocaleString("vn-VN")} đ
                         </span>
                       </div>
                       <div className="home-product-item__action">
@@ -327,18 +238,17 @@ const Oldphone = () => {
 
                       <div className="home-product-item__origin">
                         <span className="home-product-item__brand">
-                          Cửa hàng: {curElm.shopName}
+                          {curElmNew.shopName}
+                        </span>
+                        <span className="home-product-item__origin-name">
+                          {curElmNew.origin}
                         </span>
                       </div>
                     </div>
                   </div>
-                );
+                ) : null;
               })}
             </div>
-            <Pagination
-              pagination={pagination}
-              onPageChange={handlePageChange}
-            />
           </div>
         </div>
       </div>

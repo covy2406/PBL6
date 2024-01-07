@@ -27,6 +27,7 @@ function AdminShop() {
         shopName: item.shopName,
         total_revenue: parseInt(item.total_revenue),
       }));
+      console.log(resData);
       setTotalRevenue(
         res.data.reduce((a, b) => a + parseInt(b.total_revenue), 0)
       );
@@ -47,12 +48,15 @@ function AdminShop() {
   }, []);
 
   const handleSubmit = () => {
+    console.log(startDate, endDate);
     apiChart.AdminallShopRevenueStatistics(startDate, endDate).then((res) => {
-      console.log(res.data);
-      setData(...res.data, {
-        shopName: "Hoa hồng",
-        total_revenue: totalRevenue * 0.05,
-      });
+      setData([
+        ...res.data,
+        {
+          shopName: "Hoa hồng",
+          total_revenue: totalRevenue * 0.05,
+        },
+      ]);
     });
   };
   useEffect(() => {

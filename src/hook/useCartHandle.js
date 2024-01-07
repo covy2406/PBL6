@@ -104,10 +104,8 @@ const useCartHandle = () => {
         "productList",
         JSON.stringify(response.data)
       );
-      return setProductList(
-        response.data,
-        JSON.parse(window.sessionStorage.getItem("productList"))
-      );
+      setProductList(response.data);
+      return response.data;
     } catch (error) {
       return false;
     }

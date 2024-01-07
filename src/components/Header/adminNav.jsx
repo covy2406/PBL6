@@ -56,7 +56,7 @@ function AdminNav() {
                     className={`nav__home-item-link ${
                       currentPath === "/admin/promos" ? "active" : ""
                     }`}>
-                    Cửa hàng
+                    Khuyến mãi
                   </Link>
                 </li>
               </ul>

@@ -1,9 +1,7 @@
 import "./css/cart.css";
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-//import useCartHandle from "hook/useCartHandle";
-import useCart from "hook/useCart";
 //import lib
 import { toast } from "react-toastify";
 //import icon
@@ -17,9 +15,13 @@ import DiscountListWeb from "./DiscountListWeb";
 import Swal from "sweetalert2";
 
 const Cart = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   //handle when get cart
-  const { cartListProduct } = useCart();
-  //const { showCartList } = useCartHandle();
+
+  const [cartListProduct, setCartListProduct] = useState(
+    JSON.parse(window.sessionStorage.getItem("cartListProduct"))
+  );
 
   const [Totalprice, setTotalprice] = useState(0);
   const [showDiscounts, setShowDiscounts] = useState(false);
@@ -39,8 +41,20 @@ const Cart = () => {
     };
     fetchDiscountWeb();
   }, []);
+
   // Tạo một mảng để tổ chức danh sách sản phẩm theo shop
   const [shopsFilter, setShopFilter] = useState([]);
+  // Save to local storage whenever shopsFilter changes
+  useEffect(() => {
+    window.sessionStorage.setItem("shopsFilter", JSON.stringify(shopsFilter));
+  }, [shopsFilter]);
+  // Load from local storage when component mounts
+  useEffect(() => {
+    const savedShopsFilter = window.sessionStorage.getItem("shopsFilter");
+    if (savedShopsFilter) {
+      setShopFilter(JSON.parse(savedShopsFilter));
+    }
+  }, []);
   useEffect(() => {
     const newFilter = cartListProduct.reduce((acc, productItem) => {
       const existingShopIndex = acc.findIndex(
@@ -62,15 +76,6 @@ const Cart = () => {
     setShopFilter(newFilter);
   }, []);
 
-  useEffect(() => {
-    let NewCart = [];
-    shopsFilter.forEach((shop) => {
-      shop.products.forEach((product) => {
-        NewCart.push(product);
-      });
-    });
-  }, [shopsFilter]);
-
   // toggle web discounts
   const toggleDiscounts = () => {
     const isAnyProductChecked = shopsFilter.some((shop) =>
@@ -81,6 +86,48 @@ const Cart = () => {
     }
     setShowDiscounts(isAnyProductChecked);
   };
+
+  useEffect(() => {
+    const asyncFunc = async () => {
+      if (paymentStatus === "00") {
+        // Make sure to handle any errors that might occur during the API call
+        try {
+          await apiHandlePayment.CashPay(
+            savedPaymentData,
+            savedPaymentType,
+            savedPaymentCode
+          ); // gọi api thanh toán
+          const newShopsFilter = shopsFilter.map((shop) => {
+            return {
+              ...shop,
+              products: shop.products.filter((product) => !product.checked),
+            };
+          });
+          setShopFilter(newShopsFilter);
+          toast.success("Thanh toán thành công!", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+          });
+          navigate("/");
+        } catch (error) {
+          console.error("Error during payment:", error);
+        }
+      } else {
+        // ...
+      }
+    };
+    const savedPaymentData = JSON.parse(localStorage.getItem("paymentData"));
+    const savedPaymentType = localStorage.getItem("paymentType");
+    const savedPaymentCode = localStorage.getItem("paymentCode");
+    // Extract payment response parameters from the URL
+    const queryParams = new URLSearchParams(location.search);
+    const paymentStatus = queryParams.get("vnp_ResponseCode");
+    asyncFunc();
+    // Process the payment response
+  }, [location.search]);
 
   // Tính tổng giá trị của các sản phẩm được chọn
   const discountTotal = useRef(0);
@@ -110,46 +157,13 @@ const Cart = () => {
 
   // handle online payment
   const handleVNpay = async (data, type, code) => {
+    window.localStorage.setItem("paymentData", JSON.stringify(data));
+    window.localStorage.setItem("paymentType", 1);
+    window.localStorage.setItem("paymentCode", code ? code : "");
     const vnp_OrderInfo = "";
     const vnp_Amount = Totalprice;
-    const response = await apiHandlePayment.VNPay(vnp_OrderInfo, vnp_Amount);
-    if (response && response.data.data) {
-      const paymentWindow = window.open(response.data.data, "_self");
-      const checkPaymentStatus = async () => {
-        toast.info("Đang kiểm tra trạng thái thanh toán...", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-        });
-        // Call your API endpoint that checks the payment status
-        const paymentStatus = await apiHandlePayment.CashPay(data, type, code);
-        const params = new URLSearchParams(window.location.search);
-        const vnp_Amount = params.get("vnp_Amount");
-        if (paymentStatus && vnp_Amount) {
-          toast.success("Thanh toán thành công!", {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-          });
-        }
-        // Remove the selected products from the cart
-        const newShopsFilter = shopsFilter.map((shop) => {
-          return {
-            ...shop,
-            products: shop.products.filter((product) => !product.checked),
-          };
-        });
-        setShopFilter(newShopsFilter);
-        if (paymentStatus.data === "ordered successful!") {
-          alert("Payment successful!");
-        }
-      };
-      paymentWindow.addEventListener("unload", checkPaymentStatus);
-    }
+    const response = await apiHandlePayment.VNPay(vnp_OrderInfo, vnp_Amount); // gọi api vnpay trước
+    window.open(response.data.data, "_self"); //điền link trả về từ api vào đây
   };
 
   // handle all payment
@@ -184,6 +198,7 @@ const Cart = () => {
         const checkedDiscounts = discountWeb.filter(
           (discount) => discount.checked
         );
+
         // vnpay if online payment
         if (type === "onl") handleVNpay(data, 1, checkedDiscounts[0]?.code);
         else {
@@ -203,6 +218,7 @@ const Cart = () => {
             };
           });
           setShopFilter(newShopsFilter);
+          navigate("/");
         }
       }
     });

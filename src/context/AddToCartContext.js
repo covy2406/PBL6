@@ -5,13 +5,10 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartListProduct, setCartListProduct] = useState(() => {
-    // Try to get the cart from localStorage
-    const savedCart = localStorage.getItem("cart");
+    const savedCart = window.sessionStorage.getItem("cartListProduct");
     if (savedCart) {
-      // If the cart exists in localStorage, return it
       return JSON.parse(savedCart);
     } else {
-      // If the cart does not exist in localStorage, return an empty array
       return [];
     }
   });
@@ -25,9 +22,11 @@ export const CartProvider = ({ children }) => {
   const [searchResults, setSearchResults] = useState([]);
   //const [showAddToCartMessage, setShowAddToCartMessage] = useState(false);
 
-  // Whenever cartListProduct changes, save it to localStorage
   useEffect(() => {
-    localStorage.setItem("cartListProduct", JSON.stringify(cartListProduct));
+    window.sessionStorage.setItem(
+      "cartListProduct",
+      JSON.stringify(cartListProduct)
+    );
   }, [cartListProduct]);
   // Xem chi tiet san pham
   const view = (productId) => {
