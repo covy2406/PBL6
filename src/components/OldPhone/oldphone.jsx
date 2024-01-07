@@ -1,3 +1,7 @@
+import "../NewProduct/product.css";
+import "../../assets/css/base.css";
+import "../Home/home.css";
+import "./secondHand.css";
 import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -6,12 +10,6 @@ import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
-//import oldphoneData from './oldPhoneData';
-import "../NewProduct/product.css";
-// import '../Header/nav.css';
-import "../../assets/css/base.css";
-import "../Home/home.css";
-import "./secondHand.css";
 import BannerProducts from "components/BannerProduct/BannerProducts";
 import { toast } from "react-toastify";
 import Pagination from "../Pagination/Pagination.jsx";
@@ -24,7 +22,7 @@ import apiHandlePrice from "api/apiHandlePrice";
 
 const Oldphone = () => {
   // oldData, setOldproduct,
-  const { auth } = useAuth();
+  const { auth, url } = useAuth();
   const { view } = useCart();
   const { addtocart } = useCartHandle();
   const [oldProduct, setOldproduct] = useState([]);
@@ -35,7 +33,7 @@ const Oldphone = () => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedBrandId, setSelectedBrandId] = useState(null);
   const [selectedBrandProducts, setSelectedBrandProducts] = useState([]);
-  const [, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   // Giá
   const [minPriceInput, setMinPriceInput] = useState("");
@@ -181,25 +179,25 @@ const Oldphone = () => {
 
         <BannerProducts />
 
-                <div className="products-list">
-                    {/* <CategoryOld oldData={oldData} setOldproduct={setOldproduct} /> */}
-                    <div className='grid__column-2'>
-                        <nav className='categories'>
-                            <ul className='categories-list'>
-                                <h3 className='categories__heading'>Thương hiệu</h3>
-                                {brands.map((brand) => (
-                                    <li className='categories-item' key={brand.id}>
-                                        <input
-                                            className='categories-item__input'
-                                            type='radio'
-                                            checked={selectedBrandId === brand.id}
-                                            onChange={() => handleBrandCheckboxChange(brand.id)}
-                                        ></input>
-                                        <label className='categories-item__label'>{brand.name}</label>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
+        <div className="products-list">
+          {/* <CategoryOld oldData={oldData} setOldproduct={setOldproduct} /> */}
+          <div className='grid__column-2'>
+            <nav className='categories'>
+              <ul className='categories-list'>
+                <h3 className='categories__heading'>Thương hiệu</h3>
+                {brands.map((brand) => (
+                  <li className='categories-item' key={brand.id}>
+                    <input
+                      className='categories-item__input'
+                      type='radio'
+                      checked={selectedBrandId === brand.id}
+                      onChange={() => handleBrandCheckboxChange(brand.id)}
+                    ></input>
+                    <label className='categories-item__label'>{brand.name}</label>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
             <nav className="categories">
               <ul className="categories-list">
@@ -284,12 +282,12 @@ const Oldphone = () => {
               </div>
             </div>
             <div className="contant">
-              {oldProduct.map((curElm, index) => {
+              {filteredProducts.map((curElm, index) => {
                 return (
                   <div className="box" key={index}>
                     <div className="img_box">
                       <img
-                        src={`http://0.tcp.ap.ngrok.io:14673/${curElm.image}`}
+                        src={`${url}${curElm.image}`}
                         alt={curElm.name}></img>
                       <div className="icon">
                         {auth.isAuth ? (
@@ -312,55 +310,26 @@ const Oldphone = () => {
                     <div className="detail">
                       <h4 className="home-product-item__name">{curElm.name}</h4>
                       <div className="home-product-item__description">
-                        {curElm.description}
+                        {curElm.details}
                       </div>
                       <div className="home-product-item__price">
-                        <span className="home-product-item__price-old"></span>
                         <span className="home-product-item__price-current">
                           {parseInt(curElm.price).toLocaleString("vn-VN")} đ
                         </span>
                       </div>
                       <div className="home-product-item__action">
-                        {/* <!-- class khi đưa vào thì tym đỏ, ko có thì ko màu: home-product-item__like--liked --> */}
-                        {/* <span className="home-product-item__like ">
-                                                        <i className="home-product-item__like-icon-empty far fa-heart"></i>
-                                                        <i className="home-product-item__like-icon-fill fas fa-heart"></i>
-                                                    </span> */}
                         <div className="home-product-item__rating">
                           <i className="home-product-item__star--gold fas fa-star">
                             <AiOutlineStar />
                           </i>
-                          <i className="home-product-item__star--gold fas fa-star">
-                            <AiOutlineStar />
-                          </i>
-                          <i className="home-product-item__star--gold fas fa-star">
-                            <AiOutlineStar />
-                          </i>
-                          <i className="home-product-item__star--gold fas fa-star">
-                            <AiOutlineStar />
-                          </i>
-                          <i className="home-product-item__star--gold fas fa-star">
-                            <AiOutlineStar />
-                          </i>
                         </div>
-                        {/* <span className="home-product-item__sold">88 đã bán</span> */}
                       </div>
+
                       <div className="home-product-item__origin">
                         <span className="home-product-item__brand">
-                          {curElm.Brand}
-                        </span>
-                        <span className="home-product-item__origin-name">
-                          {curElm.origin}
+                          Cửa hàng: {curElm.shopName}
                         </span>
                       </div>
-                      {/* <div className="home-product-item__price-plus">
-                                                <div className="home-product-item__price-new">
-                                                    Giá máy mới: <strong>{curElm.Price_new} đ</strong>
-                                                </div>
-                                                <div className="home-product-item__price-save">
-                                                    Tiết kiệm: <strong>{curElm.Price_save} đ</strong>
-                                                </div>
-                                            </div> */}
                     </div>
                   </div>
                 );

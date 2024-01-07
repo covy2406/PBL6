@@ -100,8 +100,10 @@ const Product = () => {
 
   // ham xu ly show tat ca san pham
   const handleShowAllProducts = () => {
-    setSelectedBrandId([]);
-    //setSelectedBrandId(null)
+    setSelectedBrandId(null);
+    setSelectedBrands([])
+    // Thiết lập lại danh sách sản phẩm được lọc thành toàn bộ danh sách sản phẩm
+     setFilteredProducts(ProductNew);
     toast.success("Hiển thị tất cả các sản phẩm", { autoClose: 1000 });
   };
 
