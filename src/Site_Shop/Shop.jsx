@@ -56,9 +56,9 @@ const Shop = ({ extraProps } = "details") => {
               </li>
               <li className="sidbar-menu__item-link">
                 <Link
-                  to="/shop/orders/delivered"
+                  to="/shop/orders/completed"
                   className="shop__home-item-link"
-                  id={currentPath === "/shop/orders/delivered" ? "active" : ""}>
+                  id={currentPath === "/shop/orders/completed" ? "active" : ""}>
                   Đã giao hàng
                 </Link>
               </li>

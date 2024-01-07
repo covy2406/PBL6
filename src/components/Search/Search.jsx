@@ -36,7 +36,10 @@ const Search = () => {
                       alt={itemProduct.name}></img>
                     <div className="icon">
                       {auth.isAuth ? (
-                        <li onClick={() => addtocart(itemProduct.id, 1)}>
+                        <li
+                          onClick={() =>
+                            addtocart(itemProduct.shop_product_id, 1)
+                          }>
                           <AiOutlineShoppingCart />
                         </li>
                       ) : (
@@ -44,8 +47,6 @@ const Search = () => {
                           <AiOutlineShoppingCart />
                         </li>
                       )}
-                      {/* {`../Viewdetail/${item.id}`} */}
-                      {/* <Link to={`../Viewdetail/${item.id}`}><BsEye /></Link> */}
                       <li
                         className="icon__link"
                         onClick={() => view(itemProduct.shop_product_id)}>
