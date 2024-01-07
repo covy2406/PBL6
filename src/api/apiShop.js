@@ -18,7 +18,7 @@ const apiShop = {
     return axiosClient.get(GET_ALL_ORDERS_URL);
   },
   processorder(data) {
-    return axiosClient.put(`shopprocessesorders`, data);
+    return axiosClient.post(`shopprocessesorders`, data);
   },
   getallproducts() {
     return axiosClient.get(GET_ALL_PRODUCTS_URL);

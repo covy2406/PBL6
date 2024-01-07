@@ -73,7 +73,6 @@ const Product = () => {
     setFilteredProducts(filteredProducts);
   };
 
-  console.log(filteredProducts);
   // Lọc theo bán chạy
   const handlePopularFilter = () => {
     const sortedProducts = [...filteredProducts].sort(
@@ -165,6 +164,8 @@ const Product = () => {
                   fetchProductHome().then((res) => {
                     setFilteredProducts(res);
                   });
+                  setMinPriceInput("");
+                  setMaxPriceInput("");
                   // Set all brands to unchecked
                   setBrands((prevBrands) =>
                     prevBrands.map((brand) => ({ ...brand, checked: false }))

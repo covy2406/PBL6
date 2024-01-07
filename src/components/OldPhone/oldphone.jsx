@@ -35,6 +35,7 @@ const Oldphone = () => {
     try {
       const response = await apiOldProduct.getOldProduct();
       setFilteredProducts(response.data);
+      setAllProducts(response.data);
     } catch (error) {
       console.error("Error fetching products by price:", error);
     }
@@ -67,23 +68,19 @@ const Oldphone = () => {
 
   // Lọc theo khoảng giá
   const handleMoneyRangeFilter = () => {
-    if (minPriceInput && maxPriceInput) {
-      const fetchPrice = async () => {
-        try {
-          const response = await apiHandlePrice.getPrice(
-            parseInt(minPriceInput),
-            parseInt(maxPriceInput),
-            1
-          );
-          setFilteredProducts(response.data);
-        } catch (error) {
-          console.error("Error fetching products by price:", error);
-        }
-      };
-      fetchPrice();
-    } else {
-      toast.error("Vui lòng nhập giá hợp lệ.", { autoClose: 1000 });
+    const minPrice = parseInt(minPriceInput);
+    const maxPrice = parseInt(maxPriceInput);
+    if (isNaN(minPrice) || isNaN(maxPrice)) {
+      return toast.error("Vui lòng nhập giá hợp lệ");
     }
+    if (minPrice > maxPrice) {
+      return toast.error("Giá tối thiểu phải nhỏ hơn giá tối đa");
+    }
+    setFilter("all");
+    const filteredProducts = allProducts.filter(
+      (product) => product.price >= minPrice && product.price <= maxPrice
+    );
+    setFilteredProducts(filteredProducts);
   };
 
   // Lọc theo bán chạy
@@ -131,16 +128,28 @@ const Oldphone = () => {
                   <div className="categories-range">
                     <input
                       type="text"
-                      value={minPriceInput}
+                      value={new Intl.NumberFormat("vi-VN").format(
+                        minPriceInput
+                      )}
                       className="inputPrice"
-                      onChange={(e) => setMinPriceInput(e.target.value)}
+                      onChange={(e) =>
+                        setMinPriceInput(
+                          parseInt(e.target.value.replace(/\D/g, ""))
+                        )
+                      }
                     />
                     <span className="priceRange"></span>
                     <input
                       type="text"
-                      value={maxPriceInput}
+                      value={new Intl.NumberFormat("vi-VN").format(
+                        maxPriceInput
+                      )}
                       className="inputPrice"
-                      onChange={(e) => setMaxPriceInput(e.target.value)}
+                      onChange={(e) =>
+                        setMaxPriceInput(
+                          parseInt(e.target.value.replace(/\D/g, ""))
+                        )
+                      }
                     />
                   </div>
                   <button
@@ -161,6 +170,8 @@ const Oldphone = () => {
                   e.preventDefault();
                   setFilter("all");
                   fetch();
+                  setMaxPriceInput("");
+                  setMinPriceInput("");
                   setBrands((prevBrands) =>
                     prevBrands.map((brand) => ({ ...brand, checked: false }))
                   );

@@ -41,6 +41,7 @@ const ShopDetails = () => {
       cancelButtonText: "Hủy",
     }).then((result) => {
       if (!result.isConfirmed) return;
+      console.log(shopProfile.id);
       updateShopdetails({ ...shop, state: shop.state ? 1 : 0 }, shopProfile.id);
       setEditform(!editform);
     });
