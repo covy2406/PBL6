@@ -1,13 +1,13 @@
 import "./css/ViewDetailShop.css";
 import React from "react";
 import {
-  AiOutlineDown,
   AiOutlineShoppingCart,
-  AiOutlineLeft,
-  AiOutlineRight,
+  // AiOutlineDown,
+  // AiOutlineLeft,
+  // AiOutlineRight,
 } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
-import { AiOutlineStar } from "react-icons/ai";
+//import { AiOutlineStar } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import apiShop from "api/apiShop";
